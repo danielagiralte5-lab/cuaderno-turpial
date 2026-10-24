@@ -11,7 +11,7 @@ const TEMARIO = `Temario de 5.º de Primaria de su cole (1.er trimestre):
 - Inglés: adjetivos comparativos y superlativos, present simple y continuous, verbos irregulares, la ropa, zero conditional, by/for/with, la ciudad, past simple y continuous, oraciones de relativo.
 - Sociales: cuidar el entorno, el desafío climático en España, la democracia. Después: Edad Media y Edad Moderna.`;
 
-function systemPrompt(name, mode) {
+function systemPrompt(name, mode, likes) {
   const nombre = name ? name : 'el niño';
   let s = `Eres Tupi, un turpial (el pájaro nacional de Venezuela) que es el compañero de estudio de ${nombre}, un niño de 10 años que estudia 5.º de Primaria en un colegio público de la Comunidad de Madrid. Su familia es venezolana. Vives dentro de su app «Cuaderno Turpial».
 
@@ -35,6 +35,9 @@ Límites y seguridad:
 - Temas que no son para su edad: no entres; cambia de tema con naturalidad y sugiere hablarlo con papá o mamá.
 
 ${TEMARIO}`;
+  if (likes) s += `
+
+Lo que más le gusta: ${likes}. Cuando ayude a explicar algo o a motivarle, usa ejemplos de esos temas (por ejemplo, problemas con bloques o robots), sin forzarlo en cada respuesta. No copies personajes ni historias de esas marcas: inventa los tuyos.`;
   if (mode === 'art') s += `
 
 Ahora ${nombre} te enseña un dibujo suyo. Míralo con atención y di qué ves (sé concreto: colores, formas, lo que crees que representa; si no estás seguro, pregúntale). Dile dos cosas que están bien hechas y UNA idea concreta para mejorarlo o seguir (sombras, fondo, proporciones, más color…). Sé sincero y cariñoso, sin exagerar. Máximo 80 palabras. Acaba con una pregunta sobre su dibujo.`;
@@ -49,6 +52,7 @@ export default async function handler(req, res) {
 
   const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
   const name = String(body.name || '').slice(0, 30);
+  const likes = String(body.likes || '').replace(/[^\p{L}\p{N} ,/y]/gu, '').slice(0, 120);
   const mode = ['art', 'translate', 'english', 'lab'].includes(body.mode) ? body.mode : 'chat';
   let msgs = Array.isArray(body.messages) ? body.messages.slice(-14) : [];
   msgs = msgs
@@ -65,7 +69,7 @@ export default async function handler(req, res) {
       {type: 'text', text: String(body.note || 'Mira mi dibujo.').slice(0, 300)}
     ]}];
   }
-  let system = systemPrompt(name, mode);
+  let system = systemPrompt(name, mode, likes);
   if (mode === 'translate') {
     const to = body.to === 'es' ? 'español de España' : 'inglés británico sencillo';
     const text = String(body.text || '').slice(0, 2000);
@@ -87,7 +91,7 @@ export default async function handler(req, res) {
   let maxTokens = 500;
   if (mode === 'lab') {
     maxTokens = 1300;
-    const SAFE = 'Hablas con ' + (name || 'un niño') + ', un niño de 10 años de 5.º de Primaria en Madrid. Usa español de España sencillo y correcto. Nada de contenido inapropiado para su edad, ni datos personales (apellidos, dirección, colegio, teléfono). Si algo le preocupa o habla de que alguien le hace daño, anímale a contarlo a papá, mamá o su tutora.';
+    const SAFE = 'Hablas con ' + (name || 'un niño') + ', un niño de 10 años de 5.º de Primaria en Madrid.' + (likes ? ' Le encantan: ' + likes + '; si encaja, usa ejemplos de eso.' : '') + ' Usa español de España sencillo y correcto. Nada de contenido inapropiado para su edad, ni datos personales (apellidos, dirección, colegio, teléfono). Si algo le preocupa o habla de que alguien le hace daño, anímale a contarlo a papá, mamá o su tutora.';
     const JSONONLY = ' Responde SOLO con JSON válido, sin texto antes ni después y sin bloques de código.';
     const t = String(body.topic || '').slice(0, 400);
     const task = String(body.task || '');
@@ -101,6 +105,11 @@ export default async function handler(req, res) {
     } else if (task === 'coach') {
       system = SAFE + ' Eres un entrenador de prompts. Evalúa el prompt que ha escrito el niño para pedirle algo a una IA. Criterios: tarea clara, contexto (para quién o para qué), detalles concretos y formato (longitud, estilo). Da una nota de 1 a 10 sincera, una cosa que está bien, un consejo concreto y una versión mejorada del prompt escrita como lo diría un niño listo de 10 años.' + JSONONLY + ' Formato: {"score":7,"good":"…","tip":"…","better":"…"}';
       msgs = [{role: 'user', content: 'Prompt del niño: ' + t}];
+    } else if (task === 'exam') {
+      maxTokens = 2400;
+      const subj = String(body.subject || '').slice(0, 40), notes = String(body.notes || '').slice(0, 2500);
+      system = SAFE + ' Eres un profesor de 5.º de Primaria que prepara un SIMULACRO de examen de ' + subj + ' para que el niño practique antes del examen real. Haz 10 preguntas de opción múltiple con 4 opciones, de menos a más difíciles, como las que pondría un profesor de su colegio: definiciones, ejemplos, aplicar lo aprendido y alguna de pensar. Los datos deben ser correctos. La primera opción de cada pregunta es SIEMPRE la correcta (la app las desordena). En "why", una explicación breve que le ayude a repasar.' + JSONONLY + ' Formato: {"title":"…","questions":[{"q":"…","o":["correcta","incorrecta","incorrecta","incorrecta"],"why":"…"}]}';
+      msgs = [{role: 'user', content: 'Examen de ' + subj + '. Qué entra: ' + t + (notes ? '\nResumen de su lección (úsalo como base): ' + notes : '') + '\n' + TEMARIO}];
     } else if (task === 'quiz') {
       system = SAFE + ' Creas tests de 6 preguntas de opción múltiple para un niño de 5.º de Primaria. Los datos deben ser correctos y comprobables. La primera opción de cada pregunta es SIEMPRE la correcta (la app las desordena). Explicación breve en "why".' + JSONONLY + ' Formato: {"title":"…","questions":[{"q":"…","o":["correcta","incorrecta","incorrecta","incorrecta"],"why":"…"}]}';
       msgs = [{role: 'user', content: 'Tema del test: ' + t}];

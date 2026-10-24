@@ -439,6 +439,64 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
 .eclock{width:100%;max-width:300px;height:auto}
 .ctxt{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:14px;fill:#1F3A68}
 .hand{transform-origin:130px 130px;transition:transform 1.2s ease-in-out}
+
+/* gustos, estudio, nuevas secciones */
+select,input[type=date]{font-family:var(--f-body);font-size:17px;padding:8px 10px;border:2px solid var(--ink);border-radius:10px;background:var(--card);color:var(--ink);margin-left:4px}
+.likes{margin-top:8px;font-size:14px}
+.likechip{display:inline-block;background:var(--card);color:var(--ink);border:2px solid var(--ink-soft);box-shadow:none;border-radius:999px;padding:4px 10px;font-family:var(--f-body);font-weight:600;font-size:14px;margin:2px}
+.likechip.on{border-color:var(--c-ai);background:#FCE4F0}
+.pill.study{background:#E3F4EA}
+.pill.study.donep{background:var(--ok);color:#fff}
+.studybar{margin-top:12px;font-size:15px}
+.dq{margin-bottom:24px;border-color:var(--c-nat)}
+.metpop span{font-size:15px;color:var(--ink)}
+.studybar .progressline i{background:var(--ok)}
+.studyweek{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;text-align:center;font-size:13px}
+.studyweek div{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:110px}
+.studyweek i{display:block;width:70%;border-radius:6px 6px 0 0;min-height:2px}
+.lockov{position:fixed;inset:0;background:rgba(31,58,104,.92);z-index:200;display:grid;place-items:center;padding:16px}
+.lockbox{max-width:520px;text-align:center}
+.lockbox h2{font-size:30px;margin:6px 0}
+.compass{display:grid;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(3,50px);gap:6px;justify-content:center;margin-top:10px}
+.compass button{padding:0;font-size:20px}
+.compass [data-mv="N"]{grid-column:2;grid-row:1}.compass [data-mv="O"]{grid-column:1;grid-row:2}.compass span{grid-column:2;grid-row:2;display:grid;place-items:center;font-size:30px}.compass [data-mv="E"]{grid-column:3;grid-row:2}.compass [data-mv="S"]{grid-column:2;grid-row:3}
+.forms{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
+.formbtn{background:var(--card);color:var(--ink);border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);font-size:13px;padding:6px 2px;display:flex;flex-direction:column;align-items:center}
+.formbtn span{font-size:26px}
+.formbtn.on{background:var(--marker)}
+.metsvg .mcoord{font-family:var(--f-display);font-weight:800;font-size:16px;fill:var(--ink);text-anchor:middle}
+.metsvg .mlab{font-family:var(--f-display);font-weight:800;font-size:11px;fill:var(--ink);text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:3px}
+.metsvg .mlab.big{font-size:15px;font-style:italic}
+.metsvg .mbot{font-size:32px;text-anchor:middle}
+.mgoal{animation:mg 1.2s ease-in-out infinite}
+@keyframes mg{50%{opacity:.3}}
+.advhead{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.chaps{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:14px}
+.chap{background:var(--card);color:var(--ink);border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);text-align:left;display:flex;flex-direction:column;gap:2px;padding:10px 12px;font-size:16px}
+.chap small{font-family:var(--f-body);font-weight:400;font-size:13px;color:var(--ink-soft)}
+.chap.done{background:var(--okbg);border-color:var(--ok)}
+.storytxt{font-family:var(--f-hand);font-size:24px;line-height:1.35}
+.pjf{display:grid;gap:6px}
+.pjf b{font-family:var(--f-display);font-size:17px}
+.pjf input.prompt{width:100%}
+.swatch{width:28px;height:28px;padding:0;border-radius:50%;border:2px solid var(--ink);box-shadow:none}
+.pbrush{background:var(--card);color:var(--ink);border:2px solid var(--ink);box-shadow:none;font-size:14px;padding:5px 10px;display:flex;gap:6px;align-items:center}
+.pbrush i{width:18px;height:18px;border-radius:4px;border:1px solid var(--ink)}
+.pbrush.on{outline:3px solid var(--orange)}
+.pgrid{width:100%;max-width:560px;height:auto;display:block;touch-action:none;border:2px solid var(--ink);border-radius:8px}
+.poster{border-width:3px}
+.explan{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.exday{border:2px dashed var(--ink-soft);border-radius:12px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;font-size:14px}
+.exday b{font-size:14px}
+.exday.today{border-style:solid;border-color:var(--orange);background:var(--cream)}
+.exday.done{border-style:solid;border-color:var(--ok);background:var(--okbg)}
+.exdays{text-align:center;background:var(--marker);border:2px solid var(--ink);border-radius:14px;padding:6px 14px}
+.exdays b{display:block;font-family:var(--f-display);font-size:30px;line-height:1}
+.exdays span{font-size:13px}
+.note{background:#FFF4B8;border:2px solid var(--ink);border-radius:14px;padding:10px 12px}
+.homenote{display:flex;gap:12px;align-items:center;margin-bottom:16px;background:#FFF4B8}
+.duelturn{text-align:center;padding:16px;border:2px dashed var(--ink-soft);border-radius:16px;margin-top:8px}
+@media (max-width:700px){.quick{grid-template-columns:1fr 1fr}.forms{grid-template-columns:repeat(2,1fr)}}
 /* aventuras */
 .choices{display:grid;gap:10px;margin-top:14px}
 .choice{text-align:left;background:var(--card);color:var(--ink);border:3px solid var(--c-hist);box-shadow:0 4px 0 var(--c-hist);font-size:19px}
@@ -577,6 +635,7 @@ input[type=range]{accent-color:var(--c-art);width:130px}
     <div class="row">
       <button class="iconbtn" id="updBtn" type="button" aria-label="Actualizar la app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5"/></svg><span>Actualizar</span></button>
       <button class="iconbtn" id="voiceBtn" type="button" aria-label="Voz de Tupi"></button>
+      <span class="pill study" id="studyPill" title="Tu hora de estudio de hoy">⏱ 0/60</span>
       <span class="pill fire" id="streakPill" title="Días seguidos leyendo">0 días</span>
       <span class="pill" id="starPill" aria-live="polite">★ 0</span>
     </div>
@@ -591,18 +650,27 @@ input[type=range]{accent-color:var(--c-art);width:130px}
         <p style="margin:4px 0 8px">Soy tu compañero de estudio. ¿Cómo te llamas?</p>
         <label for="nameIn" class="sr">Tu nombre</label>
         <input id="nameIn" placeholder="escribe tu nombre" autocomplete="off">
+        <div id="likesLine" class="likes"></div>
       </div>
     </div>
     <div class="card mission">
       <div class="eyebrow" style="color:var(--orange)">Misión de hoy</div>
       <ul id="missionList"></ul>
+      <div id="studyBar" class="studybar"></div>
     </div>
+    <div id="homeNotes"></div>
     <button class="talkcta" type="button" data-go="chat"><svg width="72" height="72" viewBox="0 0 100 100" aria-hidden="true" class="birdSvg"></svg><span><span class="eyebrow" style="color:var(--c-ai)">Inteligencia artificial</span><h3>Habla con Tupi</h3>Pregúntale, investigad juntos, pídele ideas o ayuda con los deberes.</span><span class="go">Hablar</span></button>
     <div class="quick">
       <button class="qcard" type="button" data-go="scan"><span class="qi">📸</span><b>Foto del cuaderno</b><small>Haz una foto a tu lección y Tupi te prepara el estudio</small></button>
       <button class="qcard" type="button" data-go="isla"><span class="qi">🏝️</span><b>Mi isla</b><small id="qIsla">Construye tu mundo con tus estrellas</small></button>
       <button class="qcard" type="button" data-go="teach"><span class="qi">🎓</span><b>Explícaselo a Tupi</b><small>Hoy el profe eres tú</small></button>
+      <button class="qcard" type="button" data-go="semana"><span class="qi">📖</span><b>Aventura de la semana</b><small id="qSem">Un capítulo nuevo cada día</small></button>
+      <button class="qcard" type="button" data-geotab="robot"><span class="qi">🤖</span><b>Planeta de los robots</b><small id="qPlanet">Geografía con robots que se transforman</small></button>
+      <button class="qcard" type="button" data-go="exam"><span class="qi">📅</span><b>Modo examen</b><small id="qExam">Prepara tu próximo examen paso a paso</small></button>
+      <button class="qcard" type="button" data-go="proy"><span class="qi">🏗️</span><b>Proyecto del mes</b><small id="qProy">Elige tu gran reto de este mes</small></button>
+      <button class="qcard" type="button" data-go="fam"><span class="qi">⚔️</span><b>Duelo en familia</b><small>Reta a papá o a mamá · mensajes</small></button>
     </div>
+    <div class="card dq" id="dqCard"></div>
     <div class="subjects" id="subjects"></div>
     <div style="text-align:center;margin-top:28px"><button class="ghost" data-go="prog" type="button">Ver mi progreso</button></div>
   </section>
@@ -659,6 +727,7 @@ input[type=range]{accent-color:var(--c-art);width:130px}
       <button data-t="mon" type="button">Monumentos y sabores</button>
       <button data-t="puz" type="button">Mapa rompecabezas</button>
       <button data-t="tour" type="button">Vuelo de Tupi</button>
+      <button data-t="robot" type="button">🤖 Planeta de los robots</button>
     </div>
     <div class="geohelp" id="geoHelp"></div>
     <div class="geo">
@@ -703,6 +772,26 @@ input[type=range]{accent-color:var(--c-art);width:130px}
   <section id="v-isla" hidden>
     <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--c-geo)">Mi isla</h2></div>
     <div id="islaArea"></div>
+  </section>
+
+  <section id="v-semana" hidden>
+    <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:#5B8C3A">Aventura de la semana</h2></div>
+    <div id="semArea"></div>
+  </section>
+
+  <section id="v-exam" hidden>
+    <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--c-hist)">Modo examen</h2></div>
+    <div id="examArea"></div>
+  </section>
+
+  <section id="v-proy" hidden>
+    <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--orange)">Proyecto del mes</h2></div>
+    <div id="proyArea"></div>
+  </section>
+
+  <section id="v-fam" hidden>
+    <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--c-ai)">Familia</h2></div>
+    <div id="famArea"></div>
   </section>
 
   <!-- ============ MONTESSORI ============ -->
@@ -769,6 +858,7 @@ const day = (d = new Date()) => d.getFullYear() + '-' + String(d.getMonth() + 1)
    ================================================================= */
 const DEF = {
   name: '', stars: 0, sub: {}, voice: false, onboarded: false, len: {}, mtop: {}, soc: {}, chat: [], art: {gallery: []}, games: {}, natLang: 'en', mont: {}, adv: {}, scans: [], isla: {name: '', size: 1, items: {}, spent: 0},
+  likes: ['blocks', 'roblox', 'robots', 'paint'], study: {goal: 60, lock: false, days: {}, done: {}, unlock: {}}, dq: {}, planet: {done: {}}, wadv: {}, proj: null, projDone: [], exams: [], fam: {msgs: [], duels: []},
   log: {},
   math: {mode: 'lat', mul: 1, men: 1, pro: 1, good: 0, hard: 0, pGood: 0, pBad: 0},
   read: {minutes: 0, done: {}, comics: {}, paper: []},
@@ -779,7 +869,7 @@ const DEF = {
 let S;
 try { S = JSON.parse(localStorage.getItem('turpial2') || 'null'); } catch (e) { S = null; }
 S = Object.assign(JSON.parse(JSON.stringify(DEF)), S || {});
-['math','read','geo','eng','ai','art','isla'].forEach(k => S[k] = Object.assign(JSON.parse(JSON.stringify(DEF[k])), S[k] || {}));
+['math','read','geo','eng','ai','art','isla','study'].forEach(k => S[k] = Object.assign(JSON.parse(JSON.stringify(DEF[k])), S[k] || {}));
 const save = () => { try { localStorage.setItem('turpial2', JSON.stringify(S)); } catch (e) {} };
 const who = () => S.name || 'campeón';
 
@@ -845,7 +935,7 @@ function speak(text) {
 /* =================================================================
    NAVEGACIÓN
    ================================================================= */
-const VIEWS = ['home','mat','read','len','hist','geo','nat','eng','ai','art','games','mont','scan','teach','isla','chat','prog'];
+const VIEWS = ['home','mat','read','len','hist','geo','nat','eng','ai','art','games','mont','scan','teach','isla','semana','exam','proy','fam','chat','prog'];
 const ENTER = {};
 function go(v) {
   VIEWS.forEach(x => $('v-' + x).hidden = x !== v);
@@ -962,10 +1052,11 @@ function levelLabel(id) {
   return '';
 }
 ENTER.home = function () {
+  try { paintHomeExtra(); } catch (e) {}
   try { $('qIsla').textContent = Object.keys(S.isla.items).length ? islaTitle(Object.keys(S.isla.items).length) + ' · ★ ' + islaFree() + ' para gastar' : 'Tienes ★ ' + islaFree() + ' para empezar a construir'; } catch (e) {}
   $('helloTitle').textContent = S.name ? '¡Hola, ' + S.name + '! Soy Tupi.' : '¡Hola! Soy Tupi.';
   const t = S.log[day()] || {};
-  const other = (t.hist || 0) + (t.geo || 0) + (t.nat || 0) + (t.eng || 0) + (t.ai || 0) + (t.len || 0) + (t.art || 0) + (t.games || 0) + (t.mont || 0) + (t.scan || 0) + (t.teach || 0);
+  const other = (t.hist || 0) + (t.geo || 0) + (t.nat || 0) + (t.eng || 0) + (t.ai || 0) + (t.len || 0) + (t.art || 0) + (t.games || 0) + (t.mont || 0) + (t.scan || 0) + (t.teach || 0) + (t.x || 0);
   const items = [
     {done: (t.read || 0) >= 1, txt: 'Leer una historia'},
     {done: (t.mat || 0) >= 1, txt: 'Un ejercicio de mates'},
@@ -1247,7 +1338,7 @@ const PROB = {
 };
 let pro = null;
 function newProblem() {
-  const lv = S.math.pro; const p = pick(PROB[lv])(); pro = {p, tries: 0, hint: false};
+  const lv = S.math.pro; const fav = likedProblems(lv); const p = (fav.length && Math.random() < .5 ? pick(fav) : pick(PROB[lv]))(); pro = {p, tries: 0, hint: false};
   $('matArea').innerHTML = '<div class="levelbar"><span class="eyebrow">Nivel ' + lv + ' · ' + PRO_NAME[lv] + '</span>' + levelDots(lv, 6) + '</div>' +
     '<p class="probtext">' + p.t + '</p><div style="text-align:center"><label for="proIn" class="sr">Respuesta</label><input id="proIn" class="numin" inputmode="decimal" autocomplete="off"></div>' +
     '<div class="actions"><button class="btn-hint" id="proHint" type="button">Pista</button><button class="btn-ok" id="proGo" type="button">Comprobar</button><button id="proNew" type="button">Otro</button></div>';
@@ -2166,6 +2257,7 @@ function startGeo() {
   geoSel = null; geoMark = {}; geoState = null;
   if (geoTab === 'puz') { help('<b>Mapa rompecabezas (Montessori):</b> arrastra cada comunidad a su sitio. ¡Como un puzle de verdad!'); puzzleMap($('mapCard'), $('geoSide')); return; }
   if (geoTab === 'tour') { startTour(); return; }
+  if (geoTab === 'robot') { help('<b>Planeta de los robots:</b> muévete con la brújula (N, S, E, O) y transfórmate en camión, barco o avión según el terreno. Cada misión te enseña una palabra de geografía… ¡y cómo es en España!'); planetGame($('mapCard'), $('geoSide')); return; }
   if (geoTab === 'map') {
     help('<b>Explorar:</b> toca una comunidad para ver su capital y un dato curioso, o toca los dibujitos para descubrir monumentos y fiestas.');
     $('geoSide').innerHTML = '<div class="eyebrow" style="color:var(--c-geo)">Explora</div><p style="margin-top:6px">España tiene <b>17 comunidades autónomas</b> y <b>2 ciudades autónomas</b> (Ceuta y Melilla). En total hay <b>50 provincias</b>.</p><p class="muted" style="margin-top:8px">Has explorado ' + Object.keys(S.geo.seen).length + ' de 19.</p>';
@@ -2752,7 +2844,7 @@ function rulesMission() {
 const API = '/api/tupi';
 function familyPin() { try { return localStorage.getItem('turpialPin') || ''; } catch (e) { return ''; } }
 async function askTupi(payload) {
-  const r = await fetch(API, {method: 'POST', headers: {'content-type': 'application/json', 'x-tupi-pin': familyPin()}, body: JSON.stringify(Object.assign({name: (S.name || '').split(' ')[0]}, payload))});
+  const r = await fetch(API, {method: 'POST', headers: {'content-type': 'application/json', 'x-tupi-pin': familyPin()}, body: JSON.stringify(Object.assign({name: (S.name || '').split(' ')[0], likes: likesText()}, payload))});
   let j = {}; try { j = await r.json(); } catch (e) {}
   if (r.status === 401) throw new Error('pin');
   if (!r.ok) throw new Error(j.error || 'error');
@@ -4041,6 +4133,634 @@ function paintIsla(msg) {
   });
 }
 /* =================================================================
+   MIS GUSTOS (los usan los problemas, la pregunta del día, las aventuras y Tupi)
+   ================================================================= */
+const LIKES = [
+  {id: 'blocks', n: 'Minecraft', e: '⛏️'}, {id: 'roblox', n: 'Roblox', e: '🎮'}, {id: 'robots', n: 'Transformers y robots', e: '🤖'}, {id: 'paint', n: 'Pintar', e: '🎨'},
+  {id: 'futbol', n: 'Fútbol', e: '⚽'}, {id: 'animals', n: 'Animales', e: '🐾'}, {id: 'space', n: 'El espacio', e: '🚀'}, {id: 'dinos', n: 'Dinosaurios', e: '🦖'},
+  {id: 'music', n: 'Música', e: '🎵'}, {id: 'cook', n: 'Cocinar', e: '🍳'}
+];
+const likes = () => (S.likes || []).filter(k => LIKES.some(l => l.id === k));
+function likesText() { return likes().map(k => LIKES.find(l => l.id === k).n).join(', '); }
+function paintLikes() {
+  const el = $('likesLine'); if (!el) return;
+  const L = likes();
+  el.innerHTML = '<span class="muted">Me encanta:</span> ' + (L.length ? L.map(k => { const l = LIKES.find(x => x.id === k); return '<span class="likechip on">' + l.e + ' ' + l.n + '</span>'; }).join(' ') : '<span class="muted">aún nada</span>') + ' <button class="ghost small" type="button" id="likesEdit">Cambiar</button>';
+  $('likesEdit').onclick = () => {
+    el.innerHTML = '<div class="muted" style="margin-bottom:6px">Toca lo que te encanta. Tupi lo usará en problemas, preguntas y aventuras.</div><div class="row">' + LIKES.map(l => '<button type="button" class="likechip' + (L.includes(l.id) ? ' on' : '') + '" data-like="' + l.id + '">' + l.e + ' ' + l.n + '</button>').join('') + '</div><div style="margin-top:8px"><button class="btn-ok small" type="button" id="likesOk">Listo</button></div>';
+    el.querySelectorAll('[data-like]').forEach(b => b.onclick = () => b.classList.toggle('on'));
+    $('likesOk').onclick = () => { S.likes = [...el.querySelectorAll('[data-like].on')].map(b => b.dataset.like); save(); paintLikes(); ENTER.home(); toast('¡Apuntado! Ahora Tupi sabe lo que te gusta.'); };
+  };
+}
+
+/* Problemas de mates con sus mundos favoritos */
+const PROB_LIKE = {
+  blocks: {
+    1: () => { const n = who(), a = r(20, 64), b = r(8, 30); return {t: 'En Minecraft, ' + n + ' tiene ' + a + ' bloques de piedra y pica ' + b + ' más. ¿Cuántos bloques tiene ahora?', a: a + b, h: 'Consigue más bloques: <b>suma</b>. ' + a + ' + ' + b}; },
+    2: () => { const k = r(3, 9), c = r(6, 12); return {t: 'Para la pared de su casa de Minecraft, ' + who() + ' pone ' + k + ' filas de ' + c + ' bloques. ¿Cuántos bloques usa?', a: k * c, h: 'Filas iguales: <b>multiplica</b>. ' + k + ' × ' + c}; },
+    3: () => { const T = r(15, 30), k = r(2, 4); return {t: 'Tienes ' + T + ' diamantes. Una espada gasta 2 diamantes y un pico gasta 3. Haces ' + k + ' espadas y 1 pico. ¿Cuántos diamantes te quedan?', a: T - 2 * k - 3, h: 'Primero: diamantes gastados = ' + k + ' × 2 + 3. Después réstalos de ' + T + '.'}; },
+    4: () => { const n = r(40, 130); return {t: 'Un cofre de Minecraft tiene 27 huecos. Quieres guardar ' + n + ' objetos distintos (uno por hueco). ¿Cuántos cofres necesitas como mínimo?', a: Math.ceil(n / 27), h: 'Divide ' + n + ' : 27. Si sobra algo, ¡necesitas un cofre más!'}; },
+    5: () => { const h = r(1, 3); return {t: 'Un día completo de Minecraft dura 20 minutos de los de verdad. ¿Cuántos días de Minecraft pasan en ' + h + ' hora' + (h > 1 ? 's' : '') + ' y media? (puede tener decimales)', a: (h * 60 + 30) / 20, h: 'Pasa todo a minutos: ' + h + ' × 60 + 30. Luego divide entre 20.'}; },
+    6: () => { const T = r(4, 12) * 20, d = pick([10, 25, 50, 75]); return {t: 'Tienes ' + T + ' bloques y usas el ' + d + ' % para construir un castillo. ¿Cuántos bloques usas?', a: T * d / 100, h: 'El ' + d + ' % de ' + T + ' es ' + T + ' × ' + d + ' : 100.'}; }
+  },
+  roblox: {
+    1: () => { const a = r(50, 300), b = r(20, 150); return {t: who() + ' tiene ' + a + ' Robux y le regalan ' + b + ' por su cumpleaños. ¿Cuántos Robux tiene?', a: a + b, h: 'Le dan más: <b>suma</b>. ' + a + ' + ' + b}; },
+    2: () => { const p = r(15, 60), k = r(3, 8); return {t: 'En Roblox, una gorra cuesta ' + p + ' Robux. ¿Cuánto cuestan ' + k + ' gorras para todo tu equipo?', a: p * k, h: 'Muchas cosas iguales: <b>multiplica</b>. ' + p + ' × ' + k}; },
+    3: () => { const k = r(2, 4), p = r(3, 9) * 10; return {t: 'Tienes 400 Robux. Compras ' + k + ' objetos que cuestan ' + p + ' Robux cada uno. ¿Cuántos Robux te quedan?', a: 400 - k * p, h: 'Primero el gasto: ' + k + ' × ' + p + '. Después réstalo de 400.'}; },
+    4: () => { const n = r(30, 95); return {t: 'Un obby de Roblox tiene ' + n + ' niveles. En cada partida superas 8 niveles. ¿Cuántas partidas necesitas como mínimo para pasarlos todos?', a: Math.ceil(n / 8), h: 'Divide ' + n + ' : 8. Si sobran niveles, hace falta otra partida.'}; },
+    5: () => { const e = pick([2.5, 5, 7.5, 12.5]); return {t: 'Si 10 € son 800 Robux, ¿cuántos Robux son ' + fmt(e) + ' €?', a: e * 80, h: 'Cada euro son 800 : 10 = 80 Robux. Multiplica ' + fmt(e) + ' × 80.'}; },
+    6: () => { const pr = r(2, 8) * 100, d = pick([10, 20, 25, 50]); return {t: 'Una espada legendaria cuesta ' + pr + ' Robux, pero hoy tiene un ' + d + ' % de descuento. ¿Cuánto pagas?', a: pr - pr * d / 100, h: 'Calcula el ' + d + ' % de ' + pr + ' y réstalo del precio.'}; }
+  },
+  robots: {
+    1: () => { const a = r(30, 90), b = r(5, 25); return {t: 'Un robot que se transforma en camión lleva ' + a + ' cajas de energía. Descarga ' + b + ' en la base. ¿Cuántas le quedan?', a: a - b, h: 'Descarga cajas: <b>resta</b>. ' + a + ' − ' + b}; },
+    2: () => { const w = pick([6, 8, 10]), k = r(3, 9); return {t: 'Cada robot camión tiene ' + w + ' ruedas. ¿Cuántas ruedas hay en total si se transforman ' + k + ' robots?', a: w * k, h: 'Robots iguales: <b>multiplica</b>. ' + w + ' × ' + k}; },
+    3: () => { const v = r(3, 9) * 100, h = r(2, 4), x = r(5, 20) * 10; return {t: 'Un robot avión vuela ' + v + ' km cada hora. Vuela ' + h + ' horas y después ' + x + ' km más. ¿Cuántos km recorre?', a: v * h + x, h: 'Primero ' + v + ' × ' + h + ', y luego suma ' + x + '.'}; },
+    4: () => { const E = r(40, 130); return {t: 'Para transformarse, un robot gasta 12 unidades de energía. Tiene ' + E + ' unidades. ¿Cuántas transformaciones completas puede hacer?', a: Math.floor(E / 12), h: 'Divide ' + E + ' : 12. Lo que sobra no llega para otra transformación.'}; },
+    5: () => { const L = pick([4.5, 6.5, 7, 9.5]); return {t: 'De pie, un robot mide ' + fmt(L) + ' m. Transformado en coche mide la mitad. ¿Cuánto mide como coche?', a: L / 2, h: 'La mitad es dividir entre 2: ' + fmt(L) + ' : 2.'}; },
+    6: () => { const a = r(4, 9), b = r(5, 12); const m = Math.max(7, Math.ceil((a + b + 3) / 3)) + r(0, 2); const c = 3 * m - a - b; return {t: 'Tres robots miden ' + a + ' m, ' + b + ' m y ' + c + ' m. ¿Cuál es su altura media?', a: m, h: 'La media: suma las tres alturas y divide entre 3.'}; }
+  },
+  paint: {
+    1: () => { const a = r(24, 60), b = r(3, 15); return {t: who() + ' tiene ' + a + ' lápices de colores y presta ' + b + ' a un amigo. ¿Cuántos le quedan?', a: a - b, h: 'Presta lápices: <b>resta</b>. ' + a + ' − ' + b}; },
+    2: () => { const c = pick([12, 18, 24, 36]), k = r(3, 7); return {t: 'Una caja de rotuladores trae ' + c + ' colores. ¿Cuántos rotuladores hay en ' + k + ' cajas?', a: c * k, h: 'Cajas iguales: <b>multiplica</b>. ' + c + ' × ' + k}; },
+    3: () => { const k = r(2, 5), p = r(4, 8); return {t: 'Compras ' + k + ' botes de pintura a ' + p + ' € cada uno y un pincel de 3 €. Pagas con 50 €. ¿Cuánto te devuelven?', a: 50 - k * p - 3, h: 'Primero lo que cuesta todo: ' + k + ' × ' + p + ' + 3. Luego réstalo de 50.'}; },
+    4: () => { const L = r(10, 40); return {t: 'Un mural mide ' + L + ' metros de largo y pintas 3 metros cada tarde. ¿Cuántas tardes necesitas para terminarlo?', a: Math.ceil(L / 3), h: 'Divide ' + L + ' : 3. Si sobra un trocito, hace falta otra tarde.'}; },
+    5: () => { const L = pick([2, 4, 6, 8]); return {t: 'Un bote tiene ' + L + ' litros de pintura azul y usas 3/4 para pintar el cielo. ¿Cuántos litros quedan? (puede tener decimales)', a: L / 4, h: 'Si usas 3/4, queda 1/4. Divide ' + L + ' : 4.'}; },
+    6: () => { const T = r(4, 12) * 20, d = pick([10, 25, 50, 75]); return {t: 'En el concurso de dibujo participan ' + T + ' niños. El ' + d + ' % son de 5.º. ¿Cuántos niños de 5.º participan?', a: T * d / 100, h: 'El ' + d + ' % de ' + T + ' es ' + T + ' × ' + d + ' : 100.'}; }
+  }
+};
+function likedProblems(lv) { return likes().filter(k => PROB_LIKE[k]).map(k => PROB_LIKE[k][lv]).filter(Boolean); }
+
+/* =================================================================
+   HORA DE ESTUDIO (cuenta el tiempo de uso activo de la app)
+   ================================================================= */
+let lastAct = Date.now();
+['pointerdown', 'keydown', 'input'].forEach(ev => document.addEventListener(ev, () => { lastAct = Date.now(); }, true));
+const studyMin = (d = day()) => Math.floor(((S.study.days || {})[d] || 0) / 60);
+function paintStudy() {
+  const m = studyMin(), g = S.study.goal || 60, p = $('studyPill');
+  if (p) { p.textContent = '⏱ ' + Math.min(m, g) + '/' + g; p.classList.toggle('donep', m >= g); }
+  const b = $('studyBar'); if (b) b.innerHTML = '<div class="row" style="justify-content:space-between"><span><b>Tu hora de estudio:</b> ' + Math.min(m, g) + ' de ' + g + ' minutos</span><span class="muted">' + (m >= g ? '¡Cumplida! ★' : 'Faltan ' + (g - m) + ' min') + '</span></div><div class="progressline"><i style="width:' + Math.min(100, Math.round(m / g * 100)) + '%;background:var(--ok)"></i></div>';
+}
+function studyTick() {
+  if (document.visibilityState !== 'visible' || Date.now() - lastAct > 120000) return;
+  const d = day(); S.study.days[d] = (S.study.days[d] || 0) + 15;
+  const keys = Object.keys(S.study.days).sort(); while (keys.length > 60) delete S.study.days[keys.shift()];
+  const g = S.study.goal || 60;
+  if (studyMin(d) >= g && !S.study.done[d]) {
+    S.study.done[d] = 1; save(); addStars(5, 'study');
+    toast('¡Hora de estudio cumplida! Has estudiado ' + g + ' minutos hoy. Ganas 5 ★', true);
+    talk('¡Enhorabuena, ' + who() + '! Hoy ya has cumplido tu tiempo de estudio. ¡Eres un crack!');
+    if (S.study.lock) setTimeout(showLock, 4000);
+  } else save();
+  paintStudy();
+}
+setInterval(studyTick, 15000);
+function showLock() {
+  const d = day(); if (!S.study.lock || !S.study.done[d] || (S.study.unlock || {})[d]) return;
+  let ov = $('lockOv'); if (!ov) { document.body.insertAdjacentHTML('beforeend', '<div id="lockOv" class="lockov"></div>'); ov = $('lockOv'); }
+  ov.hidden = false; hush(); stopGames();
+  ov.innerHTML = '<div class="card lockbox"><svg class="birdSvg bigbird" viewBox="0 0 100 100" aria-hidden="true">' + BIRD + '</svg><h2>¡Misión cumplida por hoy!</h2><p>Ya has estudiado ' + (S.study.goal || 60) + ' minutos. Ahora toca descansar los ojos: lee un libro de papel, sal a jugar, dibuja en una hoja o ayuda en casa. ¡Mañana seguimos!</p><details style="margin-top:12px"><summary class="muted" style="cursor:pointer">Soy papá o mamá</summary><div class="row" style="justify-content:center;margin-top:8px"><input id="lockPin" type="password" inputmode="numeric" placeholder="código familiar" class="prompt" style="width:180px"><button type="button" id="lockGo">Desbloquear hoy</button></div><div id="lockMsg" class="muted"></div></details></div>';
+  $('lockGo').onclick = () => { const v = $('lockPin').value.trim(); if (!familyPin() || v === familyPin()) { S.study.unlock = S.study.unlock || {}; S.study.unlock[d] = 1; save(); ov.hidden = true; toast('Desbloqueado por hoy.'); } else $('lockMsg').textContent = 'Ese no es el código.'; };
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { showLock(); paintStudy(); } });
+function studyHTML() {
+  const days = []; const d = new Date(); d.setDate(d.getDate() - 6);
+  for (let k = 0; k < 7; k++) { days.push({l: d.toLocaleDateString('es-ES', {weekday: 'short'}), m: studyMin(day(d))}); d.setDate(d.getDate() + 1); }
+  const g = S.study.goal || 60, mx = Math.max(g, ...days.map(x => x.m));
+  return '<details class="card" open><summary class="eyebrow" style="cursor:pointer">Zona papá · hora de estudio</summary><p class="muted" style="margin:8px 0">Cuenta solo el tiempo en que Santi usa la app de verdad (si deja el iPad quieto 2 minutos, el reloj se para).</p>' +
+    '<div class="studyweek">' + days.map(x => '<div><i style="height:' + Math.round(x.m / mx * 70) + 'px;background:' + (x.m >= g ? 'var(--ok)' : 'var(--orange)') + '"></i><b>' + x.m + '</b><span>' + x.l + '</span></div>').join('') + '</div>' +
+    '<div class="row" style="margin-top:12px"><label>Meta diaria <select id="stGoal">' + [30, 45, 60, 75, 90, 120].map(v => '<option' + (v === g ? ' selected' : '') + ' value="' + v + '">' + v + ' minutos</option>').join('') + '</select></label><label class="row" style="gap:6px"><input type="checkbox" id="stLock"' + (S.study.lock ? ' checked' : '') + '> Al cumplir la meta, Tupi cierra la app hasta mañana (se abre con el código familiar)</label></div></details>';
+}
+document.addEventListener('change', e => {
+  if (e.target.id === 'stGoal') { S.study.goal = +e.target.value; save(); paintStudy(); toast('Meta diaria: ' + S.study.goal + ' minutos.'); }
+  if (e.target.id === 'stLock') { S.study.lock = e.target.checked; save(); toast(S.study.lock ? 'Al cumplir la meta, la app se cerrará hasta mañana.' : 'La app no se cerrará al cumplir la meta.'); }
+});
+
+/* =================================================================
+   PREGUNTA CURIOSA DEL DÍA
+   ================================================================= */
+const DQ = [
+  {tag: 'robots', q: '¿De qué idioma viene la palabra «robot»?', o: ['Del checo', 'Del inglés', 'Del japonés', 'Del latín'], why: 'La inventó el escritor checo Karel Čapek en 1920 para una obra de teatro. Viene de «robota», que significa trabajo pesado.'},
+  {tag: 'robots', q: '¿Cómo se llamaba el pequeño helicóptero que voló en Marte en 2021?', o: ['Ingenuity', 'Apolo', 'Sputnik', 'Halcón'], why: 'Ingenuity fue la primera máquina en volar en otro planeta. Viajó pegado al robot Perseverance.'},
+  {tag: 'robots', q: '¿Cómo «ve» un robot lo que tiene delante?', o: ['Con cámaras y sensores', 'Con ojos de cristal', 'Con imanes', 'No puede ver nada'], why: 'Usa cámaras, sensores de distancia o láser. Un programa interpreta esas señales, igual que tu cerebro interpreta lo que ven tus ojos.'},
+  {tag: 'robots', q: '¿Cómo sabe un robot aspirador que no debe caerse por las escaleras?', o: ['Tiene sensores que miran el suelo de debajo', 'Se lo dice el dueño cada día', 'Huele el borde', 'No lo sabe y se cae'], why: 'Por debajo lleva sensores de luz infrarroja. Si la luz no rebota en el suelo, sabe que hay un escalón y da la vuelta.'},
+  {tag: 'robots', q: '¿Existe de verdad un coche que se transforma en robot?', o: ['Sí, se construyeron algunos en Turquía', 'No, solo en las películas', 'Sí, lo usa la policía de Madrid', 'Sí, en todos los concesionarios'], why: 'Unos ingenieros turcos construyeron coches de verdad que se transforman en robot con mando a distancia. Eso sí: no luchan ni hablan.'},
+  {tag: 'blocks', q: '¿Cuántos bloques caben en un montón normal de Minecraft?', o: ['64', '100', '50', '32'], why: '64 = 2 × 2 × 2 × 2 × 2 × 2. Los ordenadores trabajan muy a gusto con potencias de 2.'},
+  {tag: 'blocks', q: 'En Minecraft la arena se convierte en vidrio. ¿Y en la vida real?', o: ['También: el vidrio se hace fundiendo arena', 'No, el vidrio sale del agua', 'El vidrio se hace con hielo', 'El vidrio crece en las minas'], why: 'El vidrio se fabrica calentando arena (sílice) a más de 1.000 grados. ¡Minecraft acierta!'},
+  {tag: 'blocks', q: 'La obsidiana existe de verdad. ¿Cómo se forma?', o: ['Cuando la lava se enfría muy deprisa', 'Con hielo muy duro', 'Con carbón aplastado', 'Cae del espacio'], why: 'Es un vidrio volcánico negro. Si la lava se enfría tan rápido que no da tiempo a formar cristales, sale obsidiana.'},
+  {tag: 'blocks', q: '¿Qué es un píxel?', o: ['El puntito de color más pequeño de una pantalla', 'Un tipo de bloque de piedra', 'Un cable del ordenador', 'Un virus informático'], why: 'Tu pantalla tiene millones de píxeles. Minecraft parece hecho de píxeles grandes, como un mosaico.'},
+  {tag: 'roblox', q: 'Los juegos de Roblox se programan con un lenguaje que viene de Lua. ¿De dónde es Lua?', o: ['De Brasil', 'De Japón', 'De Estados Unidos', 'De Alemania'], why: 'Lua lo crearon en una universidad de Río de Janeiro en 1993. En portugués, «lua» significa luna.'},
+  {tag: 'roblox', q: '¿Qué es un «bug» en un videojuego?', o: ['Un error en el programa', 'Un jugador muy bueno', 'Un truco secreto', 'Un mando roto'], why: '«Bug» significa bicho en inglés. Cuenta la historia que en 1947 encontraron una polilla dentro de un ordenador que fallaba.'},
+  {tag: 'roblox', q: '¿Cuántas imágenes por segundo enseña un videojuego para que se vea fluido?', o: ['Entre 30 y 60', 'Una', 'Cinco', 'Un millón'], why: 'Son fotogramas por segundo (FPS). Tu ojo ve tantas imágenes seguidas que parece movimiento continuo, como en un libro de dibujos que pasas rápido.'},
+  {tag: 'paint', q: '¿Quién pintó Las Meninas?', o: ['Diego Velázquez', 'Pablo Picasso', 'Salvador Dalí', 'Francisco de Goya'], why: 'Velázquez lo pintó en 1656. Está en el Museo del Prado, en Madrid. ¡El propio pintor aparece dentro del cuadro!'},
+  {tag: 'paint', q: '¿Con qué pintaban los humanos de la Prehistoria en cuevas como Altamira?', o: ['Con tierra de colores, carbón y minerales', 'Con rotuladores', 'Con pintura de bote', 'Con zumo de naranja'], why: 'Mezclaban ocre (tierra rojiza), carbón y grasa animal. Las pinturas de Altamira (Cantabria) tienen unos 15.000 años.'},
+  {tag: 'paint', q: '¿Por qué vemos roja una manzana?', o: ['Porque refleja la luz roja y se traga los demás colores', 'Porque brilla por dentro', 'Porque está caliente', 'Porque el ojo es rojo'], why: 'La luz blanca lleva todos los colores. La piel de la manzana absorbe casi todos y devuelve el rojo hasta tus ojos.'},
+  {tag: 'paint', q: '¿Quién pintó el Guernica?', o: ['Pablo Picasso', 'Joan Miró', 'Diego Velázquez', 'Sorolla'], why: 'Picasso lo pintó en 1937 tras el bombardeo de Guernica en la Guerra Civil. Está en el Museo Reina Sofía de Madrid.'},
+  {tag: 'space', q: '¿Cuánto tarda la luz del Sol en llegar a la Tierra?', o: ['Unos 8 minutos', 'Un segundo', 'Un día', 'Un año'], why: 'La luz viaja a 300.000 km por segundo y el Sol está a unos 150 millones de km. Si el Sol se apagara, ¡tardaríamos 8 minutos en darnos cuenta!'},
+  {tag: 'space', q: '¿En qué planeta un día dura más que un año?', o: ['Venus', 'Marte', 'Júpiter', 'La Tierra'], why: 'Venus gira sobre sí mismo tan despacio que tarda más en dar una vuelta sobre sí mismo que en dar la vuelta al Sol.'},
+  {tag: 'space', q: '¿Qué hay más: estrellas en nuestra galaxia o personas en la Tierra?', o: ['Estrellas en la galaxia', 'Personas en la Tierra', 'Hay los mismos', 'Nadie lo sabe'], why: 'En la Vía Láctea hay más de 100.000 millones de estrellas. En la Tierra somos unos 8.000 millones de personas.'},
+  {tag: 'animals', q: '¿Cuántos corazones tiene un pulpo?', o: ['Tres', 'Uno', 'Dos', 'Ocho'], why: 'Dos bombean sangre a las branquias y uno al resto del cuerpo. Además, su sangre es azul.'},
+  {tag: 'animals', q: '¿Cuál es el animal más grande que ha existido nunca?', o: ['La ballena azul', 'El tiranosaurio', 'El elefante', 'El mamut'], why: 'Puede medir unos 30 metros y pesar más que 30 elefantes juntos. Es más grande que cualquier dinosaurio conocido.'},
+  {tag: 'animals', q: '¿De qué país es el turpial el pájaro nacional?', o: ['Venezuela', 'México', 'Argentina', 'España'], why: '¡Como Tupi! El turpial es naranja, negro y blanco, y canta precioso.'},
+  {tag: 'dinos', q: '¿Los pájaros son parientes de los dinosaurios?', o: ['Sí, descienden de dinosaurios', 'No, no tienen nada que ver', 'Solo los loros', 'Solo los pingüinos'], why: 'Los pájaros vienen de dinosaurios pequeños con plumas. Así que Tupi es… ¡un pequeño dinosaurio!'},
+  {tag: 'dinos', q: '¿Cuánto tiempo hace que se extinguieron los grandes dinosaurios?', o: ['Unos 66 millones de años', 'Unos 2.000 años', 'Unos 10.000 años', 'El año pasado'], why: 'Un meteorito enorme cayó en lo que hoy es México. Los humanos llegamos muchísimo después.'},
+  {tag: 'futbol', q: '¿Cuánto pesa más o menos un balón de fútbol oficial?', o: ['Unos 430 gramos', 'Unos 2 kilos', 'Unos 50 gramos', 'Unos 10 kilos'], why: 'Según las reglas, entre 410 y 450 gramos: más o menos lo que pesan 4 manzanas.'},
+  {tag: 'music', q: '¿Por qué una guitarra suena más grave en las cuerdas gordas?', o: ['Porque vibran más despacio', 'Porque son más bonitas', 'Porque están más sucias', 'Porque son de otro color'], why: 'El sonido es vibración. Cuanto más despacio vibra la cuerda, más grave suena la nota.'},
+  {tag: 'cook', q: '¿Por qué sube un bizcocho en el horno?', o: ['Porque la levadura hace burbujas de gas', 'Porque el horno sopla', 'Porque el huevo salta', 'Porque tiene azúcar'], why: 'La levadura o el polvo de hornear sueltan dióxido de carbono. Las burbujas quedan atrapadas en la masa y la hinchan.'},
+  {tag: '', q: '¿Por qué el cielo es azul?', o: ['El aire desvía mucho más la luz azul del Sol', 'Porque refleja el mar', 'Porque el espacio es azul', 'Porque las nubes lo pintan'], why: 'La luz del Sol lleva todos los colores. Al chocar con el aire, la azul se dispersa por todo el cielo y nos llega desde todas partes.'},
+  {tag: '', q: '¿Cuánto puede pesar una nube normal, de las de algodón?', o: ['Cientos de toneladas, como 100 elefantes', 'Lo que una pluma', 'Un kilo', 'Nada, el aire no pesa'], why: 'Tiene muchísimas gotitas de agua repartidas en un espacio enorme. Flota porque las gotas son diminutas y el aire de debajo las sostiene.'},
+  {tag: '', q: '¿Por qué el agua del mar es salada?', o: ['Los ríos llevan sales de las rocas y el agua se evapora, pero la sal se queda', 'Porque los peces la echan', 'Porque llueve agua salada', 'Por las lágrimas de las ballenas'], why: 'Durante millones de años los ríos han arrastrado sales al mar. Al evaporarse el agua, la sal no se va.'},
+  {tag: '', q: '¿Cuál es el río más largo que pasa solo por España?', o: ['El Ebro', 'El Tajo', 'El Guadalquivir', 'El Manzanares'], why: 'El Tajo es más largo, pero termina en Portugal. El Ebro (unos 910 km) nace en Cantabria y desemboca en el Mediterráneo.'},
+  {tag: '', q: '¿Cuál es la montaña más alta de España?', o: ['El Teide', 'El Aneto', 'El Mulhacén', 'El Moncayo'], why: 'El Teide, en Tenerife (Canarias), mide 3.715 metros. Es un volcán. En la península, la más alta es el Mulhacén.'},
+  {tag: '', q: '¿Cuántos huesos tiene una persona adulta?', o: ['206', '50', '1.000', '12'], why: 'Al nacer tenemos unos 300, pero algunos se van uniendo al crecer. El más pequeño está dentro del oído.'},
+  {tag: '', q: '¿Qué metal es líquido a temperatura normal?', o: ['El mercurio', 'El hierro', 'El oro', 'El aluminio'], why: 'El mercurio es plateado y líquido. Antes se usaba en los termómetros, pero es tóxico y ya no se usa.'},
+  {tag: '', q: '¿A qué velocidad puede correr un guepardo?', o: ['Unos 100 km por hora', 'Unos 10 km por hora', 'Unos 500 km por hora', 'Igual que una persona'], why: 'Es el animal terrestre más rápido, ¡como un coche en la autovía! Pero solo aguanta unos segundos a esa velocidad.'}
+];
+function dqToday() {
+  const n = Math.floor(Date.now() / 86400000), L = likes();
+  const fav = DQ.filter(x => x.tag && L.includes(x.tag)), all = DQ;
+  const pool = fav.length && n % 2 === 0 ? fav : all;
+  const q = pool[Math.floor(n / (fav.length ? 2 : 1)) % pool.length];
+  return {q, k: DQ.indexOf(q)};
+}
+function paintDQ() {
+  const el = $('dqCard'); if (!el) return;
+  const {q, k} = dqToday(); S.dq = S.dq || {}; const st = S.dq[day()];
+  const order = shuffle(q.o.map((_, i) => i));
+  el.innerHTML = '<div class="row" style="justify-content:space-between"><span class="eyebrow" style="color:var(--c-nat)">❓ Pregunta curiosa del día</span>' + (st ? '<span class="muted">' + (st.ok ? '¡Acertada!' : 'Respondida') + '</span>' : '<span class="muted">Adivina y gana ★</span>') + '</div><h3 style="font-size:22px;margin:6px 0 10px">' + q.q + '</h3>' +
+    (st ? '<div class="bubble"><b>' + q.o[0] + '.</b> ' + q.why + '</div><div class="actions" style="justify-content:flex-start"><button class="ghost small" type="button" id="dqMore">Pregúntale más a Tupi</button></div>' :
+      '<div class="opts">' + order.map(i => '<button class="opt" type="button" data-dq="' + i + '">' + q.o[i] + '</button>').join('') + '</div>');
+  el.querySelectorAll('[data-dq]').forEach(b => b.onclick = () => {
+    const ok = b.dataset.dq === '0'; S.dq[day()] = {k, ok}; const ks = Object.keys(S.dq).sort(); while (ks.length > 40) delete S.dq[ks.shift()];
+    addStars(ok ? 2 : 1, 'nat'); logDo('x'); talk((ok ? '¡Sí! ' : '¡Uy, no! La respuesta es: ' + q.o[0] + '. ') + q.why); paintDQ();
+  });
+  const m = $('dqMore'); if (m) m.onclick = () => { go('chat'); setTimeout(() => { const i = $('chatIn'); if (i) { i.value = 'Hoy he aprendido esto: «' + q.q + ' ' + q.o[0] + '». ¿Me cuentas algo más curioso sobre eso?'; i.focus(); } }, 50); };
+}
+
+/* =================================================================
+   PLANETA METALIA: geografía con robots que se transforman
+   ================================================================= */
+const MET = [
+  'wwwwwwwwwwwwwwww',
+  'wwwwmmmmmmwwwwww',
+  'wwwpmmrmmmmppwww',
+  'wwpppprllllpwwww',
+  'wpcppprllcllpppp',
+  'wppppprllllppppp',
+  'wwpppprppbbbwwww',
+  'wwpppprcpbbwwwww',
+  'wwwppwwwppwwwpww',
+  'wpwwpwwwwpwwpwpw',
+  'wwwwwwwwwwwwwwww'
+];
+const MW = 16, MH = 11, COLS = 'ABCDEFGHIJKLMNOP';
+const MT = {w: {n: 'mar', c: '#7EC8E3'}, p: {n: 'llanura', c: '#B9E08A'}, m: {n: 'montaña', c: '#B59B7A'}, l: {n: 'meseta', c: '#E8D48A'}, r: {n: 'río', c: '#5AA9E6'}, c: {n: 'ciudad', c: '#F2C14E'}, b: {n: 'bosque', c: '#6DBE6D'}};
+const FORMS = {
+  robot: {e: '🤖', n: 'Robot', ok: 'plcb', why: 'camina por tierra: llanuras, mesetas, bosques y ciudades'},
+  truck: {e: '🚚', n: 'Camión', ok: 'plc', why: 'va rapidísimo por llanuras, mesetas y ciudades, pero no entra en el bosque'},
+  boat: {e: '🚤', n: 'Barco', ok: 'wr', why: 'navega por el mar y por los ríos'},
+  plane: {e: '✈️', n: 'Avión', ok: 'wplcbrm', why: 'vuela por encima de todo, incluso de las montañas, pero gasta el triple de energía'}
+};
+const tileAt = (x, y) => (MET[y] || '')[x] || 'w';
+const coord = (x, y) => COLS[x] + (y + 1);
+const MPLACES = [
+  {x: 9, y: 4, n: 'Engranópolis'}, {x: 2, y: 4, n: 'Villabobina'}, {x: 7, y: 7, n: 'Puerto Tuerca'}
+];
+const MMISS = [
+  {t: 'La capital', txt: 'Los robots te esperan en su capital, <b>Engranópolis</b>. Está en la casilla <b>J5</b> (columna J, fila 5).', term: 'Coordenadas', def: 'Una letra y un número dicen exactamente dónde está algo en un mapa, como en los atlas.', goal: [[9, 4]], es: 'En España la capital es <b>Madrid</b>, justo en el centro de la península.'},
+  {t: 'Nacimiento del río', txt: 'Busca el <b>nacimiento del río Voltio</b>: el sitio donde empieza un río, arriba en las montañas.', term: 'Nacimiento', def: 'Lugar donde empieza un río. Suele estar en las montañas.', goal: [[6, 2]], es: 'El <b>Ebro</b> nace en Fontibre, en Cantabria, y el <b>Tajo</b> en la sierra de Albarracín (Teruel).'},
+  {t: 'Desembocadura', txt: 'Sigue el río hasta su <b>desembocadura</b>: el lugar donde el río llega al mar.', term: 'Desembocadura', def: 'Lugar donde un río termina y entrega su agua al mar o a otro río.', goal: [[6, 7]], es: 'El Ebro desemboca en el mar Mediterráneo y forma un <b>delta</b> en Tarragona.'},
+  {t: 'El cabo', txt: 'Llega al <b>Cabo Chispa</b>: la punta de tierra que se mete en el mar, en el extremo de la península del este.', term: 'Cabo', def: 'Punta de tierra que entra en el mar.', goal: [[15, 4], [15, 5]], es: 'En España están el <b>cabo de Finisterre</b> (Galicia) y el <b>cabo de Gata</b> (Almería).'},
+  {t: 'La isla', txt: 'Visita la <b>Isla Arandela</b>, al suroeste: tierra rodeada de agua por todas partes.', term: 'Isla', def: 'Porción de tierra rodeada de agua por todas partes.', goal: [[1, 9]], es: '<b>Mallorca</b> es la isla más grande de España.'},
+  {t: 'El archipiélago', txt: 'Recorre el <b>Archipiélago Remache</b>, al sureste. Un archipiélago es un grupo de islas: ¡pisa las tres!', term: 'Archipiélago', def: 'Grupo de islas cercanas entre sí.', goal: [[13, 8], [12, 9], [14, 9]], all: true, es: 'España tiene dos archipiélagos: las <b>Islas Baleares</b> y las <b>Islas Canarias</b>.'},
+  {t: 'El golfo', txt: 'Entra en el <b>Golfo de Grasa</b>, al sur: una parte del mar que se mete en la tierra.', term: 'Golfo', def: 'Parte del mar que entra en la tierra, rodeada de costa.', goal: [[5, 8], [6, 8], [7, 8]], es: 'En España están el <b>golfo de Vizcaya</b> (en el Cantábrico) y el <b>golfo de Cádiz</b>.'},
+  {t: 'La cordillera', txt: 'Último reto: sube a los <b>Montes Tornillo</b>, la cordillera del norte. Una cordillera es una fila de montañas.', term: 'Cordillera', def: 'Muchas montañas unidas en fila.', goal: 'm', es: 'Entre España y Francia están los <b>Pirineos</b>, y en el centro el <b>Sistema Central</b>, que divide la Meseta en dos.'}
+];
+let met = null;
+function metCost(t) { return t === 'm' ? 3 : 1; }
+function metBest(sx, sy, goals) {
+  const dist = {}; const k = (x, y) => x + ',' + y; const Q = [[0, sx, sy]]; dist[k(sx, sy)] = 0;
+  while (Q.length) {
+    Q.sort((a, b) => a[0] - b[0]); const [d, x, y] = Q.shift(); if (d > dist[k(x, y)]) continue;
+    if (goals.some(g => g[0] === x && g[1] === y)) return d;
+    [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(([dx, dy]) => { const nx = x + dx, ny = y + dy; if (nx < 0 || ny < 0 || nx >= MW || ny >= MH) return; const nd = d + metCost(tileAt(nx, ny)); if (dist[k(nx, ny)] == null || nd < dist[k(nx, ny)]) { dist[k(nx, ny)] = nd; Q.push([nd, nx, ny]); } });
+  }
+  return 20;
+}
+function metGoals(m) { if (m.goal === 'm') { const g = []; MET.forEach((row, y) => [...row].forEach((c, x) => { if (c === 'm') g.push([x, y]); })); return g; } return m.goal; }
+function planetGame(mapEl, side, mi) {
+  S.planet = S.planet || {done: {}}; hush();
+  if (mi == null) { mi = MMISS.findIndex((_, i) => !S.planet.done[i]); if (mi < 0) mi = MMISS.length; }
+  if (mi >= MMISS.length) return planetFinal(mapEl, side);
+  const M = MMISS[mi], goals = metGoals(M);
+  const start = mi === 0 ? [2, 4] : (S.planet.pos || [2, 4]);
+  const best = metBest(start[0], start[1], goals);
+  const en = best * 2 + 6 + (M.all ? 6 : 0);
+  met = {mi, x: start[0], y: start[1], form: ['truck', 'robot', 'boat', 'plane'].find(f => FORMS[f].ok.includes(tileAt(start[0], start[1]))), energy: en, max: en, moves: 0, trail: [start.slice()], hit: {}};
+  drawPlanet(mapEl);
+  side.innerHTML = '<div class="eyebrow" style="color:var(--c-geo)">Misión ' + (mi + 1) + ' de ' + MMISS.length + ' · ' + M.t + '</div><p style="margin:6px 0">' + M.txt + '</p>' +
+    '<div class="compass"><button type="button" data-mv="N">N</button><button type="button" data-mv="O">O</button><span>🧭</span><button type="button" data-mv="E">E</button><button type="button" data-mv="S">S</button></div>' +
+    '<div class="eyebrow" style="margin-top:10px">Transfórmate</div><div class="forms">' + Object.keys(FORMS).map(f => '<button type="button" class="formbtn" data-form="' + f + '"><span>' + FORMS[f].e + '</span>' + FORMS[f].n + '</button>').join('') + '</div>' +
+    '<div id="metInfo"></div><div id="metMsg"></div>';
+  side.querySelectorAll('[data-mv]').forEach(b => b.onclick = () => metMove(b.dataset.mv, mapEl, side));
+  side.querySelectorAll('[data-form]').forEach(b => b.onclick = () => { met.form = b.dataset.form; metInfo(); drawPlanet(mapEl); talk('¡Transformación! Ahora soy ' + FORMS[met.form].n + '.'); });
+  metInfo(); talk(plain(M.txt));
+  if (!window.__metKeys) { window.__metKeys = 1; document.addEventListener('keydown', e => { if (!met || !$('metInfo')) return; const k = {ArrowUp: 'N', ArrowDown: 'S', ArrowLeft: 'O', ArrowRight: 'E'}[e.key]; if (k) { e.preventDefault(); metMove(k, $('mapCard'), $('geoSide')); } }); }
+}
+function metInfo() {
+  const el = $('metInfo'); if (!el || !met) return;
+  document.querySelectorAll('.formbtn').forEach(b => b.classList.toggle('on', b.dataset.form === met.form));
+  const t = tileAt(met.x, met.y);
+  el.innerHTML = '<div class="popbox metpop" style="margin-top:10px"><span>Estás en <strong>' + coord(met.x, met.y) + '</strong> · ' + MT[t].n + ' · eres ' + FORMS[met.form].e + ' ' + FORMS[met.form].n + '</span><div class="progressline" style="margin-top:6px"><i style="width:' + Math.max(0, Math.round(met.energy / met.max * 100)) + '%;background:' + (met.energy / met.max < .3 ? 'var(--bad)' : 'var(--ok)') + '"></i></div><small>Energía: ' + met.energy + ' de ' + met.max + ' · el avión gasta 3 por casilla</small></div>';
+}
+function drawPlanet(mapEl) {
+  const S0 = 50; let h = '<svg class="mapsvg metsvg" viewBox="-34 -30 ' + (MW * S0 + 44) + ' ' + (MH * S0 + 40) + '" role="img" aria-label="Mapa del planeta Metalia">';
+  for (let y = 0; y < MH; y++) for (let x = 0; x < MW; x++) { const t = tileAt(x, y); h += '<rect x="' + x * S0 + '" y="' + y * S0 + '" width="' + S0 + '" height="' + S0 + '" fill="' + MT[t].c + '" stroke="rgba(31,58,104,.18)"/>'; if (t === 'm') h += '<path d="M' + (x * S0 + 8) + ' ' + (y * S0 + 40) + 'L' + (x * S0 + 25) + ' ' + (y * S0 + 10) + 'L' + (x * S0 + 42) + ' ' + (y * S0 + 40) + 'Z" fill="#8C7357"/><path d="M' + (x * S0 + 19) + ' ' + (y * S0 + 20) + 'L' + (x * S0 + 25) + ' ' + (y * S0 + 10) + 'L' + (x * S0 + 31) + ' ' + (y * S0 + 20) + 'Z" fill="#fff"/>'; if (t === 'b') h += '<circle cx="' + (x * S0 + 17) + '" cy="' + (y * S0 + 22) + '" r="9" fill="#3E9A48"/><circle cx="' + (x * S0 + 33) + '" cy="' + (y * S0 + 30) + '" r="9" fill="#3E9A48"/>'; if (t === 'l') h += '<path d="M' + (x * S0 + 6) + ' ' + (y * S0 + 34) + 'h38" stroke="#C9B060" stroke-width="3"/>'; if (t === 'r') h += '<path d="M' + (x * S0 + 25) + ' ' + (y * S0) + 'q-10 25 0 50" stroke="#2F7FC1" stroke-width="5" fill="none"/>'; }
+  for (let x = 0; x < MW; x++) h += '<text x="' + (x * S0 + 25) + '" y="-10" class="mcoord">' + COLS[x] + '</text>';
+  for (let y = 0; y < MH; y++) h += '<text x="-17" y="' + (y * S0 + 31) + '" class="mcoord">' + (y + 1) + '</text>';
+  MPLACES.forEach(p => h += '<rect x="' + (p.x * S0 + 13) + '" y="' + (p.y * S0 + 13) + '" width="24" height="24" rx="4" fill="#1F3A68"/><text x="' + (p.x * S0 + 25) + '" y="' + (p.y * S0 + 31) + '" class="mlab" fill="#fff" style="font-size:14px">⚙</text><text x="' + (p.x * S0 + 25) + '" y="' + (p.y * S0 + 50) + '" class="mlab">' + p.n + '</text>');
+  [['Mar de Níquel', 2.2, .55], ['Montes Tornillo', 7, 1.35], ['Río Voltio', 5.1, 3.6], ['Gran Meseta', 9.1, 5.65], ['Bosque de Cables', 10.4, 6.85], ['Península Pila', 13.9, 3.7], ['Cabo Chispa', 14.6, 6.3], ['Golfo de Grasa', 6.5, 9.2], ['Isla Arandela', 1.5, 10.6], ['Archipiélago Remache', 13.2, 10.6]].forEach(l => h += '<text x="' + l[1] * S0 + '" y="' + l[2] * S0 + '" class="mlab big">' + l[0] + '</text>');
+  h += '<g transform="translate(' + (MW * S0 - 32) + ',36)"><circle r="24" fill="#fff" stroke="#1F3A68" stroke-width="2"/><path d="M0 -20L6 0L0 20L-6 0Z" fill="#1F3A68"/><path d="M0 -20L6 0L-6 0Z" fill="#D64545"/><text y="-26" class="mcoord">N</text></g>';
+  if (met) {
+    met.trail.forEach(p => h += '<circle cx="' + (p[0] * S0 + 25) + '" cy="' + (p[1] * S0 + 25) + '" r="5" fill="#F2862E" opacity=".75"/>');
+    const M = MMISS[met.mi]; if (M) metGoals(M).forEach(g => { if (M.goal !== 'm' && !met.hit[g.join()]) h += '<rect x="' + (g[0] * S0 + 3) + '" y="' + (g[1] * S0 + 3) + '" width="44" height="44" rx="8" fill="none" stroke="#D64545" stroke-width="3" stroke-dasharray="6 4" class="mgoal"/>'; });
+    h += '<text x="' + (met.x * S0 + 25) + '" y="' + (met.y * S0 + 36) + '" class="mbot">' + FORMS[met.form].e + '</text>';
+  }
+  mapEl.innerHTML = h + '</svg>';
+}
+function metMove(dir, mapEl, side) {
+  if (!met) return; const d = {N: [0, -1], S: [0, 1], E: [1, 0], O: [-1, 0]}[dir]; const nx = met.x + d[0], ny = met.y + d[1];
+  const msg = $('metMsg');
+  if (nx < 0 || ny < 0 || nx >= MW || ny >= MH) { msg.innerHTML = '<div class="bubble">¡Ahí se acaba el mapa! Prueba otra dirección.</div>'; return; }
+  const t = tileAt(nx, ny), F = FORMS[met.form];
+  if (!F.ok.includes(t)) {
+    const fit = Object.keys(FORMS).filter(f => FORMS[f].ok.includes(t) && f !== 'plane');
+    const tip = {w: 'Un ' + F.n.toLowerCase() + ' no flota en el mar.', r: 'Para meterte en el río tienes que navegar… o volar.', m: 'Las montañas son demasiado altas: solo se pueden pasar volando.', b: 'El camión no cabe entre los árboles del bosque.'}[t] || 'Por ahí no puedes ir así.';
+    msg.innerHTML = '<div class="bubble">🛑 <b>¡Alto!</b> Al ' + {N: 'norte', S: 'sur', E: 'este', O: 'oeste'}[dir] + ' hay <b>' + MT[t].n + '</b>. ' + tip + ' ¿En qué te transformas?' + (fit.length ? ' Pista: ' + fit.map(f => FORMS[f].e).join(' o ') + (t !== 'm' ? ' (o ✈️, que gasta más)' : '') : ' Pista: ✈️') + '</div>';
+    talk('¡Alto! Ahí hay ' + MT[t].n + '. ' + tip); return;
+  }
+  met.energy -= met.form === 'plane' ? 3 : 1; met.x = nx; met.y = ny; met.moves++; met.trail.push([nx, ny]); msg.innerHTML = '';
+  const M = MMISS[met.mi], goals = metGoals(M);
+  if (goals.some(g => g[0] === nx && g[1] === ny)) met.hit[nx + ',' + ny] = 1;
+  const done = M.all ? goals.every(g => met.hit[g.join()]) : goals.some(g => met.hit[g.join()]);
+  drawPlanet(mapEl); metInfo();
+  if (done) return metWin(mapEl, side);
+  if (met.energy <= 0) { msg.innerHTML = '<div class="bubble">🔋 ¡Sin energía! Has gastado mucho volando. Recuerda: el avión gasta el triple. <div class="actions"><button type="button" id="metAgain">Intentarlo otra vez</button></div></div>'; talk('¡Me he quedado sin energía! Vuelve a intentarlo usando menos el avión.'); $('metAgain').onclick = () => planetGame(mapEl, side, met.mi); side.querySelectorAll('[data-mv]').forEach(b => b.disabled = true); }
+}
+function metWin(mapEl, side) {
+  const M = MMISS[met.mi], n = met.moves; S.planet.pos = [met.x, met.y]; save();
+  side.querySelectorAll('[data-mv],[data-form]').forEach(b => b.disabled = true);
+  const opts = [n * 100 + ' km', (n + 1) * 100 + ' km', n * 10 + ' km', n * 1000 + ' km'];
+  $('metMsg').innerHTML = '<div class="bubble"><b>¡Misión cumplida!</b> <b>' + M.term + ':</b> ' + M.def + '<br>🇪🇸 ' + M.es + '</div><div class="bubble"><b>Reto de escala:</b> has recorrido ' + n + ' casillas. En este mapa <b>1 casilla = 100 km</b>. ¿Cuántos km has viajado?<div class="opts" style="margin-top:8px">' + shuffle([0, 1, 2, 3]).map(i => '<button class="opt" type="button" data-sk="' + i + '">' + opts[i] + '</button>').join('') + '</div></div>';
+  talk('¡Misión cumplida! ' + M.term + ': ' + M.def);
+  $('metMsg').querySelectorAll('[data-sk]').forEach(b => b.onclick = () => {
+    const ok = b.dataset.sk === '0'; $('metMsg').querySelectorAll('[data-sk]').forEach(x => { x.disabled = true; if (x.dataset.sk === '0') x.classList.add('ok'); }); if (!ok) b.classList.add('bad');
+    S.planet.done[met.mi] = 1; addStars(ok ? 3 : 2, 'geo'); logDo('geo'); save();
+    $('metMsg').insertAdjacentHTML('beforeend', '<div class="bubble">' + (ok ? '¡Exacto! ' : 'Casi: ') + n + ' × 100 = <b>' + n * 100 + ' km</b>. Así se usa la <b>escala</b> de un mapa.<div class="actions"><button class="btn-ok" type="button" id="metNext">' + (met.mi + 1 < MMISS.length ? 'Siguiente misión' : 'Examen final de geógrafo') + '</button></div></div>');
+    $('metNext').onclick = () => planetGame(mapEl, side, met.mi + 1);
+  });
+}
+function planetFinal(mapEl, side) {
+  met = null; drawPlanet(mapEl);
+  const qs = MMISS.map(m => { const others = shuffle(MMISS.filter(x => x !== m)).slice(0, 3).map(x => x.term); return {q: '¿Cómo se llama esto? «' + m.def + '»', o: [m.term].concat(others)}; });
+  side.innerHTML = '<div class="eyebrow" style="color:var(--c-geo)">Examen de geógrafo robótico</div><div id="metQ"></div>';
+  quiz($('metQ'), shuffle(qs), (sc, tot) => {
+    addStars(sc, 'geo'); logDo('geo'); if (sc >= 6) { S.planet.carnet = 1; save(); }
+    $('metQ').innerHTML = '<div class="bubble"><b>' + sc + ' de ' + tot + '.</b> ' + (sc >= 6 ? '🏅 ¡Ya eres <b>geógrafo robótico</b>! Ahora sabes leer cualquier mapa: el de Metalia y el de España.' : 'Repasa las misiones y vuelve a intentarlo.') + '<div class="actions"><button type="button" id="metRe">Jugar otra vez desde el principio</button></div></div>';
+    $('metRe').onclick = () => { S.planet = {done: {}, carnet: S.planet.carnet}; save(); planetGame(mapEl, side, 0); };
+  });
+}
+
+/* =================================================================
+   AVENTURA DE LA SEMANA (un capítulo cada día)
+   ================================================================= */
+const WADV = [
+  {id: 'bloques', tags: ['blocks', 'roblox'], e: '⛏️', title: 'El Mundo de Bloques', color: '#5B8C3A', ch: [
+    {t: 'Llegada al mundo cuadrado', s: 'Abres los ojos y todo es cuadrado: los árboles, las nubes, ¡hasta el sol! Un aldeano llamado Bloquín corre hacia ti. «¡Ayuda, {n}! Esta noche salen los monstruos y no tengo casa.» Hay que construirla antes de que oscurezca.', q: [{q: 'La pared mide 6 bloques de largo y 4 de alto. ¿Cuántos bloques necesitas?', o: ['24', '10', '20', '64'], why: '6 × 4 = 24 bloques.'}, {q: 'El suelo de la casa es un cuadrado de 5 × 5 bloques. ¿Cuál es su área?', o: ['25 bloques', '20 bloques', '10 bloques', '55 bloques'], why: 'Área = lado × lado = 5 × 5 = 25.'}]},
+    {t: 'La mina profunda', s: 'Con la casa terminada, Bloquín te enseña su mina. «Abajo hay hierro para hacer herramientas.» Bajáis por una escalera de piedra. En la pared hay un cartel con letras raras: es un acertijo de palabras.', q: [{q: 'El cartel dice: «Elige la palabra esdrújula». ¿Cuál es?', o: ['mágico', 'camión', 'árbol', 'casa'], why: 'Má-gi-co: la sílaba fuerte es la antepenúltima. Las esdrújulas siempre llevan tilde.'}, {q: 'Bajas 12 bloques y luego subes 5. ¿A cuántos bloques por debajo del suelo estás?', o: ['7', '17', '5', '12'], why: '12 − 5 = 7.'}]},
+    {t: 'El mercado de esmeraldas', s: 'Llegáis a una aldea donde todo se compra con esmeraldas. Una aldeana vende un mapa del tesoro, pero solo habla inglés. «Sword? Map? Pickaxe?», pregunta señalando sus cosas.', q: [{q: 'Tienes 20 esmeraldas y gastas 1/4. ¿Cuántas gastas?', o: ['5', '4', '10', '15'], why: '1/4 de 20 es 20 : 4 = 5.'}, {q: '¿Qué significa «sword» en inglés?', o: ['Espada', 'Escudo', 'Mapa', 'Pico'], why: 'Sword = espada. Pickaxe = pico. Map = mapa.'}]},
+    {t: 'El río del desierto', s: 'El mapa os lleva a un desierto con un río que cruza la arena. Bloquín dice: «El tesoro está donde el río llega al mar». Construís una balsa y seguís la corriente.', q: [{q: '¿Cómo se llama el lugar donde un río llega al mar?', o: ['Desembocadura', 'Nacimiento', 'Afluente', 'Cauce'], why: 'El nacimiento es donde empieza; la desembocadura, donde termina.'}, {q: 'En España, ¿qué río pasa por Zaragoza?', o: ['El Ebro', 'El Tajo', 'El Duero', 'El Guadiana'], why: 'El Ebro atraviesa Zaragoza y desemboca en el Mediterráneo.'}]},
+    {t: 'El castillo olvidado', s: 'En la costa aparece un castillo enorme con torres y murallas. Dentro hay un libro antiguo que cuenta quién vivía allí hace siglos.', q: [{q: 'La mayoría de los castillos de piedra se construyeron en la…', o: ['Edad Media', 'Prehistoria', 'Edad Contemporánea', 'Edad Antigua'], why: 'En la Edad Media los nobles construían castillos para defender sus tierras.'}, {q: 'En la Edad Media, ¿quién vivía en el castillo?', o: ['El señor feudal y su familia', 'Los campesinos', 'Los piratas', 'Los romanos'], why: 'El señor feudal vivía en el castillo. Los campesinos trabajaban sus tierras.'}]},
+    {t: 'La noche de los zombis', s: '¡Se hace de noche y salen los zombis! Os escondéis en el castillo. Para aguantar hasta el amanecer, Bloquín dice que hay que estar fuertes y descansados.', q: [{q: '¿Qué órgano bombea la sangre por todo el cuerpo?', o: ['El corazón', 'Los pulmones', 'El estómago', 'El cerebro'], why: 'El corazón es un músculo que late unas 80 veces por minuto.'}, {q: 'A tu edad, ¿cuántas horas conviene dormir cada noche?', o: ['Entre 9 y 11 horas', 'Entre 3 y 4 horas', 'Entre 5 y 6 horas', 'Da igual'], why: 'Dormir bien ayuda a crecer, a recordar lo estudiado y a estar de buen humor.'}]},
+    {t: 'El portal de vuelta a casa', s: 'Al amanecer encontráis el tesoro: ¡bloques de obsidiana para construir un portal! Bloquín te da un abrazo cuadrado. «Gracias, {n}. Vuelve cuando quieras.» Solo falta construir el marco del portal.', q: [{q: 'El marco del portal es un rectángulo de 4 bloques de ancho y 5 de alto (solo el borde, con esquinas). ¿Cuántos bloques necesitas?', o: ['14', '20', '18', '9'], why: 'Arriba y abajo 4 + 4 = 8; los lados, sin repetir esquinas, 3 + 3 = 6. Total: 14.'}, {q: '¿Cuál es el perímetro de un rectángulo de 4 × 5?', o: ['18', '20', '9', '14'], why: 'Perímetro = 4 + 5 + 4 + 5 = 18.'}]}
+  ]},
+  {id: 'metalia', tags: ['robots'], e: '🤖', title: 'Los Robots de Metalia', color: '#4A6FA5', ch: [
+    {t: 'Una señal del espacio', s: 'Tu tablet empieza a pitar. Es un mensaje de Metalia, un planeta de robots que se transforman en vehículos: «Humano {n}: una tormenta ha esparcido nuestros cristales de energía. Necesitamos a alguien que sepa leer mapas.»', q: [{q: 'Si miras hacia el norte, ¿qué tienes a tu derecha?', o: ['El este', 'El oeste', 'El sur', 'El norte'], why: 'Mirando al norte: derecha este, izquierda oeste y detrás el sur.'}, {q: '¿Por dónde sale el Sol cada mañana?', o: ['Por el este', 'Por el oeste', 'Por el norte', 'Por el sur'], why: 'El Sol sale por el este y se pone por el oeste.'}]},
+    {t: 'El robot camión', s: 'Aterrizas en una llanura enorme. Un robot rojo se transforma en camión con un ruido metálico: «Sube, te llevo. Cada casilla del mapa son 100 km».', q: [{q: 'El camión recorre 3 casillas. ¿Cuántos km son?', o: ['300 km', '30 km', '3 km', '103 km'], why: '3 × 100 = 300 km. Eso es usar la escala del mapa.'}, {q: '¿Qué es una llanura?', o: ['Un terreno llano y extenso', 'Una montaña muy alta', 'Un río grande', 'Una isla pequeña'], why: 'Las llanuras son terrenos casi planos, perfectos para cultivar y para los camiones.'}]},
+    {t: 'El mar de Níquel', s: 'Un cristal brilla en una isla en medio del mar. El camión se transforma en barco y navega entre olas plateadas. Un robot marinero te habla en inglés: «Welcome aboard!»', q: [{q: '¿Cómo se llama la tierra rodeada de agua por todas partes?', o: ['Isla', 'Península', 'Cabo', 'Golfo'], why: 'Isla: agua por todos los lados. Península: agua por todos menos por uno.'}, {q: '¿Cómo se dice «barco» en inglés?', o: ['Boat', 'Car', 'Plane', 'Train'], why: 'Boat (o ship, si es muy grande).'}]},
+    {t: 'Sobre los Montes Tornillo', s: 'El siguiente cristal está en lo alto de una fila de montañas nevadas. El barco no puede subir… ¡así que se transforma en avión y despega!', q: [{q: '¿Cómo se llama una fila de montañas unidas?', o: ['Cordillera', 'Meseta', 'Llanura', 'Valle'], why: 'Una cordillera es un conjunto de montañas en fila.'}, {q: '¿Qué cordillera separa España de Francia?', o: ['Los Pirineos', 'Los Andes', 'Sierra Nevada', 'Los Alpes'], why: 'Los Pirineos van del Cantábrico al Mediterráneo.'}]},
+    {t: 'La cueva de cristales', s: 'Dentro de una cueva encontráis 48 cristales brillantes. Hay que repartirlos entre los 6 robots del equipo para que todos puedan volver a transformarse.', q: [{q: '48 cristales entre 6 robots a partes iguales. ¿Cuántos para cada uno?', o: ['8', '6', '7', '9'], why: '48 : 6 = 8, porque 6 × 8 = 48.'}, {q: 'Un cristal pequeño da 0,5 de energía y otro 0,25. ¿Cuánto suman?', o: ['0,75', '0,30', '0,525', '7,5'], why: '0,50 + 0,25 = 0,75 (tres cuartos).'}]},
+    {t: 'La Gran Meseta', s: 'Volvéis por una llanura muy alta, rodeada de montañas. El robot jefe te explica que se llama la Gran Meseta y que en ella está su capital.', q: [{q: '¿Qué es una meseta?', o: ['Una llanura alta, elevada sobre el nivel del mar', 'Un mar pequeño', 'Un volcán', 'Un río sin agua'], why: 'Es como una llanura, pero en alto.'}, {q: '¿Cómo se llama la gran meseta del centro de España?', o: ['La Meseta Central', 'La Meseta del Ebro', 'La Meseta Canaria', 'La Meseta Cantábrica'], why: 'La Meseta Central ocupa el centro de la península. Allí está Madrid.'}]},
+    {t: '¡Metalia recargada!', s: 'Con todos los cristales, la capital vuelve a iluminarse. Los robots se transforman a la vez en un desfile de camiones, aviones y barcos. «Gracias, {n}. Eres oficialmente Geógrafo de Metalia.»', q: [{q: '¿Cómo se llama la tierra rodeada de agua por todas partes menos por una?', o: ['Península', 'Isla', 'Archipiélago', 'Golfo'], why: 'Como España y Portugal: unidas a Europa por los Pirineos.'}, {q: '¿En qué península está España?', o: ['Ibérica', 'Itálica', 'Escandinava', 'Balcánica'], why: 'La Península Ibérica la compartimos con Portugal y Andorra.'}]}
+  ]},
+  {id: 'colores', tags: ['paint'], e: '🎨', title: 'El ladrón de colores', color: '#C2477D', ch: [
+    {t: 'La ciudad gris', s: 'Una mañana, toda la ciudad se ha vuelto gris. Un ladrón misterioso ha robado los colores y ha dejado una nota: «Si quieres recuperarlos, demuestra que sabes de colores, {n}».', q: [{q: '¿Cuál de estos NO es un color primario en la pintura?', o: ['Verde', 'Rojo', 'Amarillo', 'Azul'], why: 'Con rojo, amarillo y azul se mezclan los demás. El verde sale de azul + amarillo.'}, {q: '¿Qué color sale al mezclar azul y amarillo?', o: ['Verde', 'Morado', 'Naranja', 'Marrón'], why: 'Azul + amarillo = verde. Rojo + amarillo = naranja. Rojo + azul = morado.'}]},
+    {t: 'Pistas en el Prado', s: 'La siguiente pista está en el museo más famoso de Madrid, delante de un cuadro con una princesa y su corte. El pintor se pintó a sí mismo dentro del cuadro.', q: [{q: '¿Quién pintó Las Meninas?', o: ['Velázquez', 'Picasso', 'Dalí', 'Miró'], why: 'Diego Velázquez, en 1656.'}, {q: '¿En qué ciudad está el Museo del Prado?', o: ['Madrid', 'Barcelona', 'Sevilla', 'Bilbao'], why: 'Está en el paseo del Prado, en Madrid.'}]},
+    {t: 'El poema escondido', s: 'Detrás del marco hay un papel con un poema: «Con mi pincel de colores / pinto el cielo y las flores». El ladrón ha escondido la pista en las palabras.', q: [{q: '¿Cuántas sílabas tiene «pincel»?', o: ['Dos', 'Una', 'Tres', 'Cuatro'], why: 'Pin-cel: dos sílabas.'}, {q: 'En un poema, ¿qué es una estrofa?', o: ['Un grupo de versos', 'Una sola palabra', 'El título', 'Una rima'], why: 'Cada línea es un verso; un grupo de versos forma una estrofa.'}]},
+    {t: 'El taller de mezclas', s: 'En un taller abandonado encuentras botes a medio llenar. Para fabricar el rosa perfecto hay que mezclar bien las cantidades.', q: [{q: 'Mezclas 2/4 de litro de rojo con 1/4 de blanco. ¿Cuánta pintura tienes?', o: ['3/4 de litro', '3/8 de litro', '2/4 de litro', '1 litro'], why: 'Mismo denominador: sumas arriba. 2/4 + 1/4 = 3/4.'}, {q: '¿Qué fracción es igual a 1/2?', o: ['2/4', '1/4', '2/3', '3/4'], why: '2/4 = 1/2: son fracciones equivalentes.'}]},
+    {t: 'La cueva de Altamira', s: 'La pista te lleva al norte, a una cueva con bisontes pintados en el techo. Son los cuadros más antiguos de España.', q: [{q: 'Las pinturas de Altamira son de la…', o: ['Prehistoria', 'Edad Media', 'Edad Moderna', 'Edad Contemporánea'], why: 'Tienen unos 15.000 años: son de la Prehistoria.'}, {q: '¿En qué comunidad autónoma está Altamira?', o: ['Cantabria', 'Andalucía', 'Aragón', 'Galicia'], why: 'Está en Santillana del Mar, Cantabria.'}]},
+    {t: 'El arcoíris roto', s: 'Encuentras al ladrón: ¡es un arcoíris triste que había perdido sus colores y robaba los de los demás! Para curarlo hay que explicarle de dónde sale.', q: [{q: '¿Cuántos colores tiene el arcoíris, según se cuenta tradicionalmente?', o: ['Siete', 'Tres', 'Cinco', 'Diez'], why: 'Rojo, naranja, amarillo, verde, azul, añil y violeta.'}, {q: 'El arcoíris aparece cuando la luz del Sol atraviesa…', o: ['Gotas de agua', 'Las nubes negras', 'Los cristales de las casas', 'El humo'], why: 'Cada gota separa la luz blanca en todos sus colores.'}]},
+    {t: 'La ciudad recupera sus colores', s: 'El arcoíris sonríe y devuelve los colores. La ciudad vuelve a brillar y el museo te nombra Pintor de Honor, {n}. Como regalo, te deja ver un cuadro gigante sobre la paz.', q: [{q: '¿Quién pintó el Guernica?', o: ['Picasso', 'Velázquez', 'Goya', 'Sorolla'], why: 'Pablo Picasso lo pintó en 1937. Está en el Museo Reina Sofía.'}, {q: '¿Cómo se dice «pintar» en inglés?', o: ['To paint', 'To draw', 'To write', 'To read'], why: 'Paint es pintar con pintura; draw es dibujar.'}]}
+  ]}
+];
+function weekInfo() {
+  const now = new Date(); const dow = (now.getDay() + 6) % 7; const mon = new Date(now); mon.setDate(now.getDate() - dow);
+  const wk = Math.floor(Date.UTC(mon.getFullYear(), mon.getMonth(), mon.getDate()) / 604800000);
+  const L = likes(); let pool = WADV.filter(a => a.tags.some(t => L.includes(t))); if (!pool.length) pool = WADV;
+  return {key: day(mon), dow, adv: pool[wk % pool.length]};
+}
+ENTER.semana = () => paintSemana();
+function paintSemana() {
+  hush(); const W = weekInfo(), A = W.adv; S.wadv = S.wadv || {};
+  if (!S.wadv[W.key] || S.wadv[W.key].id !== A.id) { S.wadv = {}; S.wadv[W.key] = {id: A.id, done: {}}; save(); }
+  const st = S.wadv[W.key]; const nd = Object.keys(st.done).length;
+  const days = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo'];
+  $('semArea').innerHTML = '<div class="card advhead" style="border-color:' + A.color + '"><div style="font-size:64px;line-height:1">' + A.e + '</div><div><div class="eyebrow" style="color:' + A.color + '">Aventura de esta semana</div><h3 style="font-size:30px">' + A.title + '</h3><p class="muted">Cada día se abre un capítulo nuevo. Si te pierdes alguno, puedes recuperarlo. ¡El domingo llega el final!</p><div class="progressline"><i style="width:' + Math.round(nd / 7 * 100) + '%;background:' + A.color + '"></i></div><small>' + nd + ' de 7 capítulos</small></div></div>' +
+    '<div class="chaps">' + A.ch.map((c, i) => { const open = i <= W.dow && (i === 0 || st.done[i - 1]); const dn = st.done[i]; return '<button type="button" class="chap' + (dn ? ' done' : '') + '" data-ch="' + i + '"' + (open || dn ? '' : ' disabled') + '><span class="eyebrow">' + days[i] + '</span><b>' + (dn ? '✓ ' : open ? '' : '🔒 ') + 'Capítulo ' + (i + 1) + '</b><small>' + (open || dn ? c.t : (i > W.dow ? 'Se abre el ' + days[i] : 'Termina el anterior')) + '</small></button>'; }).join('') + '</div><div id="chapOut"></div>';
+  $('semArea').querySelectorAll('[data-ch]').forEach(b => b.onclick = () => openChap(A, +b.dataset.ch, st));
+  const next = A.ch.findIndex((_, i) => !st.done[i] && i <= W.dow && (i === 0 || st.done[i - 1]));
+  if (next >= 0) openChap(A, next, st, true);
+}
+function openChap(A, i, st, quiet) {
+  const c = A.ch[i], out = $('chapOut'), txt = c.s.replace(/\{n\}/g, esc(who()));
+  out.innerHTML = '<div class="card stack" style="margin-top:16px"><div class="eyebrow" style="color:' + A.color + '">Capítulo ' + (i + 1) + '</div><h3 style="font-size:26px">' + c.t + '</h3><p class="storytxt">' + txt + '</p><div class="actions" style="justify-content:flex-start"><button class="speak" type="button" id="chRead">Escuchar</button></div><div class="eyebrow">Para seguir la aventura, resuelve el reto</div><div id="chQ"></div></div>';
+  $('chRead').onclick = () => talk(txt, true);
+  if (!quiet) { talk(txt); out.scrollIntoView({behavior: 'smooth', block: 'start'}); }
+  quiz($('chQ'), c.q.map(q => Object.assign({}, q)), (sc, tot) => {
+    if (sc === tot) {
+      st.done[i] = 1; save(); addStars(i === 6 ? 6 : 2, 'read'); logDo('x');
+      $('chQ').innerHTML = '<div class="bubble"><b>' + (i === 6 ? '¡FIN! Has completado la aventura entera. Ganas 6 ★' : '¡Capítulo superado! Ganas 2 ★') + '</b> ' + (i < 6 ? 'El siguiente capítulo se abre ' + (i + 1 <= weekInfo().dow ? 'ya mismo.' : 'mañana.') : 'La semana que viene empieza otra aventura.') + '</div>';
+      setTimeout(paintSemana, 2200);
+      if (i === 6) toast('¡Has terminado «' + A.title + '»!', true);
+    } else { $('chQ').innerHTML = '<div class="bubble">Has acertado ' + sc + ' de ' + tot + '. Para seguir hay que acertar todo. <button type="button" id="chRe">Intentarlo otra vez</button></div>'; $('chRe').onclick = () => openChap(A, i, st, true); }
+  }, {noTalk: false});
+}
+
+/* =================================================================
+   PROYECTO DEL MES (4 pasos, uno por semana)
+   ================================================================= */
+const PGRID = {
+  pais: [['w', 'Mar', '#7EC8E3'], ['p', 'Llanura', '#B9E08A'], ['m', 'Montaña', '#B59B7A'], ['l', 'Meseta', '#E8D48A'], ['r', 'Río', '#2F7FC1'], ['b', 'Bosque', '#3E9A48'], ['c', 'Ciudad', '#F2C14E']],
+  juego: [['s', 'Cielo', '#BFE3F7'], ['g', 'Suelo', '#8BC34A'], ['k', 'Ladrillo', '#B5652E'], ['v', 'Lava', '#F2542D'], ['a', 'Agua', '#3D8BD8'], ['o', 'Moneda', '#FFD84D'], ['x', 'Enemigo', '#6A3D9A'], ['f', 'Meta', '#1F3A68']]
+};
+const PROJECTS = [
+  {id: 'pais', e: '🌍', title: 'Mi país inventado', txt: 'Crea un país entero: bandera, mapa, historia, leyes y hasta su propio idioma.', steps: [
+    {t: 'Nombre y bandera', items: [{k: 'name', type: 'text', label: '¿Cómo se llama tu país?'}, {k: 'flag', type: 'flag', label: 'Diseña su bandera'}, {k: 'why', type: 'area', label: '¿Qué significan los colores y el símbolo de tu bandera?'}]},
+    {t: 'El mapa', items: [{k: 'map', type: 'grid', g: 'pais', label: 'Pinta el mapa de tu país: mar, llanuras, montañas, ríos y ciudades'}, {k: 'cap', type: 'text', label: '¿Cómo se llama la capital?'}, {k: 'geo', type: 'area', label: 'Describe su relieve con palabras de geógrafo: ¿tiene cordillera, meseta, península, islas, cabos o golfos?'}]},
+    {t: 'Historia y leyes', items: [{k: 'hist', type: 'area', label: 'Cuenta cómo se fundó tu país, como un cuento con principio, nudo y desenlace'}, {k: 'laws', type: 'list', n: 3, label: 'Escribe 3 leyes justas para tu país (piensa en la democracia: ¿quién vota?, ¿qué derechos hay?)'}]},
+    {t: 'Idioma y presentación', items: [{k: 'words', type: 'pairs', n: 5, label: 'Inventa 5 palabras de tu idioma y su traducción al español'}, {k: 'eng', type: 'area', label: 'Presenta tu país en inglés en 3 frases. Ejemplo: My country is called… The capital is… People like…'}]}
+  ]},
+  {id: 'juego', e: '🎮', title: 'Mi videojuego en papel', txt: 'Diseña tu propio videojuego, como los creadores de Minecraft o Roblox: personaje, nivel, reglas y manual.', steps: [
+    {t: 'La idea', items: [{k: 'name', type: 'text', label: '¿Cómo se llama tu videojuego?'}, {k: 'hero', type: 'area', label: '¿Quién es el protagonista? ¿Cómo es y qué poderes tiene?'}, {k: 'goal', type: 'area', label: '¿Cuál es el objetivo del juego? ¿Cómo se gana?'}]},
+    {t: 'El primer nivel', items: [{k: 'map', type: 'grid', g: 'juego', label: 'Diseña el nivel 1: pon suelo, ladrillos, lava, monedas, enemigos y la meta'}, {k: 'rules', type: 'list', n: 3, label: 'Escribe 3 reglas del juego (por ejemplo: si tocas la lava, vuelves al principio)'}]},
+    {t: 'La historia y la mates del juego', items: [{k: 'story', type: 'area', label: 'Escribe la historia que cuenta tu juego al empezar (principio, nudo y desenlace)'}, {k: 'points', type: 'list', n: 3, label: 'Inventa la puntuación: ¿cuántos puntos da una moneda, un enemigo y llegar a la meta? Si coges 7 monedas, ¿cuántos puntos tienes?'}]},
+    {t: 'El manual en inglés', items: [{k: 'eng', type: 'area', label: 'Escribe las instrucciones en inglés. Ejemplo: Jump over the lava. Collect the coins. Don\'t touch the enemies.'}, {k: 'ad', type: 'area', label: 'Escribe un anuncio corto para convencer a tus amigos de jugarlo'}]}
+  ]},
+  {id: 'museo', e: '🖼️', title: 'Mi museo de arte', txt: 'Monta tu propio museo con tus cuadros, inspirados en grandes pintores.', steps: [
+    {t: 'El museo y su artista', items: [{k: 'name', type: 'text', label: '¿Cómo se llama tu museo?'}, {k: 'artist', type: 'area', label: 'Investiga a un pintor (en Vikidia o en un libro de la biblioteca): ¿quién fue, cuándo vivió y cómo pintaba?'}]},
+    {t: 'Tu primera obra', items: [{k: 'art', type: 'art', label: 'Pinta un cuadro inspirado en ese pintor en el estudio de arte o en papel'}, {k: 'desc', type: 'area', label: 'Describe tu cuadro: ¿qué se ve?, ¿qué colores usaste?, ¿qué quieres transmitir?'}]},
+    {t: 'La ficha técnica', items: [{k: 'card', type: 'list', n: 4, label: 'Escribe la ficha de tu obra: título, técnica (lápiz, acuarela, digital…), año y tamaño en centímetros'}, {k: 'more', type: 'area', label: 'Pinta dos obras más y cuenta de qué tratan'}]},
+    {t: 'La inauguración', items: [{k: 'eng', type: 'area', label: 'Escribe la bienvenida del museo en inglés. Ejemplo: Welcome to my museum. Here you can see…'}, {k: 'invite', type: 'area', label: 'Escribe la invitación para tu familia: día, hora y qué van a ver. ¡Y haz la visita guiada de verdad!'}]}
+  ]}
+];
+const FLAGC = ['#D64545', '#F2862E', '#FFD84D', '#2E9E5B', '#3B7DD8', '#1F3A68', '#8A5CC7', '#FFFFFF', '#1A1A1A', '#7EC8E3'];
+const FLAGS = ['⭐', '☀️', '🌙', '⚙️', '🤖', '🦅', '🌳', '⛰️', '🔥', '❤️', ''];
+function flagSVG(f, w) {
+  f = Object.assign({lay: 'h3', c: ['#D64545', '#FFD84D', '#3B7DD8'], s: '⭐'}, f || {}); const W = 150, H = 100; let h = '<svg viewBox="0 0 150 100" width="' + (w || 150) + '" class="flagsvg">';
+  if (f.lay === 'h3') f.c.forEach((c, i) => h += '<rect x="0" y="' + i * H / 3 + '" width="150" height="' + (H / 3 + 1) + '" fill="' + c + '"/>');
+  if (f.lay === 'v3') f.c.forEach((c, i) => h += '<rect x="' + i * W / 3 + '" y="0" width="' + (W / 3 + 1) + '" height="100" fill="' + c + '"/>');
+  if (f.lay === 'h2') { h += '<rect width="150" height="50" fill="' + f.c[0] + '"/><rect y="50" width="150" height="50" fill="' + f.c[1] + '"/>'; }
+  if (f.lay === 'cross') { h += '<rect width="150" height="100" fill="' + f.c[0] + '"/><rect x="45" width="20" height="100" fill="' + f.c[1] + '"/><rect y="40" width="150" height="20" fill="' + f.c[1] + '"/>'; }
+  if (f.lay === 'tri') { h += '<rect width="150" height="100" fill="' + f.c[1] + '"/><path d="M0 0L70 50L0 100Z" fill="' + f.c[0] + '"/>'; }
+  if (f.s) h += '<text x="' + (f.lay === 'tri' ? 26 : f.lay === 'cross' ? 55 : 75) + '" y="' + (f.lay === 'cross' ? 60 : 64) + '" font-size="' + (f.lay === 'cross' ? 22 : 34) + '" text-anchor="middle">' + f.s + '</text>';
+  return h + '<rect width="150" height="100" fill="none" stroke="#1F3A68" stroke-width="3"/></svg>';
+}
+function gridSVG(str, g, cell) {
+  const P = PGRID[g]; cell = cell || 20; const W = 14, H = 9; let h = '<svg viewBox="0 0 ' + W * cell + ' ' + H * cell + '" class="pgrid" data-g="' + g + '">';
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const k = (str || '')[y * W + x] || P[0][0]; const col = (P.find(p => p[0] === k) || P[0])[2]; h += '<rect data-i="' + (y * W + x) + '" x="' + x * cell + '" y="' + y * cell + '" width="' + cell + '" height="' + cell + '" fill="' + col + '" stroke="rgba(31,58,104,.15)"/>'; }
+  return h + '</svg>';
+}
+ENTER.proy = () => paintProy();
+function curProject() { const p = S.proj; if (!p || !p.id) return null; return {P: PROJECTS.find(x => x.id === p.id), st: p}; }
+function stepOpen(st, i) { const d0 = new Date(st.start + 'T00:00:00'); d0.setDate(d0.getDate() + 7 * i); return day() >= day(d0) && (i === 0 || st.done[i - 1]); }
+function stepDate(st, i) { const d0 = new Date(st.start + 'T00:00:00'); d0.setDate(d0.getDate() + 7 * i); return d0.toLocaleDateString('es-ES', {weekday: 'long', day: 'numeric', month: 'long'}); }
+function paintProy() {
+  hush(); const cp = curProject(); const A = $('proyArea');
+  if (!cp) {
+    A.innerHTML = '<div class="card"><h3 style="font-size:26px">Elige tu proyecto del mes</h3><p class="muted">Un reto grande en 4 pasos: uno cada semana. Al final tendrás algo tuyo para enseñar a la familia.</p></div><div class="missions" style="margin-top:14px">' + PROJECTS.map(p => '<button class="card qcard" style="display:block;text-align:left" type="button" data-pj="' + p.id + '"><div style="font-size:48px">' + p.e + '</div><b>' + p.title + '</b><p class="muted" style="font-size:14px;margin-top:6px">' + p.txt + '</p></button>').join('') + '</div>' + ((S.projDone || []).length ? '<div class="card" style="margin-top:14px"><div class="eyebrow">Proyectos terminados</div>' + S.projDone.map(x => '<p>' + x.e + ' <b>' + esc(x.name || x.title) + '</b> · ' + x.d + '</p>').join('') + '</div>' : '');
+    A.querySelectorAll('[data-pj]').forEach(b => b.onclick = () => { S.proj = {id: b.dataset.pj, start: day(), done: {}, data: {}}; save(); paintProy(); });
+    return;
+  }
+  const {P, st} = cp; const nd = Object.keys(st.done).length;
+  A.innerHTML = '<div class="card advhead"><div style="font-size:64px;line-height:1">' + P.e + '</div><div style="flex:1"><div class="eyebrow" style="color:var(--orange)">Proyecto del mes</div><h3 style="font-size:28px">' + esc(st.data.name || P.title) + '</h3><div class="progressline"><i style="width:' + nd * 25 + '%;background:var(--orange)"></i></div><small>' + nd + ' de 4 pasos</small></div><div class="stack" style="gap:6px"><button class="ghost small" type="button" id="pjPoster">Ver mi proyecto</button><button class="ghost small" type="button" id="pjQuit">Cambiar de proyecto</button></div></div>' +
+    '<div class="chaps" style="grid-template-columns:repeat(4,minmax(0,1fr))">' + P.steps.map((s, i) => { const op = stepOpen(st, i), dn = st.done[i]; return '<button type="button" class="chap' + (dn ? ' done' : '') + '" data-pst="' + i + '"' + (op || dn ? '' : ' disabled') + '><span class="eyebrow">Semana ' + (i + 1) + '</span><b>' + (dn ? '✓ ' : op ? '' : '🔒 ') + s.t + '</b><small>' + (op || dn ? (dn ? 'Hecho' : 'Ahora') : (st.done[i - 1] ? 'Se abre el ' + stepDate(st, i) : 'Termina el paso anterior')) + '</small></button>'; }).join('') + '</div><div id="pjOut"></div>';
+  A.querySelectorAll('[data-pst]').forEach(b => b.onclick = () => openStep(P, st, +b.dataset.pst));
+  $('pjPoster').onclick = () => poster(P, st);
+  $('pjQuit').onclick = () => { if ($('pjQuit').dataset.sure) { S.proj = null; save(); paintProy(); } else { $('pjQuit').dataset.sure = 1; $('pjQuit').textContent = '¿Seguro? Toca otra vez'; } };
+  const nx = P.steps.findIndex((_, i) => !st.done[i] && stepOpen(st, i)); if (nx >= 0) openStep(P, st, nx, true); else { poster(P, st); if (nd < 4) $('pjOut').insertAdjacentHTML('afterbegin', '<div class="bubble" style="margin-top:16px">¡Paso ' + nd + ' terminado! El siguiente se abre el <b>' + stepDate(st, nd) + '</b>. Mientras, así va tu proyecto:</div>'); }
+}
+function openStep(P, st, i, quiet) {
+  const s = P.steps[i], out = $('pjOut'), D = st.data;
+  const field = it => {
+    const v = D[it.k];
+    if (it.type === 'text') return '<label class="pjf"><b>' + it.label + '</b><input class="prompt" data-pk="' + it.k + '" value="' + esc(v || '') + '"></label>';
+    if (it.type === 'area') return '<label class="pjf"><b>' + it.label + '</b><textarea data-pk="' + it.k + '">' + esc(v || '') + '</textarea></label>';
+    if (it.type === 'list') return '<div class="pjf"><b>' + it.label + '</b>' + Array.from({length: it.n}, (_, j) => '<input class="prompt" data-pk="' + it.k + '" data-j="' + j + '" value="' + esc((v || [])[j] || '') + '" placeholder="' + (j + 1) + '.">').join('') + '</div>';
+    if (it.type === 'pairs') return '<div class="pjf"><b>' + it.label + '</b>' + Array.from({length: it.n}, (_, j) => '<div class="row" style="gap:6px"><input class="prompt" style="flex:1" data-pk="' + it.k + '" data-j="' + j + '" data-h="0" value="' + esc(((v || [])[j] || [])[0] || '') + '" placeholder="palabra inventada"><span>=</span><input class="prompt" style="flex:1" data-pk="' + it.k + '" data-j="' + j + '" data-h="1" value="' + esc(((v || [])[j] || [])[1] || '') + '" placeholder="significado"></div>').join('') + '</div>';
+    if (it.type === 'flag') { const f = Object.assign({lay: 'h3', c: ['#D64545', '#FFD84D', '#3B7DD8'], s: '⭐'}, v || {}); D[it.k] = f; return '<div class="pjf"><b>' + it.label + '</b><div class="row" style="align-items:flex-start;gap:16px"><div id="flagPrev">' + flagSVG(f, 180) + '</div><div class="stack" style="gap:8px"><div class="row" style="gap:6px">' + [['h3', '3 franjas'], ['v3', '3 verticales'], ['h2', '2 franjas'], ['cross', 'Cruz'], ['tri', 'Triángulo']].map(l => '<button type="button" class="ghost small" data-flay="' + l[0] + '">' + l[1] + '</button>').join('') + '</div>' + [0, 1, 2].map(j => '<div class="row" style="gap:4px"><small style="width:56px">Color ' + (j + 1) + '</small>' + FLAGC.map(c => '<button type="button" class="swatch" style="background:' + c + '" data-fc="' + j + '" data-col="' + c + '" aria-label="color"></button>').join('') + '</div>').join('') + '<div class="row" style="gap:4px"><small style="width:56px">Símbolo</small>' + FLAGS.map(e => '<button type="button" class="ghost small" data-fs="' + e + '">' + (e || 'ninguno') + '</button>').join('') + '</div></div></div></div>'; }
+    if (it.type === 'grid') { const P0 = PGRID[it.g]; D._brush = D._brush || P0[1][0]; return '<div class="pjf"><b>' + it.label + '</b><div class="row" style="gap:6px;margin:6px 0">' + P0.map(p => '<button type="button" class="pbrush' + (p[0] === D._brush ? ' on' : '') + '" data-br="' + p[0] + '"><i style="background:' + p[2] + '"></i>' + p[1] + '</button>').join('') + '</div><div id="pgWrap">' + gridSVG(v, it.g, 40) + '</div><small class="muted">Toca o arrastra el dedo para pintar.</small></div>'; }
+    if (it.type === 'art') return '<div class="pjf"><b>' + it.label + '</b><div class="row"><button type="button" class="ghost" data-go="art">🎨 Abrir el estudio de arte</button><label class="row" style="gap:6px"><input type="checkbox" data-pk="' + it.k + '" data-chk="1"' + (v ? ' checked' : '') + '> Ya lo he pintado</label></div></div>';
+    return '';
+  };
+  out.innerHTML = '<div class="card stack" style="margin-top:16px"><div class="eyebrow" style="color:var(--orange)">Semana ' + (i + 1) + ' · ' + s.t + '</div>' + s.items.map(field).join('') + '<div class="actions" style="justify-content:flex-start"><button class="btn-ok" type="button" id="pjDone">' + (st.done[i] ? 'Guardar cambios' : 'Terminar este paso') + '</button><span id="pjMsg" class="muted"></span></div></div>';
+  if (!quiet) out.scrollIntoView({behavior: 'smooth', block: 'start'});
+  out.querySelectorAll('[data-pk]').forEach(inp => inp.addEventListener(inp.dataset.chk ? 'change' : 'input', () => {
+    const k = inp.dataset.pk; if (inp.dataset.chk) D[k] = inp.checked; else if (inp.dataset.h != null) { D[k] = D[k] || []; D[k][+inp.dataset.j] = D[k][+inp.dataset.j] || ['', '']; D[k][+inp.dataset.j][+inp.dataset.h] = inp.value; } else if (inp.dataset.j != null) { D[k] = D[k] || []; D[k][+inp.dataset.j] = inp.value; } else D[k] = inp.value; save();
+  }));
+  const fl = s.items.find(it => it.type === 'flag');
+  if (fl) { const rf = () => { $('flagPrev').innerHTML = flagSVG(D[fl.k], 180); save(); };
+    out.querySelectorAll('[data-flay]').forEach(b => b.onclick = () => { D[fl.k].lay = b.dataset.flay; rf(); });
+    out.querySelectorAll('[data-fc]').forEach(b => b.onclick = () => { D[fl.k].c[+b.dataset.fc] = b.dataset.col; rf(); });
+    out.querySelectorAll('[data-fs]').forEach(b => b.onclick = () => { D[fl.k].s = b.dataset.fs; rf(); }); }
+  const gi = s.items.find(it => it.type === 'grid');
+  if (gi) {
+    const P0 = PGRID[gi.g]; if (!D[gi.k]) D[gi.k] = P0[0][0].repeat(14 * 9);
+    out.querySelectorAll('[data-br]').forEach(b => b.onclick = () => { D._brush = b.dataset.br; out.querySelectorAll('[data-br]').forEach(x => x.classList.toggle('on', x === b)); });
+    const svg = $('pgWrap').querySelector('svg'); let down = false;
+    const paintAt = e => { const el = document.elementFromPoint(e.clientX, e.clientY); if (!el || !el.dataset || el.dataset.i == null || !svg.contains(el)) return; const i2 = +el.dataset.i; const a = D[gi.k].split(''); a[i2] = D._brush; D[gi.k] = a.join(''); el.setAttribute('fill', (P0.find(p => p[0] === D._brush) || P0[0])[2]); };
+    svg.addEventListener('pointerdown', e => { down = true; e.preventDefault(); paintAt(e); });
+    svg.addEventListener('pointermove', e => { if (down) paintAt(e); });
+    window.addEventListener('pointerup', () => { if (down) { down = false; save(); } });
+    svg.addEventListener('click', e => { if (e.target.dataset && e.target.dataset.i != null) { paintAt(e); save(); } });
+  }
+  $('pjDone').onclick = () => {
+    const miss = s.items.filter(it => { const v = D[it.k]; if (it.type === 'list') return !v || v.filter(x => x && x.trim()).length < it.n; if (it.type === 'pairs') return !v || v.filter(x => x && x[0] && x[1]).length < it.n; if (it.type === 'grid') return !v || new Set(v).size < 3; if (it.type === 'flag') return false; if (it.type === 'art') return !v; return !v || String(v).trim().length < 3; });
+    if (miss.length) { $('pjMsg').innerHTML = 'Te falta: <b>' + miss.map(m => m.label.split(/[:?(]/)[0].replace(/^¿/, '')).join('</b>, <b>') + '</b>'; return; }
+    const first = !st.done[i]; st.done[i] = 1; save();
+    if (first) { addStars(i === 3 ? 15 : 5, 'art'); logDo('x'); toast(i === 3 ? '¡Proyecto terminado! Ganas 15 ★' : '¡Paso terminado! Ganas 5 ★', i === 3); talk(i === 3 ? '¡Increíble! Has terminado tu proyecto del mes. ¡Enséñaselo a tu familia!' : '¡Muy bien! Paso terminado. La semana que viene, el siguiente.'); }
+    if (i === 3 && first) { S.projDone = S.projDone || []; S.projDone.push({e: P.e, title: P.title, name: D.name || '', d: day()}); save(); }
+    paintProy();
+  };
+}
+function poster(P, st) {
+  const D = st.data, out = $('pjOut'); const lab = (it) => it.label.split(/[:?(]/)[0].replace(/^¿/, '');
+  let h = '<div class="card poster" style="margin-top:16px"><div class="row" style="gap:16px">' + (D.flag ? flagSVG(D.flag, 140) : '<div style="font-size:72px">' + P.e + '</div>') + '<div><div class="eyebrow">' + P.title + ' · de ' + esc(who()) + '</div><h2 style="font-size:36px">' + esc(D.name || P.title) + '</h2>' + (D.cap ? '<p>Capital: <b>' + esc(D.cap) + '</b></p>' : '') + '</div></div>';
+  P.steps.forEach(s => s.items.forEach(it => { const v = D[it.k]; if (!v || it.k === 'name' || it.k === 'cap' || it.type === 'flag') return;
+    if (it.type === 'grid') h += '<div class="pjf"><b>' + (it.g === 'pais' ? 'Mapa' : 'Nivel 1') + '</b>' + gridSVG(v, it.g, 24) + '</div>';
+    else if (it.type === 'list') h += '<div class="pjf"><b>' + lab(it) + '</b><ol>' + v.filter(Boolean).map(x => '<li>' + esc(x) + '</li>').join('') + '</ol></div>';
+    else if (it.type === 'pairs') h += '<div class="pjf"><b>Diccionario</b><p>' + v.filter(x => x && x[0]).map(x => '<i>' + esc(x[0]) + '</i> = ' + esc(x[1] || '')).join(' · ') + '</p></div>';
+    else if (it.type === 'art') h += '<p>🎨 Obra pintada ✓</p>';
+    else h += '<div class="pjf"><b>' + lab(it) + '</b><p>' + esc(v) + '</p></div>'; }));
+  out.innerHTML = h + '<div class="actions"><button class="ghost" type="button" id="pjRead">Que Tupi lo lea en voz alta</button></div></div>';
+  $('pjRead').onclick = () => talk(plain(out.querySelector('.poster').innerHTML), true);
+}
+
+/* =================================================================
+   MODO EXAMEN
+   ================================================================= */
+const EXSUBJ = ['Lengua', 'Matemáticas', 'Sociales', 'Natural Science', 'English', 'Otra'];
+const EXKIND = {
+  foto: {e: '📸', n: 'Haz una foto de la lección y lee el resumen'},
+  cards: {e: '🃏', n: 'Repasa con tarjetas de memoria'},
+  teach: {e: '🎓', n: 'Explícaselo a Tupi'},
+  quiz: {e: '✍️', n: 'Test rápido de 6 preguntas'},
+  sim: {e: '📝', n: 'Simulacro de examen (10 preguntas)'}
+};
+function exPlan(E) {
+  const out = []; const t0 = new Date(day() + 'T00:00:00'), ex = new Date(E.date + 'T00:00:00');
+  const st = new Date(Math.max(new Date(E.created + 'T00:00:00'), ex - 10 * 86400000));
+  const n = Math.round((ex - st) / 86400000); if (n <= 0) return out;
+  for (let i = 0; i < n; i++) { const d = new Date(st); d.setDate(st.getDate() + i);
+    let k; if (i === n - 1) k = 'sim'; else if (i === 0) k = E.scan != null ? 'cards' : 'foto'; else k = ['teach', 'quiz', 'cards'][(i - 1) % 3];
+    out.push({d: day(d), k}); }
+  return out;
+}
+const daysTo = ds => Math.round((new Date(ds + 'T00:00:00') - new Date(day() + 'T00:00:00')) / 86400000);
+const exActive = () => (S.exams || []).filter(E => !E.grade && daysTo(E.date) >= -3).sort((a, b) => a.date < b.date ? -1 : 1);
+ENTER.exam = () => paintExam();
+function paintExam() {
+  hush(); S.exams = S.exams || []; const A = $('examArea'); const act = exActive();
+  A.innerHTML = '<div class="card stack"><div class="row" style="gap:16px"><div style="font-size:60px;line-height:1">📅</div><div style="flex:1;min-width:220px"><h3 style="font-size:26px">¿Tienes un examen?</h3><p>Dime de qué y cuándo. Tupi te prepara un <b>plan de repaso día a día</b> hasta ese día, con un <b>simulacro</b> al final. Estudiar un poco cada día funciona mucho mejor que darse un atracón la víspera.</p></div></div>' +
+    '<div class="row"><label>Asignatura <select id="exSub">' + EXSUBJ.map(s => '<option>' + s + '</option>').join('') + '</select></label><label>Día del examen <input type="date" id="exDate" class="prompt" min="' + day() + '"></label></div><label>¿Qué entra? <input id="exTopic" class="prompt" style="width:100%" placeholder="Por ejemplo: tema 3, el relieve de España"></label>' +
+    ((S.scans || []).length ? '<label>Usar una lección de foto (opcional) <select id="exScan"><option value="">— ninguna —</option>' + S.scans.map((s, k) => '<option value="' + k + '">' + esc(s.title) + '</option>').join('') + '</select></label>' : '') +
+    '<div><button class="btn-ok" type="button" id="exAdd">Crear mi plan</button> <span id="exMsg" class="muted"></span></div></div><div id="exList"></div>';
+  $('exAdd').onclick = () => {
+    const d = $('exDate').value, t = $('exTopic').value.trim(); if (!d || daysTo(d) < 1) { $('exMsg').textContent = 'Elige un día a partir de mañana.'; return; } if (t.length < 3) { $('exMsg').textContent = 'Escribe qué entra en el examen.'; return; }
+    const sc = $('exScan') && $('exScan').value !== '' ? +$('exScan').value : null;
+    S.exams.push({id: Date.now(), subj: $('exSub').value, topic: t, date: d, created: day(), scan: sc, done: {}}); save(); logDo('x'); paintExam(); toast('¡Plan creado! Un poco cada día.');
+  };
+  $('exList').innerHTML = act.map(E => exCard(E)).join('') + (S.exams.filter(E => E.grade).length ? '<div class="card" style="margin-top:14px"><div class="eyebrow">Exámenes anteriores</div>' + S.exams.filter(E => E.grade).slice(-6).reverse().map(E => '<p>' + esc(E.subj) + ' · ' + esc(E.topic) + ' · <b>' + esc(E.grade) + '</b>' + (E.sim != null ? ' <span class="muted">(simulacro: ' + E.sim + '/10)</span>' : '') + '</p>').join('') + '</div>' : '');
+  $('exList').querySelectorAll('[data-exdo]').forEach(b => b.onclick = () => exDo(+b.dataset.ex, b.dataset.exdo, b.dataset.d));
+  $('exList').querySelectorAll('[data-exok]').forEach(b => b.onclick = () => { const E = S.exams.find(x => x.id === +b.dataset.ex); E.done[b.dataset.exok] = 1; save(); addStars(2, 'x'); logDo('x'); paintExam(); });
+  $('exList').querySelectorAll('[data-exg]').forEach(b => b.onclick = () => { const E = S.exams.find(x => x.id === +b.dataset.exg); const v = $('exG' + E.id).value.trim(); if (!v) return; E.grade = v; save(); addStars(3, 'x'); toast('¡Apuntado! Estoy orgulloso de tu esfuerzo.', true); paintExam(); });
+  $('exList').querySelectorAll('[data-exdel]').forEach(b => b.onclick = () => { S.exams = S.exams.filter(x => x.id !== +b.dataset.exdel); save(); paintExam(); });
+}
+function exCard(E) {
+  const n = daysTo(E.date), plan = exPlan(E), today = day();
+  const head = '<div class="row" style="justify-content:space-between"><div><div class="eyebrow" style="color:var(--c-hist)">' + esc(E.subj) + '</div><h3 style="font-size:24px">' + esc(E.topic) + '</h3></div><div class="exdays"><b>' + (n > 0 ? n : n === 0 ? '¡HOY!' : '✓') + '</b><span>' + (n > 1 ? 'días' : n === 1 ? 'día · ¡mañana!' : n === 0 ? 'es el examen' : 'ya pasó') + '</span></div></div>';
+  if (n <= 0) return '<div class="card stack" style="margin-top:14px">' + head + (n === 0 ? '<div class="bubble">¡Hoy es el día! Desayuna bien, lee cada pregunta despacio y confía en ti: has estudiado. Cuando te den la nota, apúntala aquí.</div>' : '') + '<div class="row"><input id="exG' + E.id + '" class="prompt" placeholder="¿Qué nota sacaste?" style="width:200px"><button type="button" data-exg="' + E.id + '">Guardar nota</button><button type="button" class="ghost small" data-exdel="' + E.id + '">Borrar</button></div></div>';
+  return '<div class="card stack" style="margin-top:14px">' + head + '<div class="explan">' + plan.map(p => { const dn = E.done[p.d], isT = p.d === today, past = p.d < today; const K = EXKIND[p.k]; return '<div class="exday' + (dn ? ' done' : isT ? ' today' : '') + '"><span class="eyebrow">' + (isT ? 'Hoy' : new Date(p.d + 'T00:00:00').toLocaleDateString('es-ES', {weekday: 'short', day: 'numeric'})) + '</span><b>' + K.e + ' ' + K.n + '</b>' + (dn ? '<small>✓ Hecho</small>' : (isT || past ? '<div class="row" style="gap:6px;margin-top:6px"><button type="button" class="small" data-ex="' + E.id + '" data-exdo="' + p.k + '" data-d="' + p.d + '">' + (past ? 'Recuperar' : 'Empezar') + '</button>' + (p.k === 'foto' || p.k === 'teach' || p.k === 'cards' ? '<button type="button" class="ghost small" data-ex="' + E.id + '" data-exok="' + p.d + '">Ya lo hice</button>' : '') + '</div>' : '<small class="muted">Más adelante</small>')) + '</div>'; }).join('') + '</div><div id="exRun' + E.id + '"></div><div style="text-align:right"><button type="button" class="ghost small" data-exdel="' + E.id + '">Borrar este examen</button></div></div>';
+}
+async function exDo(id, k, d) {
+  const E = S.exams.find(x => x.id === id); if (!E) return; const L = E.scan != null ? (S.scans || [])[E.scan] : null;
+  if (k === 'foto') { go('scan'); setTimeout(() => { const n = $('scNote'); if (n) n.value = E.subj + ': ' + E.topic; }, 30); return; }
+  if (k === 'teach') { go('teach'); startTeach(E.topic, L ? L.summary.join(' ') : ''); return; }
+  if (k === 'cards' && L) { go('scan'); showLesson(L, 'cards'); return; }
+  const box = $('exRun' + id); box.innerHTML = '';
+  if (k === 'cards' && !L) { box.innerHTML = '<div class="bubble">Para las tarjetas, primero haz una foto de la lección en <b>Foto del cuaderno</b>. ¡O pídele a Tupi un test!<div class="actions"><button type="button" id="exToScan">Ir a la foto</button><button class="ghost" type="button" id="exToQuiz">Hacer un test</button></div></div>'; $('exToScan').onclick = () => exDo(id, 'foto', d); $('exToQuiz').onclick = () => exDo(id, 'quiz', d); return; }
+  if (!familyPin()) { box.innerHTML = '<div class="bubble">Para preparar el test, Tupi necesita el <b>código familiar</b>. Actívalo en <b>Habla con Tupi</b>.</div>'; return; }
+  loading(box, k === 'sim' ? 'Tupi está preparando tu simulacro de examen…' : 'Tupi está preparando tu test…');
+  try {
+    const j = labJSON(await lab(k === 'sim' ? 'exam' : 'quiz', {topic: E.subj + ' — ' + E.topic, subject: E.subj, notes: L ? L.summary.join(' ') : ''}));
+    const qs = (j.questions || []).filter(q => q && q.q && Array.isArray(q.o) && q.o.length >= 2).map(q => ({q: esc(q.q), o: q.o.map(esc), why: esc(q.why || '')}));
+    if (!qs.length) throw new Error('vacío');
+    box.innerHTML = '<div class="card" style="margin-top:10px"><div class="eyebrow">' + (k === 'sim' ? 'Simulacro: como si fuera el examen de verdad' : 'Test rápido') + '</div><div id="exQ' + id + '"></div></div>';
+    quiz($('exQ' + id), qs, (sc, tot) => {
+      E.done[d] = 1; if (k === 'sim') E.sim = Math.round(sc / tot * 10); save(); addStars(sc, 'x'); logDo('x');
+      $('exQ' + id).innerHTML = '<div class="bubble"><b>' + sc + ' de ' + tot + '.</b> ' + (sc / tot >= .8 ? '¡Lo llevas genial!' : sc / tot >= .5 ? 'Vas bien. Repasa las que fallaste.' : 'Toca repasar un poco más: explícaselo a Tupi o mira tus tarjetas.') + '<div class="actions"><button type="button" id="exBack' + id + '">Volver al plan</button></div></div>';
+      $('exBack' + id).onclick = paintExam;
+    }, {noTalk: true});
+  } catch (e) { box.innerHTML = '<div class="bubble">' + chatErr(e) + '</div>'; }
+}
+
+/* =================================================================
+   FAMILIA: mensajes y duelos
+   ================================================================= */
+const RIVALS = ['Papá', 'Mamá', 'Otro familiar'];
+const DUEL_EN = [['dog', 'perro'], ['window', 'ventana'], ['kitchen', 'cocina'], ['shoes', 'zapatos'], ['jacket', 'chaqueta'], ['library', 'biblioteca'], ['bridge', 'puente'], ['cloud', 'nube'], ['sword', 'espada'], ['bird', 'pájaro'], ['strong', 'fuerte'], ['tired', 'cansado'], ['hungry', 'hambriento'], ['brave', 'valiente'], ['always', 'siempre'], ['never', 'nunca'], ['yesterday', 'ayer'], ['tomorrow', 'mañana'], ['river', 'río'], ['mountain', 'montaña'], ['island', 'isla'], ['to build', 'construir'], ['to fly', 'volar'], ['to paint', 'pintar']];
+const DUEL_H = [['Llegada de Colón a América', '1492'], ['Fin de la Guerra Civil española', '1939'], ['Constitución española actual', '1978'], ['Llegada del ser humano a la Luna', '1969'], ['Descubrimiento de las pinturas de Altamira', '1879'], ['Inicio de la Primera Guerra Mundial', '1914'], ['Fin de la Segunda Guerra Mundial', '1945'], ['España entra en la Unión Europea (entonces CEE)', '1986'], ['Olimpiadas de Barcelona', '1992'], ['Llegada de los musulmanes a la península', '711'], ['Caída del muro de Berlín', '1989'], ['Primera vuelta al mundo (Elcano)', '1522']];
+const DUEL_T = [['cap', '🏛️ Capitales de España'], ['mul', '✖️ Tablas de multiplicar'], ['eng', '🇬🇧 Vocabulario en inglés'], ['hist', '📜 Fechas de historia'], ['mix', '🎲 Un poco de todo']];
+function duelQs(t) {
+  const Q = {
+    cap: () => { const ids = GIDS.filter(id => GEO[id].c); const id = pick(ids); const others = shuffle(ids.filter(x => x !== id)).slice(0, 3).map(x => GEO[x].c); return {q: '¿Cuál es la capital de <b>' + GEO[id].n + '</b>?', o: [GEO[id].c].concat(others)}; },
+    mul: () => { const a = r(3, 9), b = r(3, 9), c = a * b; const o = new Set([c]); while (o.size < 4) { const v = c + pick([-a, a, -b, b, 1, -1, 10, -10]); if (v > 0) o.add(v); } return {q: '¿Cuánto es <b>' + a + ' × ' + b + '</b>?', o: [...o].map(String)}; },
+    eng: () => { const w = pick(DUEL_EN); const others = shuffle(DUEL_EN.filter(x => x !== w)).slice(0, 3).map(x => x[1]); return {q: '¿Qué significa <b>' + w[0] + '</b>?', o: [w[1]].concat(others)}; },
+    hist: () => { const h = pick(DUEL_H); const others = shuffle(DUEL_H.filter(x => x !== h)).slice(0, 3).map(x => x[1]); return {q: '¿En qué año? <b>' + h[0] + '</b>', o: [h[1]].concat(others)}; }
+  };
+  const out = [], seen = new Set(); let guard = 0;
+  while (out.length < 8 && guard++ < 200) { const k = t === 'mix' ? pick(['cap', 'mul', 'eng', 'hist']) : t; const q = Q[k](); if (seen.has(q.q)) continue; seen.add(q.q); out.push(q); }
+  return out;
+}
+ENTER.fam = () => paintFam();
+function famData() { S.fam = S.fam || {msgs: [], duels: []}; S.fam.msgs = S.fam.msgs || []; S.fam.duels = S.fam.duels || []; return S.fam; }
+function paintFam() {
+  hush(); const F = famData(); const A = $('famArea');
+  const wins = {}; F.duels.forEach(d => { const w = d.win; if (w) wins[w] = (wins[w] || 0) + 1; });
+  const inbox = F.msgs.filter(m => m.to === 'kid').slice(-8).reverse();
+  A.innerHTML = '<div class="card stack"><div class="row" style="gap:16px"><div style="font-size:60px;line-height:1">⚔️</div><div style="flex:1;min-width:220px"><h3 style="font-size:26px">Duelo en familia</h3><p>Reta a papá, a mamá o a quien quieras. Primero juega el adulto, luego le pasa el iPad a ' + esc(who()) + '. Mismas 8 preguntas: gana quien acierte más (y si empatáis, quien vaya más rápido).</p>' + (F.duels.length ? '<p class="muted">Marcador: ' + Object.keys(wins).map(k => '<b>' + esc(k) + '</b> ' + wins[k]).join(' · ') + ' · ' + F.duels.filter(d => !d.win).length + ' empates</p>' : '') + '</div></div>' +
+    '<div class="row"><label>Rival <select id="duRival">' + RIVALS.map(x => '<option>' + x + '</option>').join('') + '</select></label><label>Tema <select id="duTheme">' + DUEL_T.map(x => '<option value="' + x[0] + '">' + x[1] + '</option>').join('') + '</select></label><button class="btn-ok" type="button" id="duGo">¡Empezar duelo!</button></div><div id="duOut"></div></div>' +
+    '<div class="card stack" style="margin-top:14px"><div class="eyebrow">💌 Mensajes de la familia</div>' + (inbox.length ? inbox.map(m => '<div class="note"><b>' + esc(m.from) + '</b> <span class="muted">' + new Date(m.t).toLocaleDateString('es-ES', {day: 'numeric', month: 'short'}) + '</span><p>' + esc(m.text) + '</p>' + (m.reply ? '<p class="muted">Tu respuesta: ' + esc(m.reply) + '</p>' : '<div class="row" style="gap:6px"><input class="prompt" style="flex:1" id="rep' + m.t + '" placeholder="Contesta a ' + esc(m.from) + '…"><button type="button" class="small" data-rep="' + m.t + '">Enviar</button></div>') + '</div>').join('') : '<p class="muted">Todavía no hay mensajes. Papá y mamá pueden escribirte desde <b>Ver mi progreso → Zona papá</b>.</p>') + '</div>';
+  A.querySelectorAll('[data-rep]').forEach(b => b.onclick = () => { const m = F.msgs.find(x => String(x.t) === b.dataset.rep); const v = $('rep' + m.t).value.trim(); if (!v) return; m.reply = v; m.read = 1; save(); toast('¡Mensaje enviado a ' + esc(m.from) + '!'); paintFam(); });
+  F.msgs.forEach(m => { if (m.to === 'kid') m.read = 1; }); save();
+  $('duGo').onclick = () => startDuel($('duRival').value, $('duTheme').value);
+}
+function startDuel(rival, theme) {
+  const qs = duelQs(theme), out = $('duOut'); const res = {};
+  const turn = (who2, next) => {
+    out.innerHTML = '<div class="duelturn"><div class="eyebrow">Turno de</div><h3 style="font-size:32px">' + esc(who2) + '</h3><p>¿Listo? El tiempo empieza al pulsar.</p><button class="btn-ok" type="button" id="duStart">¡Voy!</button></div>';
+    $('duStart').onclick = () => { const t0 = Date.now(); out.innerHTML = '<div id="duQ"></div>'; quiz($('duQ'), qs.map(q => Object.assign({}, q)), sc => { res[who2] = [sc, Math.round((Date.now() - t0) / 1000)]; next(); }, {noTalk: true}); };
+  };
+  turn(rival, () => {
+    out.innerHTML = '<div class="duelturn"><h3 style="font-size:26px">' + esc(rival) + ': ' + res[rival][0] + ' aciertos en ' + res[rival][1] + ' s</h3><p>Ahora pásale el iPad a <b>' + esc(who()) + '</b>. ¡Sin chivarse!</p><button class="btn-ok" type="button" id="duPass">Ya lo tengo yo</button></div>';
+    $('duPass').onclick = () => turn(who(), () => {
+      const a = res[rival], b = res[who()]; const kidWin = b[0] > a[0] || (b[0] === a[0] && b[1] < a[1]); const tie = b[0] === a[0] && b[1] === a[1];
+      const win = tie ? null : kidWin ? who() : rival;
+      const F = famData(); F.duels.push({t: Date.now(), rival, theme, a, b, win}); if (F.duels.length > 60) F.duels.shift(); save();
+      addStars(kidWin ? 5 : 2, 'games'); logDo('x');
+      out.innerHTML = '<div class="duelturn"><div style="font-size:56px">' + (tie ? '🤝' : '🏆') + '</div><h3 style="font-size:30px">' + (tie ? '¡Empate perfecto!' : '¡Gana ' + esc(win) + '!') + '</h3><p>' + esc(rival) + ': ' + a[0] + ' aciertos (' + a[1] + ' s) · ' + esc(who()) + ': ' + b[0] + ' aciertos (' + b[1] + ' s)</p><p class="muted">' + (kidWin ? 'Ganas 5 ★' : 'Ganas 2 ★ por jugar. ¡La revancha te espera!') + '</p><div class="actions"><button type="button" id="duAgain">Revancha</button></div></div>';
+      talk(tie ? '¡Empate perfecto!' : '¡Gana ' + win + '!');
+      $('duAgain').onclick = () => startDuel(rival, theme);
+    });
+  });
+}
+function famAdminHTML() {
+  const F = famData(); const sent = F.msgs.filter(m => m.to === 'kid').slice(-8).reverse();
+  return '<details class="card"><summary class="eyebrow" style="cursor:pointer">Zona papá · mensajes para ' + esc(who()) + '</summary><p class="muted" style="margin:8px 0">Escríbele algo bonito: aparecerá en su pantalla de inicio y Tupi se lo leerá.</p><div class="row"><select id="fmFrom">' + RIVALS.slice(0, 2).map(x => '<option>' + x + '</option>').join('') + '</select><input id="fmText" class="prompt" style="flex:1;min-width:200px" placeholder="¡Ánimo con el examen, campeón!"><button type="button" id="fmSend">Enviar</button></div>' +
+    (sent.length ? '<div class="stack" style="margin-top:10px">' + sent.map(m => '<div style="font-size:14px"><b>' + esc(m.from) + ':</b> ' + esc(m.text) + ' <span class="muted">' + (m.read ? '✓ leído' : 'sin leer') + '</span>' + (m.reply ? '<br>↳ <b>' + esc(who()) + ':</b> ' + esc(m.reply) : '') + '</div>').join('') + '</div>' : '') + '</details>';
+}
+document.addEventListener('click', e => {
+  if (e.target.closest('#fmSend')) { const v = $('fmText').value.trim(); if (!v) return; famData().msgs.push({from: $('fmFrom').value, to: 'kid', text: v.slice(0, 400), t: Date.now(), read: 0}); if (S.fam.msgs.length > 50) S.fam.msgs.shift(); save(); toast('Mensaje enviado. Lo verá en su pantalla de inicio.'); ENTER.prog(); }
+});
+function paintNotes() {
+  const el = $('homeNotes'); if (!el) return; const F = famData(); const un = F.msgs.filter(m => m.to === 'kid' && !m.read);
+  el.innerHTML = un.map(m => '<div class="card note homenote"><span style="font-size:30px">💌</span><div style="flex:1"><b>Mensaje de ' + esc(m.from) + '</b><p>' + esc(m.text) + '</p></div><button type="button" class="small" data-go="fam">Leer y contestar</button></div>').join('');
+  if (un.length && !window.__noteSaid) { window.__noteSaid = 1; setTimeout(() => talk('¡Tienes un mensaje de ' + un[0].from + '! Dice: ' + un[0].text), 1800); }
+}
+
+/* =================================================================
+   INICIO: tarjetas nuevas
+   ================================================================= */
+function paintHomeExtra() {
+  paintLikes(); paintStudy(); paintDQ(); paintNotes();
+  const ex = exActive().filter(E => daysTo(E.date) >= 0)[0];
+  const exEl = $('qExam'); if (exEl) { if (ex) { const n = daysTo(ex.date); const p = exPlan(ex).find(x => x.d === day()); exEl.textContent = ex.subj + (n === 0 ? ' ¡hoy!' : ' en ' + n + (n === 1 ? ' día' : ' días')) + (p && !ex.done[p.d] ? ' · hoy: ' + EXKIND[p.k].n.toLowerCase() : ''); } else exEl.textContent = 'Prepara tu próximo examen paso a paso'; }
+  const sm = $('qSem'); if (sm) { const W = weekInfo(); const st = (S.wadv || {})[W.key]; const nd = st && st.id === W.adv.id ? Object.keys(st.done).length : 0; sm.textContent = W.adv.e + ' ' + W.adv.title + ' · ' + nd + '/7'; }
+  const pj = $('qProy'); if (pj) { const cp = curProject(); pj.textContent = cp ? cp.P.e + ' ' + (cp.st.data.name || cp.P.title) + ' · ' + Object.keys(cp.st.done).length + '/4' : 'Elige tu gran reto de este mes'; }
+  const pl = $('qPlanet'); if (pl) { const n = Object.keys((S.planet || {}).done || {}).length; pl.textContent = (S.planet || {}).carnet ? '🏅 Geógrafo robótico' : n + ' de ' + MMISS.length + ' misiones'; }
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-geotab]'); if (!b) return; go('geo'); const t = $('geoTabs').querySelector('[data-t="' + b.dataset.geotab + '"]'); if (t) t.click(); });
+
+/* =================================================================
    PROGRESO
    ================================================================= */
 function parentHTML() {
@@ -4063,12 +4783,12 @@ function refuerzoHTML() {
 ENTER.prog = () => {
   const max = Math.max(5, ...SUBJ.map(s => S.sub[s.id] || 0));
   const days = []; const d = new Date(); d.setDate(d.getDate() - 6);
-  for (let k = 0; k < 7; k++) { const key = day(d), t = S.log[key] || {}; const other = (t.hist || 0) + (t.geo || 0) + (t.nat || 0) + (t.eng || 0) + (t.ai || 0) + (t.len || 0) + (t.art || 0) + (t.games || 0) + (t.mont || 0) + (t.scan || 0) + (t.teach || 0); const n = (t.read ? 1 : 0) + (t.mat ? 1 : 0) + (other ? 1 : 0); days.push({l: ['D','L','M','X','J','V','S'][d.getDay()], n}); d.setDate(d.getDate() + 1); }
+  for (let k = 0; k < 7; k++) { const key = day(d), t = S.log[key] || {}; const other = (t.hist || 0) + (t.geo || 0) + (t.nat || 0) + (t.eng || 0) + (t.ai || 0) + (t.len || 0) + (t.art || 0) + (t.games || 0) + (t.mont || 0) + (t.scan || 0) + (t.teach || 0) + (t.x || 0); const n = (t.read ? 1 : 0) + (t.mat ? 1 : 0) + (other ? 1 : 0); days.push({l: ['D','L','M','X','J','V','S'][d.getDay()], n}); d.setDate(d.getDate() + 1); }
   $('progArea').innerHTML =
     '<div class="kpis"><div class="card kpi"><span class="muted">Estrellas</span><b>★ ' + S.stars + '</b></div><div class="card kpi"><span class="muted">Racha de lectura</span><b>' + readStreak() + ' días</b></div><div class="card kpi"><span class="muted">Minutos leídos</span><b>' + S.read.minutes + '</b></div><div class="card kpi"><span class="muted">Sellos de historia</span><b>' + Object.keys(S.hist).length + ' / ' + ERAS.length + '</b></div></div>' +
     '<div class="card"><div class="eyebrow" style="margin-bottom:10px">Últimos 7 días · misiones cumplidas</div><div class="week">' + days.map(x => '<div class="' + (x.n === 3 ? 'full' : '') + '"><b>' + x.l + '</b><br>' + x.n + '/3</div>').join('') + '</div></div>' +
     '<div class="card"><div class="eyebrow" style="margin-bottom:10px">Estrellas por asignatura</div><div class="bars">' + SUBJ.map(s => '<div class="bar"><span>' + s.name + '</span><div class="track"><i style="width:' + Math.round((S.sub[s.id] || 0) / max * 100) + '%;background:' + s.color + '"></i></div><b>' + (S.sub[s.id] || 0) + '</b></div>').join('') + '</div></div>' +
-    refuerzoHTML() + parentHTML() + resetHTML() +
+    refuerzoHTML() + studyHTML() + famAdminHTML() + parentHTML() + resetHTML() +
     '<div class="card"><div class="eyebrow" style="margin-bottom:10px">Niveles</div><p>Multiplicar: <b>nivel ' + S.math.mul + '</b> (' + MUL_NAME[S.math.mul] + ') · Cálculo mental: <b>nivel ' + S.math.men + '</b> · Problemas: <b>nivel ' + S.math.pro + '</b></p><p>Inglés: <b>nivel ' + S.eng.unlocked + ' de 6</b> · IA: <b>' + Object.keys(S.ai.done).length + ' de 7 misiones</b>' + (S.ai.carnet ? ' · carnet conseguido' : '') + '</p></div>';
 };
 
@@ -4079,7 +4799,7 @@ const RESTART = {
   games: () => curGame ? runGame(curGame) : paintGames(),
   mont: () => curMont ? openMont(curMont) : paintMont(),
   mat: () => renderMat(), read: () => renderShelf(), len: () => paintLen(), hist: () => paintHist(),
-  geo: () => startGeo(), nat: () => openNat(natSel), scan: () => paintScan(), teach: () => paintTeach(), isla: () => { islaSel = null; paintIsla(); }, eng: () => { paintPath(); engIntro(); }, ai: () => aiHome(), art: () => paintArt(), chat: () => paintChat()
+  geo: () => startGeo(), nat: () => openNat(natSel), scan: () => paintScan(), teach: () => paintTeach(), isla: () => { islaSel = null; paintIsla(); }, semana: () => paintSemana(), exam: () => paintExam(), proy: () => paintProy(), fam: () => paintFam(), eng: () => { paintPath(); engIntro(); }, ai: () => aiHome(), art: () => paintArt(), chat: () => paintChat()
 };
 document.querySelectorAll('section[id^="v-"] .subhead').forEach(h => {
   const v = h.parentElement.id.slice(2); if (v === 'prog' || v === 'chat') return;
@@ -4100,6 +4820,8 @@ const RESETS = [
   ['chat', 'Conversaciones con Tupi', () => { S.chat = []; }],
   ['scan', 'Lecciones de fotos guardadas', () => { S.scans = []; }],
   ['isla', 'Mi isla (devuelve las estrellas gastadas)', () => { S.isla = JSON.parse(JSON.stringify(DEF.isla)); }],
+  ['study', 'Tiempo de estudio', () => { S.study.days = {}; S.study.done = {}; S.study.unlock = {}; }],
+  ['extra', 'Aventura semanal, planeta de robots, proyecto, exámenes, duelos y mensajes', () => { S.wadv = {}; S.planet = {done: {}}; S.proj = null; S.projDone = []; S.exams = []; S.fam = {msgs: [], duels: []}; S.dq = {}; }],
   ['stars', 'Estrellas y días de la misión (también vacía la isla)', () => { S.stars = 0; S.sub = {}; S.log = {}; S.isla = JSON.parse(JSON.stringify(DEF.isla)); }]
 ];
 function resetHTML() {
@@ -4147,7 +4869,7 @@ function splash() {
 /* =================================================================
    ACTUALIZAR LA APP (el progreso se queda: solo se borra la copia de la app)
    ================================================================= */
-const APP_VERSION = '14';
+const APP_VERSION = '15';
 async function updateApp() {
   $('updBtn').classList.add('spin'); hush();
   try {
@@ -4168,7 +4890,7 @@ setTimeout(checkUpdate, 2500);
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') checkUpdate(); });
 
 /* ARRANQUE */
-paintVoice(); paintTop(); go('home'); splash();
+paintVoice(); paintTop(); go('home'); splash(); setTimeout(showLock, 1500);
 })();
 </script>
 

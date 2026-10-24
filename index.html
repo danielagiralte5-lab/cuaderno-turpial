@@ -501,6 +501,7 @@ body.papamode .top::after{content:'MODO PAPÁ';font-family:var(--f-display);font
 .homeavbox{display:flex;flex-direction:column;align-items:center;gap:4px}
 .homeav{width:84px;height:84px;image-rendering:pixelated}
 @media (max-width:600px){.avrow{grid-template-columns:1fr}.hello{grid-template-columns:auto 1fr}.homeavbox{grid-column:1/-1}}
+.modebtn{background:var(--orange);animation:hop .6s ease 3}
 /* gustos, estudio, nuevas secciones */
 .islabox{position:relative;border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:#BFE6FA}
 #islaCv{display:block;width:100%;aspect-ratio:4/3;max-height:72vh;touch-action:none;cursor:crosshair}
@@ -4561,7 +4562,7 @@ function iNeeds() {
 }
 const islaScore = () => { const I = IS(); return (I.bld || []).filter(b => iget(b.x, b.y, b.z)).length + (I.mobs || []).filter(m => m.t === 'aldeano').length * 2; };
 const islaTitle = n => n < 4 ? 'Islote' : n < 10 ? 'Aldea' : n < 20 ? 'Pueblo' : n < 35 ? 'Ciudad' : 'Gran capital';
-function islaHomeText() { if (!isl.mode) return 'Nuevo: ¡modo OneBlock! Empieza con un bloque en el cielo'; try { iEnsure(); } catch (e) {} if (ONE()) return '🟫 OneBlock · fase ' + OBPH[obPhase(S.sky.ob.n)].n + ' · ⛏️ ' + S.sky.picks + ' golpes'; const N = iNeeds(); return islaTitle(islaScore()) + ' · ' + N.people.length + ' vecinos · ' + (N.people.length ? N.hap + ' % felices · ' : '') + '★ ' + islaFree(); }
+function islaHomeText() { if (!isl.mode) return '🆕 ¡Nuevo modo OneBlock! Toca para elegir'; try { iEnsure(); } catch (e) {} if (ONE()) return '🟫 OneBlock · fase ' + OBPH[obPhase(S.sky.ob.n)].n + ' · ⛏️ ' + S.sky.picks + ' golpes'; const N = iNeeds(); return islaTitle(islaScore()) + ' · ' + N.people.length + ' vecinos · ' + (N.people.length ? N.hap + ' % felices · ' : '') + '★ ' + islaFree(); }
 
 /* ---------- colocar ---------- */
 function placePref(P, cx0, cy0, free) {
@@ -4631,10 +4632,10 @@ function cubeIcon(t) { const c = document.createElement('canvas'); c.width = c.h
   f([ox, oy], [ox + s, oy + s / 2], [ox - s, oy + s / 2], iTex(t, 'top'), 0); f([ox - s, oy + s / 2], [ox, oy + s], [ox - s, oy + s * 1.5], iTex(t, 'side'), .14); f([ox, oy + s], [ox + s, oy + s / 2], [ox, oy + s * 2], iTex(t, 'side'), .3);
   return c.toDataURL(); }
 function paintIsla() {
-  if (!isl.mode) { const had = S.isla && S.isla.v === 2 && S.isla.w; if (had) isl.mode = 'classic'; else return islaChoose(); }
+  if (!isl.mode) return islaChoose();
   iEnsure(); mobInit(); hush(); isl.dirty = true; isl.fx = [];
   const I = IS();
-  $('islaArea').innerHTML = '<div class="islahead card"><div style="flex:1;min-width:220px"><div class="eyebrow" style="color:var(--c-geo)" id="islaTitle"></div><input id="islaName" class="islaname" value="' + esc(I.name || ((ONE() ? 'El imperio de ' : 'Isla de ') + who().split(' ')[0])) + '" aria-label="Nombre de tu isla"><div id="islaHap"></div></div><div class="stack" style="gap:6px;justify-items:end"><div class="pill" style="font-size:22px" id="islaStars"></div><button type="button" class="ghost small" id="avBtn">🧍 Mi avatar</button><button type="button" class="ghost small" id="islaMode">' + (ONE() ? '🏝️ Ir a la isla clásica' : '🟫 Jugar al OneBlock') + '</button></div></div>' + '<div id="avBox"></div>' + (ONE() ? '<div id="obBar" class="obbar card"></div>' : '') +
+  $('islaArea').innerHTML = '<div class="islahead card"><div style="flex:1;min-width:220px"><div class="eyebrow" style="color:var(--c-geo)" id="islaTitle"></div><input id="islaName" class="islaname" value="' + esc(I.name || ((ONE() ? 'El imperio de ' : 'Isla de ') + who().split(' ')[0])) + '" aria-label="Nombre de tu isla"><div id="islaHap"></div></div><div class="stack" style="gap:6px;justify-items:end"><div class="pill" style="font-size:22px" id="islaStars"></div><button type="button" class="ghost small" id="avBtn">🧍 Mi avatar</button><button type="button" class="' + (ONE() ? 'ghost small' : 'small modebtn') + '" id="islaMode">' + (ONE() ? '🏝️ Ir a la isla clásica' : '🟫 Jugar al OneBlock') + '</button></div></div>' + '<div id="avBox"></div>' + (ONE() ? '<div id="obBar" class="obbar card"></div>' : '') +
     '<div class="islabox"><canvas id="islaCv" aria-label="Tu isla en 3D"></canvas><div class="islactl"><button type="button" data-ic="rl" title="Girar">⟲</button><button type="button" data-ic="rr" title="Girar">⟳</button><button type="button" data-ic="zi" title="Acercar">＋</button><button type="button" data-ic="zo" title="Alejar">－</button><button type="button" data-ic="fit" title="Centrar">🎯</button><button type="button" data-ic="night" title="Día o noche">🌙</button><button type="button" data-ic="undo" title="Deshacer">↶</button></div></div>' +
     '<div class="bubble" id="islaMsg" style="margin:10px 0">Elige una herramienta y toca la isla. Arrastra con un dedo para moverte y pellizca con dos para hacer zoom.</div>' +
     '<div class="tabs islatabs">' + [['block', '🧱 Bloques'], ['pick', ONE() ? '⛏️ Picar y romper' : '⛏️ Romper'], ['pref', '🏠 Construcciones'], ['mob', '🧑 Vecinos y animales'], ['look', '👀 Solo mirar']].map(t => '<button type="button" data-it="' + t[0] + '"' + (isl.tool === t[0] ? ' class="on"' : '') + '>' + t[1] + '</button>').join('') + '</div><div class="card" id="islaPal"></div>' +
@@ -4732,7 +4733,7 @@ function iDraw(t) {
   g.textAlign = 'center'; g.textBaseline = 'bottom';
   IMOB.forEach(M => { const p = mobScreen(M, now); const def = MOBS.find(d => d.id === M.m.t) || {}; g.font = (def.sea ? 15 : 17) + 'px "Apple Color Emoji","Segoe UI Emoji",sans-serif';
     g.fillStyle = 'rgba(0,0,0,.18)'; g.beginPath(); g.ellipse(p[0], p[1] - 1, 6, 2.5, 0, 0, 7); g.fill();
-    g.fillText(def.e || '?', p[0], p[1] + (def.sea ? Math.sin(t / 400 + p[0]) * 1.5 : 0));
+    g.fillStyle = '#000'; g.globalAlpha = 1; g.fillText(def.e || '?', p[0], p[1] + (def.sea ? Math.sin(t / 400 + p[0]) * 1.5 : 0));
     if (M.m.t === 'aldeano') { g.font = 'bold 6px sans-serif'; g.fillStyle = '#1F3A68'; g.fillText(M.m.n || '', p[0], p[1] - 18);
       if (M.say > now) { const w = Math.min(120, g.measureText(M.txt).width + 10); g.fillStyle = '#fff'; g.strokeStyle = '#1F3A68'; g.lineWidth = .8; g.beginPath(); g.roundRect ? g.roundRect(p[0] - w / 2, p[1] - 38, w, 12, 4) : g.rect(p[0] - w / 2, p[1] - 38, w, 12); g.fill(); g.stroke(); g.fillStyle = '#1F3A68'; g.font = '6px sans-serif'; g.fillText(M.txt, p[0], p[1] - 28.5); }
       else { const N = isl._needs && isl._needs.get(M.m); if (N && N.need && Math.floor(now / 1500) % 3 === 0) { g.font = '9px "Apple Color Emoji",sans-serif'; g.fillText(N.need.slice(-2), p[0] + 8, p[1] - 16); } } } });
@@ -4902,7 +4903,7 @@ function paintPalOne(el) {
 function islaChoose() {
   $('islaArea').innerHTML = '<div class="card stack" style="text-align:center"><h3 style="font-size:28px">¿Cómo quieres jugar?</h3><p class="muted">Puedes cambiar cuando quieras: cada modo guarda su propio mundo.</p></div><div class="missions" style="margin-top:14px">' +
     '<button type="button" class="card qcard modecard" data-mode="one"><div style="font-size:56px">🟫</div><b>OneBlock</b><p class="muted">Empiezas con <b>un solo bloque</b> flotando en el cielo. Cada vez que estudias ganas golpes de pico. Al picarlo te da materiales y sale otro bloque. ¡Construye tu imperio desde cero!</p></button>' +
-    '<button type="button" class="card qcard modecard" data-mode="classic"><div style="font-size:56px">🏝️</div><b>Isla clásica</b><p class="muted">Empiezas con una isla en el mar. Los bloques normales son gratis y con tus estrellas compras construcciones, vecinos y animales.</p></button></div>';
+    '<button type="button" class="card qcard modecard" data-mode="classic"><div style="font-size:56px">🏝️</div><b>Isla clásica' + (S.isla && S.isla.v === 2 && S.isla.w ? ' (la que ya tienes)' : '') + '</b><p class="muted">Empiezas con una isla en el mar. Los bloques normales son gratis y con tus estrellas compras construcciones, vecinos y animales.</p></button></div>';
   $('islaArea').querySelectorAll('[data-mode]').forEach(b => b.onclick = () => { isl.mode = b.dataset.mode; S.islaMode = isl.mode; save(); IW3 = null; isl.tool = isl.mode === 'one' ? 'pick' : 'block'; paintIsla(); });
 }
 
@@ -5678,7 +5679,7 @@ function splash() {
 /* =================================================================
    ACTUALIZAR LA APP (el progreso se queda: solo se borra la copia de la app)
    ================================================================= */
-const APP_VERSION = '21';
+const APP_VERSION = '22';
 async function updateApp() {
   $('updBtn').classList.add('spin'); hush();
   try {

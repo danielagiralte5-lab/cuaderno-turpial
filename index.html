@@ -451,6 +451,28 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
 .tmlabel{font-family:"Patrick Hand",cursive;font-size:26px;position:relative}
 @media (prefers-reduced-motion:reduce){.tmring{animation:none}.hand{transition:none}#tourBird{transition:none!important}}
 
+
+.rsbtn{margin-left:auto}
+.trbtn + .rsbtn{margin-left:0}
+.rsgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px}
+.rsitem{display:flex;gap:8px;align-items:center;font-size:15px;padding:6px 8px;border:1px solid var(--grid);border-radius:8px}
+.rsitem input{width:20px;height:20px}
+.popbox{background:var(--cream);border:2px solid var(--ink);border-radius:14px;padding:10px 12px;display:grid;gap:4px}
+.popbox span{font-size:13px;color:var(--ink-soft)}
+.popbox b{font-family:var(--f-display);font-size:26px}
+.popbox small{color:var(--ink-soft)}
+.citycard{background:#fff;border:2px solid var(--ink);border-radius:14px;padding:12px;animation:pop .4s ease both}
+.cityup{animation:pop .5s ease both;transform-box:fill-box;transform-origin:center}
+.bigtl{overflow-x:auto;padding:8px 2px 4px;-webkit-overflow-scrolling:touch}
+.bigtrack{display:flex;gap:0;min-width:max-content;position:relative;padding-top:4px}
+.bigtrack:before{content:"";position:absolute;left:0;right:0;top:44px;height:6px;border-radius:3px;background:linear-gradient(90deg,#8B5A2B,#B5462F,#5B4A8B,#1E9AA0,#E0912F,#5A6B85,#D44A8C,#3FA34D)}
+.tlpin{display:flex;flex-direction:column;align-items:center;width:112px;background:none;box-shadow:none;color:var(--ink);padding:0 4px;font-family:var(--f-body);font-weight:400}
+.tly{font-family:var(--f-hand);font-size:18px;color:var(--c);height:34px;display:flex;align-items:flex-end}
+.tld{width:20px;height:20px;border-radius:50%;background:var(--c);border:3px solid #fff;box-shadow:0 0 0 2px var(--c);margin:2px 0 6px;position:relative;z-index:1}
+.tll{font-size:13px;line-height:1.2;text-align:center}
+.tlpin.on .tld{transform:scale(1.35)}
+.tlpin.on .tll{font-weight:700}
+
 @media (max-width:820px){
   .board,.geo{grid-template-columns:1fr}
   .side{position:static}
@@ -556,6 +578,7 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
     <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--c-hist)">Sociales e Historia</h2><button class="trbtn ghost small" type="button" data-tr="histArea">Ver en inglés</button></div>
     <div class="tabs" id="histTabs"><button type="button" data-h="soc" class="on">Temas del cole</button><button type="button" data-h="vive">Vive la historia</button><button type="button" data-h="time">Máquina del tiempo</button><button type="button" data-h="reloj">Reloj de la Tierra</button></div>
     <p class="muted" style="margin-bottom:10px" id="histHelp"></p>
+    <div id="bigTL"></div>
     <div class="timeline" id="eras"></div>
     <div class="card" id="histArea"></div>
   </section>
@@ -1809,15 +1832,84 @@ const ORDERS = {
   con: [['El 2 de mayo en Madrid', '1808'], ['Venezuela declara su independencia', '1811'], ['Se aprueba «La Pepa» en Cádiz', '1812'], ['Se aprueba la Constitución actual', '1978']]
 };
 ERAS.forEach(e => e.order = ORDERS[e.id]);
+/* Siglo XIX ajustado + nuevas épocas hasta hoy */
+(function () {
+  const C = ERAS.find(e => e.id === 'con');
+  C.name = 'Siglo XIX'; C.yr = '1789 – 1900'; C.title = 'Libertad, independencias e inventos';
+  C.scenes[3] = {bg: 'city', cast: '🚂🏭⚙️', who: 'Una obrera de una fábrica', say: '¡La máquina de vapor lo cambia todo! Ahora hay fábricas enormes y trenes.', text: 'Es la <b>Revolución Industrial</b>. En 1848 se inauguró el primer tren de la península: unía <b>Barcelona y Mataró</b>.'};
+  C.facts[2] = 'Con el tren, un viaje que antes duraba días en carruaje se hacía en horas.';
+  C.quiz[3] = {q: '¿Qué máquina movía las fábricas y los trenes del siglo XIX?', o: ['La máquina de vapor', 'El motor eléctrico', 'El ordenador', 'El molino de viento'], why: 'Por eso los trenes echaban tanto humo.'};
+  C.order = [['El 2 de mayo en Madrid', '1808'], ['Venezuela declara su independencia', '1811'], ['Se aprueba «La Pepa» en Cádiz', '1812'], ['Primer tren de la península', '1848']];
+  ERAS.push(
+   {id: 'gm', name: 'Guerras mundiales', yr: '1914 – 1945', title: 'Las dos guerras mundiales',
+    scenes: [
+     {bg: 'revo', cast: '🪖💥🏚️', who: 'Un soldado en una trinchera', say: 'Es 1914. Muchos países de Europa están en guerra. Vivimos en trincheras llenas de barro.', text: 'La <b>Primera Guerra Mundial</b> duró de 1914 a 1918. Se usaron por primera vez tanques y aviones de guerra. España fue <b>neutral</b>: no participó.'},
+     {bg: 'city', cast: '📻🎬🚗', who: 'Tupi', say: 'Después llegan años de cambios: la radio, el cine y los coches se hacen populares.', text: 'Muchas familias escuchan las noticias por la <b>radio</b> por primera vez.'},
+     {bg: 'revo', cast: '✈️💣🌍', who: 'Tupi', say: 'En 1939 empieza la Segunda Guerra Mundial, la guerra más grande de la historia.', text: 'La Alemania nazi de <b>Hitler</b> invadió muchos países y se enfrentó a los <b>Aliados</b>: Reino Unido, la Unión Soviética, Estados Unidos y otros. España no participó oficialmente.'},
+     {bg: 'night', cast: '📔🕯️🏠', who: 'Ana Frank', say: 'Me escondí con mi familia en una casa de Ámsterdam y escribí un diario.', text: 'Los nazis persiguieron y asesinaron a millones de personas judías y de otros grupos. A esto se le llama el <b>Holocausto</b>. Recordarlo ayuda a que no vuelva a pasar.'},
+     {bg: 'field', cast: '🕊️🌐🤝', who: 'Tupi', say: 'En 1945 termina la guerra. Los países crean la ONU para intentar mantener la paz.', text: 'La <b>ONU</b> (Organización de las Naciones Unidas) reúne hoy a casi todos los países del mundo.'}],
+    facts: ['El diario de Ana Frank se ha traducido a muchísimos idiomas y lo leen niños de todo el mundo.', 'Durante la guerra, muchos niños de Londres fueron enviados al campo para estar a salvo de los bombardeos.', 'Al acabar la Primera Guerra Mundial se dijo que sería «la guerra que acabaría con todas las guerras»… pero no fue así.'],
+    quiz: [
+     {q: '¿Cuándo fue la Primera Guerra Mundial?', o: ['De 1914 a 1918', 'De 1939 a 1945', 'De 1808 a 1814', 'En 1492']},
+     {q: '¿Participó España en la Primera Guerra Mundial?', o: ['No, fue neutral', 'Sí, y la ganó', 'Sí, y la perdió', 'España no existía']},
+     {q: '¿Qué organización se creó en 1945 para mantener la paz?', o: ['La ONU', 'La Unión Europea', 'La FIFA', 'Los Juegos Olímpicos']},
+     {q: '¿Quién escribió un diario escondida de los nazis?', o: ['Ana Frank', 'Frida Kahlo', 'Marie Curie', 'Cleopatra']}],
+    order: [['Empieza la Primera Guerra Mundial', '1914'], ['Termina la Primera Guerra Mundial', '1918'], ['Empieza la Segunda Guerra Mundial', '1939'], ['Termina la guerra y nace la ONU', '1945']]},
+   {id: 'esp20', name: 'España en el siglo XX', yr: '1931 – 1982', title: 'De la República a la democracia',
+    scenes: [
+     {bg: 'city', cast: '🗳️👩📜', who: 'Una maestra en 1931', say: 'Se proclama la Segunda República. ¡Y la nueva Constitución reconoce el voto de las mujeres!', text: 'En 1931 el rey Alfonso XIII se marchó de España y empezó la <b>Segunda República</b>. Se abrieron miles de escuelas.'},
+     {bg: 'revo', cast: '💔🏚️🚢', who: 'Tupi', say: 'En 1936 empezó una guerra entre españoles: la Guerra Civil. Duró hasta 1939.', text: 'Murieron muchísimas personas y otras tuvieron que irse del país. Muchas llegaron a <b>México</b>, a <b>Venezuela</b> y a otros países de América.'},
+     {bg: 'castle', cast: '🎖️🚫🗳️', who: 'Tupi', say: 'Al terminar la guerra, el general Franco gobernó durante casi 40 años.', text: 'Fue una <b>dictadura</b>: no había elecciones libres ni partidos políticos, y no se podía criticar al Gobierno. En los años 60 llegaron muchos turistas y el país empezó a modernizarse.'},
+     {bg: 'city', cast: '👑🤝🗳️', who: 'Tupi', say: 'Franco murió en 1975. Empezó la Transición: el paso de la dictadura a la democracia.', text: 'En 1977 hubo <b>elecciones libres</b> por primera vez en más de 40 años, y en 1978 los españoles votaron la <b>Constitución</b> que tenemos hoy.'},
+     {bg: 'field', cast: '⚽🎉📺', who: 'Tupi', say: 'En 1982 España organizó el Mundial de fútbol. ¡Ya era un país democrático y abierto al mundo!', text: 'Muchas familias lo vieron en sus primeras teles en color.'}],
+    facts: ['El «Seiscientos» (SEAT 600) fue el primer coche de muchísimas familias españolas en los años 60.', 'Muchos escritores, científicos y maestros españoles vivieron exiliados en México y en otros países de América.', 'La Constitución de 1978 se aprobó en un referéndum: la votaron todos los ciudadanos.'],
+    quiz: [
+     {q: '¿Qué empezó en España en 1931?', o: ['La Segunda República', 'La Guerra Civil', 'La democracia actual', 'El Mundial de fútbol']},
+     {q: '¿Entre qué años fue la Guerra Civil española?', o: ['Entre 1936 y 1939', 'Entre 1914 y 1918', 'Entre 1975 y 1978', 'Entre 1808 y 1814']},
+     {q: '¿Qué es una dictadura?', o: ['Un gobierno sin elecciones libres, donde manda una persona o un grupo', 'Un tipo de constitución', 'Una fiesta nacional', 'Un país sin rey']},
+     {q: '¿Cómo se llama el paso a la democracia después de 1975?', o: ['La Transición', 'La Reconquista', 'La Revolución Industrial', 'La Ilustración']}],
+    order: [['Empieza la Segunda República', '1931'], ['Empieza la Guerra Civil', '1936'], ['Muere Franco', '1975'], ['Se aprueba la Constitución actual', '1978']]},
+   {id: 'hoy', name: 'De la Luna a internet', yr: '1969 – hoy', title: 'El mundo de hoy',
+    scenes: [
+     {bg: 'night', cast: '🚀🌕👨‍🚀', who: 'Neil Armstrong', say: 'Es un pequeño paso para un hombre, pero un gran salto para la humanidad.', text: 'En <b>julio de 1969</b>, la misión Apolo 11 llevó a los primeros humanos a la Luna. En España se vio de madrugada por la tele.'},
+     {bg: 'city', cast: '🇪🇺🤝🗺️', who: 'Tupi', say: 'En 1986 España entró en la Comunidad Europea, la actual Unión Europea.', text: 'Desde entonces compartimos muchas cosas con otros países europeos: se puede viajar, trabajar y estudiar en ellos fácilmente.'},
+     {bg: 'field', cast: '🏅🔥🏟️', who: 'Tupi', say: '1992 fue un año enorme: Juegos Olímpicos en Barcelona y Exposición Universal en Sevilla.', text: 'Millones de personas de todo el mundo miraron a España.'},
+     {bg: 'city', cast: '💶🪙🛒', who: 'Tupi', say: 'En 2002 la peseta se despidió y llegó el euro.', text: 'El <b>euro</b> es la moneda que comparten muchos países de la Unión Europea.'},
+     {bg: 'lab', cast: '💻📱🤖', who: 'Tupi', say: 'Llegaron internet, los móviles… ¡y la inteligencia artificial, como yo!', text: 'Tú vives en esta época. ¿Qué crees que se inventará cuando seas mayor?'}],
+    facts: ['El ordenador que llevó el Apolo 11 a la Luna era mucho menos potente que un móvil de hoy.', 'La primera página web se publicó en 1991.', 'Antes del euro, en España se pagaba con pesetas.'],
+    quiz: [
+     {q: '¿En qué año llegó el ser humano a la Luna?', o: ['1969', '1492', '2002', '1945']},
+     {q: '¿Qué ciudad organizó los Juegos Olímpicos de 1992?', o: ['Barcelona', 'Madrid', 'Sevilla', 'Valencia']},
+     {q: '¿Qué moneda se usaba en España antes del euro?', o: ['La peseta', 'El dólar', 'El bolívar', 'La libra']},
+     {q: '¿En qué año entró España en la Comunidad Europea?', o: ['1986', '1975', '2002', '1931']}],
+    order: [['Llegada a la Luna', '1969'], ['España entra en la Comunidad Europea', '1986'], ['Olimpiadas de Barcelona', '1992'], ['Llega el euro', '2002']]}
+  );
+})();
+const BIG_TL = [[-14000, 'Bisontes de Altamira', 'pre'], [-218, 'Llegan los romanos', 'ant'], [476, 'Cae Roma', 'med'], [711, 'Nace Al-Ándalus', 'med'], [1492, 'Colón llega a América', 'mod'], [1605, 'Don Quijote', 'mod'], [1808, '2 de mayo', 'con'], [1811, 'Independencia de Venezuela', 'con'], [1848, 'Primer tren', 'con'], [1914, 'Primera Guerra Mundial', 'gm'], [1931, 'Segunda República', 'esp20'], [1936, 'Guerra Civil', 'esp20'], [1939, 'Segunda Guerra Mundial', 'gm'], [1969, 'Llegada a la Luna', 'hoy'], [1975, 'Muere Franco', 'esp20'], [1978, 'Constitución', 'esp20'], [1986, 'España en Europa', 'hoy'], [1992, 'Barcelona 92', 'hoy'], [2002, 'Llega el euro', 'hoy'], [2026, '¡Hoy! Tú estás aquí', 'hoy']];
+const ERA_COL = {pre: '#8B5A2B', ant: '#B5462F', med: '#5B4A8B', mod: '#1E9AA0', con: '#E0912F', gm: '#5A6B85', esp20: '#D44A8C', hoy: '#3FA34D'};
+function bigTimeline() {
+  return '<div class="bigtl"><div class="bigtrack">' + BIG_TL.map((e, k) => '<button type="button" class="tlpin" data-tl="' + k + '" style="--c:' + ERA_COL[e[2]] + '"><span class="tly">' + (e[0] < 0 ? (e[0] < -3000 ? 'hace ' + fmt(-e[0]) + ' años' : fmt(-e[0]) + ' a. C.') : e[0]) + '</span><span class="tld"></span><span class="tll">' + e[1] + '</span></button>').join('') + '</div></div><p class="muted" style="font-size:13px;margin:4px 0 10px">Desliza la línea del tiempo. (Las distancias no son reales: para eso, ¡mira el Reloj de la Tierra!)</p>';
+}
+const LUNA = {id: 'luna', n: 'La noche que llegamos a la Luna', yr: 1969, era: 'Siglo XX', who: 'Carmen, 10 años', bg: 'night', nodes: {
+  start: ['📺🌙👧', 'Es el <b>20 de julio de 1969</b>. Eres Carmen y vives en Madrid. Esta noche unos astronautas van a pisar la Luna por primera vez. En tu casa no hay tele.', [['Ir a casa de la vecina, que tiene tele', 'vecina'], ['Escuchar la radio con tu abuelo', 'radio']]],
+  vecina: ['👵📺🍪', 'En casa de la vecina hay un montón de gente apretada delante de una tele pequeña en <b>blanco y negro</b>. Hay que esperar hasta la madrugada.', [['Aguantar despierta', 'paso']]],
+  radio: ['📻👴⭐', 'Tu abuelo dice que cuando él era niño nadie imaginaba algo así. Por la radio cuentan que el cohete <b>Saturno V</b> despegó de Estados Unidos hace cuatro días.', [['Ir corriendo a ver la tele de la vecina', 'vecina']]],
+  paso: ['🌕👨‍🚀👣', 'De madrugada, <b>Neil Armstrong</b> baja de la nave y pisa la Luna. Todo el mundo se queda en silencio… y luego aplaude. Después baja <b>Buzz Aldrin</b>.', [['Mirar la Luna por la ventana', 'ventana']]],
+  ventana: ['🪟🌕✨', 'Miras la Luna por la ventana y piensas: «Ahí arriba hay personas ahora mismo». Sus huellas siguen allí, porque en la Luna no hay viento que las borre.', [['Irte a dormir', 'fin']]],
+  fin: ['😴🚀💭', 'Esa noche sueñas con ser astronauta. Hoy, mujeres y hombres de todo el mundo se preparan para volver a la Luna… ¿y quién sabe si algún día irás tú?', []]},
+  quiz: [{q: '¿Quién fue la primera persona en pisar la Luna?', o: ['Neil Armstrong', 'Buzz Aldrin', 'Cristóbal Colón', 'Yuri Gagarin']}, {q: '¿Cómo eran casi todas las teles en España en 1969?', o: ['En blanco y negro', 'Planas y en color', 'Táctiles', 'No existían']}, {q: '¿Por qué siguen las huellas en la Luna?', o: ['Porque no hay viento que las borre', 'Porque las protegen con cristal', 'Porque son de cemento', 'Ya no están']}]};
+
 let eraSel = 'pre';
 let histTab = 'soc', socSel = 't1';
 ENTER.hist = () => paintHist();
 $('histTabs').addEventListener('click', e => { const b = e.target.closest('[data-h]'); if (!b) return; histTab = b.dataset.h; paintHist(); });
 function paintHist() {
   $('histTabs').querySelectorAll('[data-h]').forEach(b => b.classList.toggle('on', b.dataset.h === histTab));
+  $('bigTL').innerHTML = histTab === 'time' ? bigTimeline() : '';
+  $('bigTL').querySelectorAll('[data-tl]').forEach(b => b.onclick = () => { const e = BIG_TL[+b.dataset.tl]; $('bigTL').querySelectorAll('.tlpin').forEach(x => x.classList.toggle('on', x === b)); talk((e[0] < 0 ? '' : 'En ' + e[0] + ': ') + e[1]); const E = ERAS.find(x => x.id === e[2]); if (E) { eraSel = E.id; paintEras(); timeMachine(e[0] < -3000 ? -15000 : e[0], E.name, () => openEra(eraSel)); } });
   if (histTab === 'vive') { $('histHelp').textContent = 'Aventuras en las que tú eres el protagonista y decides qué hacer.'; paintAdv(); return; }
   if (histTab === 'reloj') { $('histHelp').textContent = 'Una gran lección Montessori: toda la historia de la Tierra en un solo día.'; $('eras').innerHTML = ''; earthClock($('histArea')); return; }
-  if (histTab === 'time') { $('histHelp').textContent = 'Elige una época. Cada viaje es un cómic corto con un juego y un reto al final. Al completarlo, ganas el sello en tu pasaporte. La Edad Media y la Edad Moderna las verás en clase en el 2.º trimestre.'; paintEras(); openEra(eraSel); return; }
+  if (histTab === 'time') { $('histHelp').textContent = 'Elige una época. Cada viaje es un cómic corto con un juego y un reto al final. Al completarlo, ganas el sello en tu pasaporte. Toca un momento de la línea del tiempo o una época para viajar. La Edad Media y la Moderna las verás en clase en el 2.º trimestre.'; paintEras(); openEra(eraSel); return; }
   $('histHelp').textContent = 'Los temas de Sociales de este trimestre en tu cole. Cada uno es un cómic con un reto al final.';
   paintSoc(); openSoc(socSel);
 }
@@ -2020,7 +2112,7 @@ function mapTap(id) {
   if (geoTab === 'map') {
     geoSel = id; drawMap();
     const lands = Object.keys(LANDS).filter(k => LANDS[k][2] === id);
-    $('geoSide').innerHTML = '<div class="eyebrow" style="color:var(--c-geo)">' + (g.p ? 'Comunidad autónoma' : 'Ciudad autónoma') + '</div><h3 style="font-size:28px;margin:4px 0 8px">' + g.n + '</h3><p><b>Capital:</b> ' + g.c + '</p>' + (g.p ? '<p><b>Provincias:</b> ' + g.p + '</p>' : '') + '<div class="bubble">' + g.f + '</div>' + (lands.length ? '<p style="margin-top:8px"><b>Para visitar:</b> ' + lands.map(k => LANDS[k][0] + ' ' + LANDS[k][1]).join(' · ') + '</p>' : '') + '<p class="muted" style="margin-top:8px">Has explorado ' + (Object.keys(S.geo.seen).length + (S.geo.seen[id] ? 0 : 1)) + ' de 19.</p>';
+    $('geoSide').innerHTML = '<div class="eyebrow" style="color:var(--c-geo)">' + (g.p ? 'Comunidad autónoma' : 'Ciudad autónoma') + '</div><h3 style="font-size:28px;margin:4px 0 8px">' + g.n + '</h3><p><b>Capital:</b> ' + g.c + '</p>' + (g.p ? '<p><b>Provincias:</b> ' + g.p + '</p>' : '') + (CITY[id] ? '<p><b>Habitantes:</b> unos ' + millones(CITY[id][0]) + '</p><p class="muted" style="font-size:14px">' + CITY[id][1] + '</p>' : '') + '<div class="bubble">' + g.f + '</div>' + (lands.length ? '<p style="margin-top:8px"><b>Para visitar:</b> ' + lands.map(k => LANDS[k][0] + ' ' + LANDS[k][1]).join(' · ') + '</p>' : '') + '<p class="muted" style="margin-top:8px">Has explorado ' + (Object.keys(S.geo.seen).length + (S.geo.seen[id] ? 0 : 1)) + ' de 19.</p>';
     talk(g.n + '. Su capital es ' + g.c + '. ' + g.f);
     if (!S.geo.seen[id]) { S.geo.seen[id] = 1; save(); const n = Object.keys(S.geo.seen).length; if (n % 5 === 0 || n === 19) { addStars(1, 'geo'); logDo('geo'); toast('Has explorado ' + n + ' sitios. ¡Una estrella!'); } }
     return;
@@ -2958,6 +3050,40 @@ function engChat(sc) {
   if (!SR) mic.hidden = true; else mic.onclick = () => { hush(); const rec = new SR(); rec.lang = 'en-GB'; rec.onresult = ev => { const t = ev.results[0][0].transcript; send(t); }; try { rec.start(); mic.querySelector('span').textContent = 'Listening…'; rec.onend = () => mic.querySelector('span').textContent = 'Hablar'; } catch (e) {} };
   send('');
 }
+/* Fichas para "construir España" */
+const CITY = {
+  '13': [7.0, 'Nació como una fortaleza musulmana llamada Mayrit, en el siglo IX. Hoy es la capital de España.', 'unos 3,4 millones'],
+  '09': [8.0, 'Los romanos la fundaron con el nombre de Barcino hace más de 2.000 años.', 'unos 1,7 millones'],
+  '01': [8.6, 'Es muy antigua: los romanos la llamaban Hispalis. Desde su puerto salían los barcos hacia América.', 'unos 680.000'],
+  '10': [5.3, 'La fundaron los romanos en el año 138 a. C.', 'unos 800.000'],
+  '12': [2.7, 'Creció alrededor del sepulcro del apóstol Santiago, descubierto en el siglo IX.', 'unos 100.000'],
+  '07': [2.4, 'Fue capital de España durante unos años, en tiempos del rey Felipe III.', 'unos 300.000'],
+  '16': [2.2, 'La fundó el rey Sancho VI de Navarra en el año 1181.', 'unos 255.000'],
+  '05': [2.2, 'Santa Cruz de Tenerife se fundó en 1494 y Las Palmas de Gran Canaria, en 1478.', 'unos 210.000 y 380.000'],
+  '08': [2.1, 'Fue la capital del reino visigodo. La llaman «la ciudad de las tres culturas».', 'unos 85.000'],
+  '14': [1.6, 'La fundó el emir Abderramán II en el año 825.', 'unos 470.000'],
+  '02': [1.35, 'Los romanos la fundaron como Caesaraugusta, en honor al emperador Augusto.', 'unos 680.000'],
+  '04': [1.2, 'La fundaron los romanos en el año 123 a. C.', 'unos 425.000'],
+  '11': [1.05, 'Los romanos la fundaron en el año 25 a. C. con el nombre de Emerita Augusta.', 'unos 60.000'],
+  '03': [1.0, 'Se fundó en el año 761 y fue capital del antiguo reino de Asturias.', 'unos 220.000'],
+  '15': [0.68, 'La fundó el general romano Pompeyo: de ahí viene su nombre.', 'unos 205.000'],
+  '06': [0.59, 'Tiene puerto desde la época de los romanos.', 'unos 170.000'],
+  '17': [0.32, 'Es una parada muy importante del Camino de Santiago.', 'unos 150.000']
+};
+const millones = v => v.toLocaleString('es-ES', {maximumFractionDigits: 1}) + ' millones';
+function cityCard(id) {
+  const g = GEO[id], c = CITY[id]; if (!c) return '';
+  const lands = Object.keys(LANDS).filter(k => LANDS[k][2] === id);
+  return '<div class="citycard"><div class="eyebrow" style="color:var(--c-geo)">' + g.n + '</div><h3 style="font-size:26px;margin:2px 0 6px">🏙️ ' + (g.short || g.c) + '</h3><p>' + c[1] + '</p><p style="margin-top:6px"><b>Habitantes de la capital:</b> ' + c[2] + '<br><b>Habitantes de la comunidad:</b> unos ' + millones(c[0]) + '</p>' + (lands.length ? '<p style="margin-top:6px">' + lands.map(k => LANDS[k][0] + ' ' + LANDS[k][1]).join('<br>') + '</p>' : '') + '</div>';
+}
+function cityBuild(svg, id) {
+  const cp = MAP.caps[id], g = GEO[id];
+  const land = Object.keys(LANDS).find(k => LANDS[k][2] === id);
+  let h = '<g class="cityup">';
+  if (land) { const l = GEO2.land[land]; h += '<text x="' + l[0] + '" y="' + (l[1] + 9) + '" text-anchor="middle" font-size="22">' + LANDS[land][0] + '</text>'; }
+  h += '<circle class="capdot" cx="' + cp[0] + '" cy="' + cp[1] + '" r="6"/><text class="caplbl" x="' + (cp[0] + 9) + '" y="' + (cp[1] - 7) + '" style="font-size:13px">' + (g.short || g.c).split(' y ')[0].split(' / ')[0] + '</text></g>';
+  svg.insertAdjacentHTML('beforeend', h);
+}
 /* =================================================================
    TALLER MONTESSORI
    ================================================================= */
@@ -2970,7 +3096,7 @@ const MONT = [
 ];
 ENTER.mont = () => paintMont();
 function paintMont() {
-  hush(); stopGames();
+  hush(); stopGames(); curMont = null;
   $('montArea').innerHTML = '<div class="card" style="margin-bottom:16px"><p style="font-size:18px">En el método Montessori primero se <b>toca y se mueve</b>, y después se entiende. Aquí tienes los materiales clásicos en digital: haz las cosas con tus manos y Tupi te acompaña.</p></div><div class="missions">' + MONT.map(m => '<button class="mis" type="button" data-mo="' + m.id + '" style="box-shadow:0 4px 0 ' + m.c + '"><b>' + m.n + '</b>' + m.d + '</button>').join('') + '</div>';
   $('montArea').querySelectorAll('[data-mo]').forEach(b => b.onclick = () => openMont(b.dataset.mo));
 }
@@ -2979,6 +3105,7 @@ function montFrame(title) {
   $('moBack').onclick = paintMont; return $('moBox');
 }
 function openMont(id) {
+  curMont = id;
   const m = MONT.find(x => x.id === id); const box = montFrame(m.n); talk(m.n + '. ' + m.d);
   if (id === 'beads') beads(box);
   if (id === 'frac') fracCircles(box);
@@ -3101,7 +3228,7 @@ function puzzleMap(mapEl, side) {
   ids.forEach(id => h += '<g class="piece" data-p="' + id + '" transform="translate(' + off[id][0] + ',' + off[id][1] + ')"><path d="' + MAP.paths[id] + '" style="fill:' + GEO[id].color + '"/></g>');
   mapEl.innerHTML = h + '</svg>';
   const svg = mapEl.querySelector('svg');
-  const paint = msg => { const n = Object.keys(placed).length; side.innerHTML = '<div class="eyebrow" style="color:var(--c-geo)">Mapa rompecabezas</div><p style="margin:6px 0">Arrastra cada pieza de color hasta su hueco gris. Cuando esté cerca, ¡encaja sola!</p><div class="found"><div class="progressline" style="flex:1"><i style="width:' + Math.round(n / ids.length * 100) + '%;background:var(--c-geo)"></i></div><b>' + n + '/' + ids.length + '</b></div><div id="pzMsg" style="margin-top:10px">' + (msg || '') + '</div><div class="actions"><button class="ghost small" type="button" id="pzAgain">Desordenar otra vez</button></div>'; $('pzAgain').onclick = () => puzzleMap(mapEl, side); };
+  const paint = msg => { const n = Object.keys(placed).length; const pop = Object.keys(placed).reduce((a, k) => a + (CITY[k] ? CITY[k][0] : 0), 0); side.innerHTML = '<div class="eyebrow" style="color:var(--c-geo)">Construye España</div><p style="margin:6px 0">Arrastra cada pieza hasta su hueco. Cuando encaje, ¡su ciudad aparecerá en el mapa!</p><div class="popbox"><span>Habitantes de tu España</span><b>' + (pop ? 'unos ' + millones(pop) : '0') + '</b><div class="progressline"><i style="width:' + Math.min(100, Math.round(pop / 48.3 * 100)) + '%;background:var(--c-geo)"></i></div><small>' + n + ' de ' + ids.length + ' comunidades</small></div><div id="pzMsg" style="margin-top:10px">' + (msg || '') + '</div><div class="actions"><button class="ghost small" type="button" id="pzAgain">Desordenar otra vez</button></div>'; $('pzAgain').onclick = () => puzzleMap(mapEl, side); };
   paint();
   const pt = e => { const p = svg.createSVGPoint ? svg.createSVGPoint() : {x: 0, y: 0}; p.x = e.clientX; p.y = e.clientY; const m = svg.getScreenCTM && svg.getScreenCTM(); return m ? p.matrixTransform(m.inverse()) : {x: e.clientX, y: e.clientY}; };
   let drag = null;
@@ -3117,9 +3244,10 @@ function puzzleMap(mapEl, side) {
       if (!drag || drag.g !== g) return; const id = drag.id; g.classList.remove('drag'); drag = null;
       if (Math.hypot(off[id][0], off[id][1]) < 28) {
         off[id] = [0, 0]; g.setAttribute('transform', 'translate(0,0)'); g.classList.add('placed'); placed[id] = 1;
-        const n = Object.keys(placed).length; paint('<div class="bubble"><b>¡Encaja! ' + GEO[id].n + '</b>. Capital: ' + GEO[id].c + '.</div>');
-        talk('¡Encaja! ' + GEO[id].n + '.');
-        if (n === ids.length) { const secs = Math.round((Date.now() - t0) / 1000); const best = S.mont.puzzle; if (!best || secs < best) S.mont.puzzle = secs; addStars(5, 'mont'); logDo('geo'); save(); paint('<div class="bubble"><b>¡Mapa completo en ' + Math.floor(secs / 60) + ' min ' + (secs % 60) + ' s!</b> Tu récord: ' + Math.floor(S.mont.puzzle / 60) + ' min ' + (S.mont.puzzle % 60) + ' s. Ganas 5 ★.</div>'); toast('¡Has montado el mapa de España entero!', true); }
+        cityBuild(svg, id);
+        const n = Object.keys(placed).length; paint(cityCard(id));
+        talk('¡Encaja! ' + GEO[id].n + '. Su capital es ' + GEO[id].c + '. ' + (CITY[id] ? CITY[id][1] + ' Tiene ' + CITY[id][2] + ' habitantes.' : ''));
+        if (n === ids.length) { const secs = Math.round((Date.now() - t0) / 1000); const best = S.mont.puzzle; if (!best || secs < best) S.mont.puzzle = secs; addStars(5, 'mont'); logDo('geo'); save(); paint('<div class="bubble"><b>¡Has construido España!</b> 17 comunidades, más de 48 millones de habitantes y una capital: Madrid. Lo has hecho en ' + Math.floor(secs / 60) + ' min ' + (secs % 60) + ' s (récord: ' + Math.floor(S.mont.puzzle / 60) + ' min ' + (S.mont.puzzle % 60) + ' s). Ganas 5 ★.</div>'); toast('¡Has construido España entera! Más de 48 millones de habitantes.', true); }
       }
     };
     g.addEventListener('pointerup', end); g.addEventListener('pointercancel', end);
@@ -3185,7 +3313,8 @@ const ADV = [
   fin: ['🌙🏡✨', 'Al atardecer vuelves a casa por las calles estrechas. Muchas palabras que dices hoy en castellano, como aceite, almohada o azúcar, vienen del árabe de Yusuf.', []]},
   quiz: [{q: '¿Cómo son los arcos de la Mezquita de Córdoba?', o: ['De dos colores, rojo y blanco', 'De cristal', 'Todos dorados', 'De madera']}, {q: '¿Qué es un zoco?', o: ['Un mercado', 'Un barco', 'Un castillo', 'Un tipo de zapato']}, {q: '¿Para qué servían las acequias?', o: ['Para llevar el agua a los cultivos', 'Para guardar libros', 'Para hacer pan', 'Para defender la ciudad']}]}
 ];
-const ERA_YEAR = {pre: -15000, ant: -218, med: 711, mod: 1492, con: 1808};
+const ERA_YEAR = {pre: -15000, ant: -218, med: 711, mod: 1492, con: 1808, gm: 1914, esp20: 1931, hoy: 1969};
+ADV.push(LUNA);
 const yrTxt = y => y < 0 ? fmt(-y) + ' a. C.' : String(y);
 function timeMachine(target, label, done) {
   const ov = $('tmOverlay'); ov.hidden = false;
@@ -3258,10 +3387,12 @@ const GAMES = [
   {id: 'tnat', s: 'Ciencias', c: 'var(--c-nat)', n: '¿Verdad o mito del cuerpo?', d: '60 segundos sobre huesos, corazón y digestión.', run: el => tfGame(el, 'tnat', TF.nat)}
 ];
 ENTER.games = () => paintGames();
+let curGame = null, curMont = null;
+function runGame(g) { curGame = g; stopGames(); $('gamesArea').innerHTML = '<div class="row" style="margin-bottom:12px"><button class="ghost small" type="button" id="gmBack">← Juegos</button><h3 style="font-size:24px;color:' + g.c + '">' + g.n + '</h3></div><div class="card" id="gmBox"></div>'; $('gmBack').onclick = paintGames; talk(g.n + '. ' + g.d); g.run($('gmBox')); }
 function paintGames() {
-  stopGames(); hush();
+  stopGames(); hush(); curGame = null;
   $('gamesArea').innerHTML = '<p class="muted" style="margin-bottom:12px">Elige un juego. ¡Intenta batir tu récord!</p><div class="missions">' + GAMES.map(g => '<button class="mis" type="button" data-gm="' + g.id + '" style="box-shadow:0 4px 0 ' + g.c + '"><span class="eyebrow" style="color:' + g.c + '">' + g.s + (S.games[g.id] != null ? ' · récord ' + S.games[g.id] : '') + '</span><b>' + g.n + '</b>' + g.d + '</button>').join('') + '</div>';
-  $('gamesArea').querySelectorAll('[data-gm]').forEach(b => b.onclick = () => { const g = GAMES.find(x => x.id === b.dataset.gm); $('gamesArea').innerHTML = '<div class="row" style="margin-bottom:12px"><button class="ghost small" type="button" id="gmBack">← Juegos</button><h3 style="font-size:24px;color:' + g.c + '">' + g.n + '</h3></div><div class="card" id="gmBox"></div>'; $('gmBack').onclick = paintGames; talk(g.n + '. ' + g.d); g.run($('gmBox')); });
+  $('gamesArea').querySelectorAll('[data-gm]').forEach(b => b.onclick = () => runGame(GAMES.find(x => x.id === b.dataset.gm)));
 }
 let gameTimers = [];
 function stopGames() { gameTimers.forEach(t => { clearInterval(t); cancelAnimationFrame(t); }); gameTimers = []; }
@@ -3401,9 +3532,50 @@ ENTER.prog = () => {
     '<div class="kpis"><div class="card kpi"><span class="muted">Estrellas</span><b>★ ' + S.stars + '</b></div><div class="card kpi"><span class="muted">Racha de lectura</span><b>' + readStreak() + ' días</b></div><div class="card kpi"><span class="muted">Minutos leídos</span><b>' + S.read.minutes + '</b></div><div class="card kpi"><span class="muted">Sellos de historia</span><b>' + Object.keys(S.hist).length + ' / ' + ERAS.length + '</b></div></div>' +
     '<div class="card"><div class="eyebrow" style="margin-bottom:10px">Últimos 7 días · misiones cumplidas</div><div class="week">' + days.map(x => '<div class="' + (x.n === 3 ? 'full' : '') + '"><b>' + x.l + '</b><br>' + x.n + '/3</div>').join('') + '</div></div>' +
     '<div class="card"><div class="eyebrow" style="margin-bottom:10px">Estrellas por asignatura</div><div class="bars">' + SUBJ.map(s => '<div class="bar"><span>' + s.name + '</span><div class="track"><i style="width:' + Math.round((S.sub[s.id] || 0) / max * 100) + '%;background:' + s.color + '"></i></div><b>' + (S.sub[s.id] || 0) + '</b></div>').join('') + '</div></div>' +
-    refuerzoHTML() + parentHTML() +
+    refuerzoHTML() + parentHTML() + resetHTML() +
     '<div class="card"><div class="eyebrow" style="margin-bottom:10px">Niveles</div><p>Multiplicar: <b>nivel ' + S.math.mul + '</b> (' + MUL_NAME[S.math.mul] + ') · Cálculo mental: <b>nivel ' + S.math.men + '</b> · Problemas: <b>nivel ' + S.math.pro + '</b></p><p>Inglés: <b>nivel ' + S.eng.unlocked + ' de 6</b> · IA: <b>' + Object.keys(S.ai.done).length + ' de 7 misiones</b>' + (S.ai.carnet ? ' · carnet conseguido' : '') + '</p></div>';
 };
+
+/* =================================================================
+   REINICIAR
+   ================================================================= */
+const RESTART = {
+  games: () => curGame ? runGame(curGame) : paintGames(),
+  mont: () => curMont ? openMont(curMont) : paintMont(),
+  mat: () => renderMat(), read: () => renderShelf(), len: () => paintLen(), hist: () => paintHist(),
+  geo: () => startGeo(), nat: () => openNat(natSel), eng: () => { paintPath(); engIntro(); }, ai: () => aiHome(), art: () => paintArt(), chat: () => paintChat()
+};
+document.querySelectorAll('section[id^="v-"] .subhead').forEach(h => {
+  const v = h.parentElement.id.slice(2); if (v === 'prog' || v === 'chat') return;
+  h.insertAdjacentHTML('beforeend', '<button class="ghost small rsbtn" type="button" data-rs="' + v + '" aria-label="Reiniciar">↻ Reiniciar</button>');
+});
+document.addEventListener('click', e => { const b = e.target.closest('[data-rs]'); if (!b) return; hush(); stopGames(); (RESTART[b.dataset.rs] || ENTER[b.dataset.rs] || (() => {}))(); window.scrollTo(0, 0); toast('¡Empezamos de nuevo!'); });
+const RESETS = [
+  ['mat', 'Matemáticas (niveles y temas)', () => { S.math = JSON.parse(JSON.stringify(DEF.math)); S.mtop = {}; }],
+  ['read', 'Lectura (cuentos, cómics, libros, racha)', () => { S.read = JSON.parse(JSON.stringify(DEF.read)); Object.keys(S.log).forEach(d => { delete S.log[d].read; }); }],
+  ['len', 'Lengua del cole', () => { S.len = {}; }],
+  ['hist', 'Historia y Sociales (sellos y aventuras)', () => { S.hist = {}; S.soc = {}; S.adv = {}; }],
+  ['geo', 'Geografía (mapa pintado y récords)', () => { S.geo = JSON.parse(JSON.stringify(DEF.geo)); }],
+  ['nat', 'Ciencias', () => { S.nat = {}; }],
+  ['eng', 'Inglés (niveles y récords)', () => { S.eng = JSON.parse(JSON.stringify(DEF.eng)); }],
+  ['ai', 'Laboratorio de IA (misiones, entrenamiento, carnet)', () => { S.ai = JSON.parse(JSON.stringify(DEF.ai)); }],
+  ['games', 'Juegos y Montessori (récords)', () => { S.games = {}; S.mont = {}; }],
+  ['art', 'Galería de dibujos', () => { S.art = {gallery: []}; }],
+  ['chat', 'Conversaciones con Tupi', () => { S.chat = []; }],
+  ['stars', 'Estrellas y días de la misión', () => { S.stars = 0; S.sub = {}; S.log = {}; }]
+];
+function resetHTML() {
+  return '<details class="card"><summary class="eyebrow" style="cursor:pointer">Zona papá · empezar de cero</summary><p class="muted" style="margin:8px 0">Marca lo que quieres borrar. El nombre y la voz se quedan.</p><div class="rsgrid">' + RESETS.map(r0 => '<label class="rsitem"><input type="checkbox" value="' + r0[0] + '"> ' + r0[1] + '</label>').join('') + '</div><div class="row" style="margin-top:10px"><button class="ghost small" type="button" id="rsAll">Marcar todo</button><button type="button" id="rsGo" style="background:var(--bad)">Borrar lo marcado</button></div><div id="rsMsg" style="margin-top:8px"></div></details>';
+}
+document.addEventListener('click', e => {
+  if (e.target.closest('#rsAll')) { document.querySelectorAll('.rsitem input').forEach(i => i.checked = true); return; }
+  if (e.target.closest('#rsGo')) {
+    const sel = [...document.querySelectorAll('.rsitem input:checked')].map(i => i.value); if (!sel.length) { $('rsMsg').innerHTML = '<div class="bubble">Marca primero qué quieres borrar.</div>'; return; }
+    $('rsMsg').innerHTML = '<div class="bubble">¿Seguro? Se borrará: ' + sel.map(k => RESETS.find(r0 => r0[0] === k)[1].split(' (')[0]).join(', ') + '. No se puede deshacer. <div class="row" style="margin-top:8px"><button type="button" id="rsYes" style="background:var(--bad)">Sí, borrar</button><button class="ghost small" type="button" id="rsNo">No</button></div></div>';
+    $('rsYes').onclick = () => { sel.forEach(k => RESETS.find(r0 => r0[0] === k)[2]()); save(); paintTop(); ENTER.prog(); toast('Listo: progreso borrado. ¡A empezar de nuevo!'); };
+    $('rsNo').onclick = () => { $('rsMsg').innerHTML = ''; };
+  }
+});
 
 /* =================================================================
    BIENVENIDA
@@ -3437,7 +3609,7 @@ function splash() {
 /* =================================================================
    ACTUALIZAR LA APP (el progreso se queda: solo se borra la copia de la app)
    ================================================================= */
-const APP_VERSION = '9';
+const APP_VERSION = '10';
 async function updateApp() {
   $('updBtn').classList.add('spin'); hush();
   try {

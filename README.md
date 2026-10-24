@@ -12,3 +12,4 @@ App de estudio para 5.º de Primaria con Tupi, un turpial con inteligencia artif
 3. Redeploy. En el iPad: Safari → Compartir → Añadir a pantalla de inicio.
 
 El progreso del niño se guarda solo en el iPad. La carpeta `api/` contiene la función que habla con Claude: la clave nunca llega al navegador.
+Versión 5

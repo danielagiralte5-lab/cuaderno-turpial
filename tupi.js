@@ -105,6 +105,11 @@ export default async function handler(req, res) {
     } else if (task === 'coach') {
       system = SAFE + ' Eres un entrenador de prompts. Evalúa el prompt que ha escrito el niño para pedirle algo a una IA. Criterios: tarea clara, contexto (para quién o para qué), detalles concretos y formato (longitud, estilo). Da una nota de 1 a 10 sincera, una cosa que está bien, un consejo concreto y una versión mejorada del prompt escrita como lo diría un niño listo de 10 años.' + JSONONLY + ' Formato: {"score":7,"good":"…","tip":"…","better":"…"}';
       msgs = [{role: 'user', content: 'Prompt del niño: ' + t}];
+    } else if (task === 'explain') {
+      maxTokens = 700;
+      const f = k => String(body[k] || '').slice(0, 400);
+      system = SAFE + (body.en ? ' The child studies this subject in English: answer in simple English (A2 level).' : '') + ' Eres un profe paciente. El niño ha fallado una pregunta. Explícale paso a paso, con frases muy cortas, cómo se llega a la respuesta correcta, usando los datos de la pregunta (si hay números, desglósalos). Máximo 4 pasos. Si su respuesta tiene un error típico, dile con cariño por qué no era esa. Después pon UN ejemplo parecido ya resuelto, distinto al de la pregunta. Los datos deben ser correctos.' + JSONONLY + ' Formato: {"steps":["…","…"],"example":"…"}';
+      msgs = [{role: 'user', content: 'Pregunta: ' + f('q') + '\nRespuesta correcta: ' + f('right') + '\nEl niño contestó: ' + f('chosen') + (f('why') ? '\nPista de la app: ' + f('why') : '')}];
     } else if (task === 'exam') {
       maxTokens = 2400;
       const subj = String(body.subject || '').slice(0, 40), notes = String(body.notes || '').slice(0, 2500);

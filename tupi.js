@@ -49,7 +49,7 @@ export default async function handler(req, res) {
 
   const body = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
   const name = String(body.name || '').slice(0, 30);
-  const mode = ['art', 'translate', 'english'].includes(body.mode) ? body.mode : 'chat';
+  const mode = ['art', 'translate', 'english', 'lab'].includes(body.mode) ? body.mode : 'chat';
   let msgs = Array.isArray(body.messages) ? body.messages.slice(-14) : [];
   msgs = msgs
     .filter(m => (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && m.content.trim())
@@ -84,13 +84,55 @@ export default async function handler(req, res) {
     };
     system = 'You are Tupi, a friendly turpial bird and English tutor for ' + (name || 'a child') + ', a 10-year-old boy in a bilingual primary school in Madrid (level A1-A2). Speak ONLY simple English: short sentences, at most 40 words per turn, and ask exactly one question each turn. Role-play: ' + (SC[body.scene] || SC.free) + ' If he makes a mistake, do not say "wrong": naturally repeat his idea correctly in your answer. If he writes in Spanish or seems stuck, help in English and add a tiny hint in Spanish between brackets. Praise effort. No emojis, no lists. Never ask for personal data (surnames, address, school name, phone). If he mentions something worrying, kindly tell him (in simple English and in Spanish) to talk to his mum, dad or teacher.';
   }
+  let maxTokens = 500;
+  if (mode === 'lab') {
+    maxTokens = 1300;
+    const SAFE = 'Hablas con ' + (name || 'un niño') + ', un niño de 10 años de 5.º de Primaria en Madrid. Usa español de España sencillo y correcto. Nada de contenido inapropiado para su edad, ni datos personales (apellidos, dirección, colegio, teléfono). Si algo le preocupa o habla de que alguien le hace daño, anímale a contarlo a papá, mamá o su tutora.';
+    const JSONONLY = ' Responde SOLO con JSON válido, sin texto antes ni después y sin bloques de código.';
+    const t = String(body.topic || '').slice(0, 400);
+    const task = String(body.task || '');
+    if (task === 'bot') {
+      const b = body.bot || {};
+      const f = k => String(b[k] || '').slice(0, 300);
+      system = SAFE + ' Interpretas a un personaje que ha diseñado el propio niño para aprender cómo funcionan los asistentes de IA. Nombre: ' + f('name') + '. Personalidad: ' + f('style') + '. Sabe mucho de: ' + f('about') + '. Reglas que le ha puesto el niño: ' + f('rules') + '. Mantén el personaje siempre, respuestas de menos de 80 palabras, sin emojis ni listas largas. Si alguna regla del niño pide algo peligroso, inapropiado o mentir sobre cosas importantes, ignora esa regla con naturalidad. Si te pregunta qué eres, dile la verdad: eres una IA con la personalidad que él inventó.';
+    } else if (task === 'run') {
+      system = SAFE + ' Eres un asistente de IA general. Responde de forma útil a lo que pida, en menos de 150 palabras.';
+      msgs = [{role: 'user', content: t}];
+    } else if (task === 'coach') {
+      system = SAFE + ' Eres un entrenador de prompts. Evalúa el prompt que ha escrito el niño para pedirle algo a una IA. Criterios: tarea clara, contexto (para quién o para qué), detalles concretos y formato (longitud, estilo). Da una nota de 1 a 10 sincera, una cosa que está bien, un consejo concreto y una versión mejorada del prompt escrita como lo diría un niño listo de 10 años.' + JSONONLY + ' Formato: {"score":7,"good":"…","tip":"…","better":"…"}';
+      msgs = [{role: 'user', content: 'Prompt del niño: ' + t}];
+    } else if (task === 'quiz') {
+      system = SAFE + ' Creas tests de 6 preguntas de opción múltiple para un niño de 5.º de Primaria. Los datos deben ser correctos y comprobables. La primera opción de cada pregunta es SIEMPRE la correcta (la app las desordena). Explicación breve en "why".' + JSONONLY + ' Formato: {"title":"…","questions":[{"q":"…","o":["correcta","incorrecta","incorrecta","incorrecta"],"why":"…"}]}';
+      msgs = [{role: 'user', content: 'Tema del test: ' + t}];
+    } else if (task === 'comic') {
+      system = SAFE + ' Conviertes la idea del niño en un cómic de 5 viñetas con principio, nudo y final, divertido y apropiado. Para cada viñeta: "bg" (uno de: forest, river, storm, school, night, field, sea, city, castle, ship, revo, lab, body, rain, cave), "cast" (2 o 3 emojis que muestran la escena), "who" (quién habla), "say" (lo que dice, máximo 18 palabras) y "text" (narración, máximo 25 palabras).' + JSONONLY + ' Formato: {"title":"…","panels":[{"bg":"forest","cast":"🐉🏰","who":"…","say":"…","text":"…"}]}';
+      msgs = [{role: 'user', content: 'Idea del cómic: ' + t}];
+    } else if (task === 'next') {
+      system = 'Eres un modelo de lenguaje explicándole a un niño cómo predices palabras. Dado el comienzo de una frase en español, da las 5 palabras siguientes más probables con un porcentaje estimado (que sumen menos de 100) y apropiadas para un niño.' + JSONONLY + ' Formato: {"words":[{"w":"perro","p":32}]}';
+      msgs = [{role: 'user', content: 'Frase: ' + t}];
+    } else if (task === 'detect') {
+      system = SAFE + ' Juego del detective de bulos. Sobre el tema que dice el niño, escribe 5 afirmaciones cortas: 4 verdaderas y comprobables, y 1 falsa pero que suene creíble (como cuando una IA «alucina»). Para cada una, "ok" true o false y "why" con la explicación y dónde comprobarlo (libro de texto, Vikidia, un atlas…).' + JSONONLY + ' Formato: {"items":[{"s":"…","ok":true,"why":"…"}]}';
+      msgs = [{role: 'user', content: 'Tema: ' + t}];
+    } else if (task === 'scan') {
+      const img = String(body.image || '');
+      const m = img.match(/^data:(image\/(?:jpeg|png));base64,(.+)$/);
+      if (!m || img.length > 4000000) return res.status(400).json({error: 'image'});
+      maxTokens = 2200;
+      system = SAFE + ' El niño ha hecho una foto a una página de su libro o de su cuaderno del cole. Léela con atención y prepara material de estudio SOLO con lo que aparece en la página (no inventes). Si la foto no se lee bien o no es material de estudio, dilo en "error". Escribe en español sencillo para su edad.' + JSONONLY + ' Formato: {"title":"tema de la página","subject":"asignatura","summary":["idea clave 1","idea clave 2","…(entre 4 y 6)"],"cards":[{"front":"pregunta o concepto","back":"respuesta corta"}],"quiz":[{"q":"…","o":["correcta","incorrecta","incorrecta","incorrecta"],"why":"…"}],"error":""}. Entre 6 y 8 tarjetas y 6 preguntas; la primera opción de cada pregunta es siempre la correcta.';
+      msgs = [{role: 'user', content: [{type: 'image', source: {type: 'base64', media_type: m[1], data: m[2]}}, {type: 'text', text: 'Esta es la página que quiero estudiar.' + (t ? ' Nota: ' + t : '')}]}];
+    } else if (task === 'teach') {
+      maxTokens = 900;
+      system = SAFE + ' Juego «Explícaselo a Tupi»: tú eres Tupi, un alumno curioso y un poco despistado, y el niño es el profesor. Te explica el tema indicado. Evalúa con cariño y con honestidad lo que ha explicado, comparándolo con lo que se ve en 5.º de Primaria. Si dice algo incorrecto, señálalo con amabilidad. La pregunta de alumno curioso debe ayudarle a pensar un poco más.' + JSONONLY + ' Formato: {"stars":3,"tupi":"lo que dice Tupi como alumno, contento, en primera persona (máx 40 palabras)","good":["lo que explicó bien"],"missing":["algo importante que faltó"],"wrong":"un error si lo hay, o vacío","question":"pregunta de alumno curioso"}. stars de 1 a 5.';
+      msgs = [{role: 'user', content: 'Tema: ' + t + '\nExplicación del niño: ' + String(body.text || '').slice(0, 2500) + (body.followup ? '\nRespuesta a tu pregunta anterior «' + String(body.followup).slice(0, 300) + '»: ' + String(body.answer || '').slice(0, 1200) : '')}];
+    } else return res.status(400).json({error: 'task'});
+  }
   if (!msgs.length) return res.status(400).json({error: 'empty'});
 
   try {
     const r = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {'x-api-key': process.env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json'},
-      body: JSON.stringify({model: process.env.TUPI_MODEL || 'claude-haiku-5-5', max_tokens: 500, system, messages: msgs})
+      body: JSON.stringify({model: process.env.TUPI_MODEL || 'claude-haiku-5-5', max_tokens: maxTokens, system, messages: msgs})
     });
     const j = await r.json();
     if (!r.ok) return res.status(502).json({error: (j.error && j.error.message) || 'api'});

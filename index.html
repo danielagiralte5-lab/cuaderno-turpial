@@ -473,6 +473,67 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
 .tlpin.on .tld{transform:scale(1.35)}
 .tlpin.on .tll{font-weight:700}
 
+
+.tbar{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:10px}
+.tgroup{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.tlabel{font-family:var(--f-display);font-weight:800;font-size:13px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em}
+.tool{display:flex;flex-direction:column;align-items:center;gap:1px;background:var(--card);color:var(--ink);border:2px solid var(--grid);box-shadow:none;padding:5px 6px;min-width:58px;font-family:var(--f-body);font-weight:600;font-size:11px}
+.tool svg{width:24px;height:24px}
+.tool.on{border-color:var(--c-art);background:#FFEDE3;color:var(--c-art)}
+.tchk{display:flex;align-items:center;gap:6px;font-size:14px}
+.tchk input{width:20px;height:20px}
+.selbtn{font-family:var(--f-body);font-weight:600;font-size:14px;padding:7px 10px;border-radius:12px}
+.cpick{position:relative;overflow:hidden;background:conic-gradient(red,yellow,lime,cyan,blue,magenta,red)!important}
+.cpick input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+.stamprow{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.stampbtn{font-size:28px;background:var(--card);border:2px solid var(--grid);box-shadow:none;padding:4px 8px;line-height:1}
+.stampbtn.on{border-color:var(--c-art);background:#FFEDE3}
+input[type=range]{accent-color:var(--c-art);width:130px}
+.padwrap{position:relative}
+.padwrap #pad{display:block}
+#padOver{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;border:3px solid transparent;border-radius:12px}
+.padgrid{position:absolute;inset:3px;pointer-events:none;border-radius:10px;background-image:linear-gradient(rgba(31,58,104,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(31,58,104,.15) 1px,transparent 1px);background-size:5% 6.6667%}
+
+.mis.pro{box-shadow:0 4px 0 var(--c-ai);background:linear-gradient(135deg,#fff,#FCE8F2)}
+.panel .art.tall{height:220px}
+.nwbar{display:grid;grid-template-columns:120px 1fr 50px;gap:10px;align-items:center;background:var(--card);color:var(--ink);border:2px solid var(--grid);box-shadow:none;font-family:var(--f-body);font-weight:600;font-size:17px;text-align:left;padding:8px 10px}
+.nwbar .track{height:18px;background:var(--grid);border-radius:99px;overflow:hidden}
+.nwbar .track i{display:block;height:100%}
+.pchip.on{background:var(--c-ai);color:#fff}
+
+.quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:24px}
+.qcard{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;text-align:left;background:var(--card);color:var(--ink);border:2px solid var(--ink);box-shadow:0 4px 0 var(--ink);font-family:var(--f-body);font-weight:400;padding:12px}
+.qcard .qi{grid-row:1/3;font-size:40px;line-height:1}
+.qcard b{font-family:var(--f-display);font-size:19px}
+.qcard small{color:var(--ink-soft);font-size:13px}
+.bigfile{display:block;position:relative;border:3px dashed var(--c-ai);border-radius:16px;padding:22px;text-align:center;font-family:var(--f-display);font-weight:800;font-size:22px;color:var(--c-ai);background:#FCE8F2;cursor:pointer}
+.bigfile input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}
+.scimg{max-height:260px;width:auto;max-width:100%;border:2px solid var(--grid);border-radius:10px;display:block;margin:0 auto}
+.sumlist{font-size:19px;line-height:1.6;padding-left:24px;margin:0}
+.sumlist li{margin-bottom:8px}
+.fcard{display:flex;align-items:center;justify-content:center;width:100%;min-height:200px;background:#FFF7DA;color:var(--ink);border:3px solid var(--ink);box-shadow:0 6px 0 var(--ink);border-radius:20px;font-family:var(--f-hand);font-size:30px;font-weight:400;padding:20px;text-align:center}
+.fcard.back{background:#E8F5EC}
+.tstars{font-size:40px;color:#E9B83C;letter-spacing:4px}
+.tstars span{color:var(--grid)}
+.ok-b{background:var(--okbg)}
+.bad-b{background:var(--badbg)}
+.bubble ul{margin:6px 0 0;padding-left:20px}
+.islahead{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.islaname{font-family:var(--f-display);font-weight:800;font-size:28px;border:0;border-bottom:2px dashed var(--grid);background:transparent;color:var(--ink);width:100%;max-width:420px}
+.islawrap{border:3px solid var(--ink);border-radius:18px;overflow:hidden;background:#4FA3D9}
+.islagrid{display:grid}
+.itile{aspect-ratio:1;border:0;border-radius:0;box-shadow:none;padding:0;font-size:clamp(16px,4.2vw,34px);line-height:1;display:flex;align-items:center;justify-content:center;max-width:100%}
+.itile.water{background:#4FA3D9;background-image:radial-gradient(circle at 30% 30%,rgba(255,255,255,.18) 0 18%,transparent 19%)}
+.itile.beach{background:#F2DDA0}
+.itile.land{background:#8CCB6B;background-image:radial-gradient(circle at 70% 70%,rgba(0,0,0,.05) 0 20%,transparent 21%)}
+.itile:active{filter:brightness(1.1)}
+.shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px}
+.shopit{display:flex;flex-direction:column;align-items:center;gap:1px;background:var(--card);color:var(--ink);border:2px solid var(--grid);box-shadow:none;padding:6px;font-family:var(--f-body);font-weight:400}
+.shopit span{font-size:32px;line-height:1.1}
+.shopit small{font-size:12px;text-align:center}
+.shopit b{font-family:var(--f-display);font-size:14px;color:#B8860B}
+.shopit.on{border-color:var(--c-geo);background:#E3F5F5}
+
 @media (max-width:820px){
   .board,.geo{grid-template-columns:1fr}
   .side{position:static}
@@ -503,10 +564,9 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
   .chatbtns{grid-template-columns:1fr 1fr}
   .memgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
   .clockwrap{grid-template-columns:1fr;justify-items:center}
+  .quick{grid-template-columns:1fr}
 }
 </style>
-</head>
-<body>
 
 <div class="wrap">
   <div class="top">
@@ -538,6 +598,11 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
       <ul id="missionList"></ul>
     </div>
     <button class="talkcta" type="button" data-go="chat"><svg width="72" height="72" viewBox="0 0 100 100" aria-hidden="true" class="birdSvg"></svg><span><span class="eyebrow" style="color:var(--c-ai)">Inteligencia artificial</span><h3>Habla con Tupi</h3>Pregúntale, investigad juntos, pídele ideas o ayuda con los deberes.</span><span class="go">Hablar</span></button>
+    <div class="quick">
+      <button class="qcard" type="button" data-go="scan"><span class="qi">📸</span><b>Foto del cuaderno</b><small>Haz una foto a tu lección y Tupi te prepara el estudio</small></button>
+      <button class="qcard" type="button" data-go="isla"><span class="qi">🏝️</span><b>Mi isla</b><small id="qIsla">Construye tu mundo con tus estrellas</small></button>
+      <button class="qcard" type="button" data-go="teach"><span class="qi">🎓</span><b>Explícaselo a Tupi</b><small>Hoy el profe eres tú</small></button>
+    </div>
     <div class="subjects" id="subjects"></div>
     <div style="text-align:center;margin-top:28px"><button class="ghost" data-go="prog" type="button">Ver mi progreso</button></div>
   </section>
@@ -622,6 +687,24 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
     <div id="aiArea"></div>
   </section>
 
+  <!-- ============ FOTO ============ -->
+  <section id="v-scan" hidden>
+    <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--c-ai)">Foto del cuaderno</h2></div>
+    <div id="scanArea"></div>
+  </section>
+
+  <!-- ============ EXPLÍCASELO ============ -->
+  <section id="v-teach" hidden>
+    <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--orange)">Explícaselo a Tupi</h2></div>
+    <div id="teachArea"></div>
+  </section>
+
+  <!-- ============ ISLA ============ -->
+  <section id="v-isla" hidden>
+    <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--c-geo)">Mi isla</h2></div>
+    <div id="islaArea"></div>
+  </section>
+
   <!-- ============ MONTESSORI ============ -->
   <section id="v-mont" hidden>
     <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:#C99A2E">Taller Montessori</h2></div>
@@ -685,7 +768,7 @@ const day = (d = new Date()) => d.getFullYear() + '-' + String(d.getMonth() + 1)
    ESTADO (se guarda en este iPad)
    ================================================================= */
 const DEF = {
-  name: '', stars: 0, sub: {}, voice: false, onboarded: false, len: {}, mtop: {}, soc: {}, chat: [], art: {gallery: []}, games: {}, natLang: 'en', mont: {}, adv: {},
+  name: '', stars: 0, sub: {}, voice: false, onboarded: false, len: {}, mtop: {}, soc: {}, chat: [], art: {gallery: []}, games: {}, natLang: 'en', mont: {}, adv: {}, scans: [], isla: {name: '', size: 1, items: {}, spent: 0},
   log: {},
   math: {mode: 'lat', mul: 1, men: 1, pro: 1, good: 0, hard: 0, pGood: 0, pBad: 0},
   read: {minutes: 0, done: {}, comics: {}, paper: []},
@@ -696,7 +779,7 @@ const DEF = {
 let S;
 try { S = JSON.parse(localStorage.getItem('turpial2') || 'null'); } catch (e) { S = null; }
 S = Object.assign(JSON.parse(JSON.stringify(DEF)), S || {});
-['math','read','geo','eng','ai','art'].forEach(k => S[k] = Object.assign(JSON.parse(JSON.stringify(DEF[k])), S[k] || {}));
+['math','read','geo','eng','ai','art','isla'].forEach(k => S[k] = Object.assign(JSON.parse(JSON.stringify(DEF[k])), S[k] || {}));
 const save = () => { try { localStorage.setItem('turpial2', JSON.stringify(S)); } catch (e) {} };
 const who = () => S.name || 'campeón';
 
@@ -762,7 +845,7 @@ function speak(text) {
 /* =================================================================
    NAVEGACIÓN
    ================================================================= */
-const VIEWS = ['home','mat','read','len','hist','geo','nat','eng','ai','art','games','mont','chat','prog'];
+const VIEWS = ['home','mat','read','len','hist','geo','nat','eng','ai','art','games','mont','scan','teach','isla','chat','prog'];
 const ENTER = {};
 function go(v) {
   VIEWS.forEach(x => $('v-' + x).hidden = x !== v);
@@ -879,9 +962,10 @@ function levelLabel(id) {
   return '';
 }
 ENTER.home = function () {
+  try { $('qIsla').textContent = Object.keys(S.isla.items).length ? islaTitle(Object.keys(S.isla.items).length) + ' · ★ ' + islaFree() + ' para gastar' : 'Tienes ★ ' + islaFree() + ' para empezar a construir'; } catch (e) {}
   $('helloTitle').textContent = S.name ? '¡Hola, ' + S.name + '! Soy Tupi.' : '¡Hola! Soy Tupi.';
   const t = S.log[day()] || {};
-  const other = (t.hist || 0) + (t.geo || 0) + (t.nat || 0) + (t.eng || 0) + (t.ai || 0) + (t.len || 0) + (t.art || 0) + (t.games || 0) + (t.mont || 0);
+  const other = (t.hist || 0) + (t.geo || 0) + (t.nat || 0) + (t.eng || 0) + (t.ai || 0) + (t.len || 0) + (t.art || 0) + (t.games || 0) + (t.mont || 0) + (t.scan || 0) + (t.teach || 0);
   const items = [
     {done: (t.read || 0) >= 1, txt: 'Leer una historia'},
     {done: (t.mat || 0) >= 1, txt: 'Un ejercicio de mates'},
@@ -2460,9 +2544,11 @@ const AI_L = {title: '¿Qué es la IA?', scenes: [
   {q: '¿Quién debe decidir y pensar?', o: ['Tú', 'La IA', 'Nadie', 'El ordenador'], why: 'La IA es tu herramienta, no tu jefe.'}]};
 ENTER.ai = () => aiHome();
 function aiHome() {
-  $('aiArea').innerHTML = '<div class="card" style="margin-bottom:16px"><p style="font-size:18px">Bienvenido al laboratorio, ' + esc(who()) + '. Aquí vas a <b>entrenar tu propia IA</b> y a aprender a usarla bien. Completa las 7 misiones para conseguir tu <b>carnet de explorador de IA</b>.</p></div><div class="missions">' +
-    AI_M.map(m => '<button class="mis" type="button" data-m="' + m.id + '"><span class="n">' + m.n + (S.ai.done[m.id] ? ' ✓' : '') + '</span><b>' + m.t + '</b>' + m.d + '</button>').join('') + '</div>' + (S.ai.carnet ? '<div style="margin-top:18px">' + carnetHTML() + '</div>' : '');
+  $('aiArea').innerHTML = '<div class="card" style="margin-bottom:16px"><p style="font-size:18px">Bienvenido al laboratorio, ' + esc(who()) + '. Aquí vas a <b>entrenar tu propia IA</b> y a aprender a usarla bien. Completa las 7 misiones para conseguir tu <b>carnet de explorador de IA</b>.</p></div><div class="eyebrow" style="margin:6px 0 8px">Nivel 1 · Aprende cómo funciona</div><div class="missions">' +
+    AI_M.map(m => '<button class="mis" type="button" data-m="' + m.id + '"><span class="n">' + m.n + (S.ai.done[m.id] ? ' ✓' : '') + '</span><b>' + m.t + '</b>' + m.d + '</button>').join('') + '</div>' +
+    '<div class="eyebrow" style="margin:22px 0 4px;color:var(--c-ai)">Nivel 2 · Crea con IA de verdad</div><p class="muted" style="font-size:14px;margin-bottom:8px">Aquí usas una inteligencia artificial real, como ChatGPT, pero para crear: bots, cómics, tests… y aprender a pensar como un experto.</p><div class="missions">' + AI_PRO.map(m => '<button class="mis pro" type="button" data-pro="' + m.id + '"><span class="n">IA real</span><b>' + m.n + '</b>' + m.d + '</button>').join('') + '</div>' + (S.ai.carnet ? '<div style="margin-top:18px">' + carnetHTML() + '</div>' : '');
   $('aiArea').querySelectorAll('[data-m]').forEach(b => b.onclick = () => openAI(b.dataset.m));
+  $('aiArea').querySelectorAll('[data-pro]').forEach(b => b.onclick = () => openPro(b.dataset.pro));
 }
 function aiFinish(id, st) {
   const first = !S.ai.done[id]; S.ai.done[id] = true; addStars(st + (first ? 3 : 0), 'ai'); logDo('ai'); save();
@@ -2771,38 +2857,154 @@ function paintArt() {
   else gallery(body);
 }
 /* ---------- lienzo ---------- */
-function drawPad(body) {
-  const reto = RETOS[Math.floor(Date.now() / 86400000) % RETOS.length];
-  body.innerHTML = '<div class="card"><div class="eyebrow" style="color:var(--c-art)">Reto de hoy</div><h3 style="font-size:24px;margin:2px 0 12px">' + reto + '</h3>' +
-    '<div class="tools"><div class="swatches">' + PALETTE.map((c, k) => '<button type="button" class="sw' + (k === 0 ? ' on' : '') + '" data-c="' + c + '" style="background:' + c + '" aria-label="Color ' + (k + 1) + '"></button>').join('') + '</div>' +
-    '<div class="row"><button class="ghost small sz" data-s="4" type="button">Fino</button><button class="ghost small sz on" data-s="10" type="button">Medio</button><button class="ghost small sz" data-s="24" type="button">Gordo</button><button class="ghost small" id="dEr" type="button">Goma</button><button class="ghost small" id="dUndo" type="button">Deshacer</button><button class="ghost small" id="dClear" type="button">Borrar todo</button></div></div>' +
-    '<canvas id="pad" width="800" height="600" aria-label="Lienzo de dibujo"></canvas>' +
-    '<div class="actions"><button type="button" id="dSave">Guardar en mi galería</button><button class="btn-ok" type="button" id="dShow">Enséñaselo a Tupi</button></div><div id="dFb"></div></div>';
-  const cv = $('pad'), cx = cv.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, 800, 600); cx.lineCap = cx.lineJoin = 'round';
-  let col = PALETTE[0], size = 10, eraser = false, drawing = false, last = null; const hist = [];
-  const pos = e => { const b = cv.getBoundingClientRect(); return [(e.clientX - b.left) * 800 / b.width, (e.clientY - b.top) * 600 / b.height]; };
-  cv.addEventListener('pointerdown', e => { e.preventDefault(); cv.setPointerCapture(e.pointerId); hist.push(cx.getImageData(0, 0, 800, 600)); if (hist.length > 15) hist.shift(); drawing = true; last = pos(e); cx.beginPath(); cx.fillStyle = eraser ? '#fff' : col; cx.arc(last[0], last[1], size / 2, 0, 7); cx.fill(); });
-  cv.addEventListener('pointermove', e => { if (!drawing) return; const p = pos(e); cx.strokeStyle = eraser ? '#fff' : col; cx.lineWidth = eraser ? size * 2.5 : size; cx.beginPath(); cx.moveTo(last[0], last[1]); cx.lineTo(p[0], p[1]); cx.stroke(); last = p; });
-  ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => cv.addEventListener(ev, () => drawing = false));
-  body.querySelectorAll('.sw').forEach(b => b.onclick = () => { col = b.dataset.c; eraser = false; $('dEr').classList.remove('on'); body.querySelectorAll('.sw').forEach(x => x.classList.toggle('on', x === b)); });
-  body.querySelectorAll('.sz').forEach(b => b.onclick = () => { size = +b.dataset.s; body.querySelectorAll('.sz').forEach(x => x.classList.toggle('on', x === b)); });
-  $('dEr').onclick = () => { eraser = !eraser; $('dEr').classList.toggle('on', eraser); };
-  $('dUndo').onclick = () => { const h = hist.pop(); if (h) cx.putImageData(h, 0, 0); };
-  $('dClear').onclick = () => { hist.push(cx.getImageData(0, 0, 800, 600)); cx.fillStyle = '#fff'; cx.fillRect(0, 0, 800, 600); };
+const RETOS_GEO = ['Haz una casa con un cuadrado, un rectángulo y un triángulo', 'Dibuja un robot usando solo rectángulos y círculos', 'Crea un mandala con el modo simetría', 'Dibuja un cohete con un triángulo, un rectángulo y círculos', 'Haz un tren con rectángulos y círculos', 'Dibuja un pez con un óvalo y un triángulo', 'Haz un paisaje: el sol es un círculo y las montañas, triángulos', 'Diseña una bandera inventada solo con figuras geométricas', 'Dibuja un castillo con rectángulos y triángulos', 'Haz un gato usando solo círculos y triángulos'];
+const STAMPS = ['⭐', '❤️', '🌸', '🌳', '🏠', '☀️', '🌙', '☁️', '🐦', '🐱', '🐶', '🦋', '🐟', '🚀', '🚗', '⚽', '🎈', '🍎', '🌈', '👑', '💎', '🦕', '🍄', '🌵'];
+const BRUSHES = [['pen', 'Lápiz'], ['marker', 'Rotulador'], ['water', 'Acuarela'], ['spray', 'Spray'], ['rainbow', 'Arcoíris'], ['eraser', 'Goma']];
+const SHAPES = [['line', 'Línea'], ['rect', 'Rectángulo'], ['square', 'Cuadrado'], ['circle', 'Círculo'], ['oval', 'Óvalo'], ['tri', 'Triángulo'], ['star', 'Estrella'], ['heart', 'Corazón'], ['hex', 'Hexágono'], ['arrow', 'Flecha']];
+const SYMS = [['none', 'Sin simetría'], ['mirror', 'Espejo'], ['four', '4 partes'], ['m6', 'Mandala 6'], ['m8', 'Mandala 8']];
+const ICON = {
+  pen: '<path d="M4 20l4-1 11-11-3-3L5 16z"/>', marker: '<path d="M14 4l6 6-9 9H5v-6z"/>', water: '<path d="M12 3c3 5 6 8 6 11a6 6 0 0 1-12 0c0-3 3-6 6-11z"/>', spray: '<circle cx="6" cy="6" r="1.5"/><circle cx="12" cy="4" r="1.5"/><circle cx="18" cy="7" r="1.5"/><circle cx="8" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="11" cy="18" r="1.5"/>', rainbow: '<path d="M3 18a9 9 0 0 1 18 0" stroke="#D64545"/><path d="M6 18a6 6 0 0 1 12 0" stroke="#FFD84D"/><path d="M9 18a3 3 0 0 1 6 0" stroke="#3B7DD8"/>', eraser: '<path d="M4 16l8-8 6 6-6 6H8z"/><path d="M8 20h12"/>',
+  line: '<path d="M4 20L20 4"/>', rect: '<rect x="3" y="7" width="18" height="10"/>', square: '<rect x="5" y="5" width="14" height="14"/>', circle: '<circle cx="12" cy="12" r="8"/>', oval: '<ellipse cx="12" cy="12" rx="10" ry="6"/>', tri: '<path d="M12 4l9 16H3z"/>', star: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>', heart: '<path d="M12 20s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/>', hex: '<path d="M7 4h10l5 8-5 8H7l-5-8z"/>', arrow: '<path d="M3 12h15M13 6l6 6-6 6"/>',
+  fill: '<path d="M5 11l7-7 7 7-7 7z"/><path d="M19 15c1 2 2 3 2 4a2 2 0 0 1-4 0c0-1 1-2 2-4z" fill="currentColor"/>', stamp: '<path d="M8 4h8v6l3 3v3H5v-3l3-3z"/><path d="M5 20h14"/>'
+};
+const ico = k => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICON[k] + '</svg>';
+const COLOR_PAGES = {
+  'Mandala': () => { let s = '<circle cx="400" cy="300" r="250"/><circle cx="400" cy="300" r="40"/><circle cx="400" cy="300" r="110"/><circle cx="400" cy="300" r="190"/>'; for (let k = 0; k < 12; k++) { const a = k * 30; s += '<g transform="rotate(' + a + ' 400 300)"><path d="M400 260 Q430 220 400 190 Q370 220 400 260Z"/><path d="M400 190 Q450 150 400 110 Q350 150 400 190Z"/><circle cx="400" cy="80" r="18"/></g>'; } return s; },
+  'Tupi': () => '<ellipse cx="430" cy="370" rx="170" ry="120"/><circle cx="300" cy="230" r="100"/><circle cx="270" cy="215" r="28"/><circle cx="270" cy="215" r="12"/><path d="M205 210 L120 235 L205 260 Z"/><path d="M360 340 Q450 270 560 360 Q470 420 360 380 Z"/><path d="M590 400 L690 470 L620 380 Z"/><path d="M400 488 L390 560 M460 488 L470 560"/>',
+  'Castillo': () => '<rect x="200" y="250" width="400" height="300"/><rect x="140" y="170" width="120" height="380"/><rect x="540" y="170" width="120" height="380"/><path d="M140 170 L200 80 L260 170 Z"/><path d="M540 170 L600 80 L660 170 Z"/><path d="M350 550 L350 440 Q400 380 450 440 L450 550 Z"/><rect x="280" y="300" width="60" height="70"/><rect x="460" y="300" width="60" height="70"/><rect x="175" y="230" width="50" height="60"/><rect x="575" y="230" width="50" height="60"/><path d="M200 250 L200 220 L240 220 L240 250 M280 250 L280 220 L320 220 L320 250 M360 250 L360 220 L400 220 L400 250 M440 250 L440 220 L480 220 L480 250 M520 250 L520 220 L560 220 L560 250"/>',
+  'Cohete': () => '<path d="M400 60 Q480 160 470 330 L330 330 Q320 160 400 60 Z"/><rect x="330" y="330" width="140" height="120"/><circle cx="400" cy="230" r="45"/><path d="M330 360 L250 480 L330 450 Z"/><path d="M470 360 L550 480 L470 450 Z"/><path d="M350 450 Q400 580 450 450 Z"/><path d="M120 120 l12 25 27 4-20 19 5 27-24-13-24 13 5-27-20-19 27-4z"/><path d="M650 180 l10 20 22 3-16 15 4 22-20-10-20 10 4-22-16-15 22-3z"/><circle cx="650" cy="480" r="40"/>',
+  'Pez': () => '<ellipse cx="380" cy="300" rx="230" ry="140"/><path d="M600 300 L730 180 L730 420 Z"/><circle cx="250" cy="260" r="26"/><path d="M380 160 Q430 90 480 175"/><path d="M300 220 Q340 300 300 380 M380 200 Q420 300 380 400 M460 210 Q500 300 460 390"/><circle cx="160" cy="150" r="20"/><circle cx="120" cy="90" r="14"/>'
+};
+function drawPad(box) {
+  const daily = Math.floor(Date.now() / 86400000);
+  let geoMode = false;
+  const retoTxt = () => geoMode ? RETOS_GEO[daily % RETOS_GEO.length] : RETOS[daily % RETOS.length];
+  box.innerHTML = '<div class="card">' +
+    '<div class="row" style="justify-content:space-between;margin-bottom:8px"><div><div class="eyebrow" style="color:var(--c-art)">Reto de hoy</div><h3 style="font-size:22px;margin-top:2px" id="dReto">' + retoTxt() + '</h3></div><div class="row"><button class="ghost small" type="button" id="dRetoSw">Reto con figuras</button><select id="dPage" class="ghost small selbtn" aria-label="Lámina para colorear"><option value="">Lámina para colorear…</option>' + Object.keys(COLOR_PAGES).map(k => '<option>' + k + '</option>').join('') + '</select></div></div>' +
+    '<div class="tbar"><div class="tgroup"><span class="tlabel">Pinceles</span>' + BRUSHES.map(b => '<button type="button" class="tool" data-tool="' + b[0] + '" title="' + b[1] + '">' + ico(b[0]) + '<span>' + b[1] + '</span></button>').join('') + '</div>' +
+    '<div class="tgroup"><span class="tlabel">Figuras</span>' + SHAPES.map(sh => '<button type="button" class="tool" data-tool="' + sh[0] + '" title="' + sh[1] + '">' + ico(sh[0]) + '<span>' + sh[1] + '</span></button>').join('') + '<label class="tchk"><input type="checkbox" id="dFillShape"> Rellena</label></div>' +
+    '<div class="tgroup"><span class="tlabel">Más</span><button type="button" class="tool" data-tool="fill" title="Bote de pintura">' + ico('fill') + '<span>Bote</span></button><button type="button" class="tool" data-tool="stamp" title="Sellos">' + ico('stamp') + '<span>Sellos</span></button><select id="dSym" class="ghost small selbtn" aria-label="Simetría">' + SYMS.map(x => '<option value="' + x[0] + '">' + x[1] + '</option>').join('') + '</select><label class="tchk"><input type="checkbox" id="dGrid"> Cuadrícula</label></div></div>' +
+    '<div class="stamprow" id="dStamps" hidden>' + STAMPS.map(e => '<button type="button" class="stampbtn" data-st="' + e + '">' + e + '</button>').join('') + '</div>' +
+    '<div class="tbar"><div class="swatches">' + PALETTE.map((c, k) => '<button type="button" class="sw' + (k === 0 ? ' on' : '') + '" data-c="' + c + '" style="background:' + c + '" aria-label="Color ' + (k + 1) + '"></button>').join('') + '<label class="sw cpick" title="Otro color"><input type="color" id="dColor" value="#E0612F" aria-label="Elegir color"></label></div>' +
+    '<div class="row"><label class="tlabel" for="dSize">Grosor</label><input type="range" id="dSize" min="2" max="60" value="10"><label class="tlabel" for="dAlpha">Opacidad</label><input type="range" id="dAlpha" min="10" max="100" value="100"></div></div>' +
+    '<div class="padwrap"><canvas id="pad" width="800" height="600" aria-label="Lienzo de dibujo"></canvas><canvas id="padOver" width="800" height="600" aria-hidden="true"></canvas><div class="padgrid" id="padGrid" hidden></div></div>' +
+    '<div class="actions"><button class="ghost small" type="button" id="dUndo">↶ Deshacer</button><button class="ghost small" type="button" id="dRedo">↷ Rehacer</button><button class="ghost small" type="button" id="dClear">Borrar todo</button><button type="button" id="dSave">Guardar en mi galería</button><button class="btn-ok" type="button" id="dShow">Enséñaselo a Tupi</button></div><div id="dFb"></div></div>';
+  const cv = $('pad'), cx = cv.getContext('2d'), ov = $('padOver'), ox = ov.getContext('2d');
+  const W = 800, H = 600, CX = 400, CY = 300;
+  cx.fillStyle = '#fff'; cx.fillRect(0, 0, W, H); cx.lineCap = cx.lineJoin = 'round';
+  let tool = 'pen', col = PALETTE[0], size = 10, alpha = 1, sym = 'none', stamp = '⭐', drawing = false, last = null, start = null, hue = 0;
+  const hist = [], redo = [];
+  const snap = () => { hist.push(cx.getImageData(0, 0, W, H)); if (hist.length > 25) hist.shift(); redo.length = 0; };
+  const mats = () => {
+    const out = [[1, 0, 0, 1, 0, 0]];
+    const rot = n => { const r0 = []; for (let k = 0; k < n; k++) { const a = k * 2 * Math.PI / n, c = Math.cos(a), s2 = Math.sin(a); r0.push([c, s2, -s2, c, CX - c * CX + s2 * CY, CY - s2 * CX - c * CY]); } return r0; };
+    if (sym === 'mirror') out.push([-1, 0, 0, 1, 2 * CX, 0]);
+    if (sym === 'four') out.push([-1, 0, 0, 1, 2 * CX, 0], [1, 0, 0, -1, 0, 2 * CY], [-1, 0, 0, -1, 2 * CX, 2 * CY]);
+    if (sym === 'm6' || sym === 'm8') { const n = sym === 'm6' ? 6 : 8; const rs = rot(n); return rs.concat(rs.map(m => { const [a, b, c, d, e, f] = m; return [-a, -b, c, d, a * 2 * CX + e, b * 2 * CX + f]; })); }
+    return out;
+  };
+  const each = fn => { mats().forEach(m => { cx.save(); cx.setTransform(m[0], m[1], m[2], m[3], m[4], m[5]); fn(cx); cx.restore(); }); };
+  const pos = e => { const b = cv.getBoundingClientRect(); return [(e.clientX - b.left) * W / b.width, (e.clientY - b.top) * H / b.height]; };
+  function stroke(a, b) {
+    each(c => {
+      c.globalAlpha = alpha;
+      if (tool === 'spray') { c.fillStyle = col; for (let k = 0; k < size * 1.5; k++) { const r0 = Math.random() * size * 1.4, t = Math.random() * 6.283; c.fillRect(b[0] + r0 * Math.cos(t), b[1] + r0 * Math.sin(t), 1.6, 1.6); } return; }
+      c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.lineCap = c.lineJoin = 'round';
+      if (tool === 'pen') { c.strokeStyle = col; c.lineWidth = Math.max(2, size / 3); }
+      else if (tool === 'marker') { c.strokeStyle = col; c.lineWidth = size; c.globalAlpha = alpha * .85; }
+      else if (tool === 'water') { c.strokeStyle = col; c.lineWidth = size * 2.5; c.globalAlpha = alpha * .12; }
+      else if (tool === 'rainbow') { c.strokeStyle = 'hsl(' + hue + ',90%,55%)'; c.lineWidth = size; }
+      else if (tool === 'eraser') { c.strokeStyle = '#fff'; c.lineWidth = size * 2; c.globalAlpha = 1; }
+      c.stroke();
+    });
+    hue = (hue + 6) % 360;
+  }
+  function shapePath(c, t, x0, y0, x1, y1) {
+    let x = Math.min(x0, x1), y = Math.min(y0, y1), w = Math.abs(x1 - x0), h = Math.abs(y1 - y0);
+    if (t === 'square' || t === 'circle') { const m = Math.max(w, h); w = h = m; x = x1 < x0 ? x0 - m : x0; y = y1 < y0 ? y0 - m : y0; }
+    c.beginPath();
+    if (t === 'line') { c.moveTo(x0, y0); c.lineTo(x1, y1); }
+    else if (t === 'rect' || t === 'square') c.rect(x, y, w, h);
+    else if (t === 'circle' || t === 'oval') c.ellipse(x + w / 2, y + h / 2, Math.max(1, w / 2), Math.max(1, h / 2), 0, 0, 7);
+    else if (t === 'tri') { c.moveTo(x + w / 2, y); c.lineTo(x + w, y + h); c.lineTo(x, y + h); c.closePath(); }
+    else if (t === 'hex') { for (let k = 0; k < 6; k++) { const a = k * Math.PI / 3; const px = x + w / 2 + w / 2 * Math.cos(a), py = y + h / 2 + h / 2 * Math.sin(a); k ? c.lineTo(px, py) : c.moveTo(px, py); } c.closePath(); }
+    else if (t === 'star') { for (let k = 0; k < 10; k++) { const a = -Math.PI / 2 + k * Math.PI / 5, rr = k % 2 ? .42 : 1; const px = x + w / 2 + w / 2 * rr * Math.cos(a), py = y + h / 2 + h / 2 * rr * Math.sin(a); k ? c.lineTo(px, py) : c.moveTo(px, py); } c.closePath(); }
+    else if (t === 'heart') { c.moveTo(x + w / 2, y + h); c.bezierCurveTo(x - w * .1, y + h * .55, x + w * .05, y - h * .1, x + w / 2, y + h * .28); c.bezierCurveTo(x + w * .95, y - h * .1, x + w * 1.1, y + h * .55, x + w / 2, y + h); c.closePath(); }
+    else if (t === 'arrow') { const ang = Math.atan2(y1 - y0, x1 - x0), L = Math.max(14, size * 2); c.moveTo(x0, y0); c.lineTo(x1, y1); c.moveTo(x1 - L * Math.cos(ang - .5), y1 - L * Math.sin(ang - .5)); c.lineTo(x1, y1); c.lineTo(x1 - L * Math.cos(ang + .5), y1 - L * Math.sin(ang + .5)); }
+  }
+  const isShape = () => SHAPES.some(s => s[0] === tool);
+  const paintShape = (c, x0, y0, x1, y1) => { c.globalAlpha = alpha; c.lineWidth = Math.max(2, size / 2); c.strokeStyle = col; c.fillStyle = col; c.lineCap = c.lineJoin = 'round'; shapePath(c, tool, x0, y0, x1, y1); if ($('dFillShape').checked && tool !== 'line' && tool !== 'arrow') c.fill(); else c.stroke(); };
+  function flood(x, y) {
+    x = Math.round(x); y = Math.round(y); if (x < 0 || y < 0 || x >= W || y >= H) return;
+    const img = cx.getImageData(0, 0, W, H), d = img.data;
+    const hex = col.replace('#', ''), R = parseInt(hex.slice(0, 2), 16), G = parseInt(hex.slice(2, 4), 16), B = parseInt(hex.slice(4, 6), 16);
+    const i0 = (y * W + x) * 4, tr = d[i0], tg = d[i0 + 1], tb = d[i0 + 2];
+    if (Math.abs(tr - R) + Math.abs(tg - G) + Math.abs(tb - B) < 10) return;
+    const match = i => Math.abs(d[i] - tr) + Math.abs(d[i + 1] - tg) + Math.abs(d[i + 2] - tb) < 90;
+    const seen = new Uint8Array(W * H), st = [[x, y]];
+    while (st.length) {
+      let [px, py] = st.pop(); let i = py * W + px;
+      while (px >= 0 && !seen[i] && match(i * 4)) { px--; i--; }
+      px++; i++; let up = false, dn = false;
+      while (px < W && !seen[i] && match(i * 4)) {
+        seen[i] = 1; const k = i * 4; d[k] = R; d[k + 1] = G; d[k + 2] = B; d[k + 3] = 255;
+        if (py > 0) { const j = i - W; if (!seen[j] && match(j * 4)) { if (!up) { st.push([px, py - 1]); up = true; } } else up = false; }
+        if (py < H - 1) { const j = i + W; if (!seen[j] && match(j * 4)) { if (!dn) { st.push([px, py + 1]); dn = true; } } else dn = false; }
+        px++; i++;
+      }
+    }
+    cx.putImageData(img, 0, 0);
+  }
+  cv.addEventListener('pointerdown', e => {
+    e.preventDefault(); try { cv.setPointerCapture(e.pointerId); } catch (x) {}
+    const p = pos(e); snap();
+    if (tool === 'fill') { flood(p[0], p[1]); return; }
+    if (tool === 'stamp') { each(c => { c.globalAlpha = alpha; c.font = (size * 3 + 20) + 'px "Apple Color Emoji","Segoe UI Emoji",sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(stamp, p[0], p[1]); }); return; }
+    drawing = true; last = p; start = p;
+    if (!isShape()) stroke(p, [p[0] + .1, p[1] + .1]);
+  });
+  cv.addEventListener('pointermove', e => {
+    if (!drawing) return; const p = pos(e);
+    if (isShape()) { ox.clearRect(0, 0, W, H); mats().forEach(m => { ox.save(); ox.setTransform(m[0], m[1], m[2], m[3], m[4], m[5]); paintShape(ox, start[0], start[1], p[0], p[1]); ox.restore(); }); last = p; return; }
+    stroke(last, p); last = p;
+  });
+  const up = () => { if (!drawing) return; drawing = false; if (isShape() && start && last) { ox.clearRect(0, 0, W, H); each(c => paintShape(c, start[0], start[1], last[0], last[1])); } };
+  ['pointerup', 'pointercancel'].forEach(ev => cv.addEventListener(ev, up));
+  const setTool = t => { tool = t; box.querySelectorAll('[data-tool]').forEach(b => b.classList.toggle('on', b.dataset.tool === t)); $('dStamps').hidden = t !== 'stamp'; };
+  setTool('pen');
+  box.querySelectorAll('[data-tool]').forEach(b => b.onclick = () => { setTool(b.dataset.tool); const nm = (BRUSHES.concat(SHAPES).find(x => x[0] === b.dataset.tool) || [0, b.dataset.tool === 'fill' ? 'Bote de pintura' : 'Sellos'])[1]; talk(nm); });
+  box.querySelectorAll('[data-st]').forEach(b => b.onclick = () => { stamp = b.dataset.st; box.querySelectorAll('[data-st]').forEach(x => x.classList.toggle('on', x === b)); });
+  box.querySelectorAll('.sw[data-c]').forEach(b => b.onclick = () => { col = b.dataset.c; box.querySelectorAll('.sw').forEach(x => x.classList.toggle('on', x === b)); if (tool === 'eraser') setTool('pen'); });
+  $('dColor').oninput = e => { col = e.target.value; box.querySelectorAll('.sw').forEach(x => x.classList.remove('on')); e.target.parentElement.classList.add('on'); };
+  $('dSize').oninput = e => size = +e.target.value;
+  $('dAlpha').oninput = e => alpha = +e.target.value / 100;
+  $('dSym').onchange = e => { sym = e.target.value; if (sym !== 'none') talk('Modo simetría. Dibuja y mira cómo se repite.'); };
+  $('dGrid').onchange = e => $('padGrid').hidden = !e.target.checked;
+  $('dUndo').onclick = () => { const h = hist.pop(); if (h) { redo.push(cx.getImageData(0, 0, W, H)); cx.putImageData(h, 0, 0); } };
+  $('dRedo').onclick = () => { const h = redo.pop(); if (h) { hist.push(cx.getImageData(0, 0, W, H)); cx.putImageData(h, 0, 0); } };
+  $('dClear').onclick = () => { snap(); cx.fillStyle = '#fff'; cx.fillRect(0, 0, W, H); };
+  $('dRetoSw').onclick = () => { geoMode = !geoMode; $('dReto').textContent = retoTxt(); $('dRetoSw').textContent = geoMode ? 'Reto creativo' : 'Reto con figuras'; talk(retoTxt()); };
+  $('dPage').onchange = e => {
+    const k = e.target.value; if (!k) return; snap();
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><rect width="800" height="600" fill="#fff"/><g fill="none" stroke="#1A1A1A" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">' + COLOR_PAGES[k]() + '</g></svg>';
+    const img = new Image(); img.onload = () => { cx.drawImage(img, 0, 0, W, H); setTool('fill'); talk('Lámina ' + k + '. Elige un color y toca dentro de cada zona con el bote de pintura.'); };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg); e.target.value = '';
+  };
   const shot = w => { const c2 = document.createElement('canvas'); c2.width = w; c2.height = w * .75; c2.getContext('2d').drawImage(cv, 0, 0, c2.width, c2.height); return c2.toDataURL('image/jpeg', .75); };
   $('dSave').onclick = () => {
-    S.art.gallery.unshift({img: shot(400), reto, d: day()}); if (S.art.gallery.length > 12) S.art.gallery.pop();
+    S.art.gallery.unshift({img: shot(400), reto: $('dReto').textContent, d: day()}); if (S.art.gallery.length > 12) S.art.gallery.pop();
     save(); addStars(2, 'art'); logDo('art'); toast('¡Dibujo guardado en tu galería! +2 ★', true);
   };
   $('dShow').onclick = async () => {
     $('dShow').disabled = true; $('dFb').innerHTML = '<div class="bubble" style="margin-top:12px">Tupi está mirando tu dibujo…</div>';
     try {
-      const t = await askTupi({mode: 'art', image: shot(640), note: 'Este es mi dibujo para el reto: ' + reto});
+      const t = await askTupi({mode: 'art', image: shot(640), note: 'Este es mi dibujo para el reto: ' + $('dReto').textContent});
       $('dFb').innerHTML = '<div class="bubble" style="margin-top:12px"><b>Tupi dice:</b> ' + esc(t) + '</div>'; talk(t); addStars(1, 'art'); logDo('art');
-    } catch (e) { $('dFb').innerHTML = '<div class="bubble" style="margin-top:12px">' + chatErr(e) + '</div>'; }
+    } catch (err) { $('dFb').innerHTML = '<div class="bubble" style="margin-top:12px">' + chatErr(err) + '</div>'; }
     $('dShow').disabled = false;
   };
 }
+
 function gallery(body) {
   const g = S.art.gallery;
   body.innerHTML = g.length ? '<div class="gal">' + g.map((x, k) => '<figure class="card" style="padding:8px"><img src="' + x.img + '" alt="Dibujo: ' + esc(x.reto) + '"><figcaption>' + esc(x.reto) + '<br><span class="muted">' + x.d + '</span><br><button class="ghost small" type="button" data-del="' + k + '">Quitar</button></figcaption></figure>').join('') + '</div><p class="muted" style="margin-top:10px;font-size:14px">Se guardan tus 12 últimos dibujos en este iPad.</p>'
@@ -3362,6 +3564,161 @@ function startAdv(A) {
   });
 }
 /* =================================================================
+   IA NIVEL 2: CREA CON IA DE VERDAD
+   ================================================================= */
+const AI_PRO = [
+  {id: 'bot', n: 'Fábrica de bots', d: 'Diseña tu propio asistente: nombre, personalidad, lo que sabe y sus reglas. Luego habla con él.'},
+  {id: 'coach', n: 'Entrenador de prompts', d: 'Escribe un prompt, mira la respuesta real y recibe nota y consejos para mejorarlo.'},
+  {id: 'quiz', n: 'Generador de quizzes', d: 'Escribe cualquier tema y la IA te crea un test para jugar.'},
+  {id: 'comic', n: 'Fábrica de cómics', d: 'Cuéntale una idea y la IA la convierte en un cómic de 5 viñetas.'},
+  {id: 'next', n: '¿Cómo piensa una IA?', d: 'Mira qué palabras cree la IA que vienen después y construye frases como ella.'},
+  {id: 'detect', n: 'Detective de bulos', d: 'La IA te da 5 datos y uno es falso. ¿Lo encuentras?'}
+];
+const labJSON = t => { const a = t.indexOf('{'), b = t.lastIndexOf('}'); return JSON.parse(t.slice(a, b + 1)); };
+const lab = (task, extra) => askTupi(Object.assign({mode: 'lab', task}, extra || {}));
+function proFrame(title) { const box = aiFrame(title); if (!familyPin()) { box.innerHTML = '<div class="bubble">Para el nivel 2 Tupi necesita su cerebro. Actívalo primero en <b>Habla con Tupi</b> con el código familiar.</div>'; return null; } return box; }
+function loading(box, msg) { box.insertAdjacentHTML('beforeend', '<div class="bubble loadb" style="margin-top:10px"><svg class="birdSvg talking" viewBox="0 0 100 100" style="width:34px;height:34px;vertical-align:middle">' + BIRD + '</svg> ' + msg + '</div>'); }
+function unload(box) { box.querySelectorAll('.loadb').forEach(x => x.remove()); }
+function openPro(id) {
+  if (id === 'bot') botFactory();
+  if (id === 'coach') promptCoach();
+  if (id === 'quiz') quizMaker();
+  if (id === 'comic') comicMaker();
+  if (id === 'next') nextWord();
+  if (id === 'detect') hoaxDetective();
+}
+/* --- fábrica de bots --- */
+const BOT_EMO = ['🤖', '🦖', '⚽', '🧙', '🐉', '👩‍🚀', '🦸', '🐱', '🏴‍☠️', '🧪'];
+const BOT_STYLE = ['divertido y bromista', 'sabio y tranquilo', 'gruñón pero simpático', 'aventurero y valiente', 'poeta que habla en rima', 'muy curioso, siempre hace preguntas'];
+function botFactory() {
+  const box = proFrame('Fábrica de bots'); if (!box) return;
+  const bots = S.ai.bots || [];
+  box.innerHTML = '<div class="bubble">Los asistentes como ChatGPT tienen unas <b>instrucciones secretas</b> que les dicen cómo ser: se llaman <b>prompt de sistema</b>. ¡Aquí las escribes tú!</div>' +
+    (bots.length ? '<div class="eyebrow" style="margin:12px 0 6px">Tus bots</div><div class="pchips">' + bots.map((b, k) => '<button class="pchip" type="button" data-bt="' + k + '">' + b.emo + ' ' + esc(b.name) + '</button>').join('') + '</div>' : '') +
+    '<div class="card stack" style="margin-top:12px"><h3 style="font-size:22px">Crear un bot nuevo</h3>' +
+    '<label>Nombre<input id="bName" class="prompt" style="width:100%" placeholder="Por ejemplo: Profe Rex"></label>' +
+    '<div><span class="tlabel">Su cara</span><div class="pchips" id="bEmo">' + BOT_EMO.map((e, k) => '<button class="stampbtn' + (k === 0 ? ' on' : '') + '" type="button" data-e="' + e + '">' + e + '</button>').join('') + '</div></div>' +
+    '<div><span class="tlabel">Personalidad</span><div class="pchips" id="bStyle">' + BOT_STYLE.map((x, k) => '<button class="pchip' + (k === 0 ? ' on' : '') + '" type="button" data-s="' + x + '">' + x + '</button>').join('') + '</div></div>' +
+    '<label>¿De qué sabe muchísimo?<input id="bAbout" class="prompt" style="width:100%" placeholder="dinosaurios, fútbol, el espacio, Minecraft…"></label>' +
+    '<label>Sus reglas (el prompt de sistema)<textarea id="bRules" placeholder="Por ejemplo: Siempre me hace una pregunta al final. Me explica con ejemplos de fútbol. Si me equivoco, me da una pista en vez de la respuesta."></textarea></label>' +
+    '<div><button class="btn-ok" type="button" id="bMake">Crear mi bot</button></div></div>';
+  let emo = BOT_EMO[0], style = BOT_STYLE[0];
+  box.querySelectorAll('[data-e]').forEach(b => b.onclick = () => { emo = b.dataset.e; box.querySelectorAll('[data-e]').forEach(x => x.classList.toggle('on', x === b)); });
+  box.querySelectorAll('#bStyle [data-s]').forEach(b => b.onclick = () => { style = b.dataset.s; box.querySelectorAll('#bStyle [data-s]').forEach(x => x.classList.toggle('on', x === b)); });
+  box.querySelectorAll('[data-bt]').forEach(b => b.onclick = () => botChat(bots[+b.dataset.bt]));
+  $('bMake').onclick = () => {
+    const bot = {name: $('bName').value.trim() || 'Mi bot', emo, style, about: $('bAbout').value.trim() || 'un poco de todo', rules: $('bRules').value.trim() || 'Responde con frases cortas y hazme una pregunta al final.'};
+    S.ai.bots = [bot].concat(bots).slice(0, 6); save(); addStars(3, 'ai'); logDo('ai'); botChat(bot);
+  };
+}
+function botChat(bot) {
+  const box = proFrame(bot.emo + ' ' + bot.name); if (!box) return;
+  const msgs = [];
+  box.innerHTML = '<details class="bubble"><summary style="cursor:pointer"><b>Ver su prompt de sistema</b></summary><p style="margin-top:6px;font-family:var(--f-hand);font-size:19px">Eres ' + esc(bot.name) + '. Tu personalidad: ' + esc(bot.style) + '. Sabes muchísimo de ' + esc(bot.about) + '. Reglas: ' + esc(bot.rules) + '</p></details><div class="chatlog" id="btLog" style="margin-top:10px"></div><div class="chatbar" style="margin-top:10px"><label for="btIn" class="sr">Escribe a tu bot</label><textarea id="btIn" rows="2" placeholder="Escribe a ' + esc(bot.name) + '…"></textarea><div class="chatbtns"><button class="btn-ok" type="button" id="btSend">Enviar</button></div></div><p class="muted" style="font-size:13px;margin-top:6px">Prueba a cambiar sus reglas y mira cómo cambia su forma de hablar. ¡Así se diseñan los asistentes de verdad!</p>';
+  const add = (role, t) => { $('btLog').insertAdjacentHTML('beforeend', role === 'user' ? '<div class="cmsg me"><div class="cb">' + esc(t) + '</div></div>' : '<div class="cmsg ai"><span style="font-size:32px">' + bot.emo + '</span><div class="cb">' + esc(t) + '</div></div>'); $('btLog').scrollTop = 1e6; };
+  add('ai', '¡Hola! Soy ' + bot.name + '. ¿Qué quieres saber?');
+  let busy = false;
+  const send = async () => {
+    const t = $('btIn').value.trim(); if (!t || busy) return; busy = true; $('btIn').value = ''; add('user', t); msgs.push({role: 'user', content: t});
+    loading($('btLog'), 'Pensando…');
+    try { const r = await lab('bot', {bot, messages: msgs.slice(-12)}); unload($('btLog')); msgs.push({role: 'assistant', content: r}); add('ai', r); talk(r); logDo('ai'); }
+    catch (e) { unload($('btLog')); add('ai', plain(chatErr(e))); msgs.pop(); }
+    busy = false;
+  };
+  $('btSend').onclick = send; $('btIn').onkeydown = e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } };
+}
+/* --- entrenador de prompts --- */
+function promptCoach() {
+  const box = proFrame('Entrenador de prompts'); if (!box) return;
+  box.innerHTML = '<div class="bubble">Escribe lo que le pedirías a una IA. Verás <b>la respuesta real</b> y Tupi te dirá cómo hacer el prompt todavía mejor.</div><div class="pchips" style="margin:10px 0">' + ['Explícame las fracciones', 'Hazme un plan para estudiar el examen de Sociales', 'Escribe un poema', 'Dame ideas para un proyecto de ciencias'].map(x => '<button class="pchip" type="button" data-px="' + x + '">' + x + '</button>').join('') + '</div><label for="pcIn" class="sr">Tu prompt</label><textarea id="pcIn" placeholder="Escribe tu prompt…"></textarea><div class="actions"><button class="btn-ok" type="button" id="pcGo">Probar mi prompt</button></div><div id="pcOut"></div>';
+  box.querySelectorAll('[data-px]').forEach(b => b.onclick = () => { $('pcIn').value = b.dataset.px; });
+  const run = async (prompt, label) => {
+    const out = $('pcOut'); loading(out, 'Probando el prompt…');
+    try {
+      const [ans, coachT] = await Promise.all([lab('run', {topic: prompt}), lab('coach', {topic: prompt})]);
+      let c = {}; try { c = labJSON(coachT); } catch (e) { c = {score: '?', good: '', tip: coachT, better: ''}; }
+      unload(out);
+      out.insertAdjacentHTML('beforeend', '<div class="card stack" style="margin-top:12px"><div class="eyebrow">' + label + '</div><div class="prompt">' + esc(prompt) + '</div><div class="aians">' + esc(ans).replace(/\n/g, '<br>') + '</div><div class="row"><span class="tlabel">Nota del prompt</span><div class="meter" style="flex:1"><i style="width:' + (Number(c.score) * 10 || 0) + '%"></i></div><b style="font-size:22px">' + esc(c.score) + '/10</b></div><div class="bubble"><b>Lo bueno:</b> ' + esc(c.good || '') + '<br><b>Consejo:</b> ' + esc(c.tip || '') + '</div>' + (c.better ? '<div><span class="tlabel">Versión mejorada</span><div class="prompt">' + esc(c.better) + '</div><div class="actions"><button type="button" class="pcBetter">Probar la versión mejorada</button></div></div>' : '') + '</div>');
+      const btns = out.querySelectorAll('.pcBetter'); const bb = btns[btns.length - 1]; if (bb) bb.onclick = () => { bb.disabled = true; run(c.better, 'Versión mejorada: ¿notas la diferencia?'); };
+      talk('Tu prompt tiene un ' + c.score + ' sobre 10. ' + (c.tip || '')); addStars(2, 'ai'); logDo('ai');
+    } catch (e) { unload(out); out.insertAdjacentHTML('beforeend', '<div class="bubble">' + chatErr(e) + '</div>'); }
+  };
+  $('pcGo').onclick = () => { const p = $('pcIn').value.trim(); if (p) { $('pcOut').innerHTML = ''; run(p, 'Tu prompt'); } };
+}
+/* --- generador de quizzes --- */
+function quizMaker() {
+  const box = proFrame('Generador de quizzes'); if (!box) return;
+  box.innerHTML = '<div class="bubble">Escribe un tema y la IA crea un test. Úsalo para repasar lo del cole… ¡o lo que te guste! Ojo: la IA puede equivocarse, así que si ves algo raro, márcalo.</div><div class="pchips" style="margin:10px 0">' + ['El sistema solar', 'Los dinosaurios', 'Las fracciones', 'La Edad Media', 'El cuerpo humano', 'Los ríos de España', 'El fútbol'].map(x => '<button class="pchip" type="button" data-qt="' + x + '">' + x + '</button>').join('') + '</div><label for="qmIn" class="sr">Tema</label><input id="qmIn" class="prompt" style="width:100%" placeholder="Escribe un tema…"><div class="actions"><button class="btn-ok" type="button" id="qmGo">Crear el test</button></div><div id="qmOut"></div>';
+  box.querySelectorAll('[data-qt]').forEach(b => b.onclick = () => { $('qmIn').value = b.dataset.qt; $('qmGo').click(); });
+  $('qmGo').onclick = async () => {
+    const t = $('qmIn').value.trim(); if (!t) return; const out = $('qmOut'); out.innerHTML = ''; loading(out, 'Creando tu test sobre «' + esc(t) + '»…');
+    try {
+      const j = labJSON(await lab('quiz', {topic: t})); const qs = (j.questions || []).filter(q => q.q && Array.isArray(q.o) && q.o.length >= 2).slice(0, 8);
+      if (!qs.length) throw new Error('vacío');
+      out.innerHTML = '<h3 style="font-size:22px;margin:12px 0 6px">' + esc(j.title || t) + '</h3><div id="qmPlay"></div>';
+      quiz($('qmPlay'), qs.map(q => ({q: esc(q.q), o: q.o.map(x => esc(x)), why: esc(q.why || '') + ' <button class="ghost small qflag" type="button">¿Algo mal?</button>'})), (sc, tot) => {
+        addStars(sc, 'ai'); logDo('ai');
+        out.innerHTML = '<div class="bubble" style="margin-top:12px"><b>' + sc + ' de ' + tot + '.</b> Este test lo ha creado una IA en segundos. Si alguna respuesta te pareció rara, compruébala en tu libro o en Vikidia: ¡pensar por ti mismo es lo más importante!</div><div class="actions"><button type="button" id="qmAgain">Otro test sobre «' + esc(t) + '»</button></div>';
+        $('qmAgain').onclick = () => $('qmGo').click();
+      });
+    } catch (e) { out.innerHTML = '<div class="bubble">' + (e.message === 'vacío' || e instanceof SyntaxError ? 'La IA no ha creado bien el test. ¡Pasa a veces! Prueba otra vez.' : chatErr(e)) + '</div>'; }
+  };
+  if (!window.__qflag) { window.__qflag = 1; document.addEventListener('click', ev => { const f = ev.target.closest('.qflag'); if (f) { f.outerHTML = '<span class="muted">¡Gracias! Comprueba ese dato en tu libro o pregunta a papá: a veces las IA se equivocan.</span>'; } }); }
+}
+/* --- fábrica de cómics --- */
+const BGS = ['forest', 'river', 'storm', 'school', 'night', 'field', 'sea', 'city', 'castle', 'ship', 'revo', 'lab', 'body', 'rain', 'cave'];
+function comicMaker() {
+  const box = proFrame('Fábrica de cómics'); if (!box) return;
+  box.innerHTML = '<div class="bubble">Cuéntale a la IA una idea y la convertirá en un cómic de 5 viñetas. Cuantos más detalles le des (personajes, lugar, problema), mejor saldrá.</div><div class="pchips" style="margin:10px 0">' + ['Un dragón que tiene miedo a la oscuridad', 'Tupi viaja a la Luna', 'Un balón de fútbol que quiere ser astronauta', 'Un robot que aprende a hacer amigos'].map(x => '<button class="pchip" type="button" data-ci2="' + x + '">' + x + '</button>').join('') + '</div><label for="cmIn" class="sr">Tu idea</label><textarea id="cmIn" placeholder="Mi idea es…"></textarea><div class="actions"><button class="btn-ok" type="button" id="cmGo">Crear el cómic</button></div><div id="cmOut"></div>';
+  box.querySelectorAll('[data-ci2]').forEach(b => b.onclick = () => { $('cmIn').value = b.dataset.ci2; });
+  $('cmGo').onclick = async () => {
+    const t = $('cmIn').value.trim(); if (!t) return; const out = $('cmOut'); out.innerHTML = ''; loading(out, 'Dibujando las viñetas…');
+    try {
+      const j = labJSON(await lab('comic', {topic: t})); const ps = (j.panels || []).slice(0, 6); if (!ps.length) throw new SyntaxError('x');
+      out.innerHTML = '<h3 style="font-size:26px;margin:12px 0 8px">' + esc(j.title || 'Mi cómic') + '</h3><div class="strip">' + ps.map((p, k) => '<div class="panel pop" style="animation-delay:' + (k * .3) + 's"><div class="art tall bg-' + (BGS.includes(p.bg) ? p.bg : 'field') + '"><em>' + (k + 1) + '</em><div class="balloon" style="font-size:16px;top:8px;left:8px;right:8px"><b>' + esc(p.who || '') + '</b>' + esc(p.say || '') + '</div><span>' + esc(p.cast || '') + '</span></div><p>' + esc(p.text || '') + '</p></div>').join('') + '</div><div class="actions"><button class="speak" type="button" id="cmRead">Leer el cómic</button><button type="button" id="cmAgain">Otra versión</button></div><p class="muted" style="font-size:13px">Pídele cambios: añade a tu idea «que el final sea sorpresa» o «que salga mi perro» y vuelve a crearlo.</p>';
+      $('cmRead').onclick = () => talk(ps.map(p => (p.who ? p.who + ': ' : '') + (p.say || '') + '. ' + (p.text || '')).join(' '), true);
+      $('cmAgain').onclick = () => $('cmGo').click(); addStars(3, 'ai'); logDo('ai');
+    } catch (e) { out.innerHTML = '<div class="bubble">' + (e instanceof SyntaxError ? 'La IA se ha liado con las viñetas. ¡Prueba otra vez!' : chatErr(e)) + '</div>'; }
+  };
+}
+/* --- ¿cómo piensa una IA? --- */
+function nextWord() {
+  const box = proFrame('¿Cómo piensa una IA?'); if (!box) return;
+  let sentence = '';
+  const start = s => { sentence = s; step(); };
+  box.innerHTML = '<div class="bubble">Las IA como ChatGPT escriben <b>palabra a palabra</b>: en cada paso calculan qué palabra es más probable. Elige un comienzo y construye una frase como lo haría una IA.</div><div class="pchips" style="margin:10px 0">' + ['Había una vez un', 'Mi comida favorita es la', 'El sol es una', 'En el recreo siempre jugamos al', 'Los dinosaurios eran'].map(x => '<button class="pchip" type="button" data-nw="' + x + '">' + x + '…</button>').join('') + '</div><div id="nwOut"></div>';
+  box.querySelectorAll('[data-nw]').forEach(b => b.onclick = () => start(b.dataset.nw));
+  async function step() {
+    const out = $('nwOut'); out.innerHTML = '<div class="prompt" style="font-size:28px">' + esc(sentence) + ' <span style="color:var(--c-ai)">▌</span></div>'; loading(out, 'Calculando probabilidades…');
+    try {
+      const j = labJSON(await lab('next', {topic: sentence})); const ws = (j.words || []).slice(0, 5); unload(out);
+      out.insertAdjacentHTML('beforeend', '<div class="emo bars" style="margin-top:10px">' + ws.map((w, k) => '<button type="button" class="nwbar" data-w="' + esc(w.w) + '"><span>' + esc(w.w) + '</span><div class="track"><i style="width:' + Math.min(100, Number(w.p) || 0) + '%;background:var(--c-ai)"></i></div><b>' + (Number(w.p) || 0) + '%</b></button>').join('') + '</div><p class="muted" style="font-size:14px;margin-top:6px">Toca una palabra para añadirla. La IA normalmente elige la más probable… ¡pero tú puedes elegir otra!</p><div class="actions"><button class="ghost small" type="button" id="nwEnd">Terminar la frase</button></div>');
+      out.querySelectorAll('[data-w]').forEach(b => b.onclick = () => { sentence += ' ' + b.dataset.w; step(); });
+      $('nwEnd').onclick = () => { out.innerHTML = '<div class="prompt" style="font-size:28px">' + esc(sentence) + '.</div><div class="bubble" style="margin-top:10px">¡Has escrito como una IA! Por eso a veces se equivocan: eligen lo que <b>suena</b> más probable, no lo que <b>saben</b> que es verdad.</div>'; talk(sentence); addStars(2, 'ai'); logDo('ai'); };
+    } catch (e) { unload(out); out.insertAdjacentHTML('beforeend', '<div class="bubble">' + (e instanceof SyntaxError ? 'Uy, prueba otra vez.' : chatErr(e)) + '</div>'); }
+  }
+}
+/* --- detective de bulos --- */
+function hoaxDetective() {
+  const box = proFrame('Detective de bulos'); if (!box) return;
+  box.innerHTML = '<div class="bubble">Elige un tema. La IA dirá 5 datos: <b>4 son verdad y 1 es un bulo</b>. Encuentra el falso, como un detective.</div><div class="pchips" style="margin:10px 0">' + ['Los animales', 'El espacio', 'España', 'Los romanos', 'El cuerpo humano', 'Los océanos'].map(x => '<button class="pchip" type="button" data-dt="' + x + '">' + x + '</button>').join('') + '</div><div id="dtOut"></div>';
+  box.querySelectorAll('[data-dt]').forEach(b => b.onclick = async () => {
+    const out = $('dtOut'); out.innerHTML = ''; loading(out, 'Preparando el caso…');
+    try {
+      const j = labJSON(await lab('detect', {topic: b.dataset.dt})); const it = (j.items || []).slice(0, 5); if (it.filter(x => x.ok === false).length !== 1) throw new SyntaxError('x');
+      out.innerHTML = '<h3 style="font-size:22px;margin:10px 0">Caso: ' + esc(b.dataset.dt) + '. ¿Cuál es el bulo?</h3><div class="stack">' + shuffle(it).map(x => '<button class="opt" type="button" data-ok="' + (x.ok ? 1 : 0) + '" data-why="' + esc(x.why || '') + '">' + esc(x.s) + '</button>').join('') + '</div><div id="dtMsg"></div>';
+      out.querySelectorAll('[data-ok]').forEach(o => o.onclick = () => {
+        const good = o.dataset.ok === '0';
+        out.querySelectorAll('[data-ok]').forEach(x => { x.disabled = true; if (x.dataset.ok === '0') x.classList.add('bad'); });
+        const fake = out.querySelector('[data-ok="0"]');
+        $('dtMsg').innerHTML = '<div class="bubble" style="margin-top:10px">' + (good ? '<b>¡Caso resuelto, detective!</b> ' : '<b>¡Te ha engañado!</b> El bulo era el que está en rojo. ') + fake.dataset.why + '<br><br>Así «alucinan» las IA: dicen cosas falsas con mucha seguridad. <b>Truco:</b> lo importante, compruébalo en dos sitios.</div><div class="actions"><button type="button" id="dtAgain">Otro caso</button></div>';
+        talk(good ? '¡Caso resuelto!' : '¡Te ha engañado! ' + plain(fake.dataset.why)); if (good) addStars(3, 'ai'); logDo('ai');
+        $('dtAgain').onclick = () => b.click();
+      });
+    } catch (e) { out.innerHTML = '<div class="bubble">' + (e instanceof SyntaxError ? 'El caso salió mal preparado. ¡Prueba otra vez!' : chatErr(e)) + '</div>'; }
+  });
+}
+/* =================================================================
    SALA DE JUEGOS
    ================================================================= */
 const EN_ES = {dog: 'perro', cat: 'gato', elephant: 'elefante', fish: 'pez', apple: 'manzana', banana: 'plátano', car: 'coche', sun: 'sol', rain: 'lluvia', house: 'casa', ball: 'pelota', bird: 'pájaro', bread: 'pan', milk: 'leche', pencil: 'lápiz', horse: 'caballo', moon: 'luna', star: 'estrella', clock: 'reloj', chair: 'silla', frog: 'rana', tree: 'árbol', shoes: 'zapatos', scarf: 'bufanda', gloves: 'guantes', coat: 'abrigo', bridge: 'puente', castle: 'castillo'};
@@ -3505,6 +3862,170 @@ document.addEventListener('click', async e => {
 document.addEventListener('click', e => { if (e.target.closest('#trClose')) { $('trPanel').hidden = true; try { speechSynthesis.cancel(); } catch (x) {} } });
 
 /* =================================================================
+   FOTO DEL CUADERNO
+   ================================================================= */
+ENTER.scan = () => paintScan();
+function paintScan() {
+  hush();
+  const prev = S.scans || [];
+  $('scanArea').innerHTML = '<div class="card stack"><div class="row" style="gap:16px"><div style="font-size:64px;line-height:1">📸</div><div style="flex:1;min-width:220px"><h3 style="font-size:26px">Estudia con una foto</h3><p>Haz una foto a la página del libro o de tus apuntes. Tupi te prepara un <b>resumen</b>, <b>tarjetas de memoria</b> y un <b>test</b> de esa lección.</p></div></div>' +
+    '<label class="bigfile"><input type="file" id="scFile" accept="image/*"><span>📷 Hacer foto o elegir imagen</span></label>' +
+    '<div id="scPrev"></div><label>¿De qué asignatura es? (opcional)<input id="scNote" class="prompt" style="width:100%" placeholder="Por ejemplo: Sociales, tema 2"></label><div><button class="btn-ok" type="button" id="scGo" disabled>Preparar mi estudio</button></div>' +
+    '<p class="muted" style="font-size:13px">Consejo: que la página se vea entera, recta y con buena luz. La foto solo se usa para preparar tu estudio y no se guarda.</p></div><div id="scOut"></div>' +
+    (prev.length ? '<div class="card" style="margin-top:16px"><div class="eyebrow" style="margin-bottom:8px">Tus lecciones guardadas</div><div class="pchips">' + prev.map((p, k) => '<button class="pchip" type="button" data-sc="' + k + '">' + esc(p.title) + ' <span class="muted">· ' + p.d + '</span></button>').join('') + '</div></div>' : '');
+  let dataUrl = null;
+  $('scFile').onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    const rd = new FileReader(); rd.onload = () => {
+      const img = new Image(); img.onload = () => {
+        const k = Math.min(1, 1400 / Math.max(img.width, img.height)); const c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); dataUrl = c.toDataURL('image/jpeg', .82);
+        $('scPrev').innerHTML = '<img src="' + dataUrl + '" alt="Foto de la lección" class="scimg">'; $('scGo').disabled = false;
+      }; img.src = rd.result;
+    }; rd.readAsDataURL(f);
+  };
+  $('scGo').onclick = async () => {
+    if (!dataUrl) return; if (!familyPin()) { $('scOut').innerHTML = '<div class="bubble">Primero activa el cerebro de Tupi en <b>Habla con Tupi</b> con el código familiar.</div>'; return; }
+    $('scGo').disabled = true; const out = $('scOut'); out.innerHTML = ''; loading(out, 'Tupi está leyendo tu página… (puede tardar unos segundos)');
+    try {
+      const j = labJSON(await lab('scan', {image: dataUrl, topic: $('scNote').value.trim()}));
+      if (j.error && !(j.summary || []).length) { out.innerHTML = '<div class="bubble">' + esc(j.error) + ' Prueba con otra foto más clara.</div>'; $('scGo').disabled = false; return; }
+      const L = {title: j.title || 'Mi lección', subject: j.subject || '', summary: (j.summary || []).slice(0, 8), cards: (j.cards || []).filter(c => c.front && c.back).slice(0, 10), quiz: (j.quiz || []).filter(q => q.q && Array.isArray(q.o) && q.o.length > 1).slice(0, 8), d: day()};
+      S.scans = [L].concat(S.scans || []).slice(0, 15); save(); addStars(2, 'scan'); logDo('scan');
+      showLesson(L);
+    } catch (e) { out.innerHTML = '<div class="bubble">' + (e instanceof SyntaxError ? 'Tupi no ha podido leer bien la página. Prueba con otra foto más clara.' : chatErr(e)) + '</div>'; $('scGo').disabled = false; }
+  };
+  $('scanArea').querySelectorAll('[data-sc]').forEach(b => b.onclick = () => showLesson(S.scans[+b.dataset.sc]));
+}
+function showLesson(L, tab) {
+  tab = tab || 'sum'; const out = $('scOut'); hush();
+  out.innerHTML = '<div class="card" style="margin-top:16px"><div class="eyebrow" style="color:var(--c-ai)">' + esc(L.subject || 'Mi lección') + '</div><h3 style="font-size:28px;margin:2px 0 10px">' + esc(L.title) + '</h3><div class="tabs"><button type="button" data-lt="sum" class="' + (tab === 'sum' ? 'on' : '') + '">Resumen</button><button type="button" data-lt="cards" class="' + (tab === 'cards' ? 'on' : '') + '">Tarjetas (' + L.cards.length + ')</button><button type="button" data-lt="quiz" class="' + (tab === 'quiz' ? 'on' : '') + '">Test</button><button type="button" data-lt="teach">Explícaselo a Tupi</button></div><div id="lsBody"></div></div>';
+  out.querySelectorAll('[data-lt]').forEach(b => b.onclick = () => b.dataset.lt === 'teach' ? (go('teach'), startTeach(L.title, L.summary.join(' '))) : showLesson(L, b.dataset.lt));
+  const body = $('lsBody');
+  if (tab === 'sum') { body.innerHTML = '<ol class="sumlist">' + L.summary.map(s => '<li>' + esc(s) + '</li>').join('') + '</ol><div class="actions"><button class="speak" type="button" id="lsRead">Escuchar el resumen</button></div>'; $('lsRead').onclick = () => talk(L.title + '. ' + L.summary.join('. '), true); }
+  if (tab === 'cards') flashcards(body, L.cards);
+  if (tab === 'quiz') quiz(body, L.quiz.map(q => ({q: esc(q.q), o: q.o.map(esc), why: esc(q.why || '')})), (sc, tot) => { addStars(sc, 'scan'); logDo('scan'); body.innerHTML = '<div class="bubble"><b>' + sc + ' de ' + tot + '.</b> ' + (sc / tot >= .8 ? '¡Esta lección la tienes dominada!' : 'Repasa las tarjetas y vuelve a intentarlo.') + '</div>'; });
+}
+function flashcards(el, cards) {
+  let order = shuffle(cards.map((_, k) => k)), i = 0, flip = false, know = 0;
+  const draw = () => {
+    if (i >= order.length) { el.innerHTML = '<div class="bubble">Has repasado todas. Te sabías <b>' + know + ' de ' + cards.length + '</b>. ' + (know < cards.length ? '¡Repite las que te costaron!' : '¡Perfecto!') + '</div><div class="actions"><button type="button" id="fcAgain">Repasar otra vez</button></div>'; $('fcAgain').onclick = () => flashcards(el, cards); if (know === cards.length) addStars(2, 'scan'); return; }
+    const c = cards[order[i]];
+    el.innerHTML = '<p class="muted" style="text-align:center">Tarjeta ' + (i + 1) + ' de ' + order.length + ' · toca la tarjeta para darle la vuelta</p><button type="button" class="fcard' + (flip ? ' back' : '') + '" id="fcCard"><span>' + esc(flip ? c.back : c.front) + '</span></button>' + (flip ? '<div class="actions"><button type="button" id="fcNo" style="background:var(--orange)">Repasar</button><button class="btn-ok" type="button" id="fcYes">¡Me la sé!</button></div>' : '');
+    $('fcCard').onclick = () => { flip = !flip; draw(); if (flip) talk(c.back); };
+    if (flip) { $('fcYes').onclick = () => { know++; i++; flip = false; draw(); }; $('fcNo').onclick = () => { order.push(order[i]); i++; flip = false; draw(); }; }
+  };
+  draw();
+}
+
+/* =================================================================
+   EXPLÍCASELO A TUPI
+   ================================================================= */
+ENTER.teach = () => paintTeach();
+function teachTopics() {
+  const t = [];
+  (S.scans || []).slice(0, 4).forEach(s => t.push(['Mis fotos', s.title]));
+  LEN.forEach(u => u.topics.forEach(x => t.push(['Lengua', x.n])));
+  MTOP.forEach(x => t.push(['Mates', x.n]));
+  SOC.forEach(x => t.push(['Sociales', x.title]));
+  ERAS.forEach(x => t.push(['Historia', x.title]));
+  NAT.forEach(x => t.push(['Ciencias', x.name]));
+  return t;
+}
+function paintTeach() {
+  hush();
+  const groups = {}; teachTopics().forEach(x => (groups[x[0]] = groups[x[0]] || []).push(x[1]));
+  $('teachArea').innerHTML = '<div class="card stack"><div class="row" style="gap:16px"><svg class="birdSvg" viewBox="0 0 100 100" style="width:90px;height:90px">' + BIRD + '</svg><div style="flex:1;min-width:220px"><h3 style="font-size:26px">Hoy el profe eres tú</h3><p>Tupi se ha despistado en clase. Elige un tema y <b>explícaselo</b> con tus palabras. Él te dirá qué ha entendido… ¡y te hará preguntas!</p></div></div>' +
+    Object.keys(groups).map(g => '<div><span class="tlabel">' + g + '</span><div class="pchips" style="margin-top:4px">' + groups[g].map(n => '<button class="pchip" type="button" data-tt="' + esc(n) + '">' + esc(n) + '</button>').join('') + '</div></div>').join('') +
+    '<div class="row"><input id="ttFree" class="prompt" style="flex:1;min-width:200px" placeholder="U otro tema…"><button type="button" id="ttGo">Elegir</button></div></div><div id="teachOut"></div>';
+  $('teachArea').querySelectorAll('[data-tt]').forEach(b => b.onclick = () => startTeach(b.dataset.tt));
+  $('ttGo').onclick = () => { const v = $('ttFree').value.trim(); if (v) startTeach(v); };
+}
+function startTeach(topic, context) {
+  if (!$('teachOut')) paintTeach();
+  const out = $('teachOut');
+  out.innerHTML = '<div class="card stack" style="margin-top:16px"><div class="cmsg ai"><svg class="birdSvg" viewBox="0 0 100 100" aria-hidden="true">' + BIRD + '</svg><div class="cb">¡Profe ' + esc(who().split(' ')[0]) + '! Hoy no me he enterado de nada de <b>' + esc(topic) + '</b>. ¿Me lo explicas? Cuéntamelo como si yo no supiera nada, con algún ejemplo.</div></div><label for="teIn" class="sr">Tu explicación</label><textarea id="teIn" style="min-height:140px" placeholder="Escribe tu explicación… o pulsa Hablar"></textarea><div class="row"><button class="iconbtn" type="button" id="teMic">' + MIC + '</button><button class="btn-ok" type="button" id="teGo">Explicárselo</button></div><div id="teRes"></div></div>';
+  talk('¡Profe! Hoy no me he enterado de nada de ' + topic + '. ¿Me lo explicas?');
+  setupMic($('teMic'), $('teIn'), () => {});
+  out.scrollIntoView({behavior: 'smooth', block: 'start'});
+  const evaluate = async (extra) => {
+    const text = $('teIn').value.trim(); if (text.split(/\s+/).length < 5) { $('teRes').innerHTML = '<div class="bubble">Cuéntamelo un poco más, ¡con al menos una frase entera!</div>'; return; }
+    if (!familyPin()) { $('teRes').innerHTML = '<div class="bubble">Primero activa el cerebro de Tupi en <b>Habla con Tupi</b> con el código familiar.</div>'; return; }
+    loading($('teRes'), 'Tupi está pensando en lo que le has explicado…');
+    try {
+      const j = labJSON(await lab('teach', Object.assign({topic: topic + (context ? ' (de su lección: ' + context.slice(0, 600) + ')' : ''), text}, extra || {})));
+      unload($('teRes'));
+      const st = Math.max(1, Math.min(5, Number(j.stars) || 1));
+      $('teRes').insertAdjacentHTML('beforeend', '<div class="card stack" style="margin-top:10px"><div class="tstars">' + '★'.repeat(st) + '<span>' + '★'.repeat(5 - st) + '</span></div><div class="cmsg ai"><svg class="birdSvg" viewBox="0 0 100 100">' + BIRD + '</svg><div class="cb">' + esc(j.tupi || '') + '</div></div>' +
+        ((j.good || []).length ? '<div class="bubble ok-b"><b>Lo explicaste muy bien:</b><ul>' + j.good.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '') +
+        ((j.missing || []).length ? '<div class="bubble"><b>Te faltó contarme:</b><ul>' + j.missing.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '') +
+        (j.wrong ? '<div class="bubble bad-b"><b>Ojo con esto:</b> ' + esc(j.wrong) + '</div>' : '') +
+        (j.question && !extra ? '<div class="stack"><div class="cmsg ai"><svg class="birdSvg" viewBox="0 0 100 100">' + BIRD + '</svg><div class="cb"><b>Una pregunta, profe:</b> ' + esc(j.question) + '</div></div><textarea class="teAns" placeholder="Tu respuesta…"></textarea><div><button type="button" class="teAnsGo">Responder</button></div></div>' : '<div class="actions"><button type="button" class="teNew">Explicar otro tema</button></div>') + '</div>');
+      talk((j.tupi || '') + (j.question && !extra ? ' Una pregunta, profe: ' + j.question : ''));
+      addStars(st, 'teach'); logDo('teach');
+      const ag = [...$('teRes').querySelectorAll('.teAnsGo')].pop(); if (ag) ag.onclick = () => { const ans = [...$('teRes').querySelectorAll('.teAns')].pop().value.trim(); if (ans) { ag.disabled = true; evaluate({followup: j.question, answer: ans}); } };
+      const nw = [...$('teRes').querySelectorAll('.teNew')].pop(); if (nw) nw.onclick = () => { paintTeach(); window.scrollTo(0, 0); };
+    } catch (e) { unload($('teRes')); $('teRes').insertAdjacentHTML('beforeend', '<div class="bubble">' + (e instanceof SyntaxError ? 'Tupi se ha liado. ¡Prueba otra vez!' : chatErr(e)) + '</div>'); }
+  };
+  $('teGo').onclick = () => { $('teRes').innerHTML = ''; evaluate(); };
+}
+
+/* =================================================================
+   MI ISLA
+   ================================================================= */
+const ISLA_ITEMS = [
+  ['flor', '🌷', 'Flor', 2], ['seta', '🍄', 'Seta', 2], ['roca', '🪨', 'Roca', 2], ['arbol', '🌳', 'Árbol', 3], ['palmera', '🌴', 'Palmera', 3], ['gallina', '🐓', 'Gallina', 4], ['turpial', '🐦', 'Turpial', 5],
+  ['perro', '🐕', 'Perro', 5], ['gato', '🐈', 'Gato', 5], ['tienda', '⛺', 'Tienda de campaña', 6], ['vaca', '🐄', 'Vaca', 8], ['caballo', '🐎', 'Caballo', 10], ['casa', '🏠', 'Casa', 10],
+  ['fuente', '⛲', 'Fuente', 12], ['montana', '⛰️', 'Montaña', 15], ['chalet', '🏡', 'Casa con jardín', 15], ['parque', '🎠', 'Tiovivo', 18], ['super', '🏪', 'Tienda', 20], ['faro', '🗼', 'Torre', 25],
+  ['cole', '🏫', 'Colegio', 30], ['hospital', '🏥', 'Hospital', 30], ['noria', '🎡', 'Noria', 35], ['volcan', '🌋', 'Volcán', 40], ['estadio', '🏟️', 'Estadio', 45], ['museo', '🏛️', 'Museo', 50], ['castillo', '🏰', 'Castillo', 60], ['cohete', '🚀', 'Base espacial', 80],
+  ['pez', '🐠', 'Pez', 4, 1], ['barco', '⛵', 'Velero', 8, 1], ['delfin', '🐬', 'Delfín', 12, 1], ['ballena', '🐋', 'Ballena', 15, 1]
+];
+const IW = 12, IH = 9, GROW = [0, 25, 50, 90];
+const islaLand = (x, y, sz) => { const rx = 2.6 + sz * 1.05, ry = 1.9 + sz * .75; return Math.pow((x - 5.5) / rx, 2) + Math.pow((y - 4) / ry, 2) <= 1; };
+const islaFree = () => S.stars - (S.isla.spent || 0);
+const islaTitle = n => n < 5 ? 'Islote' : n < 15 ? 'Aldea' : n < 30 ? 'Pueblo' : n < 50 ? 'Ciudad' : 'Gran capital';
+let islaSel = null;
+ENTER.isla = () => paintIsla();
+function paintIsla(msg) {
+  const I = S.isla; const n = Object.keys(I.items).length; const sz = I.size || 1;
+  const homes = Object.values(I.items).filter(k => k === 'casa' || k === 'chalet').length;
+  let grid = '';
+  for (let y = 0; y < IH; y++) for (let x = 0; x < IW; x++) {
+    const land = islaLand(x, y, sz), k = x + ',' + y, it = I.items[k];
+    const beach = land && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(d => !islaLand(x + d[0], y + d[1], sz));
+    const em = it ? (ISLA_ITEMS.find(z => z[0] === it) || [])[1] : '';
+    grid += '<button type="button" class="itile ' + (land ? (beach ? 'beach' : 'land') : 'water') + '" data-t="' + k + '" aria-label="' + (land ? 'tierra' : 'agua') + '">' + (em || '') + '</button>';
+  }
+  $('islaArea').innerHTML = '<div class="islahead card"><div><div class="eyebrow" style="color:var(--c-geo)">' + islaTitle(n) + ' · ' + n + ' cosas · ' + (homes * 4) + ' habitantes</div><input id="islaName" class="islaname" value="' + esc(I.name || ('Isla de ' + who().split(' ')[0])) + '" aria-label="Nombre de tu isla"></div><div class="pill" style="font-size:22px">★ ' + islaFree() + ' para gastar</div></div>' +
+    '<div class="bubble" style="margin:10px 0">' + (msg || (islaSel ? 'Toca una casilla de ' + (ISLA_ITEMS.find(z => z[0] === islaSel)[4] ? '<b>agua</b>' : '<b>tierra</b>') + ' para poner: ' + ISLA_ITEMS.find(z => z[0] === islaSel)[1] : 'Elige algo de la tienda y luego toca dónde ponerlo. Toca algo ya puesto para quitarlo. ¡Ganas estrellas estudiando!')) + '</div>' +
+    '<div class="islawrap"><div class="islagrid" style="grid-template-columns:repeat(' + IW + ',1fr)">' + grid + '</div></div>' +
+    '<div class="card" style="margin-top:12px"><div class="eyebrow" style="margin-bottom:8px">Tienda</div><div class="shop">' + ISLA_ITEMS.map(z => '<button type="button" class="shopit' + (islaSel === z[0] ? ' on' : '') + '" data-it="' + z[0] + '"' + (islaFree() < z[3] ? ' disabled' : '') + '><span>' + z[1] + '</span><small>' + z[2] + '</small><b>★ ' + z[3] + '</b></button>').join('') + '</div>' +
+    (sz < 4 ? '<div class="actions"><button type="button" id="islaGrow"' + (islaFree() < GROW[sz] ? ' disabled' : '') + '>Ampliar la isla (★ ' + GROW[sz] + ')</button></div>' : '') + '</div>';
+  $('islaName').onchange = e => { I.name = e.target.value.trim().slice(0, 30); save(); };
+  $('islaArea').querySelectorAll('[data-it]').forEach(b => b.onclick = () => { islaSel = islaSel === b.dataset.it ? null : b.dataset.it; paintIsla(); });
+  const g = $('islaGrow'); if (g) g.onclick = () => { I.spent = (I.spent || 0) + GROW[sz]; I.size = sz + 1; save(); talk('¡Tu isla ha crecido! Ahora tienes más sitio para construir.'); paintIsla('<b>¡La isla ha crecido!</b> Más sitio para construir.'); };
+  $('islaArea').querySelectorAll('[data-t]').forEach(b => b.onclick = () => {
+    const k = b.dataset.t, [x, y] = k.split(',').map(Number), land = islaLand(x, y, sz);
+    if (I.items[k]) {
+      const it = ISLA_ITEMS.find(z => z[0] === I.items[k]);
+      paintIsla('¿Quitar ' + it[1] + ' ' + it[2] + '? Te devuelvo ★ ' + Math.floor(it[3] / 2) + '. <button class="small" type="button" id="islaDel" style="background:var(--bad);margin-left:6px">Quitar</button>');
+      $('islaDel').onclick = () => { delete I.items[k]; I.spent = Math.max(0, (I.spent || 0) - Math.floor(it[3] / 2)); save(); paintIsla(); };
+      return;
+    }
+    if (!islaSel) { paintIsla('Primero elige algo de la tienda. 👇'); return; }
+    const it = ISLA_ITEMS.find(z => z[0] === islaSel);
+    if (!!it[4] === land) { paintIsla(it[4] ? 'Eso va en el <b>agua</b>, ¡que se ahoga en tierra!' : 'Eso va en <b>tierra</b>, ¡que se moja!'); return; }
+    if (islaFree() < it[3]) { paintIsla('Te faltan estrellas. ¡Haz un ejercicio y vuelve!'); islaSel = null; return; }
+    I.items[k] = it[0]; I.spent = (I.spent || 0) + it[3]; save();
+    const cheers = ['¡Qué bonito queda!', '¡Tu isla está cada vez mejor!', '¡Genial! ¿Qué más pondrás?', '¡Me encanta!'];
+    talk(it[2] + '. ' + pick(cheers));
+    const n2 = Object.keys(I.items).length; const t0 = islaTitle(n2 - 1), t1 = islaTitle(n2);
+    if (islaFree() < it[3]) islaSel = null;
+    paintIsla(t0 !== t1 ? '<b>¡Tu isla ahora es ' + t1.toLowerCase() + '!</b> 🎉' : it[1] + ' ¡Colocado!');
+    if (t0 !== t1) toast('¡Tu isla ha subido de nivel: ' + t1 + '!', true);
+  });
+}
+/* =================================================================
    PROGRESO
    ================================================================= */
 function parentHTML() {
@@ -3527,7 +4048,7 @@ function refuerzoHTML() {
 ENTER.prog = () => {
   const max = Math.max(5, ...SUBJ.map(s => S.sub[s.id] || 0));
   const days = []; const d = new Date(); d.setDate(d.getDate() - 6);
-  for (let k = 0; k < 7; k++) { const key = day(d), t = S.log[key] || {}; const other = (t.hist || 0) + (t.geo || 0) + (t.nat || 0) + (t.eng || 0) + (t.ai || 0) + (t.len || 0) + (t.art || 0) + (t.games || 0) + (t.mont || 0); const n = (t.read ? 1 : 0) + (t.mat ? 1 : 0) + (other ? 1 : 0); days.push({l: ['D','L','M','X','J','V','S'][d.getDay()], n}); d.setDate(d.getDate() + 1); }
+  for (let k = 0; k < 7; k++) { const key = day(d), t = S.log[key] || {}; const other = (t.hist || 0) + (t.geo || 0) + (t.nat || 0) + (t.eng || 0) + (t.ai || 0) + (t.len || 0) + (t.art || 0) + (t.games || 0) + (t.mont || 0) + (t.scan || 0) + (t.teach || 0); const n = (t.read ? 1 : 0) + (t.mat ? 1 : 0) + (other ? 1 : 0); days.push({l: ['D','L','M','X','J','V','S'][d.getDay()], n}); d.setDate(d.getDate() + 1); }
   $('progArea').innerHTML =
     '<div class="kpis"><div class="card kpi"><span class="muted">Estrellas</span><b>★ ' + S.stars + '</b></div><div class="card kpi"><span class="muted">Racha de lectura</span><b>' + readStreak() + ' días</b></div><div class="card kpi"><span class="muted">Minutos leídos</span><b>' + S.read.minutes + '</b></div><div class="card kpi"><span class="muted">Sellos de historia</span><b>' + Object.keys(S.hist).length + ' / ' + ERAS.length + '</b></div></div>' +
     '<div class="card"><div class="eyebrow" style="margin-bottom:10px">Últimos 7 días · misiones cumplidas</div><div class="week">' + days.map(x => '<div class="' + (x.n === 3 ? 'full' : '') + '"><b>' + x.l + '</b><br>' + x.n + '/3</div>').join('') + '</div></div>' +
@@ -3543,7 +4064,7 @@ const RESTART = {
   games: () => curGame ? runGame(curGame) : paintGames(),
   mont: () => curMont ? openMont(curMont) : paintMont(),
   mat: () => renderMat(), read: () => renderShelf(), len: () => paintLen(), hist: () => paintHist(),
-  geo: () => startGeo(), nat: () => openNat(natSel), eng: () => { paintPath(); engIntro(); }, ai: () => aiHome(), art: () => paintArt(), chat: () => paintChat()
+  geo: () => startGeo(), nat: () => openNat(natSel), scan: () => paintScan(), teach: () => paintTeach(), isla: () => { islaSel = null; paintIsla(); }, eng: () => { paintPath(); engIntro(); }, ai: () => aiHome(), art: () => paintArt(), chat: () => paintChat()
 };
 document.querySelectorAll('section[id^="v-"] .subhead').forEach(h => {
   const v = h.parentElement.id.slice(2); if (v === 'prog' || v === 'chat') return;
@@ -3562,7 +4083,9 @@ const RESETS = [
   ['games', 'Juegos y Montessori (récords)', () => { S.games = {}; S.mont = {}; }],
   ['art', 'Galería de dibujos', () => { S.art = {gallery: []}; }],
   ['chat', 'Conversaciones con Tupi', () => { S.chat = []; }],
-  ['stars', 'Estrellas y días de la misión', () => { S.stars = 0; S.sub = {}; S.log = {}; }]
+  ['scan', 'Lecciones de fotos guardadas', () => { S.scans = []; }],
+  ['isla', 'Mi isla (devuelve las estrellas gastadas)', () => { S.isla = JSON.parse(JSON.stringify(DEF.isla)); }],
+  ['stars', 'Estrellas y días de la misión (también vacía la isla)', () => { S.stars = 0; S.sub = {}; S.log = {}; S.isla = JSON.parse(JSON.stringify(DEF.isla)); }]
 ];
 function resetHTML() {
   return '<details class="card"><summary class="eyebrow" style="cursor:pointer">Zona papá · empezar de cero</summary><p class="muted" style="margin:8px 0">Marca lo que quieres borrar. El nombre y la voz se quedan.</p><div class="rsgrid">' + RESETS.map(r0 => '<label class="rsitem"><input type="checkbox" value="' + r0[0] + '"> ' + r0[1] + '</label>').join('') + '</div><div class="row" style="margin-top:10px"><button class="ghost small" type="button" id="rsAll">Marcar todo</button><button type="button" id="rsGo" style="background:var(--bad)">Borrar lo marcado</button></div><div id="rsMsg" style="margin-top:8px"></div></details>';
@@ -3609,7 +4132,7 @@ function splash() {
 /* =================================================================
    ACTUALIZAR LA APP (el progreso se queda: solo se borra la copia de la app)
    ================================================================= */
-const APP_VERSION = '10';
+const APP_VERSION = '13';
 async function updateApp() {
   $('updBtn').classList.add('spin'); hush();
   try {

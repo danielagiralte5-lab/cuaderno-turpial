@@ -406,6 +406,51 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
 .vcard span{font-size:46px;line-height:1.1}
 .vcard b{font-family:var(--f-display);font-size:19px}
 .vcard small{color:var(--ink-soft);font-size:13px}
+
+/* Montessori */
+.bwrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;align-items:start}
+.bcol{background:var(--card);border:2px solid var(--grid);border-radius:14px;padding:8px;text-align:center;display:grid;gap:6px;min-width:0}
+.bhead{font-family:var(--f-display);font-weight:800;font-size:14px}
+.bsvg{width:100%;max-height:260px;height:auto}
+.bead{fill:#E9B83C;stroke:#8a6a1f;stroke-width:1}
+.plate{fill:#F6D77E;stroke:#8a6a1f;stroke-width:1.5}
+.cube.f{fill:#E9B83C;stroke:#8a6a1f}.cube.t{fill:#F6D77E;stroke:#8a6a1f}.cube.s{fill:#C99A2E;stroke:#8a6a1f}
+.bcard{font-family:var(--f-hand);font-size:34px;border:3px solid;border-radius:10px;background:#fff;margin:0 auto;min-width:64px}
+.fracrow{display:flex;flex-wrap:wrap;gap:24px;justify-content:center}
+.pie{max-width:100%;height:auto}
+.gsent{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0}
+.gword{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--card);color:var(--ink);border:2px solid var(--grid);box-shadow:none;font-family:var(--f-hand);font-size:26px;font-weight:400;padding:6px 10px}
+.gword.sel{border-color:var(--orange);background:var(--cream)}
+.gword.good{border-color:var(--ok);background:var(--okbg)}
+.gword.wrong{border-color:var(--bad);background:var(--badbg)}
+.gs{height:40px;display:flex;align-items:center}
+.gq{font-family:var(--f-display);color:var(--ink-soft);font-size:22px}
+.gsym{width:44px;height:40px}
+.gpal{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.gbtn{display:flex;align-items:center;gap:6px;background:var(--card);color:var(--ink);border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);font-family:var(--f-body);font-weight:600;font-size:13px;padding:4px 8px}
+.pzsvg{touch-action:none}
+.slot{fill:#E6ECF2;stroke:#9AA8B8;stroke-width:1.5;stroke-dasharray:5 4}
+.piece{cursor:grab}
+.piece path{stroke:#1F3A68;stroke-width:1.6;filter:drop-shadow(0 3px 2px rgba(0,0,0,.25))}
+.piece.drag path{stroke-width:2.5;filter:drop-shadow(0 8px 6px rgba(0,0,0,.3))}
+.piece.placed{cursor:default}
+.piece.placed path{filter:none;stroke-width:1.2}
+.clockwrap{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:20px;align-items:center}
+.eclock{width:100%;max-width:300px;height:auto}
+.ctxt{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:14px;fill:#1F3A68}
+.hand{transform-origin:130px 130px;transition:transform 1.2s ease-in-out}
+/* aventuras */
+.choices{display:grid;gap:10px;margin-top:14px}
+.choice{text-align:left;background:var(--card);color:var(--ink);border:3px solid var(--c-hist);box-shadow:0 4px 0 var(--c-hist);font-size:19px}
+.scene .cast{font-size:84px}
+.tmov{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,#3B2A7A,#0F1D3D 70%)}
+.tmbox{text-align:center;color:#fff;position:relative;padding:30px}
+.tmring{position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;border:6px dashed rgba(255,216,77,.6);animation:tmspin 1.2s linear infinite}
+@keyframes tmspin{to{transform:rotate(360deg)}}
+.tmyear{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:64px;line-height:1.1;position:relative}
+.tmlabel{font-family:"Patrick Hand",cursive;font-size:26px;position:relative}
+@media (prefers-reduced-motion:reduce){.tmring{animation:none}.hand{transition:none}#tourBird{transition:none!important}}
+
 @media (max-width:820px){
   .board,.geo{grid-template-columns:1fr}
   .side{position:static}
@@ -435,6 +480,7 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
   .chatbar{grid-template-columns:1fr}
   .chatbtns{grid-template-columns:1fr 1fr}
   .memgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .clockwrap{grid-template-columns:1fr;justify-items:center}
 }
 </style>
 </head>
@@ -508,7 +554,7 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
   <!-- ============ HISTORIA ============ -->
   <section id="v-hist" hidden>
     <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--c-hist)">Sociales e Historia</h2><button class="trbtn ghost small" type="button" data-tr="histArea">Ver en inglés</button></div>
-    <div class="tabs" id="histTabs"><button type="button" data-h="soc" class="on">Temas del cole</button><button type="button" data-h="time">Máquina del tiempo</button></div>
+    <div class="tabs" id="histTabs"><button type="button" data-h="soc" class="on">Temas del cole</button><button type="button" data-h="vive">Vive la historia</button><button type="button" data-h="time">Máquina del tiempo</button><button type="button" data-h="reloj">Reloj de la Tierra</button></div>
     <p class="muted" style="margin-bottom:10px" id="histHelp"></p>
     <div class="timeline" id="eras"></div>
     <div class="card" id="histArea"></div>
@@ -523,6 +569,8 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
       <button data-t="cap" type="button">Capitales en el mapa</button>
       <button data-t="rel" type="button">Ríos y montañas</button>
       <button data-t="mon" type="button">Monumentos y sabores</button>
+      <button data-t="puz" type="button">Mapa rompecabezas</button>
+      <button data-t="tour" type="button">Vuelo de Tupi</button>
     </div>
     <div class="geohelp" id="geoHelp"></div>
     <div class="geo">
@@ -549,6 +597,12 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
   <section id="v-ai" hidden>
     <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--c-ai)">Laboratorio de IA</h2></div>
     <div id="aiArea"></div>
+  </section>
+
+  <!-- ============ MONTESSORI ============ -->
+  <section id="v-mont" hidden>
+    <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:#C99A2E">Taller Montessori</h2></div>
+    <div id="montArea"></div>
   </section>
 
   <!-- ============ JUEGOS ============ -->
@@ -578,6 +632,7 @@ textarea{width:100%;min-height:90px;font-family:var(--f-hand);font-size:22px;bor
 
 <div class="updbar" id="updBar" hidden><span>¡Hay una versión nueva de tu Cuaderno!</span><button class="btn-ok small" type="button" id="updNow">Actualizar ahora</button></div>
 <div class="trpanel" id="trPanel" hidden><div class="row" style="justify-content:space-between;margin-bottom:8px"><b style="font-family:var(--f-display);font-size:20px">In English</b><div class="row"><button class="speak small" type="button" id="trListen">Listen</button><button class="ghost small" type="button" id="trClose">Cerrar</button></div></div><div id="trBody"></div></div>
+<div class="tmov" id="tmOverlay" hidden><div class="tmbox"><div class="tmring"></div><div class="eyebrow" style="color:#FFD84D">Máquina del tiempo</div><div class="tmyear" id="tmYear">2026</div><div class="tmlabel" id="tmLabel"></div></div></div>
 <div class="splash" id="splash" hidden><div class="box" id="splashBox"></div></div>
 
 <div class="toast" id="toast" hidden>
@@ -607,7 +662,7 @@ const day = (d = new Date()) => d.getFullYear() + '-' + String(d.getMonth() + 1)
    ESTADO (se guarda en este iPad)
    ================================================================= */
 const DEF = {
-  name: '', stars: 0, sub: {}, voice: false, onboarded: false, len: {}, mtop: {}, soc: {}, chat: [], art: {gallery: []}, games: {}, natLang: 'en',
+  name: '', stars: 0, sub: {}, voice: false, onboarded: false, len: {}, mtop: {}, soc: {}, chat: [], art: {gallery: []}, games: {}, natLang: 'en', mont: {}, adv: {},
   log: {},
   math: {mode: 'lat', mul: 1, men: 1, pro: 1, good: 0, hard: 0, pGood: 0, pBad: 0},
   read: {minutes: 0, done: {}, comics: {}, paper: []},
@@ -684,7 +739,7 @@ function speak(text) {
 /* =================================================================
    NAVEGACIÓN
    ================================================================= */
-const VIEWS = ['home','mat','read','len','hist','geo','nat','eng','ai','art','games','chat','prog'];
+const VIEWS = ['home','mat','read','len','hist','geo','nat','eng','ai','art','games','mont','chat','prog'];
 const ENTER = {};
 function go(v) {
   VIEWS.forEach(x => $('v-' + x).hidden = x !== v);
@@ -781,6 +836,7 @@ const SUBJ = [
   {id: 'geo', name: 'Geografía', tab: 'Sociales', color: 'var(--c-geo)', mark: 'N↑', txt: 'El mapa de España por comunidades, capitales, ríos y montañas.'},
   {id: 'nat', name: 'Natural Science', tab: 'Naturales', color: 'var(--c-nat)', mark: '♥', txt: 'El cuerpo humano en inglés, como en clase, o en español. Qué pasa cuando comes, respiras o corres.'},
   {id: 'eng', name: 'English', tab: 'Inglés', color: 'var(--c-eng)', mark: 'Hi!', txt: 'Seis niveles: de palabras sueltas a leer historias en inglés.'},
+  {id: 'mont', name: 'Taller Montessori', tab: 'Montessori', color: '#C99A2E', mark: '◆', txt: 'Perlas doradas, círculos de fracciones, símbolos gramaticales, mapa rompecabezas y el reloj de la Tierra.'},
   {id: 'games', name: 'Sala de juegos', tab: 'Jugar', color: 'var(--c-game)', mark: '♟', txt: 'Lluvia de cuentas, memory en inglés, contrarreloj de historia… un juego para cada asignatura.'},
   {id: 'art', name: 'Arte', tab: 'Plástica', color: 'var(--c-art)', mark: '✎', txt: 'Dibuja el reto del día y enséñaselo a Tupi, aprende a dibujar paso a paso y conoce a grandes artistas.'},
   {id: 'ai', name: 'Laboratorio de IA', tab: 'Nuevo', color: 'var(--c-ai)', mark: 'IA', txt: 'Entrena tu propia inteligencia artificial, aprende a usarla bien y a navegar seguro.'}
@@ -793,6 +849,7 @@ function levelLabel(id) {
   if (id === 'nat') return Object.keys(S.nat).length + ' de ' + NAT.length + ' temas';
   if (id === 'geo') return Object.keys(S.geo.found).length + ' de 19 en tu mapa';
   if (id === 'eng') return 'Nivel ' + S.eng.unlocked + ' de 6';
+  if (id === 'mont') return 'Aprender tocando y moviendo';
   if (id === 'games') return Object.keys(S.games).length + ' de ' + GAMES.length + ' juegos con récord';
   if (id === 'art') return S.art.gallery.length + ' dibujos en tu galería';
   if (id === 'ai') return Object.keys(S.ai.done).length + ' de 7 misiones';
@@ -801,7 +858,7 @@ function levelLabel(id) {
 ENTER.home = function () {
   $('helloTitle').textContent = S.name ? '¡Hola, ' + S.name + '! Soy Tupi.' : '¡Hola! Soy Tupi.';
   const t = S.log[day()] || {};
-  const other = (t.hist || 0) + (t.geo || 0) + (t.nat || 0) + (t.eng || 0) + (t.ai || 0) + (t.len || 0) + (t.art || 0) + (t.games || 0);
+  const other = (t.hist || 0) + (t.geo || 0) + (t.nat || 0) + (t.eng || 0) + (t.ai || 0) + (t.len || 0) + (t.art || 0) + (t.games || 0) + (t.mont || 0);
   const items = [
     {done: (t.read || 0) >= 1, txt: 'Leer una historia'},
     {done: (t.mat || 0) >= 1, txt: 'Un ejercicio de mates'},
@@ -1758,6 +1815,8 @@ ENTER.hist = () => paintHist();
 $('histTabs').addEventListener('click', e => { const b = e.target.closest('[data-h]'); if (!b) return; histTab = b.dataset.h; paintHist(); });
 function paintHist() {
   $('histTabs').querySelectorAll('[data-h]').forEach(b => b.classList.toggle('on', b.dataset.h === histTab));
+  if (histTab === 'vive') { $('histHelp').textContent = 'Aventuras en las que tú eres el protagonista y decides qué hacer.'; paintAdv(); return; }
+  if (histTab === 'reloj') { $('histHelp').textContent = 'Una gran lección Montessori: toda la historia de la Tierra en un solo día.'; $('eras').innerHTML = ''; earthClock($('histArea')); return; }
   if (histTab === 'time') { $('histHelp').textContent = 'Elige una época. Cada viaje es un cómic corto con un juego y un reto al final. Al completarlo, ganas el sello en tu pasaporte. La Edad Media y la Edad Moderna las verás en clase en el 2.º trimestre.'; paintEras(); openEra(eraSel); return; }
   $('histHelp').textContent = 'Los temas de Sociales de este trimestre en tu cole. Cada uno es un cómic con un reto al final.';
   paintSoc(); openSoc(socSel);
@@ -1779,7 +1838,7 @@ function openSoc(id) {
 }
 function paintEras() {
   $('eras').innerHTML = ERAS.map(e => '<button class="era ' + (e.id === eraSel ? 'on' : '') + '" type="button" data-e="' + e.id + '"><span class="yr">' + e.yr + '</span><b>' + e.name + '</b>' + (e.id === 'med' || e.id === 'mod' ? '<span class="stamp" style="border-color:var(--c-hist);color:var(--c-hist)">2.º trimestre</span>' : '') + (S.hist[e.id] ? '<span class="stamp">Sello ✓</span>' : '') + '</button>').join('');
-  $('eras').querySelectorAll('[data-e]').forEach(b => b.onclick = () => { eraSel = b.dataset.e; paintEras(); openEra(eraSel); });
+  $('eras').querySelectorAll('[data-e]').forEach(b => b.onclick = () => { eraSel = b.dataset.e; paintEras(); const E = ERAS.find(x => x.id === eraSel); timeMachine(ERA_YEAR[eraSel], E.name, () => openEra(eraSel)); });
 }
 function openEra(id) {
   const L = ERAS.find(e => e.id === id);
@@ -1929,6 +1988,8 @@ function help(html) { $('geoHelp').innerHTML = html; }
 
 function startGeo() {
   geoSel = null; geoMark = {}; geoState = null;
+  if (geoTab === 'puz') { help('<b>Mapa rompecabezas (Montessori):</b> arrastra cada comunidad a su sitio. ¡Como un puzle de verdad!'); puzzleMap($('mapCard'), $('geoSide')); return; }
+  if (geoTab === 'tour') { startTour(); return; }
   if (geoTab === 'map') {
     help('<b>Explorar:</b> toca una comunidad para ver su capital y un dato curioso, o toca los dibujitos para descubrir monumentos y fiestas.');
     $('geoSide').innerHTML = '<div class="eyebrow" style="color:var(--c-geo)">Explora</div><p style="margin-top:6px">España tiene <b>17 comunidades autónomas</b> y <b>2 ciudades autónomas</b> (Ceuta y Melilla). En total hay <b>50 provincias</b>.</p><p class="muted" style="margin-top:8px">Has explorado ' + Object.keys(S.geo.seen).length + ' de 19.</p>';
@@ -2082,6 +2143,37 @@ function geoEnd(kind, sc, tot) {
   $('geoSide').innerHTML = '<div class="stack" style="text-align:center"><h3 style="font-size:28px">' + sc + ' de ' + tot + '</h3><p>Ganas ' + st + ' ★. Tu récord: ' + Math.max(best, sc) + '.</p><button type="button" id="geoAgain">Jugar otra vez</button></div>';
   talk(sc + ' de ' + tot + '. ¡Ganas ' + st + ' estrellas!');
   $('geoAgain').onclick = startGeo;
+}
+
+/* ---------- vuelo de Tupi por España ---------- */
+const TOUR = ['13', '08', '11', '01', '14', '10', '09', '02', '15', '16', '06', '03', '12', '07', '17', '04', '05'];
+function startTour() {
+  help('<b>Vuelo de Tupi:</b> súbete a las alas de Tupi y recorre España de capital en capital. En cada parada te cuenta algo.');
+  geoState = {i: 0, visited: {}}; geoSel = null; geoMark = {};
+  drawMap();
+  const svg = $('mapCard').querySelector('svg');
+  svg.insertAdjacentHTML('beforeend', '<polyline id="tourTrail" points="" fill="none" stroke="#F2862E" stroke-width="3" stroke-dasharray="8 7" stroke-linecap="round"/><g id="tourBird" style="transition:transform 1.6s ease-in-out"><g transform="translate(-24,-40) scale(0.48)">' + BIRD + '</g></g>');
+  const c0 = MAP.caps[TOUR[0]];
+  $('tourBird').style.transform = 'translate(' + c0[0] + 'px,' + c0[1] + 'px)';
+  tourStop();
+}
+function tourStop() {
+  const st = geoState, id = TOUR[st.i], g = GEO[id], c = MAP.caps[id];
+  const bird = $('tourBird'); if (!bird) return;
+  bird.style.transform = 'translate(' + c[0] + 'px,' + c[1] + 'px)';
+  const trail = TOUR.slice(0, st.i + 1).map(k => MAP.caps[k].join(',')).join(' ');
+  $('tourTrail').setAttribute('points', trail);
+  $('geoSide').innerHTML = '<div class="eyebrow" style="color:var(--c-geo)">Volando…</div><h3 style="font-size:26px;margin-top:6px">Próxima parada: ' + g.c.split(' y ')[0] + '</h3>';
+  setTimeout(() => {
+    if (!$('tourBird')) return;
+    st.visited[id] = 1;
+    const p = $('mapCard').querySelector('[data-id="' + id + '"]'); if (p) { p.classList.remove('base'); p.style.fill = g.color; }
+    const lands = Object.keys(LANDS).filter(k => LANDS[k][2] === id);
+    $('geoSide').innerHTML = '<div class="eyebrow" style="color:var(--c-geo)">Parada ' + (st.i + 1) + ' de ' + TOUR.length + '</div><h3 style="font-size:28px;margin:4px 0">' + g.c.split(' y ')[0] + '</h3><p class="muted">' + g.n + '</p><div class="bubble" style="margin-top:8px">' + g.f + '</div>' + (lands.length ? '<p style="margin-top:8px">' + lands.map(k => '<span style="font-size:26px">' + LANDS[k][0] + '</span> ' + LANDS[k][1]).join('<br>') + '</p>' : '') + '<div class="actions">' + (st.i + 1 < TOUR.length ? '<button type="button" id="tourNext">Siguiente parada →</button>' : '<button class="btn-ok" type="button" id="tourEnd">¡Aterrizar!</button>') + '</div>';
+    talk('Hemos llegado a ' + g.c.split(' y ')[0] + ', en ' + g.n + '. ' + g.f);
+    const n = $('tourNext'); if (n) n.onclick = () => { st.i++; tourStop(); };
+    const e = $('tourEnd'); if (e) e.onclick = () => { addStars(4, 'geo'); logDo('geo'); $('geoSide').innerHTML = '<div class="stack" style="text-align:center"><div style="font-size:54px">🛬</div><h3 style="font-size:26px">¡Vuelta a España completada!</h3><p>Has visitado ' + TOUR.length + ' capitales. Ganas 4 ★.</p><button type="button" id="tourAgain">Volar otra vez</button></div>'; talk('¡Vuelta a España completada! Has visitado todas las capitales.'); $('tourAgain').onclick = startTour; };
+  }, 1700);
 }
 
 /* =================================================================
@@ -2867,6 +2959,280 @@ function engChat(sc) {
   send('');
 }
 /* =================================================================
+   TALLER MONTESSORI
+   ================================================================= */
+const MONT = [
+  {id: 'beads', n: 'Perlas doradas', d: 'Construye números con perlas, barras, placas y cubos. ¡Y cambia 10 por 1!', c: '#C99A2E'},
+  {id: 'frac', n: 'Círculos de fracciones', d: 'Cubre una fracción con piezas más pequeñas y descubre las equivalentes.', c: '#D64545'},
+  {id: 'gram', n: 'Símbolos gramaticales', d: 'Pon a cada palabra su símbolo: triángulo negro, círculo rojo…', c: '#1F3A68'},
+  {id: 'puzzle', n: 'Mapa rompecabezas', d: 'Arrastra cada comunidad a su sitio en el mapa de España.', c: '#1E9AA0'},
+  {id: 'clock', n: 'El reloj de la Tierra', d: 'Toda la historia del planeta en un día de 24 horas. ¿A qué hora llegamos los humanos?', c: '#8A5CC7'}
+];
+ENTER.mont = () => paintMont();
+function paintMont() {
+  hush(); stopGames();
+  $('montArea').innerHTML = '<div class="card" style="margin-bottom:16px"><p style="font-size:18px">En el método Montessori primero se <b>toca y se mueve</b>, y después se entiende. Aquí tienes los materiales clásicos en digital: haz las cosas con tus manos y Tupi te acompaña.</p></div><div class="missions">' + MONT.map(m => '<button class="mis" type="button" data-mo="' + m.id + '" style="box-shadow:0 4px 0 ' + m.c + '"><b>' + m.n + '</b>' + m.d + '</button>').join('') + '</div>';
+  $('montArea').querySelectorAll('[data-mo]').forEach(b => b.onclick = () => openMont(b.dataset.mo));
+}
+function montFrame(title) {
+  $('montArea').innerHTML = '<div class="row" style="margin-bottom:12px"><button class="ghost small" type="button" id="moBack">← Taller</button><h3 style="font-size:26px">' + title + '</h3></div><div id="moBox"></div>';
+  $('moBack').onclick = paintMont; return $('moBox');
+}
+function openMont(id) {
+  const m = MONT.find(x => x.id === id); const box = montFrame(m.n); talk(m.n + '. ' + m.d);
+  if (id === 'beads') beads(box);
+  if (id === 'frac') fracCircles(box);
+  if (id === 'gram') gramSymbols(box, 0);
+  if (id === 'puzzle') { box.innerHTML = '<div class="geo"><div class="card mapbox" id="pzMap"></div><aside class="card side" id="pzSide"></aside></div>'; puzzleMap($('pzMap'), $('pzSide')); }
+  if (id === 'clock') earthClock(box);
+}
+/* ---------- perlas doradas ---------- */
+function beads(box) {
+  const lv = S.mont.beads || 1;
+  const max = lv === 1 ? 99 : lv === 2 ? 999 : 9999;
+  const mode = lv >= 2 && Math.random() < .5 ? 'add' : 'build';
+  let A = r(lv === 1 ? 11 : 101, max), B = 0, target = A;
+  if (mode === 'add') { A = r(Math.floor(max / 10), Math.floor(max / 2)); B = r(Math.floor(max / 20) + 3, Math.floor(max / 3)); target = A + B; }
+  const dig = n => ({th: Math.floor(n / 1000), h: Math.floor(n / 100) % 10, t: Math.floor(n / 10) % 10, u: n % 10});
+  let c = mode === 'add' ? dig(A) : {th: 0, h: 0, t: 0, u: 0};
+  const goal = dig(target);
+  const COLS = [['th', 'Cubo de 1.000', '#2E8B57'], ['h', 'Placa de 100', '#D64545'], ['t', 'Barra de 10', '#3B7DD8'], ['u', 'Perla de 1', '#2E8B57']];
+  const val = () => c.th * 1000 + c.h * 100 + c.t * 10 + c.u;
+  function draw() {
+    const cols = lv >= 3 ? COLS : COLS.slice(1);
+    let svg = '';
+    const piece = (k, i) => {
+      if (k === 'u') return '<circle cx="' + (20 + (i % 3) * 22) + '" cy="' + (20 + Math.floor(i / 3) * 22) + '" r="9" class="bead"/>';
+      if (k === 't') { let s = '<g transform="translate(' + (8 + i * 18) + ',8)">'; for (let j = 0; j < 10; j++) s += '<circle cx="7" cy="' + (7 + j * 15) + '" r="6.5" class="bead"/>'; return s + '<rect x="0" y="0" width="14" height="150" rx="7" fill="none" stroke="#8a6a1f" stroke-width="1.5"/></g>'; }
+      if (k === 'h') { const ox = 6 + (i % 2) * 74, oy = 6 + Math.floor(i / 2) * 74; let s = '<g transform="translate(' + ox + ',' + oy + ')"><rect width="68" height="68" rx="4" class="plate"/>'; for (let a = 0; a < 10; a++) for (let b = 0; b < 10; b++) s += '<circle cx="' + (4 + a * 6.6) + '" cy="' + (4 + b * 6.6) + '" r="2.6" class="bead"/>'; return s + '</g>'; }
+      const ox = 10 + (i % 2) * 72, oy = 14 + Math.floor(i / 2) * 72; return '<g transform="translate(' + ox + ',' + oy + ')"><polygon points="0,14 14,0 64,0 50,14" class="cube t"/><polygon points="50,14 64,0 64,50 50,64" class="cube s"/><rect x="0" y="14" width="50" height="50" class="cube f"/></g>';
+    };
+    const html = cols.map(cl => { const k = cl[0], n = c[k]; let inner = ''; for (let i = 0; i < n; i++) inner += piece(k, i); const h = k === 'u' ? Math.max(70, Math.ceil(n / 3) * 22 + 20) : k === 't' ? 170 : Math.max(80, Math.ceil(n / 2) * 74 + 12); return '<div class="bcol"><div class="bhead" style="color:' + cl[2] + '">' + cl[1] + '</div><svg viewBox="0 0 ' + (k === 't' ? Math.max(80, n * 18 + 16) : 154) + ' ' + h + '" class="bsvg">' + inner + '</svg><div class="bcard" style="border-color:' + cl[2] + ';color:' + cl[2] + (n > 9 ? ';background:#FFE1E1' : '') + '">' + n + '</div><div class="row" style="justify-content:center"><button class="ghost small" type="button" data-bm="' + k + '">−</button><button class="small" type="button" data-bp="' + k + '" style="background:' + cl[2] + '">+</button></div>' + (n > 9 && k !== 'th' ? '<button class="btn-hint small" type="button" data-bx="' + k + '" style="margin-top:6px">Cambiar 10 por 1</button>' : '') + '</div>'; }).join('');
+    box.innerHTML = '<div class="bubble" style="margin-bottom:12px;font-size:18px">' + (mode === 'build' ? 'Construye el número <b style="font-size:26px">' + fmt(target) + '</b> con las perlas.' : 'Ya tienes el <b>' + fmt(A) + '</b>. <b>Añade ' + fmt(B) + '</b> y haz los cambios que hagan falta para saber cuánto es ' + fmt(A) + ' + ' + fmt(B) + '.') + '</div><div class="bwrap">' + html + '</div><div class="actions"><button class="btn-ok" type="button" id="bCheck2">¡Ya está!</button><button class="ghost" type="button" id="bNew2">Otro número</button></div><p class="muted" style="text-align:center">Colores Montessori: unidades verdes, decenas azules, centenas rojas, millares verdes.</p>';
+    box.querySelectorAll('[data-bp]').forEach(b => b.onclick = () => { c[b.dataset.bp]++; draw(); });
+    box.querySelectorAll('[data-bm]').forEach(b => b.onclick = () => { if (c[b.dataset.bm] > 0) c[b.dataset.bm]--; draw(); });
+    box.querySelectorAll('[data-bx]').forEach(b => b.onclick = () => { const k = b.dataset.bx, up = {u: 't', t: 'h', h: 'th'}[k]; c[k] -= 10; c[up]++; talk('¡Cambio! Diez ' + {u: 'perlas', t: 'barras', h: 'placas'}[k] + ' son ' + {u: 'una barra de diez', t: 'una placa de cien', h: 'un cubo de mil'}[k] + '.'); draw(); });
+    $('bNew2').onclick = () => beads(box);
+    $('bCheck2').onclick = () => {
+      const ok = c.th === goal.th && c.h === goal.h && c.t === goal.t && c.u === goal.u;
+      if (ok) { addStars(lv + 1, 'mont'); logDo('mont'); S.mont.beadsOk = (S.mont.beadsOk || 0) + 1; if (S.mont.beadsOk % 4 === 0 && lv < 3) { S.mont.beads = lv + 1; toast('¡Subes de nivel en las perlas doradas!', true); } save(); talk('¡Perfecto! Has construido el ' + fmt(target) + '.'); box.querySelector('.bubble').innerHTML = '<b>¡Perfecto!</b> ' + (mode === 'add' ? fmt(A) + ' + ' + fmt(B) + ' = <b>' + fmt(target) + '</b>.' : 'Eso es el <b>' + fmt(target) + '</b>: ' + [goal.th ? goal.th + ' millares' : '', goal.h ? goal.h + ' centenas' : '', goal.t ? goal.t + ' decenas' : '', goal.u ? goal.u + ' unidades' : ''].filter(Boolean).join(', ') + '.'); }
+      else { const over = ['u', 't', 'h'].find(k => c[k] > 9); const msg = over ? 'Tienes más de 9 en una columna: ¡haz un cambio!' : 'Ahora tienes ' + fmt(val()) + '. Mira cada columna con calma.'; box.querySelector('.bubble').innerHTML += '<br><span style="color:var(--bad)">' + msg + '</span>'; talk(msg); }
+    };
+  }
+  draw();
+}
+/* ---------- círculos de fracciones ---------- */
+function pieSVG(n, filled, col, size) {
+  size = size || 180; const R = size / 2 - 4, cx = size / 2, cy = size / 2; let h = '<svg viewBox="0 0 ' + size + ' ' + size + '" class="pie" style="width:' + size + 'px">';
+  h += '<circle cx="' + cx + '" cy="' + cy + '" r="' + R + '" fill="#F5F2EA" stroke="#1F3A68" stroke-width="2"/>';
+  for (let k = 0; k < n; k++) {
+    const a0 = k / n * 2 * Math.PI - Math.PI / 2, a1 = (k + 1) / n * 2 * Math.PI - Math.PI / 2;
+    const x0 = cx + R * Math.cos(a0), y0 = cy + R * Math.sin(a0), x1 = cx + R * Math.cos(a1), y1 = cy + R * Math.sin(a1);
+    h += n === 1 ? '<circle cx="' + cx + '" cy="' + cy + '" r="' + R + '" fill="' + (k < filled ? col : 'none') + '" stroke="#1F3A68" stroke-width="2"/>' : '<path d="M' + cx + ' ' + cy + 'L' + x0.toFixed(1) + ' ' + y0.toFixed(1) + 'A' + R + ' ' + R + ' 0 ' + (1 / n > .5 ? 1 : 0) + ' 1 ' + x1.toFixed(1) + ' ' + y1.toFixed(1) + 'Z" fill="' + (k < filled ? col : 'none') + '" stroke="#1F3A68" stroke-width="2"/>';
+  }
+  return h + '</svg>';
+}
+function fracCircles(box) {
+  const pairs = [[2, 4], [2, 6], [2, 8], [2, 10], [3, 6], [3, 9], [4, 8], [5, 10]];
+  const p = pick(pairs), b = p[0], d = p[1], a = r(1, b - 1), k = d / b;
+  let have = 0;
+  const draw = msg => {
+    box.innerHTML = '<div class="bubble" style="font-size:18px;margin-bottom:12px">Cubre <b style="font-size:24px">' + a + '/' + b + '</b> usando solo piezas de <b>1/' + d + '</b>.</div><div class="fracrow"><div style="text-align:center"><div class="eyebrow">Modelo: ' + a + '/' + b + '</div>' + pieSVG(b, a, '#D64545') + '</div><div style="text-align:center"><div class="eyebrow">Tu círculo: ' + have + '/' + d + '</div>' + pieSVG(d, have, '#F2862E') + '</div></div><div class="actions"><button class="ghost" type="button" id="fMinus">Quitar pieza</button><button type="button" id="fPlus" style="background:#F2862E">Poner pieza de 1/' + d + '</button><button class="btn-ok" type="button" id="fOk">¡Ya está!</button></div><div id="fMsg">' + (msg || '') + '</div><p class="muted" style="text-align:center">En Montessori las fracciones se ven con círculos rojos que se separan en piezas.</p>';
+    $('fPlus').onclick = () => { if (have < d) have++; draw(); };
+    $('fMinus').onclick = () => { if (have > 0) have--; draw(); };
+    $('fOk').onclick = () => {
+      if (have === a * k) { addStars(2, 'mont'); logDo('mont'); const m = '<div class="bubble"><b>¡Exacto!</b> ' + a + '/' + b + ' = ' + have + '/' + d + '. Son <b>fracciones equivalentes</b>: ocupan lo mismo. Fíjate: ' + a + ' × ' + k + ' = ' + have + ' y ' + b + ' × ' + k + ' = ' + d + '. <button type="button" id="fNext" style="margin-left:6px">Otra</button></div>'; draw(m); talk('¡Exacto! ' + a + ' ' + (b === 2 ? 'medios' : 'de ' + b) + ' es lo mismo que ' + have + ' de ' + d + '. Son fracciones equivalentes.'); $('fNext').onclick = () => fracCircles(box); }
+      else { const m = '<div class="bubble">' + (have < a * k ? 'Todavía falta un poco: compara los dos círculos.' : 'Te has pasado: quita alguna pieza.') + '</div>'; draw(m); }
+    };
+  };
+  draw();
+}
+/* ---------- símbolos gramaticales ---------- */
+const GSYM = {
+  sus: ['Sustantivo', '<polygon points="22,4 40,36 4,36" fill="#111"/>'],
+  det: ['Determinante', '<polygon points="22,18 30,34 14,34" fill="#7EC8F2"/>'],
+  adj: ['Adjetivo', '<polygon points="22,10 35,34 9,34" fill="#1F3A9E"/>'],
+  ver: ['Verbo', '<circle cx="22" cy="22" r="15" fill="#D62828"/>'],
+  adv: ['Adverbio', '<circle cx="22" cy="24" r="8" fill="#F28C28"/>'],
+  pron: ['Pronombre', '<polygon points="22,2 30,38 14,38" fill="#7A3FB5"/>'],
+  prep: ['Preposición', '<path d="M8 30 Q22 2 36 30 Q22 18 8 30Z" fill="#2E9E5B"/>'],
+  conj: ['Conjunción', '<rect x="6" y="18" width="32" height="8" rx="2" fill="#E87BB0"/>'],
+  int: ['Interjección', '<circle cx="22" cy="14" r="8" fill="#D4A017"/><polygon points="16,18 28,18 31,38 13,38" fill="#D4A017"/>']
+};
+const GSENT = [
+  [['El', 'det'], ['perro', 'sus'], ['negro', 'adj'], ['corre', 'ver'], ['rápido.', 'adv']],
+  [['Mi', 'det'], ['hermana', 'sus'], ['come', 'ver'], ['una', 'det'], ['manzana', 'sus'], ['roja.', 'adj']],
+  [['Los', 'det'], ['niños', 'sus'], ['juegan', 'ver'], ['en', 'prep'], ['el', 'det'], ['parque.', 'sus']],
+  [['Ella', 'pron'], ['lee', 'ver'], ['y', 'conj'], ['yo', 'pron'], ['dibujo.', 'ver']],
+  [['¡Ay!', 'int'], ['El', 'det'], ['gato', 'sus'], ['pequeño', 'adj'], ['duerme', 'ver'], ['mucho.', 'adv']],
+  [['Nosotros', 'pron'], ['vamos', 'ver'], ['a', 'prep'], ['la', 'det'], ['playa', 'sus'], ['con', 'prep'], ['Lucía.', 'sus']],
+  [['Tu', 'det'], ['bicicleta', 'sus'], ['azul', 'adj'], ['está', 'ver'], ['aquí.', 'adv']],
+  [['Mañana', 'adv'], ['visitaremos', 'ver'], ['un', 'det'], ['castillo', 'sus'], ['antiguo.', 'adj']]
+];
+const symSVG = k => '<svg viewBox="0 0 44 40" class="gsym" aria-hidden="true">' + GSYM[k][1] + '</svg>';
+function gramSymbols(box, idx) {
+  const sent = GSENT[idx % GSENT.length]; const asg = sent.map(() => null); let sel = 0;
+  const draw = (checked) => {
+    box.innerHTML = '<div class="bubble" style="margin-bottom:12px">Toca una palabra y luego su símbolo. ' + (idx === 0 ? '<b>Truco:</b> el sustantivo es un triángulo negro grande (como una pirámide, algo sólido); el verbo, un círculo rojo (como el sol, ¡acción!).' : '') + '</div>' +
+      '<div class="gsent">' + sent.map((w, i) => '<button type="button" class="gword' + (i === sel ? ' sel' : '') + (checked ? (asg[i] === w[1] ? ' good' : ' wrong') : '') + '" data-w="' + i + '"><span class="gs">' + (asg[i] ? symSVG(asg[i]) : '<span class="gq">?</span>') + '</span><span>' + w[0] + '</span></button>').join('') + '</div>' +
+      '<div class="gpal">' + Object.keys(GSYM).map(k => '<button type="button" class="gbtn" data-s="' + k + '">' + symSVG(k) + '<span>' + GSYM[k][0] + '</span></button>').join('') + '</div>' +
+      '<div class="actions"><button class="btn-ok" type="button" id="gCheck">Comprobar</button>' + (checked ? '<button type="button" id="gNext">Otra frase</button>' : '') + '</div><div id="gMsg"></div>';
+    box.querySelectorAll('[data-w]').forEach(b => b.onclick = () => { sel = +b.dataset.w; draw(); });
+    box.querySelectorAll('[data-s]').forEach(b => b.onclick = () => { asg[sel] = b.dataset.s; talk(sent[sel][0].replace(/[.¡!]/g, '') + ': ' + GSYM[b.dataset.s][0]); sel = Math.min(sent.length - 1, sel + 1); draw(); });
+    $('gCheck').onclick = () => {
+      if (asg.some(x => !x)) { $('gMsg').innerHTML = '<div class="bubble">Te faltan palabras sin símbolo.</div>'; return; }
+      const bad = sent.filter((w, i) => asg[i] !== w[1]);
+      draw(true);
+      if (!bad.length) { addStars(3, 'mont'); logDo('mont'); $('gMsg').innerHTML = '<div class="bubble"><b>¡Perfecto!</b> Todas las palabras tienen su símbolo.</div>'; talk('¡Perfecto! Has clasificado todas las palabras.'); }
+      else $('gMsg').innerHTML = '<div class="bubble">Revisa las rojas: ' + bad.map(w => '<b>' + w[0].replace(/[.]/g, '') + '</b> es ' + GSYM[w[1]][0].toLowerCase()).join('; ') + '.</div>';
+      const n = $('gNext'); if (n) n.onclick = () => gramSymbols(box, idx + 1);
+    };
+    const n = $('gNext'); if (n) n.onclick = () => gramSymbols(box, idx + 1);
+  };
+  draw();
+}
+/* ---------- mapa rompecabezas ---------- */
+function puzzleMap(mapEl, side) {
+  const ids = GIDS.filter(id => id !== '18' && id !== '19');
+  const off = {}; ids.forEach(id => { const c = MAP.cen[id]; let dx, dy, n = 0; do { dx = r(-260, 260); dy = r(-200, 200); n++; } while (n < 200 && (Math.hypot(dx, dy) < 120 || c[0] + dx < -60 || c[0] + dx > 860 || c[1] + dy < -30 || c[1] + dy > 640)); off[id] = [dx, dy]; });
+  const placed = {}; const t0 = Date.now();
+  let h = '<svg class="mapsvg pzsvg" viewBox="-120 -80 1040 760" role="img" aria-label="Mapa rompecabezas"><rect class="inset" x="10" y="436" width="252" height="158" rx="10"/>';
+  ids.forEach(id => h += '<path class="slot" d="' + MAP.paths[id] + '"/>');
+  ids.forEach(id => h += '<g class="piece" data-p="' + id + '" transform="translate(' + off[id][0] + ',' + off[id][1] + ')"><path d="' + MAP.paths[id] + '" style="fill:' + GEO[id].color + '"/></g>');
+  mapEl.innerHTML = h + '</svg>';
+  const svg = mapEl.querySelector('svg');
+  const paint = msg => { const n = Object.keys(placed).length; side.innerHTML = '<div class="eyebrow" style="color:var(--c-geo)">Mapa rompecabezas</div><p style="margin:6px 0">Arrastra cada pieza de color hasta su hueco gris. Cuando esté cerca, ¡encaja sola!</p><div class="found"><div class="progressline" style="flex:1"><i style="width:' + Math.round(n / ids.length * 100) + '%;background:var(--c-geo)"></i></div><b>' + n + '/' + ids.length + '</b></div><div id="pzMsg" style="margin-top:10px">' + (msg || '') + '</div><div class="actions"><button class="ghost small" type="button" id="pzAgain">Desordenar otra vez</button></div>'; $('pzAgain').onclick = () => puzzleMap(mapEl, side); };
+  paint();
+  const pt = e => { const p = svg.createSVGPoint ? svg.createSVGPoint() : {x: 0, y: 0}; p.x = e.clientX; p.y = e.clientY; const m = svg.getScreenCTM && svg.getScreenCTM(); return m ? p.matrixTransform(m.inverse()) : {x: e.clientX, y: e.clientY}; };
+  let drag = null;
+  svg.querySelectorAll('.piece').forEach(g => {
+    g.addEventListener('pointerdown', e => {
+      const id = g.dataset.p; if (placed[id]) return; e.preventDefault();
+      try { g.setPointerCapture(e.pointerId); } catch (x) {}
+      const p = pt(e); drag = {g, id, sx: p.x, sy: p.y, ox: off[id][0], oy: off[id][1]}; g.parentNode.appendChild(g); g.classList.add('drag');
+      $('pzMsg').innerHTML = '<div class="bubble"><b>' + GEO[id].n + '</b>. ' + GEO[id].w + '</div>'; talk(GEO[id].n);
+    });
+    g.addEventListener('pointermove', e => { if (!drag || drag.g !== g) return; const p = pt(e); off[drag.id] = [drag.ox + p.x - drag.sx, drag.oy + p.y - drag.sy]; g.setAttribute('transform', 'translate(' + off[drag.id][0] + ',' + off[drag.id][1] + ')'); });
+    const end = () => {
+      if (!drag || drag.g !== g) return; const id = drag.id; g.classList.remove('drag'); drag = null;
+      if (Math.hypot(off[id][0], off[id][1]) < 28) {
+        off[id] = [0, 0]; g.setAttribute('transform', 'translate(0,0)'); g.classList.add('placed'); placed[id] = 1;
+        const n = Object.keys(placed).length; paint('<div class="bubble"><b>¡Encaja! ' + GEO[id].n + '</b>. Capital: ' + GEO[id].c + '.</div>');
+        talk('¡Encaja! ' + GEO[id].n + '.');
+        if (n === ids.length) { const secs = Math.round((Date.now() - t0) / 1000); const best = S.mont.puzzle; if (!best || secs < best) S.mont.puzzle = secs; addStars(5, 'mont'); logDo('geo'); save(); paint('<div class="bubble"><b>¡Mapa completo en ' + Math.floor(secs / 60) + ' min ' + (secs % 60) + ' s!</b> Tu récord: ' + Math.floor(S.mont.puzzle / 60) + ' min ' + (S.mont.puzzle % 60) + ' s. Ganas 5 ★.</div>'); toast('¡Has montado el mapa de España entero!', true); }
+      }
+    };
+    g.addEventListener('pointerup', end); g.addEventListener('pointercancel', end);
+  });
+}
+/* ---------- reloj de la Tierra ---------- */
+const CLOCK = [
+  [4.6e9, 'Se forma la Tierra', 'A las 00:00 nace nuestro planeta: una bola de roca ardiente.', '🌋'],
+  [3.8e9, 'Aparece la vida', 'Los primeros seres vivos son diminutos, solo se ven con microscopio. Viven en el mar.', '🦠'],
+  [5.4e8, 'Explosión de animales', 'En el mar aparecen muchísimos animales nuevos: trilobites, medusas, gusanos…', '🦐'],
+  [4.7e8, 'Las plantas salen del agua', 'Las primeras plantas empiezan a vivir en tierra firme.', '🌱'],
+  [2.3e8, 'Llegan los dinosaurios', 'Los dinosaurios dominan la Tierra durante muchísimo tiempo.', '🦕'],
+  [6.6e7, 'Adiós, dinosaurios', 'Un enorme meteorito ayuda a que se extingan. Los mamíferos aprovechan su oportunidad.', '☄️'],
+  [3e5, 'Aparecemos los humanos', 'El Homo sapiens llega… ¡a menos de 6 segundos de la medianoche!', '🧍'],
+  [5e3, 'Se inventa la escritura', 'Empieza la Historia… en la última décima de segundo del día.', '✍️']
+];
+function earthClock(box) {
+  let i = 0;
+  const T = y => 86400 - y / 4.6e9 * 86400;
+  const hms = s => { if (86400 - s < 60) return '23:59:' + String(Math.floor(s % 60)).padStart(2, '0') + (86400 - s < 1 ? ',9' : ''); const hh = Math.floor(s / 3600), mm = Math.floor(s % 3600 / 60); return String(hh).padStart(2, '0') + ':' + String(mm).padStart(2, '0'); };
+  const draw = () => {
+    const ev = CLOCK[i], s = T(ev[0]), ang = s / 86400 * 360;
+    let marks = ''; for (let k = 0; k < 24; k++) { const a = k / 24 * 2 * Math.PI - Math.PI / 2; marks += '<line x1="' + (130 + 104 * Math.cos(a)).toFixed(1) + '" y1="' + (130 + 104 * Math.sin(a)).toFixed(1) + '" x2="' + (130 + 116 * Math.cos(a)).toFixed(1) + '" y2="' + (130 + 116 * Math.sin(a)).toFixed(1) + '" stroke="#1F3A68" stroke-width="' + (k % 6 === 0 ? 4 : 2) + '"/>'; }
+    const evDots = CLOCK.slice(0, i + 1).map(e => { const a = T(e[0]) / 86400 * 2 * Math.PI - Math.PI / 2; return '<text x="' + (130 + 86 * Math.cos(a)).toFixed(1) + '" y="' + (136 + 86 * Math.sin(a)).toFixed(1) + '" text-anchor="middle" font-size="18">' + e[3] + '</text>'; }).join('');
+    box.innerHTML = '<div class="clockwrap"><svg viewBox="0 0 260 260" class="eclock"><circle cx="130" cy="130" r="122" fill="#FFF7DA" stroke="#1F3A68" stroke-width="4"/>' + marks + '<text x="130" y="40" text-anchor="middle" class="ctxt">00:00</text><text x="226" y="135" text-anchor="middle" class="ctxt">06</text><text x="130" y="232" text-anchor="middle" class="ctxt">12</text><text x="34" y="135" text-anchor="middle" class="ctxt">18</text>' + evDots + '<g class="hand" style="transform:rotate(' + ang + 'deg)"><line x1="130" y1="130" x2="130" y2="26" stroke="#D64545" stroke-width="5" stroke-linecap="round"/></g><circle cx="130" cy="130" r="7" fill="#D64545"/></svg>' +
+      '<div class="stack"><div class="eyebrow" style="color:#8A5CC7">Si toda la historia de la Tierra fuera un día…</div><div class="timer" style="font-size:40px">' + hms(s) + '</div><h3 style="font-size:28px">' + ev[3] + ' ' + ev[1] + '</h3><p style="font-size:18px">' + ev[2] + '</p><p class="muted">Pasó hace ' + (ev[0] >= 1e6 ? fmt(ev[0] / 1e6) + ' millones de años' : fmt(ev[0]) + ' años') + '.</p><div class="row"><button class="ghost" type="button" id="ckPrev"' + (i === 0 ? ' disabled' : '') + '>← Antes</button><button type="button" id="ckNext">' + (i + 1 < CLOCK.length ? 'Avanzar el reloj →' : 'Volver a empezar') + '</button></div></div></div>' +
+      (i === CLOCK.length - 1 ? '<div class="bubble" style="margin-top:14px"><b>¿Te das cuenta?</b> Todo lo que estudias en Historia, desde las pirámides hasta hoy, cabe en menos de un segundo de este día. Por eso Montessori lo enseñaba así: para sentir lo grande que es el tiempo… y lo especial que es estar aquí.</div>' : '');
+    talk(ev[1] + '. ' + ev[2]);
+    $('ckPrev').onclick = () => { i--; draw(); };
+    $('ckNext').onclick = () => { if (i + 1 < CLOCK.length) { i++; draw(); if (i === CLOCK.length - 1) { addStars(3, 'mont'); logDo('hist'); } } else { i = 0; draw(); } };
+  };
+  draw();
+}
+
+/* =================================================================
+   VIVE LA HISTORIA (aventuras con decisiones) + MÁQUINA DEL TIEMPO
+   ================================================================= */
+const ADV = [
+ {id: 'roma', n: 'Un día en la Hispania romana', yr: -15, era: 'Edad Antigua', who: 'Marco, 10 años', bg: 'city', nodes: {
+  start: ['🏛️👦☀️', 'Te despiertas en <b>Emerita Augusta</b> (hoy Mérida), hace casi 2.000 años. Te llamas Marco. Tu madre grita desde el patio: «¡Marco, a la escuela!».', [['Ir a la escuela', 'escuela'], ['Escaparte al foro', 'foro']]],
+  escuela: ['📜✍️👨‍🏫', 'El maestro (el <b>magister</b>) os enseña a escribir en <b>tablillas de cera</b> con un punzón llamado estilo. Escribes tu nombre en latín: MARCVS. ¡Los romanos escribían la U como una V!', [['Después, a las termas', 'termas'], ['Después, al teatro', 'teatro']]],
+  foro: ['🏺🛒🗣️', 'El <b>foro</b> es la plaza principal. Hay templos, tiendas y mucha gente comprando aceite, vino y <b>garum</b>, una salsa de pescado que encantaba a los romanos. ¡Huele fortísimo!', [['Ir a las termas', 'termas'], ['Ir al teatro', 'teatro']]],
+  termas: ['♨️🛁💧', 'En las <b>termas</b> hay tres salas: el <b>frigidarium</b> (agua fría), el <b>tepidarium</b> (templada) y el <b>caldarium</b> (caliente). Eran como un spa al que iba todo el mundo.', [['Ir al teatro', 'teatro'], ['Volver a casa', 'fin']]],
+  teatro: ['🎭😂🏟️', 'El <b>teatro romano de Mérida</b> tiene miles de asientos de piedra. Hoy ves una comedia y todo el público se ríe. Ese mismo teatro sigue usándose 2.000 años después.', [['Volver a casa', 'fin']]],
+  fin: ['🌙🏠📜', 'Por la noche escribes en tu diario de cera. Ha sido un gran día en Hispania. ¿Qué recuerdas?', []]},
+  quiz: [{q: '¿Cómo se llamaba Mérida en tiempos de los romanos?', o: ['Emerita Augusta', 'Gadir', 'Toletum', 'Al-Ándalus']}, {q: '¿Dónde escribían los niños romanos en la escuela?', o: ['En tablillas de cera', 'En cuadernos de papel', 'En pizarras digitales', 'En la arena de la playa']}, {q: '¿Qué eran las termas?', o: ['Baños públicos', 'Tiendas de ropa', 'Templos', 'Barcos']}]},
+ {id: 'colon', n: 'Grumete en el viaje de Colón', yr: 1492, era: 'Edad Moderna', who: 'Pedro, grumete de 10 años', bg: 'ship', nodes: {
+  start: ['⛵⚓🌅', 'Es el <b>3 de agosto de 1492</b>. Eres Pedro, un <b>grumete</b> (un chico que ayuda en el barco). Tres barcos salen del puerto de <b>Palos</b>: la Santa María, la Pinta y la Niña.', [['Ayudar con las provisiones', 'prov'], ['Subir a mirar el mar', 'mar']]],
+  prov: ['🍞🫘🐟', 'Cargáis galletas muy duras, agua, legumbres y pescado salado. La comida tenía que aguantar muchas semanas sin estropearse. ¡Nada de neveras!', [['Hacer la guardia de noche', 'noche']]],
+  mar: ['🌊🧭👀', 'Colón viaja en la <b>Santa María</b>. Quiere llegar a Asia navegando hacia el oeste. Nadie en Europa sabe que hay un continente entero en medio.', [['Hacer la guardia de noche', 'noche']]],
+  noche: ['⏳🌟🎵', 'De noche, el tiempo se mide con un <b>reloj de arena</b>. Los grumetes le dan la vuelta cada media hora y cantan una canción para que todos lo sepan.', [['Mirar las estrellas con el piloto', 'est'], ['Dormir en cubierta', 'dormir']]],
+  est: ['✨🧭⭐', 'El piloto te enseña a orientarte con la <b>brújula</b> y con las estrellas, como la <b>estrella Polar</b>, que siempre marca el norte.', [['Seguir navegando', 'tierra']]],
+  dormir: ['😴🪵🌊', 'Los marineros duermen donde pueden, en el suelo de cubierta. ¡Solo el capitán tiene camarote! Pasan semanas y la gente empieza a preocuparse…', [['Seguir navegando', 'tierra']]],
+  tierra: ['🏝️📣🎉', '<b>12 de octubre de 1492</b>. Desde la Pinta, el vigía Rodrigo de Triana grita: «¡Tierra!». Llegáis a una isla que sus habitantes llamaban <b>Guanahaní</b>. Habéis llegado a América.', [['Terminar el viaje', 'fin']]],
+  fin: ['📖🗺️🌎', 'Años después, en 1498, Colón llegará también a la costa de <b>Venezuela</b>. Tú lo contarás de mayor: «Yo estuve en aquel viaje».', []]},
+  quiz: [{q: '¿De qué puerto salieron los barcos de Colón?', o: ['Palos', 'Barcelona', 'Cádiz', 'Lisboa']}, {q: '¿Cómo se medía el tiempo por la noche en el barco?', o: ['Con un reloj de arena', 'Con un reloj de pulsera', 'Con el móvil', 'No se medía']}, {q: '¿Qué día llegaron a América?', o: ['12 de octubre de 1492', '3 de agosto de 1492', '1 de enero de 1500', '5 de julio de 1811']}]},
+ {id: 'andalus', n: 'Un día en la Córdoba de Al-Ándalus', yr: 950, era: 'Edad Media', who: 'Yusuf, 10 años', bg: 'city', nodes: {
+  start: ['🕌🌙🏙️', 'Córdoba, <b>año 950</b>. Eres Yusuf. Tu ciudad es una de las más grandes y sabias de Europa: tiene calles empedradas, baños públicos y muchas bibliotecas.', [['Ir a la Mezquita', 'mez'], ['Ir al zoco', 'zoco']]],
+  mez: ['🕌🔴⚪', 'Entras en la <b>Mezquita</b>: es como un bosque de columnas con arcos de dos colores, <b>rojo y blanco</b>. Hay silencio y luz suave.', [['Visitar la biblioteca', 'bib'], ['Ir a la huerta', 'huerta']]],
+  zoco: ['🧺🍊🍆', 'En el <b>zoco</b> (el mercado) huele a especias. Ves berenjenas, naranjas, arroz y azúcar, productos que los andalusíes cultivaron y extendieron por la península.', [['Visitar la biblioteca', 'bib'], ['Ir a la huerta', 'huerta']]],
+  bib: ['📚🔭🧮', 'En la gran biblioteca del califa hay sabios que estudian medicina, astronomía y matemáticas. Por aquí llegaron a Europa los <b>números</b> que usas hoy en el cole.', [['Volver a casa', 'fin']]],
+  huerta: ['💧🎡🌿', 'En la huerta se riega con <b>norias</b> y <b>acequias</b>, canales que llevan el agua a cada planta. Algunas acequias de aquella época se siguen usando hoy.', [['Volver a casa', 'fin']]],
+  fin: ['🌙🏡✨', 'Al atardecer vuelves a casa por las calles estrechas. Muchas palabras que dices hoy en castellano, como aceite, almohada o azúcar, vienen del árabe de Yusuf.', []]},
+  quiz: [{q: '¿Cómo son los arcos de la Mezquita de Córdoba?', o: ['De dos colores, rojo y blanco', 'De cristal', 'Todos dorados', 'De madera']}, {q: '¿Qué es un zoco?', o: ['Un mercado', 'Un barco', 'Un castillo', 'Un tipo de zapato']}, {q: '¿Para qué servían las acequias?', o: ['Para llevar el agua a los cultivos', 'Para guardar libros', 'Para hacer pan', 'Para defender la ciudad']}]}
+];
+const ERA_YEAR = {pre: -15000, ant: -218, med: 711, mod: 1492, con: 1808};
+const yrTxt = y => y < 0 ? fmt(-y) + ' a. C.' : String(y);
+function timeMachine(target, label, done) {
+  const ov = $('tmOverlay'); ov.hidden = false;
+  const from = 2026, t0 = performance.now(), dur = 1800;
+  $('tmLabel').textContent = label;
+  try { playWhoosh(); } catch (e) {}
+  const step = now => {
+    const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+    const y = Math.round(from + (target - from) * e);
+    $('tmYear').textContent = target < -3000 && k > .9 ? 'Hace ' + fmt(-target) + ' años' : yrTxt(y);
+    if (k < 1) requestAnimationFrame(step); else setTimeout(() => { ov.hidden = true; done(); }, 450);
+  };
+  requestAnimationFrame(step);
+}
+function playWhoosh() {
+  const AC = window.AudioContext || window.webkitAudioContext; if (!AC || !S.voice) return;
+  const ac = new AC(), o = ac.createOscillator(), g = ac.createGain();
+  o.type = 'sawtooth'; o.frequency.setValueAtTime(900, ac.currentTime); o.frequency.exponentialRampToValueAtTime(90, ac.currentTime + 1.6);
+  g.gain.setValueAtTime(0.0001, ac.currentTime); g.gain.exponentialRampToValueAtTime(0.08, ac.currentTime + 0.2); g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 1.7);
+  o.connect(g); g.connect(ac.destination); o.start(); o.stop(ac.currentTime + 1.8);
+}
+function paintAdv() {
+  $('eras').innerHTML = ADV.map(a => '<button class="era" type="button" data-av="' + a.id + '"><span class="yr">' + (a.yr < 0 ? 'año ' + yrTxt(a.yr) : 'año ' + a.yr) + '</span><b>' + a.n + '</b>' + (S.adv[a.id] ? '<span class="stamp">Vivida ✓</span>' : '') + '</button>').join('');
+  $('eras').querySelectorAll('[data-av]').forEach(b => b.onclick = () => startAdv(ADV.find(a => a.id === b.dataset.av)));
+  $('histArea').innerHTML = '<div class="stack" style="text-align:center;padding:10px"><div style="font-size:60px">⏳</div><h3 style="font-size:26px">Vive la historia</h3><p style="font-size:18px">Elige una aventura. Serás un niño o una niña de otra época y <b>tú decides</b> qué hacer. Cada camino te enseña algo distinto: ¡puedes repetirla para descubrirlos todos!</p></div>';
+}
+function startAdv(A) {
+  timeMachine(A.yr, A.n, () => {
+    const seen = new Set();
+    const go = key => {
+      const nd = A.nodes[key]; seen.add(key);
+      $('histArea').innerHTML = '<div class="comic"><div class="eyebrow muted" style="margin-bottom:6px">' + A.n + ' · eres ' + A.who + '</div><div class="scene bg-' + (key === 'fin' ? 'night' : A.bg) + '"><div class="cast">' + nd[0] + '</div></div><p class="narr" style="font-size:19px">' + nd[1] + '</p>' +
+        '<div class="choices">' + (nd[2].length ? nd[2].map(c => '<button type="button" class="choice" data-go2="' + c[1] + '">' + c[0] + ' →</button>').join('') : '<button type="button" class="choice" id="advQuiz">Rellenar mi diario (reto) →</button>') + '</div><div class="row" style="justify-content:flex-end;margin-top:8px"><button class="speak small" type="button" id="advListen">Escuchar</button></div></div>';
+      talk(nd[1]);
+      $('advListen').onclick = () => talk(nd[1], true);
+      $('histArea').querySelectorAll('[data-go2]').forEach(b => b.onclick = () => go(b.dataset.go2));
+      const q = $('advQuiz'); if (q) q.onclick = () => quiz($('histArea'), A.quiz, (sc, tot) => {
+        const first = !S.adv[A.id]; S.adv[A.id] = true; const st = sc + (first ? 3 : 0) + Math.max(0, seen.size - 4); addStars(st, 'hist'); logDo('hist'); save(); paintAdv();
+        const total = Object.keys(A.nodes).length;
+        $('histArea').innerHTML = '<div class="stack" style="text-align:center"><h2 style="font-size:30px">¡Aventura vivida!</h2><p>Reto: ' + sc + ' de ' + tot + '. Ganas ' + st + ' ★.</p><p>Has visto <b>' + seen.size + ' de ' + total + '</b> escenas. ' + (seen.size < total ? '¡Repite y elige otros caminos para descubrir el resto!' : '¡Las has descubierto todas!') + '</p><div><button type="button" id="advAgain">Vivirla otra vez</button></div></div>';
+        $('advAgain').onclick = () => startAdv(A);
+      });
+    };
+    go('start');
+  });
+}
+/* =================================================================
    SALA DE JUEGOS
    ================================================================= */
 const EN_ES = {dog: 'perro', cat: 'gato', elephant: 'elefante', fish: 'pez', apple: 'manzana', banana: 'plátano', car: 'coche', sun: 'sol', rain: 'lluvia', house: 'casa', ball: 'pelota', bird: 'pájaro', bread: 'pan', milk: 'leche', pencil: 'lápiz', horse: 'caballo', moon: 'luna', star: 'estrella', clock: 'reloj', chair: 'silla', frog: 'rana', tree: 'árbol', shoes: 'zapatos', scarf: 'bufanda', gloves: 'guantes', coat: 'abrigo', bridge: 'puente', castle: 'castillo'};
@@ -3030,7 +3396,7 @@ function refuerzoHTML() {
 ENTER.prog = () => {
   const max = Math.max(5, ...SUBJ.map(s => S.sub[s.id] || 0));
   const days = []; const d = new Date(); d.setDate(d.getDate() - 6);
-  for (let k = 0; k < 7; k++) { const key = day(d), t = S.log[key] || {}; const other = (t.hist || 0) + (t.geo || 0) + (t.nat || 0) + (t.eng || 0) + (t.ai || 0) + (t.len || 0) + (t.art || 0) + (t.games || 0); const n = (t.read ? 1 : 0) + (t.mat ? 1 : 0) + (other ? 1 : 0); days.push({l: ['D','L','M','X','J','V','S'][d.getDay()], n}); d.setDate(d.getDate() + 1); }
+  for (let k = 0; k < 7; k++) { const key = day(d), t = S.log[key] || {}; const other = (t.hist || 0) + (t.geo || 0) + (t.nat || 0) + (t.eng || 0) + (t.ai || 0) + (t.len || 0) + (t.art || 0) + (t.games || 0) + (t.mont || 0); const n = (t.read ? 1 : 0) + (t.mat ? 1 : 0) + (other ? 1 : 0); days.push({l: ['D','L','M','X','J','V','S'][d.getDay()], n}); d.setDate(d.getDate() + 1); }
   $('progArea').innerHTML =
     '<div class="kpis"><div class="card kpi"><span class="muted">Estrellas</span><b>★ ' + S.stars + '</b></div><div class="card kpi"><span class="muted">Racha de lectura</span><b>' + readStreak() + ' días</b></div><div class="card kpi"><span class="muted">Minutos leídos</span><b>' + S.read.minutes + '</b></div><div class="card kpi"><span class="muted">Sellos de historia</span><b>' + Object.keys(S.hist).length + ' / ' + ERAS.length + '</b></div></div>' +
     '<div class="card"><div class="eyebrow" style="margin-bottom:10px">Últimos 7 días · misiones cumplidas</div><div class="week">' + days.map(x => '<div class="' + (x.n === 3 ? 'full' : '') + '"><b>' + x.l + '</b><br>' + x.n + '/3</div>').join('') + '</div></div>' +
@@ -3071,7 +3437,7 @@ function splash() {
 /* =================================================================
    ACTUALIZAR LA APP (el progreso se queda: solo se borra la copia de la app)
    ================================================================= */
-const APP_VERSION = '8';
+const APP_VERSION = '9';
 async function updateApp() {
   $('updBtn').classList.add('spin'); hush();
   try {

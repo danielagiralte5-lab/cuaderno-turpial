@@ -3422,8 +3422,23 @@ function gramSymbols(box, idx) {
 }
 /* ---------- mapa rompecabezas ---------- */
 function puzzleMap(mapEl, side) {
-  const ids = GIDS.filter(id => id !== '18' && id !== '19');
-  const off = {}; ids.forEach(id => { const c = MAP.cen[id]; let dx, dy, n = 0; do { dx = r(-260, 260); dy = r(-200, 200); n++; } while (n < 200 && (Math.hypot(dx, dy) < 120 || c[0] + dx < -60 || c[0] + dx > 860 || c[1] + dy < -30 || c[1] + dy > 640)); off[id] = [dx, dy]; });
+  // Las piezas grandes se dibujan primero y las pequeñas encima, para que ninguna quede escondida.
+  const bb = {}; GIDS.forEach(id => { const n = (MAP.paths[id].match(/-?[\d.]+,-?[\d.]+/g) || []).map(q => q.split(',').map(Number)); const xs = n.map(a => a[0]), ys = n.map(a => a[1]); bb[id] = [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)]; });
+  const area = id => (bb[id][2] - bb[id][0]) * (bb[id][3] - bb[id][1]);
+  const ids = GIDS.filter(id => id !== '18' && id !== '19').sort((a, b) => area(b) - area(a));
+  const off = {}; const used = [];
+  const ov = (a, b) => Math.max(0, Math.min(a[2], b[2]) - Math.max(a[0], b[0])) * Math.max(0, Math.min(a[3], b[3]) - Math.max(a[1], b[1]));
+  ids.slice().reverse().forEach(id => { // las pequeñas eligen sitio primero
+    const b = bb[id]; let best = null, bestScore = Infinity;
+    for (let n = 0; n < 260; n++) {
+      const dx = r(-300, 300), dy = r(-230, 230); const q = [b[0] + dx, b[1] + dy, b[2] + dx, b[3] + dy];
+      if (q[0] < -112 || q[2] > 912 || q[1] < -72 || q[3] > 672 || Math.hypot(dx, dy) < 120) continue;
+      const sc = used.reduce((a, u) => a + ov(q, u), 0) / area(id);
+      if (sc < bestScore) { bestScore = sc; best = [dx, dy, q]; if (sc === 0) break; }
+    }
+    if (!best) best = [0, -150, [b[0], b[1] - 150, b[2], b[3] - 150]];
+    off[id] = [best[0], best[1]]; used.push(best[2]);
+  });
   const placed = {}; const t0 = Date.now();
   let h = '<svg class="mapsvg pzsvg" viewBox="-120 -80 1040 760" role="img" aria-label="Mapa rompecabezas"><rect class="inset" x="10" y="436" width="252" height="158" rx="10"/>';
   ids.forEach(id => h += '<path class="slot" d="' + MAP.paths[id] + '"/>');
@@ -3437,22 +3452,22 @@ function puzzleMap(mapEl, side) {
   svg.querySelectorAll('.piece').forEach(g => {
     g.addEventListener('pointerdown', e => {
       const id = g.dataset.p; if (placed[id]) return; e.preventDefault();
-      try { g.setPointerCapture(e.pointerId); } catch (x) {}
       const p = pt(e); drag = {g, id, sx: p.x, sy: p.y, ox: off[id][0], oy: off[id][1]}; g.parentNode.appendChild(g); g.classList.add('drag');
+      try { svg.setPointerCapture(e.pointerId); } catch (x) {} // se captura en el mapa (que no se mueve) para no perder la pieza
       $('pzMsg').innerHTML = '<div class="bubble"><b>' + GEO[id].n + '</b>. ' + GEO[id].w + '</div>'; talk(GEO[id].n);
     });
-    g.addEventListener('pointermove', e => { if (!drag || drag.g !== g) return; const p = pt(e); off[drag.id] = [drag.ox + p.x - drag.sx, drag.oy + p.y - drag.sy]; g.setAttribute('transform', 'translate(' + off[drag.id][0] + ',' + off[drag.id][1] + ')'); });
+    svg.addEventListener('pointermove', e => { if (!drag || drag.g !== g) return; const p = pt(e); off[drag.id] = [drag.ox + p.x - drag.sx, drag.oy + p.y - drag.sy]; g.setAttribute('transform', 'translate(' + off[drag.id][0] + ',' + off[drag.id][1] + ')'); });
     const end = () => {
       if (!drag || drag.g !== g) return; const id = drag.id; g.classList.remove('drag'); drag = null;
       if (Math.hypot(off[id][0], off[id][1]) < 28) {
-        off[id] = [0, 0]; g.setAttribute('transform', 'translate(0,0)'); g.classList.add('placed'); placed[id] = 1;
+        off[id] = [0, 0]; g.setAttribute('transform', 'translate(0,0)'); g.classList.add('placed'); placed[id] = 1; const fp = svg.querySelector('.piece'); if (fp && fp !== g) svg.insertBefore(g, fp);
         cityBuild(svg, id);
         const n = Object.keys(placed).length; paint(cityCard(id));
         talk('¡Encaja! ' + GEO[id].n + '. Su capital es ' + GEO[id].c + '. ' + (CITY[id] ? CITY[id][1] + ' Tiene ' + CITY[id][2] + ' habitantes.' : ''));
         if (n === ids.length) { const secs = Math.round((Date.now() - t0) / 1000); const best = S.mont.puzzle; if (!best || secs < best) S.mont.puzzle = secs; addStars(5, 'mont'); logDo('geo'); save(); paint('<div class="bubble"><b>¡Has construido España!</b> 17 comunidades, más de 48 millones de habitantes y una capital: Madrid. Lo has hecho en ' + Math.floor(secs / 60) + ' min ' + (secs % 60) + ' s (récord: ' + Math.floor(S.mont.puzzle / 60) + ' min ' + (S.mont.puzzle % 60) + ' s). Ganas 5 ★.</div>'); toast('¡Has construido España entera! Más de 48 millones de habitantes.', true); }
       }
     };
-    g.addEventListener('pointerup', end); g.addEventListener('pointercancel', end);
+    svg.addEventListener('pointerup', end); svg.addEventListener('pointercancel', end);
   });
 }
 /* ---------- reloj de la Tierra ---------- */
@@ -4132,7 +4147,7 @@ function splash() {
 /* =================================================================
    ACTUALIZAR LA APP (el progreso se queda: solo se borra la copia de la app)
    ================================================================= */
-const APP_VERSION = '13';
+const APP_VERSION = '14';
 async function updateApp() {
   $('updBtn').classList.add('spin'); hush();
   try {

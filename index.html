@@ -480,6 +480,27 @@ body.papamode .top::after{content:'MODO PAPÁ';font-family:var(--f-display);font
 .bignum{font-family:var(--f-display);font-weight:800;font-size:26px;letter-spacing:.04em}
 .coltab{font-family:ui-monospace,Menlo,monospace;font-size:26px;font-weight:700;display:inline-block;margin:6px 0 2px 10px;line-height:1.25}
 .colline{border-top:3px solid var(--ink);margin:2px 0}
+.obbar{margin-top:12px;border-color:var(--c-geo)}
+.obmine{font-size:24px;padding:12px 22px;background:var(--orange);display:flex;flex-direction:column;align-items:center;line-height:1.1}
+.obmine small{font-family:var(--f-body);font-weight:600;font-size:13px;opacity:.9}
+.obmine:active{transform:translateY(3px) rotate(-3deg)}
+.invn{color:var(--ink)!important;font-size:14px!important}
+.recipe{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;font-size:11px!important;color:var(--ink-soft)}
+.recipe i{display:inline-block;width:10px;height:10px;border:1px solid var(--ink);border-radius:2px;margin-right:2px;vertical-align:-1px}
+.shopit.lock{opacity:.7}
+.modecard{display:block;text-align:center;padding:20px}
+.modecard b{font-family:var(--f-display);font-size:26px;display:block;margin:6px 0}
+.aved{display:flex;flex-wrap:wrap;gap:18px;margin-top:12px;border-color:#6A3D9A}
+.avprev{display:flex;flex-direction:column;align-items:center;gap:4px;background:linear-gradient(#9FD8F5,#E6F6FF);border-radius:16px;padding:10px;border:2px solid var(--ink)}
+.avprev canvas{width:200px;height:250px;image-rendering:pixelated}
+.avrow{display:grid;grid-template-columns:110px 1fr;gap:8px;align-items:center}
+.avlab{font-family:var(--f-display);font-weight:800;font-size:15px}
+.avsw.on{outline:3px solid var(--orange);outline-offset:2px}
+.avopt.on{background:var(--ink);color:#fff}
+.hello{grid-template-columns:auto 1fr auto}
+.homeavbox{display:flex;flex-direction:column;align-items:center;gap:4px}
+.homeav{width:84px;height:84px;image-rendering:pixelated}
+@media (max-width:600px){.avrow{grid-template-columns:1fr}.hello{grid-template-columns:auto 1fr}.homeavbox{grid-column:1/-1}}
 /* gustos, estudio, nuevas secciones */
 .islabox{position:relative;border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:#BFE6FA}
 #islaCv{display:block;width:100%;aspect-ratio:4/3;max-height:72vh;touch-action:none;cursor:crosshair}
@@ -710,6 +731,7 @@ input[type=range]{accent-color:var(--c-art);width:130px}
         <input id="nameIn" placeholder="escribe tu nombre" autocomplete="off">
         <div id="likesLine" class="likes"></div>
       </div>
+      <div id="homeAv" class="homeavbox"></div>
     </div>
     <div class="card mission">
       <div class="eyebrow" style="color:var(--orange)">Misión de hoy</div>
@@ -937,7 +959,7 @@ const save = () => { try { localStorage.setItem('turpial2', JSON.stringify(S)); 
 const who = () => S.name || 'campeón';
 
 function addStars(n, subj) {
-  S.stars += n; S.sub[subj] = (S.sub[subj] || 0) + n; save(); paintTop();
+  S.stars += n; S.sub[subj] = (S.sub[subj] || 0) + n; if (n > 0 && S.sky) S.sky.picks = (S.sky.picks || 0) + n * 2; save(); paintTop();
   if (n > 0) try { celebrate(n); } catch (e) {}
 }
 /* ---------- ¡Fiesta! Tupi vuela y felicita cuando ganas estrellas ---------- */
@@ -1165,6 +1187,7 @@ function levelLabel(id) {
 }
 ENTER.home = function () {
   try { paintHomeExtra(); } catch (e) {}
+  try { paintAvatarHome(); } catch (e) {}
   try { $('qIsla').textContent = islaHomeText(); } catch (e) {}
   $('helloTitle').textContent = S.name ? '¡Hola, ' + S.name + '! Soy Tupi.' : '¡Hola! Soy Tupi.';
   const t = S.log[day()] || {};
@@ -4393,7 +4416,9 @@ const MOBS = [
 const VNAMES = ['Lucía', 'Mateo', 'Sofía', 'Hugo', 'Martina', 'Leo', 'Valeria', 'Pablo', 'Alba', 'Daniel', 'Carmen', 'Álvaro', 'Julia', 'Diego', 'Sara', 'Marco', 'Paula', 'Iker', 'Noa', 'Bruno'];
 const IGROW = [0, 25, 50, 90];
 const islaFree = () => S.stars - (S.isla.spent || 0);
-let IW3 = null, isl = {tool: 'block', blk: 1, pref: 'arbol', mob: 'aldeano', rot: 0, zoom: 1, px: 0, py: 0, night: false, undo: [], raf: 0, faces: [], glows: [], seas: [], dirty: true};
+const ONE = () => isl.mode === 'one';
+const IS = () => ONE() ? S.sky : S.isla;
+let IW3 = null, isl = {mode: S.islaMode || '', fx: [], tool: 'block', blk: 1, pref: 'arbol', mob: 'aldeano', rot: 0, zoom: 1, px: 0, py: 0, night: false, undo: [], raf: 0, faces: [], glows: [], seas: [], dirty: true};
 const iidx = (x, y, z) => x + y * IN + z * IN * IN;
 const iget = (x, y, z) => (x < 0 || y < 0 || z < 0 || x >= IN || y >= IN || z >= IZ) ? 0 : IW3[iidx(x, y, z)];
 const iset = (x, y, z, v) => { if (x >= 0 && y >= 0 && z >= 0 && x < IN && y < IN && z < IZ) IW3[iidx(x, y, z)] = v; };
@@ -4401,7 +4426,7 @@ const iRad = sz => 4.2 + sz * 1.3;
 const ihash = (x, y, s) => { let h = (x * 374761393 + y * 668265263 + (s || 0) * 982451653) | 0; h = (h ^ (h >>> 13)) * 1274126177 | 0; return ((h ^ (h >>> 16)) >>> 0) / 4294967295; };
 const inoise = (x, y) => { const xi = Math.floor(x), yi = Math.floor(y), fx = x - xi, fy = y - yi, sm = t => t * t * (3 - 2 * t); const a = ihash(xi, yi), b = ihash(xi + 1, yi), c = ihash(xi, yi + 1), d = ihash(xi + 1, yi + 1); return a + (b - a) * sm(fx) + (c - a) * sm(fy) + (a - b - c + d) * sm(fx) * sm(fy); };
 const idist = (x, y) => Math.hypot(x - (IN - 1) / 2, y - (IN - 1) / 2) + (inoise(x / 3, y / 3) - .5) * 2.4;
-const iBuildable = (x, y) => idist(x, y) < iRad(S.isla.size || 1) + 1.2;
+const iBuildable = (x, y) => ONE() ? (x >= 0 && y >= 0 && x < IN && y < IN) : idist(x, y) < iRad(IS().size || 1) + 1.2;
 function iColumn(x, y, sz) {
   const d = idist(x, y), R = iRad(sz); if (d >= R) return false;
   const beach = d > R - 1.3; let h = beach ? 0 : 1 + (d < R - 2.6 ? 1 : 0) + (inoise(x / 2.5 + 7, y / 2.5 + 3) > .62 && d < R - 3 ? 1 : 0);
@@ -4418,7 +4443,8 @@ function iGenerate(sz, keep) {
 const iEnc = () => { let s = ''; for (let i = 0; i < IW3.length; i++) s += String.fromCharCode(48 + IW3[i]); return s; };
 const iDec = s => { const a = new Uint8Array(IN * IN * IZ); for (let i = 0; i < a.length; i++) a[i] = Math.max(0, (s.charCodeAt(i) || 48) - 48); return a; };
 function iEnsure() {
-  const I = S.isla;
+  if (ONE()) return skyEnsure();
+  const I = IS();
   if (I.v !== 2 || !I.w) {
     const had = Object.keys(I.items || {}).length && (I.spent || 0) > 0;
     I.v = 2; I.items = {}; I.spent = 0; I.size = I.size || 1; I.mobs = []; I.bld = []; I.unl = {}; I.vn = 0;
@@ -4431,10 +4457,10 @@ function iEnsure() {
   if (!IW3 || IW3.length !== IN * IN * IZ) IW3 = iDec(I.w);
   I.mobs = I.mobs || []; I.bld = I.bld || []; I.unl = I.unl || {};
 }
-const iSave = () => { S.isla.w = iEnc(); save(); };
+const iSave = () => { IS().w = iEnc(); save(); };
 const iTop = (x, y) => { for (let z = IZ - 1; z >= 0; z--) if (iget(x, y, z)) return z; return -1; };
-function iPush() { isl.undo.push({w: iEnc(), m: JSON.stringify(S.isla.mobs), b: JSON.stringify(S.isla.bld), s: S.isla.spent, u: JSON.stringify(S.isla.unl)}); if (isl.undo.length > 20) isl.undo.shift(); }
-function iUndo() { const u = isl.undo.pop(); if (!u) { islaMsg('No hay nada que deshacer.'); return; } IW3 = iDec(u.w); S.isla.mobs = JSON.parse(u.m); S.isla.bld = JSON.parse(u.b); S.isla.spent = u.s; S.isla.unl = JSON.parse(u.u); iSave(); isl.dirty = true; mobInit(); paintIslaInfo(); islaMsg('Deshecho.'); }
+function iPush() { isl.undo.push({w: iEnc(), m: JSON.stringify(IS().mobs), b: JSON.stringify(IS().bld), s: IS().spent, u: JSON.stringify(IS().unl), o: ONE() ? JSON.stringify({inv: S.sky.inv, ob: S.sky.ob, picks: S.sky.picks}) : null}); if (isl.undo.length > 20) isl.undo.shift(); }
+function iUndo() { const u = isl.undo.pop(); if (!u) { islaMsg('No hay nada que deshacer.'); return; } IW3 = iDec(u.w); IS().mobs = JSON.parse(u.m); IS().bld = JSON.parse(u.b); IS().spent = u.s; IS().unl = JSON.parse(u.u); if (u.o && ONE()) Object.assign(S.sky, JSON.parse(u.o)); iSave(); isl.dirty = true; mobInit(); paintIslaInfo(); islaMsg('Deshecho.'); }
 
 /* ---------- texturas pixel (originales) ---------- */
 const ITEX = {};
@@ -4504,16 +4530,18 @@ function iRender() {
 
 /* ---------- vecinos y animales que se mueven ---------- */
 let IMOB = [];
-function mobInit() { IMOB = (S.isla.mobs || []).map(m => ({m, fx: m.x, fy: m.y, tx: m.x, ty: m.y, t0: 0, next: Date.now() + Math.random() * 2000, say: 0})); }
+function mobInit() { IMOB = (IS().mobs || []).map(m => ({m, fx: m.x, fy: m.y, tx: m.x, ty: m.y, t0: 0, next: Date.now() + Math.random() * 2000, say: 0}));
+  let ax = ONE() ? OB[0] : Math.floor(IN / 2), ay = ONE() ? OB[1] : Math.floor(IN / 2); if (!ONE() && iTop(ax, ay) >= 0 && iget(ax, ay, iTop(ax, ay)) === 10) { ax = ay = 9; }
+  isl.avM = {m: {t: 'yo', x: ax, y: ay}, fx: ax, fy: ay, tx: ax, ty: ay, t0: 0, next: Date.now() + 2500, sw: 0}; }
 function mobOk(M, x, y) {
   if (x < 0 || y < 0 || x >= IN || y >= IN) return false; const tz = iTop(x, y); if (tz < 0) return false; const tb = iget(x, y, tz);
   const def = MOBS.find(d => d.id === M.m.t) || {};
-  if (def.sea) return tb === 10 && tz === 0;
+  if (def.sea) return tb === 10 && (tz === 0 || ONE());
   if (tb === 10 || tb === 7 || tb === 8 || tb === 15) return false;
   const cz = iTop(M.m.x, M.m.y); return Math.abs(tz - cz) <= 1;
 }
 function mobStep(now) {
-  IMOB.forEach(M => {
+  IMOB.concat(isl.avM ? [isl.avM] : []).forEach(M => {
     if (now >= M.next) {
       const dirs = shuffle([[1, 0], [-1, 0], [0, 1], [0, -1]]); const d = dirs.find(([dx, dy]) => mobOk(M, M.m.x + dx, M.m.y + dy));
       M.fx = M.m.x; M.fy = M.m.y; if (d && Math.random() < .8) { M.m.x += d[0]; M.m.y += d[1]; }
@@ -4523,7 +4551,7 @@ function mobStep(now) {
 }
 /* ---------- necesidades (estilo Sims) ---------- */
 function iNeeds() {
-  const I = S.isla; const tot = {bed: 0, food: 0, fun: 0, learn: 0};
+  const I = IS(); const tot = {bed: 0, food: 0, fun: 0, learn: 0};
   (I.bld || []).forEach(b => { if (!iget(b.x, b.y, b.z)) return; const P = PREF.find(p => p.id === b.id); if (P && P.give) Object.keys(P.give).forEach(k => tot[k] += P.give[k]); });
   (I.mobs || []).forEach(m => { const d = MOBS.find(x => x.id === m.t); if (d && d.give) Object.keys(d.give).forEach(k => tot[k] += d.give[k]); });
   const vec = (I.mobs || []).filter(m => m.t === 'aldeano');
@@ -4531,60 +4559,66 @@ function iNeeds() {
   const hap = people.length ? Math.min(100, Math.round(people.reduce((a, p) => a + p.n, 0) / (people.length * 3) * 100) + (tot.learn && people.length ? 5 : 0)) : 0;
   return {tot, people, hap};
 }
-const islaScore = () => { const I = S.isla; return (I.bld || []).filter(b => iget(b.x, b.y, b.z)).length + (I.mobs || []).filter(m => m.t === 'aldeano').length * 2; };
+const islaScore = () => { const I = IS(); return (I.bld || []).filter(b => iget(b.x, b.y, b.z)).length + (I.mobs || []).filter(m => m.t === 'aldeano').length * 2; };
 const islaTitle = n => n < 4 ? 'Islote' : n < 10 ? 'Aldea' : n < 20 ? 'Pueblo' : n < 35 ? 'Ciudad' : 'Gran capital';
-function islaHomeText() { try { iEnsure(); } catch (e) {} const N = iNeeds(); return islaTitle(islaScore()) + ' · ' + N.people.length + ' vecinos · ' + (N.people.length ? N.hap + ' % felices · ' : '') + '★ ' + islaFree(); }
+function islaHomeText() { if (!isl.mode) return 'Nuevo: ¡modo OneBlock! Empieza con un bloque en el cielo'; try { iEnsure(); } catch (e) {} if (ONE()) return '🟫 OneBlock · fase ' + OBPH[obPhase(S.sky.ob.n)].n + ' · ⛏️ ' + S.sky.picks + ' golpes'; const N = iNeeds(); return islaTitle(islaScore()) + ' · ' + N.people.length + ' vecinos · ' + (N.people.length ? N.hap + ' % felices · ' : '') + '★ ' + islaFree(); }
 
 /* ---------- colocar ---------- */
 function placePref(P, cx0, cy0, free) {
   const L = P.L, d = L[0].length, w = L[0][0].length; const x0 = cx0 - Math.floor(w / 2), y0 = cy0 - Math.floor(d / 2);
   const GROUND = [1, 2, 3, 4, 16, 17, 10]; const gtop = (x, y) => { for (let z = IZ - 1; z >= 0; z--) if (GROUND.includes(iget(x, y, z))) return z; return 0; };
-  let tz = 0; for (let yy = 0; yy < d; yy++) for (let xx = 0; xx < w; xx++) tz = Math.max(tz, gtop(x0 + xx, y0 + yy)); const z0 = tz + 1;
+  let tz = ONE() ? -1 : 0; for (let yy = 0; yy < d; yy++) for (let xx = 0; xx < w; xx++) tz = Math.max(tz, ONE() ? iTop(x0 + xx, y0 + yy) : gtop(x0 + xx, y0 + yy)); if (ONE() && tz < 0) return 'Necesita suelo debajo: construye primero una plataforma de bloques.'; const z0 = tz + 1;
   if (z0 + L.length > IZ) return 'No cabe: es demasiado alto para construirlo ahí.';
-  for (let yy = 0; yy < d; yy++) for (let xx = 0; xx < w; xx++) { const x = x0 + xx, y = y0 + yy; if (x < 0 || y < 0 || x >= IN || y >= IN || !iBuildable(x, y)) return 'No cabe: se sale de tu isla. Busca un sitio más hacia el centro o amplía la isla.';
+  for (let yy = 0; yy < d; yy++) for (let xx = 0; xx < w; xx++) { const x = x0 + xx, y = y0 + yy; if (x < 0 || y < 0 || x >= IN || y >= IN || !iBuildable(x, y)) return ONE() ? 'No cabe: se sale del mundo. Busca un sitio más hacia el centro.' : 'No cabe: se sale de tu isla. Busca un sitio más hacia el centro o amplía la isla.';
     for (let k = 0; k < L.length; k++) if (L[k][yy][xx] !== '.' && iget(x, y, z0 + k)) return 'No cabe: hay algo en medio (un árbol, bloques u otra construcción). Busca otro sitio o rompe lo que estorba con el pico ⛏️.';
     if (iget(x, y, z0 - 1) === 10 && z0 - 1 === 0) { /* sobre el agua: se pone cimiento */ } }
   for (let yy = 0; yy < d; yy++) for (let xx = 0; xx < w; xx++) { const x = x0 + xx, y = y0 + yy;
-    for (let z = z0 - 1; z >= 0 && (iget(x, y, z) === 0 || iget(x, y, z) === 10); z--) iset(x, y, z, z === 0 ? 4 : 2);
+    if (!ONE()) for (let z = z0 - 1; z >= 0 && (iget(x, y, z) === 0 || iget(x, y, z) === 10); z--) iset(x, y, z, z === 0 ? 4 : 2);
     for (let k = 0; k < L.length; k++) { const ch = L[k][yy][xx]; if (ch === '.') continue; iset(x, y, z0 + k, ch === '_' ? 0 : PCH[ch]); } }
   let ax = x0, ay = y0, az = z0; outer: for (let k = 0; k < L.length; k++) for (let yy = 0; yy < d; yy++) for (let xx = 0; xx < w; xx++) { const ch = L[k][yy][xx]; if (ch !== '.' && ch !== '_') { ax = x0 + xx; ay = y0 + yy; az = z0 + k; break outer; } }
-  S.isla.bld.push({id: P.id, x: ax, y: ay, z: az});
+  IS().bld.push({id: P.id, x: ax, y: ay, z: az});
   return '';
 }
 function islaMsg(h) { const el = $('islaMsg'); if (el) el.innerHTML = h; }
 function islaTap(f) {
-  const I = S.isla;
+  const I = IS();
   if (isl.tool === 'look') return;
+  if (ONE() && isOB(f.x, f.y, f.z) && isl.tool === 'pick') { obMine(); return; }
+  if (ONE() && isOB(f.x, f.y, f.z) && isl.tool !== 'block') { islaMsg('Ese es tu <b>OneBlock</b>. Elige ⛏️ Picar (o pulsa el botón ¡Picar!) para sacarle materiales.'); return; }
   if (isl.tool === 'pick') {
-    if (f.z === 0) { islaMsg('Esa es la <b>base</b> de la isla: no se puede romper.'); return; }
-    iPush(); const t = iget(f.x, f.y, f.z); iset(f.x, f.y, f.z, 0); iSave(); isl.dirty = true; islaMsg('⛏️ Has roto un bloque de <b>' + BLK[t].n.toLowerCase() + '</b>.'); paintIslaInfo(); return;
+    if (f.z === 0 && !ONE()) { islaMsg('Esa es la <b>base</b> de la isla: no se puede romper.'); return; }
+    iPush(); const t = iget(f.x, f.y, f.z); iset(f.x, f.y, f.z, 0); if (ONE()) { S.sky.inv[t] = (S.sky.inv[t] || 0) + 1; } iSave(); isl.dirty = true; islaMsg('⛏️ Has roto un bloque de <b>' + BLK[t].n.toLowerCase() + '</b>.' + (ONE() ? ' Vuelve a tu inventario.' : '')); paintIslaInfo(); if (ONE()) paintPal(); return;
   }
   if (isl.tool === 'block') {
-    const B = BLK[isl.blk]; if (B.p && !I.unl[B.g || isl.blk]) { islaMsg('🔒 Desbloquea primero <b>' + B.n + '</b> en la paleta.'); return; }
+    const B = BLK[isl.blk]; if (ONE() && !(S.sky.inv[isl.blk] > 0)) { islaMsg('No te quedan bloques de <b>' + B.n.toLowerCase() + '</b>. ¡Pícalos en tu OneBlock!'); return; }
+    if (!ONE() && B.p && !I.unl[B.g || isl.blk]) { islaMsg('🔒 Desbloquea primero <b>' + B.n + '</b> en la paleta.'); return; }
     let x = f.x + f.n[0], y = f.y + f.n[1], z = f.z + f.n[2];
     if (iget(f.x, f.y, f.z) === 10 && f.z === 0 && f.n[2] === 1 && isl.blk !== 10) { x = f.x; y = f.y; z = 0; }
     if (x < 0 || y < 0 || x >= IN || y >= IN || z < 0) return;
     if (z >= IZ) { islaMsg('¡Has llegado al cielo! No se puede construir más alto.'); return; }
     if (!iBuildable(x, y)) { islaMsg('Eso ya es <b>mar abierto</b>. Amplía tu isla para construir más lejos.'); return; }
     if (iget(x, y, z) && !(z === 0 && iget(x, y, z) === 10)) return;
-    iPush(); iset(x, y, z, isl.blk); iSave(); isl.dirty = true; islaMsg('🧱 ' + B.n + ' colocado.'); paintIslaInfo(); return;
+    iPush(); iset(x, y, z, isl.blk); if (ONE()) S.sky.inv[isl.blk]--; iSave(); isl.dirty = true; islaMsg('🧱 ' + B.n + ' colocado.' + (ONE() ? ' Te quedan ' + S.sky.inv[isl.blk] + '.' : '')); paintIslaInfo(); if (ONE()) paintPal(); return;
   }
   if (isl.tool === 'pref') {
     const P = PREF.find(p => p.id === isl.pref); if (f.n[2] !== 1) { islaMsg('Toca el <b>suelo</b> (la parte de arriba de un bloque) para construir.'); return; }
-    if (islaFree() < P.p) { islaMsg('Te faltan estrellas para ' + P.e + ' ' + P.n + ' (★ ' + P.p + '). ¡Haz un ejercicio y vuelve!'); return; }
-    iPush(); const err = placePref(P, f.x, f.y); if (err) { isl.undo.pop(); IW3 = iDec(S.isla.w); islaMsg(err); return; }
-    I.spent += P.p; iSave(); isl.dirty = true; paintIslaInfo();
+    if (ONE()) { const miss = recipeMiss(P); if (miss.length) { islaMsg('Para ' + P.e + ' <b>' + P.n + '</b> te faltan: ' + miss.map(q => q[1] + ' de ' + BLK[q[0]].n.toLowerCase()).join(', ') + '. ¡Pícalos en tu OneBlock!'); return; } }
+    else if (islaFree() < P.p) { islaMsg('Te faltan estrellas para ' + P.e + ' ' + P.n + ' (★ ' + P.p + '). ¡Haz un ejercicio y vuelve!'); return; }
+    iPush(); const err = placePref(P, f.x, f.y); if (err) { isl.undo.pop(); IW3 = iDec(IS().w); islaMsg(err); return; }
+    if (ONE()) { recipe(P).forEach(([t, n]) => S.sky.inv[t] -= n); paintPal(); } else I.spent += P.p; iSave(); isl.dirty = true; paintIslaInfo();
     const ok = P.f ? ' construida' : ' construido'; islaMsg('<b>' + P.e + ' ¡' + P.n + ok + '!</b> ' + P.fact); talk(P.n + ok + '. ' + P.fact);
     if (P.give) { const N = iNeeds(); if (N.people.some(p => p.n < 3)) setTimeout(() => toast('Tus vecinos están más contentos: felicidad ' + N.hap + ' %'), 1200); }
     return;
   }
   if (isl.tool === 'mob') {
     const D = MOBS.find(m => m.id === isl.mob); const tb = iget(f.x, f.y, f.z); if (f.n[2] !== 1 || iTop(f.x, f.y) !== f.z) { islaMsg('Toca la parte de arriba de un bloque.'); return; }
-    if (D.sea && !(tb === 10 && f.z === 0)) { islaMsg(D.e + ' ' + D.n + ' tiene que ir en el <b>mar</b>.'); return; }
+    if (ONE() && !D.v) { islaMsg('En el OneBlock los animales salen al picar el bloque. ¡Sigue picando!'); return; }
+    if (ONE() && D.v && iNeeds().people.length >= iNeeds().tot.bed) { islaMsg('Para que venga un vecino nuevo necesitas una <b>cama libre</b>: construye una 🏠 casa.'); return; }
+    if (D.sea && !(tb === 10 && (f.z === 0 || ONE()))) { islaMsg(D.e + ' ' + D.n + ' tiene que ir en el <b>mar</b>.'); return; }
     if (!D.sea && (tb === 10 || tb === 7)) { islaMsg(D.e + ' ' + D.n + ' necesita tierra firme.'); return; }
-    if (islaFree() < D.p) { islaMsg('Te faltan estrellas (★ ' + D.p + ').'); return; }
+    if (!ONE() && islaFree() < D.p) { islaMsg('Te faltan estrellas (★ ' + D.p + ').'); return; }
     iPush(); const m = {t: D.id, x: f.x, y: f.y}; if (D.v) { m.n = VNAMES[(I.vn || 0) % VNAMES.length]; I.vn = (I.vn || 0) + 1; }
-    I.mobs.push(m); I.spent += D.p; save(); mobInit(); paintIslaInfo();
+    I.mobs.push(m); if (!ONE()) I.spent += D.p; save(); mobInit(); paintIslaInfo();
     if (D.v) { const N = iNeeds(); const me = N.people[N.people.length - 1]; islaMsg('🧑 <b>¡' + m.n + ' se muda a tu isla!</b> ' + (me.need ? 'Dice: «Hola, ' + esc(who()) + '. Necesito ' + me.need + '».' : 'Dice: «¡Qué isla tan bonita! Tengo de todo».')); talk('¡' + m.n + ' se muda a tu isla! ' + (me.need ? 'Necesita ' + me.need.replace(/[^\p{L} ]/gu, '') : '¡Está feliz!')); }
     else islaMsg(D.e + ' ¡' + D.n + ' en tu isla!');
   }
@@ -4597,14 +4631,18 @@ function cubeIcon(t) { const c = document.createElement('canvas'); c.width = c.h
   f([ox, oy], [ox + s, oy + s / 2], [ox - s, oy + s / 2], iTex(t, 'top'), 0); f([ox - s, oy + s / 2], [ox, oy + s], [ox - s, oy + s * 1.5], iTex(t, 'side'), .14); f([ox, oy + s], [ox + s, oy + s / 2], [ox, oy + s * 2], iTex(t, 'side'), .3);
   return c.toDataURL(); }
 function paintIsla() {
-  iEnsure(); mobInit(); hush(); isl.dirty = true;
-  const I = S.isla;
-  $('islaArea').innerHTML = '<div class="islahead card"><div style="flex:1;min-width:220px"><div class="eyebrow" style="color:var(--c-geo)" id="islaTitle"></div><input id="islaName" class="islaname" value="' + esc(I.name || ('Isla de ' + who().split(' ')[0])) + '" aria-label="Nombre de tu isla"><div id="islaHap"></div></div><div class="pill" style="font-size:22px" id="islaStars"></div></div>' +
+  if (!isl.mode) { const had = S.isla && S.isla.v === 2 && S.isla.w; if (had) isl.mode = 'classic'; else return islaChoose(); }
+  iEnsure(); mobInit(); hush(); isl.dirty = true; isl.fx = [];
+  const I = IS();
+  $('islaArea').innerHTML = '<div class="islahead card"><div style="flex:1;min-width:220px"><div class="eyebrow" style="color:var(--c-geo)" id="islaTitle"></div><input id="islaName" class="islaname" value="' + esc(I.name || ((ONE() ? 'El imperio de ' : 'Isla de ') + who().split(' ')[0])) + '" aria-label="Nombre de tu isla"><div id="islaHap"></div></div><div class="stack" style="gap:6px;justify-items:end"><div class="pill" style="font-size:22px" id="islaStars"></div><button type="button" class="ghost small" id="avBtn">🧍 Mi avatar</button><button type="button" class="ghost small" id="islaMode">' + (ONE() ? '🏝️ Ir a la isla clásica' : '🟫 Jugar al OneBlock') + '</button></div></div>' + '<div id="avBox"></div>' + (ONE() ? '<div id="obBar" class="obbar card"></div>' : '') +
     '<div class="islabox"><canvas id="islaCv" aria-label="Tu isla en 3D"></canvas><div class="islactl"><button type="button" data-ic="rl" title="Girar">⟲</button><button type="button" data-ic="rr" title="Girar">⟳</button><button type="button" data-ic="zi" title="Acercar">＋</button><button type="button" data-ic="zo" title="Alejar">－</button><button type="button" data-ic="fit" title="Centrar">🎯</button><button type="button" data-ic="night" title="Día o noche">🌙</button><button type="button" data-ic="undo" title="Deshacer">↶</button></div></div>' +
     '<div class="bubble" id="islaMsg" style="margin:10px 0">Elige una herramienta y toca la isla. Arrastra con un dedo para moverte y pellizca con dos para hacer zoom.</div>' +
-    '<div class="tabs islatabs">' + [['block', '🧱 Bloques'], ['pick', '⛏️ Romper'], ['pref', '🏠 Construcciones'], ['mob', '🧑 Vecinos y animales'], ['look', '👀 Solo mirar']].map(t => '<button type="button" data-it="' + t[0] + '"' + (isl.tool === t[0] ? ' class="on"' : '') + '>' + t[1] + '</button>').join('') + '</div><div class="card" id="islaPal"></div>' +
+    '<div class="tabs islatabs">' + [['block', '🧱 Bloques'], ['pick', ONE() ? '⛏️ Picar y romper' : '⛏️ Romper'], ['pref', '🏠 Construcciones'], ['mob', '🧑 Vecinos y animales'], ['look', '👀 Solo mirar']].map(t => '<button type="button" data-it="' + t[0] + '"' + (isl.tool === t[0] ? ' class="on"' : '') + '>' + t[1] + '</button>').join('') + '</div><div class="card" id="islaPal"></div>' +
     '<div class="card" style="margin-top:12px" id="islaPeople"></div>';
   $('islaName').onchange = e => { I.name = e.target.value.trim().slice(0, 30); save(); };
+  $('avBtn').onclick = () => { const bx = $('avBox'); if (bx.innerHTML) { bx.innerHTML = ''; return; } avatarEditor(bx, () => { bx.innerHTML = ''; islaMsg('¡Mira! Ahora tu avatar ' + (ONE() ? 'pica el OneBlock' : 'pasea por tu isla') + '.'); }); bx.scrollIntoView({behavior: 'smooth', block: 'start'}); };
+  if (!S.avatar) setTimeout(() => { const bx = $('avBox'); if (bx && !bx.innerHTML) { avatarEditor(bx, () => { bx.innerHTML = ''; islaMsg('¡Ya tienes avatar! ' + (ONE() ? 'Pulsa ¡Picar! y mira cómo pica.' : 'Mira cómo pasea por tu isla.')); }); talk('Antes de empezar, ¡diseña tu avatar! Él será quien construya tu mundo.'); } }, 100);
+  $('islaMode').onclick = () => { isl.mode = ONE() ? 'classic' : 'one'; S.islaMode = isl.mode; save(); IW3 = null; isl.undo = []; isl.tool = ONE() ? 'pick' : 'block'; paintIsla(); };
   $('islaArea').querySelectorAll('[data-it]').forEach(b => b.onclick = () => { isl.tool = b.dataset.it; $('islaArea').querySelectorAll('[data-it]').forEach(x => x.classList.toggle('on', x === b)); paintPal(); });
   $('islaArea').querySelectorAll('[data-ic]').forEach(b => b.onclick = () => { const k = b.dataset.ic;
     if (k === 'rl' || k === 'rr') { isl.rot = (isl.rot + (k === 'rr' ? 1 : 3)) % 4; isl.dirty = true; }
@@ -4613,7 +4651,8 @@ function paintIsla() {
   paintPal(); paintIslaInfo(); iSetup(); iFit();
 }
 function paintPal() {
-  const el = $('islaPal'); if (!el) return; const I = S.isla, fr = islaFree();
+  const el = $('islaPal'); if (!el) return; const I = IS(), fr = islaFree();
+  if (ONE()) return paintPalOne(el);
   if (isl.tool === 'block') {
     const ids = BLK.map((b, i) => i).filter(i => i && i !== 10 || i === 10);
     el.innerHTML = '<div class="eyebrow" style="margin-bottom:8px">Elige un bloque y toca una cara de otro bloque para ponerlo al lado (como en los juegos de bloques)</div><div class="blkpal">' + ids.filter(i => i).map(i => { const B = BLK[i], lock = B.p && !I.unl[B.g || i]; return '<button type="button" class="blkbtn' + (isl.blk === i ? ' on' : '') + (lock ? ' lock' : '') + '" data-bk="' + i + '"><img src="' + cubeIcon(i) + '" alt=""><small>' + B.n + '</small>' + (lock ? '<b>🔒 ★ ' + B.p + '</b>' : '') + '</button>'; }).join('') + '</div>';
@@ -4632,12 +4671,12 @@ function paintPal() {
   if (sz < 4) { el.insertAdjacentHTML('beforeend', '<div class="actions" style="justify-content:flex-start"><button type="button" id="islaGrow"' + (fr < IGROW[sz] ? ' disabled' : '') + '>🏝️ Ampliar la isla (★ ' + IGROW[sz] + ')</button></div>'); $('islaGrow').onclick = () => { iPush(); I.spent += IGROW[sz]; I.size = sz + 1; iGenerate(I.size, true); iSave(); isl.dirty = true; talk('¡Tu isla ha crecido! Ahora tienes más sitio para construir.'); islaMsg('<b>¡La isla ha crecido!</b> Más sitio para construir.'); paintPal(); paintIslaInfo(); }; }
 }
 function paintIslaInfo() {
-  if (!$('islaTitle')) return; const N = iNeeds(), I = S.isla;
+  if (!$('islaTitle')) return; const N = iNeeds(), I = IS();
   $('islaTitle').textContent = islaTitle(islaScore()) + ' · ' + N.people.length + ' vecinos · ' + (I.bld || []).filter(b => iget(b.x, b.y, b.z)).length + ' construcciones';
-  $('islaStars').textContent = '★ ' + islaFree() + ' para gastar';
+  $('islaStars').textContent = ONE() ? '⛏️ ' + S.sky.picks + ' golpes' : '★ ' + islaFree() + ' para gastar'; if (ONE()) paintObBar();
   $('islaHap').innerHTML = N.people.length ? '<div class="row" style="gap:8px;margin-top:6px"><span>Felicidad</span><div class="progressline" style="flex:1;min-width:120px"><i style="width:' + N.hap + '%;background:' + (N.hap >= 80 ? 'var(--ok)' : N.hap >= 50 ? 'var(--orange)' : 'var(--bad)') + '"></i></div><b>' + N.hap + ' %</b></div>' : '';
-  const pe = $('islaPeople'); if (pe) pe.innerHTML = '<div class="eyebrow" style="margin-bottom:8px">Tus vecinos</div>' + (N.people.length ? '<div class="vecinos">' + N.people.map(p => '<div class="vecino"><span style="font-size:28px">' + p.mood + '</span><div><b>' + esc(p.v.n || 'Vecino') + '</b><br><small class="muted">' + (p.need ? 'Necesita ' + p.need : '¡Feliz! Tiene casa, comida y diversión') + '</small></div></div>').join('') + '</div><p class="muted" style="font-size:13px;margin-top:8px">En tu isla hay 🛏️ ' + N.tot.bed + ' camas, 🥕 comida para ' + N.tot.food + ' y 🎉 diversión para ' + N.tot.fun + '. Si todos están felices (80 % o más, con 3 vecinos o más), cada día te regalan 3 ★.</p>' : '<p>Todavía no vive nadie aquí. Ve a <b>🧑 Vecinos y animales</b> e invita a tu primer vecino.</p>');
-  if (N.people.length >= 3 && N.hap >= 80 && I.gift !== day()) { I.gift = day(); save(); addStars(3, 'x'); toast('¡Tus vecinos están felices y te regalan 3 ★!', true); $('islaStars').textContent = '★ ' + islaFree() + ' para gastar'; }
+  const pe = $('islaPeople'); if (pe) pe.innerHTML = '<div class="eyebrow" style="margin-bottom:8px">Tus vecinos</div>' + (N.people.length ? '<div class="vecinos">' + N.people.map(p => '<div class="vecino"><span style="font-size:28px">' + p.mood + '</span><div><b>' + esc(p.v.n || 'Vecino') + '</b><br><small class="muted">' + (p.need ? 'Necesita ' + p.need : '¡Feliz! Tiene casa, comida y diversión') + '</small></div></div>').join('') + '</div><p class="muted" style="font-size:13px;margin-top:8px">En tu isla hay 🛏️ ' + N.tot.bed + ' camas, 🥕 comida para ' + N.tot.food + ' y 🎉 diversión para ' + N.tot.fun + '. Si todos están felices (80 % o más, con 3 vecinos o más), cada día te regalan 3 ★.</p>' : (ONE() ? '<p>Todavía no vive nadie aquí. Construye una 🏠 casa y luego invita a un vecino en <b>🧑 Vecinos y animales</b>.</p>' : '<p>Todavía no vive nadie aquí. Ve a <b>🧑 Vecinos y animales</b> e invita a tu primer vecino.</p>'));
+  if (N.people.length >= 3 && N.hap >= 80 && I.gift !== day()) { I.gift = day(); save(); addStars(3, 'x'); toast('¡Tus vecinos están felices y te regalan 3 ★!', true); $('islaStars').textContent = ONE() ? '⛏️ ' + S.sky.picks + ' golpes' : '★ ' + islaFree() + ' para gastar'; }
 }
 /* ---------- lienzo: dibujo, gestos y animación ---------- */
 function iFit() { const cv = $('islaCv'); if (!cv) return; const w = cv.clientWidth, h = cv.clientHeight; if (isl.dirty) iRender();
@@ -4679,11 +4718,14 @@ function iDraw(t) {
   const cv = $('islaCv'); if (!cv) return; const g = cv.getContext('2d'), dpr = window.devicePixelRatio || 1; const now = Date.now();
   if (isl.dirty) iRender(); mobStep(now);
   g.setTransform(1, 0, 0, 1, 0, 0);
+  if (ONE() && !isl.night) { const sk = g.createLinearGradient(0, 0, 0, cv.height); sk.addColorStop(0, '#6FB7F0'); sk.addColorStop(1, '#D8EEFF'); g.fillStyle = sk; g.fillRect(0, 0, cv.width, cv.height); }
   const sky = g.createLinearGradient(0, 0, 0, cv.height); if (isl.night) { sky.addColorStop(0, '#0B1740'); sky.addColorStop(1, '#1F3A68'); } else { sky.addColorStop(0, '#9FD8F5'); sky.addColorStop(1, '#E6F6FF'); }
-  g.fillStyle = sky; g.fillRect(0, 0, cv.width, cv.height);
+  if (!(ONE() && !isl.night)) { g.fillStyle = sky; g.fillRect(0, 0, cv.width, cv.height); }
   if (isl.night) { g.fillStyle = '#fff'; for (let k = 0; k < 40; k++) { const sx = ihash(k, 1) * cv.width, sy = ihash(k, 2) * cv.height * .5; g.globalAlpha = .4 + .6 * Math.abs(Math.sin(t / 900 + k)); g.fillRect(sx, sy, 2 * dpr, 2 * dpr); } g.globalAlpha = 1; }
   g.setTransform(dpr * isl.zoom, 0, 0, dpr * isl.zoom, dpr * isl.px, dpr * isl.py); g.imageSmoothingEnabled = isl.zoom < 1.2;
+  if (ONE()) { g.globalAlpha = .75; g.fillStyle = '#fff'; for (let k = 0; k < 5; k++) { const cx0 = ((t / 90 + k * 210) % (IWW + 260)) - 130, cy0 = IWH * .55 + k * 30; g.beginPath(); g.ellipse(cx0, cy0, 46, 13, 0, 0, 7); g.ellipse(cx0 + 24, cy0 - 7, 26, 11, 0, 0, 7); g.fill(); } g.globalAlpha = 1; }
   g.drawImage(iWC, 0, 0, IWW, IWH);
+  if (ONE()) obDrawFx(g, t);
   // brillos del mar
   g.fillStyle = '#fff'; isl.seas.forEach((p, k) => { const a = Math.sin(t / 600 + k * 1.7); if (a > .75) { g.globalAlpha = (a - .75) * 3; g.fillRect(p[0] - 4 + ((k * 7) % 9) - 4, p[1] - 1, 6, 1.5); } }); g.globalAlpha = 1;
   // vecinos y animales
@@ -4694,12 +4736,174 @@ function iDraw(t) {
     if (M.m.t === 'aldeano') { g.font = 'bold 6px sans-serif'; g.fillStyle = '#1F3A68'; g.fillText(M.m.n || '', p[0], p[1] - 18);
       if (M.say > now) { const w = Math.min(120, g.measureText(M.txt).width + 10); g.fillStyle = '#fff'; g.strokeStyle = '#1F3A68'; g.lineWidth = .8; g.beginPath(); g.roundRect ? g.roundRect(p[0] - w / 2, p[1] - 38, w, 12, 4) : g.rect(p[0] - w / 2, p[1] - 38, w, 12); g.fill(); g.stroke(); g.fillStyle = '#1F3A68'; g.font = '6px sans-serif'; g.fillText(M.txt, p[0], p[1] - 28.5); }
       else { const N = isl._needs && isl._needs.get(M.m); if (N && N.need && Math.floor(now / 1500) % 3 === 0) { g.font = '9px "Apple Color Emoji",sans-serif'; g.fillText(N.need.slice(-2), p[0] + 8, p[1] - 16); } } } });
+  if (S.avatar && isl.avM) { const M = isl.avM, p = mobScreen(M, now); const k = Math.min(1, (now - M.t0) / 700); const swing = M.sw && now - M.sw < 380 ? (now - M.sw) / 380 : 0;
+    g.fillStyle = 'rgba(0,0,0,.2)'; g.beginPath(); g.ellipse(p[0], p[1] - 1, 5, 2, 0, 0, 7); g.fill(); drawAvatar(g, p[0], p[1], .72, avData(), swing, k < 1 ? k * 2 : 0);
+    g.font = 'bold 6px sans-serif'; g.fillStyle = '#6A3D9A'; g.textAlign = 'center'; g.fillText(who(), p[0], p[1] - 22); }
   if (!isl._nt || now - isl._nt > 2000) { isl._nt = now; const N = iNeeds(); isl._needs = new Map(N.people.map(q => [q.v, q])); }
   // nubes
   g.globalAlpha = isl.night ? .25 : .85; g.fillStyle = '#fff'; for (let k = 0; k < 3; k++) { const cx0 = ((t / 60 + k * 260) % (IWW + 200)) - 100, cy0 = 30 + k * 34; g.beginPath(); g.ellipse(cx0, cy0, 34, 10, 0, 0, 7); g.ellipse(cx0 + 18, cy0 - 6, 20, 9, 0, 0, 7); g.fill(); } g.globalAlpha = 1;
   if (isl.night) { g.fillStyle = 'rgba(8,16,50,.5)'; g.fillRect(-2000, -2000, 6000, 6000); g.globalCompositeOperation = 'lighter';
     isl.glows.forEach(q => { const r0 = q[2] ? 14 : 30, gr = g.createRadialGradient(q[0], q[1], 0, q[0], q[1], r0); gr.addColorStop(0, 'rgba(255,220,120,' + (q[2] || .9) + ')'); gr.addColorStop(1, 'rgba(255,200,80,0)'); g.fillStyle = gr; g.fillRect(q[0] - r0, q[1] - r0, r0 * 2, r0 * 2); });
     g.globalCompositeOperation = 'source-over'; }
+}
+
+/* ---------- Mi avatar de bloques (lo diseña Santi) ---------- */
+const AVOPT = {
+  skin: ['#F6D5B8', '#EBC09A', '#D9A57B', '#B97E55', '#8D5A3B', '#5E3B25'],
+  hair: ['#2B1D14', '#5A3A22', '#9A6A3A', '#E0B64A', '#D96B2B', '#1F1F1F', '#7A4FB0', '#2E9E5B'],
+  style: [['corto', 'Corto'], ['pinchos', 'Pinchos'], ['largo', 'Largo'], ['coleta', 'Coleta'], ['rapado', 'Rapado']],
+  shirt: ['#3B7DD8', '#D64545', '#2E9E5B', '#F2862E', '#8A5CC7', '#FFD84D', '#1F3A68', '#FFFFFF', '#1A1A1A', '#4FD1D9'],
+  pants: ['#1F3A68', '#3B5BDB', '#4A4A4A', '#6B4A2A', '#2E9E5B', '#1A1A1A', '#B5523B', '#8E8E8E'],
+  shoes: ['#FFFFFF', '#1A1A1A', '#D64545', '#3B7DD8', '#F2862E', '#2E9E5B'],
+  eyes: ['#3B2A1A', '#2F6FB0', '#2E8B57', '#1A1A1A', '#8A5CC7'],
+  acc: [['nada', 'Nada'], ['gorra', 'Gorra'], ['gafas', 'Gafas'], ['casco', 'Casco de minero'], ['corona', 'Corona'], ['cascos', 'Auriculares'], ['capa', 'Capa']]
+};
+const AVDEF = {skin: '#EBC09A', hair: '#2B1D14', style: 'corto', shirt: '#3B7DD8', pants: '#1F3A68', shoes: '#FFFFFF', eyes: '#3B2A1A', acc: 'nada', accCol: '#D64545'};
+const avData = () => Object.assign({}, AVDEF, S.avatar || {});
+const shadeC = (hex, k) => { const n = parseInt(hex.slice(1), 16); const f = v => Math.max(0, Math.min(255, Math.round(v * k))); return 'rgb(' + f(n >> 16) + ',' + f((n >> 8) & 255) + ',' + f(n & 255) + ')'; };
+/* Dibuja el avatar con los pies en (x, y). u = tamaño de un "píxel". swing: 0..1 golpe de pico. step: balanceo al andar */
+function drawAvatar(g, x, y, u, A, swing, step) {
+  A = A || avData(); const R = (px, py, w, h, c) => { g.fillStyle = c; g.fillRect(x + px * u, y + py * u, w * u, h * u); };
+  const sw = Math.sin((step || 0) * Math.PI * 2) * 1.2;
+  if (A.acc === 'capa') { R(-4, -15, 8, 10, A.accCol || '#D64545'); }
+  // piernas
+  R(-3, -6 + Math.max(0, sw) * .4, 3, 6, A.pants); R(0, -6 + Math.max(0, -sw) * .4, 3, 6, shadeC(A.pants, .8));
+  R(-3, -1, 3, 1, A.shoes); R(0, -1, 3, 1, shadeC(A.shoes, .85));
+  // cuerpo
+  R(-4, -14, 8, 8, A.shirt); R(1, -14, 3, 8, shadeC(A.shirt, .82));
+  // brazo izquierdo
+  R(-6, -14, 2, 6, A.shirt); R(-6, -8, 2, 2, A.skin);
+  // cabeza
+  R(-4, -22, 8, 8, A.skin); R(1, -22, 3, 8, shadeC(A.skin, .9));
+  // pelo
+  const H = A.hair;
+  if (A.style !== 'rapado') R(-4, -23, 8, 2, H); else R(-4, -22.5, 8, 1, H);
+  if (A.style === 'corto') { R(-4, -21, 1, 3, H); R(3, -21, 1, 3, H); }
+  if (A.style === 'pinchos') { R(-4, -24, 2, 1, H); R(-1, -25, 2, 2, H); R(2, -24, 2, 1, H); R(-4, -21, 1, 2, H); R(3, -21, 1, 2, H); }
+  if (A.style === 'largo') { R(-4, -21, 1, 7, H); R(3, -21, 1, 7, H); }
+  if (A.style === 'coleta') { R(-4, -21, 1, 3, H); R(3, -21, 1, 3, H); R(4, -21, 2, 5, H); }
+  // ojos y boca
+  R(-3, -19, 2, 1.5, '#FFFFFF'); R(1, -19, 2, 1.5, '#FFFFFF'); R(-2, -19, 1, 1.5, A.eyes); R(2, -19, 1, 1.5, A.eyes);
+  R(-1.5, -16.5, 3, .8, shadeC(A.skin, .6));
+  // accesorios
+  if (A.acc === 'gorra') { R(-4.5, -24, 9, 2.2, A.accCol || '#D64545'); R(-4.5, -22, 11, 1, shadeC(A.accCol || '#D64545', .75)); }
+  if (A.acc === 'gafas') { R(-3.5, -19.5, 3, 2.3, '#1A1A1A'); R(.5, -19.5, 3, 2.3, '#1A1A1A'); R(-.5, -19, 1, .6, '#1A1A1A'); R(-3, -19, 2, 1.3, '#9FD8F5'); R(1, -19, 2, 1.3, '#9FD8F5'); }
+  if (A.acc === 'casco') { R(-4.5, -24.5, 9, 3, '#FFD84D'); R(-4.5, -22, 9, .8, '#C9A227'); R(-1, -24, 2, 1.6, '#FFFFFF'); }
+  if (A.acc === 'corona') { R(-4, -25, 8, 2, '#F2C230'); R(-4, -26, 1.5, 1, '#F2C230'); R(-.75, -26.5, 1.5, 1.5, '#F2C230'); R(2.5, -26, 1.5, 1, '#F2C230'); R(-.5, -24.6, 1, 1, '#D64545'); }
+  if (A.acc === 'cascos') { R(-4, -24, 8, 1, '#1A1A1A'); R(-5.5, -21, 2, 4, A.accCol || '#D64545'); R(3.5, -21, 2, 4, A.accCol || '#D64545'); }
+  // brazo derecho con el pico (gira al golpear)
+  g.save(); g.translate(x + 5 * u, y - 13 * u); const ang = swing ? (-1.9 + Math.sin(swing * Math.PI) * 2.6) : .25; g.rotate(ang);
+  g.fillStyle = A.shirt; g.fillRect(-1 * u, 0, 2 * u, 5 * u); g.fillStyle = A.skin; g.fillRect(-1 * u, 5 * u, 2 * u, 2 * u);
+  g.fillStyle = '#7A5530'; g.fillRect(-.5 * u, 5 * u, 1 * u, 7 * u); g.fillStyle = '#9AA4AE'; g.fillRect(-3.5 * u, 10.5 * u, 7 * u, 1.6 * u); g.fillStyle = '#C9D1D9'; g.fillRect(-3.5 * u, 10.5 * u, 2 * u, 1 * u);
+  g.restore();
+}
+function avatarURL(px) { const c = document.createElement('canvas'); c.width = c.height = px; const g = c.getContext('2d'); g.imageSmoothingEnabled = false; drawAvatar(g, px / 2, px * .95, px / 30, avData(), 0, 0); return c.toDataURL(); }
+function avatarEditor(box, onDone) {
+  const A = avData();
+  const row = (k, lab, arr, isTxt) => '<div class="avrow"><span class="avlab">' + lab + '</span><div class="row" style="gap:6px">' + arr.map(v => isTxt ? '<button type="button" class="ghost small avopt' + (A[k] === v[0] ? ' on' : '') + '" data-av="' + k + '" data-v="' + v[0] + '">' + v[1] + '</button>' : '<button type="button" class="swatch avsw' + (A[k] === v ? ' on' : '') + '" style="background:' + v + '" data-av="' + k + '" data-v="' + v + '" aria-label="' + lab + '"></button>').join('') + '</div></div>';
+  box.innerHTML = '<div class="card aved"><div class="avprev"><canvas id="avCv" width="240" height="300"></canvas><b>' + esc(who()) + '</b></div><div class="stack" style="gap:8px;flex:1;min-width:260px"><h3 style="font-size:24px">Diseña tu avatar</h3>' +
+    row('skin', 'Piel', AVOPT.skin) + row('hair', 'Pelo', AVOPT.hair) + row('style', 'Peinado', AVOPT.style, 1) + row('shirt', 'Camiseta', AVOPT.shirt) + row('pants', 'Pantalón', AVOPT.pants) + row('shoes', 'Zapatillas', AVOPT.shoes) + row('eyes', 'Ojos', AVOPT.eyes) + row('acc', 'Accesorio', AVOPT.acc, 1) + row('accCol', 'Color del accesorio', ['#D64545', '#3B7DD8', '#2E9E5B', '#8A5CC7', '#F2862E', '#1A1A1A']) +
+    '<div class="actions" style="justify-content:flex-start"><button type="button" class="ghost" id="avRnd">🎲 Sorpréndeme</button><button type="button" class="btn-ok" id="avOk">¡Listo!</button></div></div></div>';
+  const cv = $('avCv'), g = cv.getContext('2d'); let t0 = performance.now(), raf = 0;
+  const draw = () => { if (!document.body.contains(cv)) { cancelAnimationFrame(raf); return; } g.clearRect(0, 0, 240, 300); g.imageSmoothingEnabled = false; const t = (performance.now() - t0) / 1000; const sw = (t % 2.2) < .45 ? (t % 2.2) / .45 : 0; g.fillStyle = '#6DBE45'; g.fillRect(40, 270, 160, 14); g.fillStyle = '#8B5A2B'; g.fillRect(40, 284, 160, 16); drawAvatar(g, 120, 270, 9, A, sw, 0); raf = requestAnimationFrame(draw); };
+  draw();
+  box.querySelectorAll('[data-av]').forEach(b => b.onclick = () => { A[b.dataset.av] = b.dataset.v; box.querySelectorAll('[data-av="' + b.dataset.av + '"]').forEach(x => x.classList.toggle('on', x === b)); });
+  $('avRnd').onclick = () => { Object.keys(AVOPT).forEach(k => { const v = pick(AVOPT[k]); A[k] = Array.isArray(v) ? v[0] : v; }); A.accCol = pick(['#D64545', '#3B7DD8', '#2E9E5B', '#8A5CC7', '#F2862E']); avatarEditor(box, onDone); S.avatar = A; };
+  $('avOk').onclick = () => { S.avatar = A; save(); cancelAnimationFrame(raf); toast('¡Qué avatar tan chulo, ' + esc(who()) + '!', true); try { paintAvatarHome(); } catch (e) {} if (onDone) onDone(); };
+}
+function paintAvatarHome() { const el = $('homeAv'); if (!el) return; el.innerHTML = S.avatar ? '<img src="' + avatarURL(120) + '" alt="Tu avatar" class="homeav"><button type="button" class="ghost small" id="avHomeEd">Cambiar</button>' : '<button type="button" class="ghost small" id="avHomeEd">🧍 Crea tu avatar</button>'; $('avHomeEd').onclick = () => { go('isla'); setTimeout(() => { const b = $('avBtn'); if (b) b.click(); }, 50); }; }
+
+/* ---------- OneBlock: empiezas con un solo bloque flotando en el cielo ---------- */
+const OB = [9, 9, 5];
+const OBPH = [
+  {n: 'Pradera', e: '🌱', at: 0, w: [[1, 5], [2, 4], [6, 2], [7, 2]], mobs: ['gallina', 'oveja'], fact: 'Las praderas son llanuras cubiertas de hierba. En España hay muchas en el norte, donde llueve bastante.'},
+  {n: 'Bosque', e: '🌳', at: 20, w: [[6, 5], [5, 3], [7, 3], [1, 2], [17, 1]], mobs: ['vaca', 'perro', 'turpial'], fact: 'Los bosques cubren casi un tercio de la tierra firme del planeta y son el hogar de muchísimos animales.'},
+  {n: 'Cantera', e: '🪨', at: 50, w: [[4, 6], [9, 3], [3, 2], [8, 2], [12, 2]], mobs: ['gato', 'caballo'], fact: 'De las canteras se saca piedra para construir. Con granito y caliza se levantaron catedrales y castillos.'},
+  {n: 'Playa', e: '🏖️', at: 90, w: [[3, 5], [10, 2], [8, 3], [11, 2], [12, 2]], mobs: ['pez', 'delfin', 'barco'], fact: 'El vidrio se fabrica calentando arena a más de 1.000 grados. ¡Por eso en esta fase sale cristal!'},
+  {n: 'Montaña nevada', e: '🏔️', at: 140, w: [[16, 5], [4, 3], [18, 2], [19, 2], [20, 2], [15, 1]], mobs: ['oveja', 'caballo'], fact: 'Los copos de nieve son cristales de hielo y casi siempre tienen seis puntas.'},
+  {n: 'Mina profunda', e: '⛏️', at: 200, w: [[4, 4], [13, 2], [21, 2], [15, 2], [14, 1]], mobs: ['gato'], fact: 'El oro casi no se oxida: por eso las joyas de oro de hace miles de años siguen brillando.'},
+  {n: 'Imperio', e: '👑', at: 280, w: [[13, 2], [14, 2], [9, 2], [8, 2], [12, 2], [11, 2], [18, 1], [19, 1], [20, 1], [15, 1], [21, 1], [6, 2], [7, 1]], mobs: ['caballo', 'delfin', 'turpial'], fact: '¡Ya tienes un imperio! Los grandes imperios de la historia, como el romano, se construyeron poco a poco, ladrillo a ladrillo.'}
+];
+const obPhase = n => { let k = 0; OBPH.forEach((p, i) => { if (n >= p.at) k = i; }); return k; };
+const isOB = (x, y, z) => x === OB[0] && y === OB[1] && z === OB[2];
+function obRoll(n) { const P = OBPH[obPhase(n)]; const tot = P.w.reduce((a, w) => a + w[1], 0); let r0 = Math.random() * tot; for (const w of P.w) { r0 -= w[1]; if (r0 <= 0) return w[0]; } return P.w[0][0]; }
+function skyEnsure() {
+  if (!S.sky || !S.sky.w) {
+    IW3 = new Uint8Array(IN * IN * IZ); iset(OB[0], OB[1], OB[2], 1);
+    S.sky = {v: 1, w: iEnc(), name: '', inv: {}, ob: {n: 0, t: 1}, picks: 15, mobs: [], bld: [], unl: {}, vn: 0, spent: 0, size: 1};
+    save(); setTimeout(() => talk('¡Bienvenido al OneBlock! Solo tienes un bloque flotando en el cielo. Cada vez que estudias ganas golpes de pico. ¡Pica el bloque y construye tu imperio!'), 500);
+  }
+  const W = S.sky; W.inv = W.inv || {}; W.ob = W.ob || {n: 0, t: 1}; W.mobs = W.mobs || []; W.bld = W.bld || []; W.unl = W.unl || {};
+  if (!IW3 || IW3.length !== IN * IN * IZ) IW3 = iDec(W.w);
+  if (!iget(OB[0], OB[1], OB[2])) iset(OB[0], OB[1], OB[2], W.ob.t || 1);
+}
+const recipe = P => { const c = {}; P.L.forEach(l => l.forEach(row => [...row].forEach(ch => { if (ch !== '.' && ch !== '_') { const t = PCH[ch]; c[t] = (c[t] || 0) + 1; } }))); return Object.keys(c).map(t => [+t, Math.max(1, Math.ceil(c[t] / 2))]); };
+const recipeMiss = P => recipe(P).map(([t, n]) => [t, n - (S.sky.inv[t] || 0)]).filter(q => q[1] > 0);
+function obMine() {
+  const W = S.sky;
+  if (W.picks <= 0) { islaMsg('⛏️ ¡Te has quedado sin golpes de pico! <b>Gana estrellas estudiando</b>: cada estrella te da 2 golpes.'); talk('Me he quedado sin golpes. ¡A estudiar un poquito para conseguir más!'); return; }
+  const t = W.ob.t || iget(OB[0], OB[1], OB[2]) || 1; const ph0 = obPhase(W.ob.n);
+  iPush(); W.picks--; W.ob.n++;
+  if (isl.avM) { const M = isl.avM, now = Date.now(); if (M.m.x !== OB[0] || M.m.y !== OB[1]) { M.fx = M.m.x; M.fy = M.m.y; M.m.x = OB[0]; M.m.y = OB[1]; M.tx = OB[0]; M.ty = OB[1]; M.t0 = now; } M.next = now + 5000; M.sw = now; }
+  const rare = [13, 14, 15, 21].includes(t), amt = rare ? 1 : [6, 4, 3].includes(t) ? 3 : 2;
+  W.inv[t] = (W.inv[t] || 0) + amt;
+  const msgs = ['+' + amt + ' ' + BLK[t].n.toLowerCase()];
+  const nt = obRoll(W.ob.n); W.ob.t = nt; iset(OB[0], OB[1], OB[2], nt);
+  // cofre o animal de regalo
+  const P = OBPH[obPhase(W.ob.n)];
+  if (Math.random() < .08) { const a = pick(P.w)[0], b2 = pick(P.w)[0]; const na = r(3, 6), nb = r(2, 4); W.inv[a] = (W.inv[a] || 0) + na; W.inv[b2] = (W.inv[b2] || 0) + nb; msgs.push('🎁 ¡Cofre! +' + na + ' ' + BLK[a].n.toLowerCase() + ' y +' + nb + ' ' + BLK[b2].n.toLowerCase()); }
+  if (Math.random() < .07) { const id = pick(P.mobs), D = MOBS.find(x => x.id === id); const spot = obSpot(!!D.sea); if (spot) { W.mobs.push({t: id, x: spot[0], y: spot[1]}); mobInit(); msgs.push(D.e + ' ¡Ha salido ' + (['vaca', 'oveja', 'gallina'].includes(id) ? 'una ' : 'un ') + D.n.toLowerCase() + '!'); } }
+  iSave(); isl.dirty = true;
+  obBurst(t, msgs[0]);
+  const ph1 = obPhase(W.ob.n);
+  if (ph1 !== ph0) { const Q = OBPH[ph1]; toast(Q.e + ' ¡Nueva fase: <b>' + Q.n + '</b>! ' + Q.fact, true); msgs.push(Q.e + ' <b>¡Nueva fase: ' + Q.n + '!</b> ' + Q.fact); }
+  islaMsg('⛏️ ' + msgs.join(' · ')); paintIslaInfo(); paintPal();
+}
+function obSpot(sea) { const c = []; for (let y = 0; y < IN; y++) for (let x = 0; x < IN; x++) { const tz = iTop(x, y); if (tz < 0) continue; const tb = iget(x, y, tz); if (sea ? tb === 10 : (tb !== 10 && tb !== 7 && tb !== 8 && !isOB(x, y, tz))) c.push([x, y]); } if (!c.length && !sea) return [OB[0], OB[1]]; return c.length ? pick(c) : null; }
+function obBurst(t, txt) {
+  const [X, Y] = irot(OB[0], OB[1]); const p = iproj(X + .5, Y + .5, OB[2] + 1);
+  for (let k = 0; k < 18; k++) isl.fx.push({x: p[0], y: p[1], vx: (Math.random() - .5) * 3.2, vy: -Math.random() * 3 - 1, c: BLK[t].c, life: 1, s: 2 + Math.random() * 2.5});
+  isl.fx = isl.fx.filter(q => !q.txt || q.life < .6); isl.fx.push({txt, x: p[0] + 46 + Math.random() * 14, y: p[1] - 18, life: 1, vy: -.5});
+}
+function obDrawFx(g, t) {
+  // marco brillante del OneBlock
+  const W = S.sky; const fs = isl.faces.filter(f => isOB(f.x, f.y, f.z));
+  if (fs.length) { g.save(); g.strokeStyle = 'rgba(255,216,77,' + (.55 + .45 * Math.sin(t / 250)) + ')'; g.lineWidth = 2; fs.forEach(f => { g.beginPath(); f.poly.forEach((q, i) => i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1])); g.closePath(); g.stroke(); }); g.restore();
+    const top = fs.find(f => f.n[2] === 1) || fs[0]; const onTop = S.avatar && isl.avM && isl.avM.m.x === OB[0] && isl.avM.m.y === OB[1]; const cx0 = (top.poly[0][0] + top.poly[2][0]) / 2, cy0 = Math.min(...top.poly.map(q => q[1])) - (onTop ? 38 : 16) + Math.sin(t / 300) * 2;
+    g.font = 'bold 9px sans-serif'; g.textAlign = 'center'; const lab = W.picks > 0 ? '⛏ ¡Pícame! (' + W.picks + ')' : 'Sin golpes: ¡a estudiar!'; const w = g.measureText(lab).width + 12; g.fillStyle = W.picks > 0 ? '#FFD84D' : '#fff'; g.strokeStyle = '#1F3A68'; g.lineWidth = 1; g.beginPath(); g.roundRect ? g.roundRect(cx0 - w / 2, cy0 - 10, w, 14, 5) : g.rect(cx0 - w / 2, cy0 - 10, w, 14); g.fill(); g.stroke(); g.fillStyle = '#1F3A68'; g.textBaseline = 'middle'; g.fillText(lab, cx0, cy0 - 3); }
+  isl.fx = isl.fx.filter(p => p.life > 0);
+  isl.fx.forEach(p => { if (p.txt) { p.y += p.vy; p.life -= .018; g.globalAlpha = Math.max(0, p.life); g.font = 'bold 11px sans-serif'; g.fillStyle = '#1F3A68'; g.strokeStyle = '#fff'; g.lineWidth = 3; g.textAlign = 'center'; g.strokeText(p.txt, p.x, p.y); g.fillText(p.txt, p.x, p.y); }
+    else { p.vy += .18; p.x += p.vx; p.y += p.vy; p.life -= .03; g.globalAlpha = Math.max(0, p.life); g.fillStyle = p.c; g.fillRect(p.x, p.y, p.s, p.s); } });
+  g.globalAlpha = 1; g.textBaseline = 'bottom';
+}
+function paintObBar() {
+  const el = $('obBar'); if (!el) return; const W = S.sky, k = obPhase(W.ob.n), P = OBPH[k], N = OBPH[k + 1];
+  const pct = N ? Math.round((W.ob.n - P.at) / (N.at - P.at) * 100) : 100;
+  el.innerHTML = '<div class="row" style="gap:14px;align-items:center"><button type="button" class="obmine" id="obMine"' + (W.picks > 0 ? '' : ' disabled') + '>⛏️ ¡Picar!<small>' + W.picks + ' golpes</small></button><div style="flex:1;min-width:200px"><div class="eyebrow">Fase ' + (k + 1) + ' de ' + OBPH.length + ': ' + P.e + ' ' + P.n + '</div><div class="progressline" style="margin:6px 0"><i style="width:' + pct + '%;background:var(--c-geo)"></i></div><small class="muted">' + (N ? 'Has picado ' + W.ob.n + ' veces. Faltan ' + (N.at - W.ob.n) + ' para la fase ' + N.e + ' ' + N.n + '.' : '¡Has llegado a la última fase! Sigue picando para conseguir oro y diamantes.') + ' Cada ★ que ganas estudiando = 2 golpes.</small></div></div>';
+  $('obMine').onclick = obMine;
+}
+function paintPalOne(el) {
+  const W = S.sky, inv = W.inv;
+  if (isl.tool === 'block') {
+    const have = BLK.map((b, i) => i).filter(i => i && inv[i] > 0);
+    el.innerHTML = '<div class="eyebrow" style="margin-bottom:8px">Tu inventario · toca una cara de un bloque para poner otro al lado</div>' + (have.length ? '<div class="blkpal">' + have.map(i => '<button type="button" class="blkbtn' + (isl.blk === i ? ' on' : '') + '" data-bk="' + i + '"><img src="' + cubeIcon(i) + '" alt=""><small>' + BLK[i].n + '</small><b class="invn">× ' + inv[i] + '</b></button>').join('') + '</div>' : '<p>Tu inventario está vacío. ¡Pica el OneBlock para conseguir materiales!</p>');
+    if (have.length && !have.includes(isl.blk)) isl.blk = have[0];
+    el.querySelectorAll('[data-bk]').forEach(b => b.onclick = () => { isl.blk = +b.dataset.bk; paintPal(); });
+  } else if (isl.tool === 'pref') {
+    el.innerHTML = '<div class="eyebrow" style="margin-bottom:8px">Construcciones · se hacen con los materiales que picas</div><div class="shop">' + PREF.map(P => { const miss = recipeMiss(P); return '<button type="button" class="shopit' + (isl.pref === P.id ? ' on' : '') + (miss.length ? ' lock' : '') + '" data-pf="' + P.id + '"><span>' + P.e + '</span><small>' + P.n + '</small><small class="recipe">' + recipe(P).map(([t, n]) => '<i style="background:' + BLK[t].c + '"></i>' + Math.min(n, inv[t] || 0) + '/' + n).join(' ') + '</small></button>'; }).join('') + '</div>';
+    el.querySelectorAll('[data-pf]').forEach(b => b.onclick = () => { isl.pref = b.dataset.pf; paintPal(); const P = PREF.find(p => p.id === isl.pref); const miss = recipeMiss(P); islaMsg(miss.length ? 'Para ' + P.e + ' <b>' + P.n + '</b> te faltan: ' + miss.map(q => q[1] + ' de ' + BLK[q[0]].n.toLowerCase()).join(', ') + '.' : 'Toca el suelo para construir ' + P.e + ' <b>' + P.n + '</b>.'); });
+  } else if (isl.tool === 'mob') {
+    const N = iNeeds(); const free = N.tot.bed - N.people.length;
+    el.innerHTML = '<div class="eyebrow" style="margin-bottom:8px">Vecinos y animales</div><p>Los animales aparecen al picar el OneBlock. Los vecinos vienen si tienes <b>camas libres</b> (cada 🏠 casa tiene 2).</p><div class="actions" style="justify-content:flex-start"><button type="button" id="obVec"' + (free > 0 ? '' : ' disabled') + '>🧑 Invitar a un vecino (' + Math.max(0, free) + ' camas libres)</button></div><p class="muted" style="margin-top:8px">Después de pulsar, toca el suelo donde quieres que viva.</p>';
+    isl.mob = 'aldeano'; const v = $('obVec'); if (v) v.onclick = () => islaMsg('Toca el suelo donde quieres que viva tu nuevo vecino.');
+  } else if (isl.tool === 'pick') el.innerHTML = '<p>⛏️ Toca el <b>OneBlock</b> (el que brilla) para picarlo y sacar materiales, o pulsa <b>¡Picar!</b>. Si tocas otro bloque, lo rompes y vuelve a tu inventario.</p>';
+  else el.innerHTML = '<p>👀 Modo paseo: gira, haz zoom y toca a los vecinos para ver qué piensan.</p>';
+}
+function islaChoose() {
+  $('islaArea').innerHTML = '<div class="card stack" style="text-align:center"><h3 style="font-size:28px">¿Cómo quieres jugar?</h3><p class="muted">Puedes cambiar cuando quieras: cada modo guarda su propio mundo.</p></div><div class="missions" style="margin-top:14px">' +
+    '<button type="button" class="card qcard modecard" data-mode="one"><div style="font-size:56px">🟫</div><b>OneBlock</b><p class="muted">Empiezas con <b>un solo bloque</b> flotando en el cielo. Cada vez que estudias ganas golpes de pico. Al picarlo te da materiales y sale otro bloque. ¡Construye tu imperio desde cero!</p></button>' +
+    '<button type="button" class="card qcard modecard" data-mode="classic"><div style="font-size:56px">🏝️</div><b>Isla clásica</b><p class="muted">Empiezas con una isla en el mar. Los bloques normales son gratis y con tus estrellas compras construcciones, vecinos y animales.</p></button></div>';
+  $('islaArea').querySelectorAll('[data-mode]').forEach(b => b.onclick = () => { isl.mode = b.dataset.mode; S.islaMode = isl.mode; save(); IW3 = null; isl.tool = isl.mode === 'one' ? 'pick' : 'block'; paintIsla(); });
 }
 
 /* =================================================================
@@ -5423,7 +5627,8 @@ const RESETS = [
   ['art', 'Galería de dibujos', () => { S.art = {gallery: []}; }],
   ['chat', 'Conversaciones con Tupi', () => { S.chat = []; }],
   ['scan', 'Lecciones de fotos guardadas', () => { S.scans = []; }],
-  ['isla', 'Mi isla (devuelve las estrellas gastadas)', () => { S.isla = JSON.parse(JSON.stringify(DEF.isla)); }],
+  ['isla', 'Mi isla clásica (devuelve las estrellas gastadas)', () => { S.isla = JSON.parse(JSON.stringify(DEF.isla)); IW3 = null; }],
+  ['sky', 'Mi OneBlock (empieza otra vez desde un bloque)', () => { S.sky = null; IW3 = null; }],
   ['study', 'Tiempo de estudio', () => { S.study.days = {}; S.study.done = {}; S.study.unlock = {}; }],
   ['extra', 'Aventura semanal, planeta de robots, proyecto, exámenes, duelos y mensajes', () => { S.wadv = {}; S.planet = {done: {}}; S.proj = null; S.projDone = []; S.exams = []; S.fam = {msgs: [], duels: []}; S.dq = {}; }],
   ['stars', 'Estrellas y días de la misión (también vacía la isla)', () => { S.stars = 0; S.sub = {}; S.log = {}; S.isla = JSON.parse(JSON.stringify(DEF.isla)); }]
@@ -5473,7 +5678,7 @@ function splash() {
 /* =================================================================
    ACTUALIZAR LA APP (el progreso se queda: solo se borra la copia de la app)
    ================================================================= */
-const APP_VERSION = '19';
+const APP_VERSION = '21';
 async function updateApp() {
   $('updBtn').classList.add('spin'); hush();
   try {

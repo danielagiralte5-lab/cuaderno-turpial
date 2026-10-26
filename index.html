@@ -503,6 +503,15 @@ body.papamode .top::after{content:'MODO PAPÁ';font-family:var(--f-display);font
 @media (max-width:600px){.avrow{grid-template-columns:1fr}.hello{grid-template-columns:auto 1fr}.homeavbox{grid-column:1/-1}}
 .modebtn{background:var(--orange);animation:hop .6s ease 3}
 /* noche de monstruos */
+.ngdur{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0}
+.ngdurb{display:flex;flex-direction:column;align-items:center;padding:10px 4px;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.35);box-shadow:none;color:#fff}
+.ngdurb b{font-size:18px}.ngdurb span{font-size:14px;color:#FFD84D}
+.ngdurb.on{background:#FFD84D;color:#14204A;border-color:#FFD84D}.ngdurb.on span{color:#14204A}
+.ngprz{background:#FFD84D;color:#14204A;border-radius:999px;padding:1px 8px;font-size:15px;text-shadow:none}
+.ngcross i{position:absolute;background:#fff;box-shadow:0 0 2px #000}.ngcross i:first-child{width:18px;height:2px;left:-9px;top:-1px}.ngcross i:last-child{width:2px;height:18px;left:-1px;top:-9px}
+.ngjump{grid-column:1/-1;justify-self:center}
+@media (max-width:600px){.ngdur{grid-template-columns:repeat(3,1fr)}}
+
 body.ngon{overflow:hidden}
 .ngov{position:fixed;inset:0;z-index:400;background:#000;touch-action:none;user-select:none;-webkit-user-select:none}
 #ngCv{position:absolute;inset:0;display:block}
@@ -512,7 +521,7 @@ body.ngon{overflow:hidden}
 #ngHearts{font-size:18px;letter-spacing:1px}
 #ngPhase{font-size:20px}
 .ngskip{pointer-events:auto;font-size:14px;padding:4px 10px;margin-left:6px;background:var(--ok)}
-.ngcross{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#fff;font-size:30px;text-shadow:0 0 3px #000;pointer-events:none}
+.ngcross{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none}
 .ngbar{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:4px;background:rgba(0,0,0,.45);padding:5px;border-radius:10px;max-width:calc(100vw - 340px)}
 .ngslot{width:54px;height:54px;padding:2px;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.35);box-shadow:none;border-radius:8px;position:relative;display:grid;place-items:center}
 .ngslot img{width:40px;height:40px;image-rendering:pixelated}
@@ -4495,29 +4504,38 @@ function iUndo() { const u = isl.undo.pop(); if (!u) { islaMsg('No hay nada que 
 
 /* ---------- texturas pixel (originales) ---------- */
 const ITEX = {};
+const TS = 16;
 function iTex(t, face) {
   const key = t + face; if (ITEX[key]) return ITEX[key];
-  const c = document.createElement('canvas'); c.width = c.height = 8; const g = c.getContext('2d');
-  let seed = t * 97 + (face === 'top' ? 13 : 29); const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  const N = TS, c = document.createElement('canvas'); c.width = c.height = N; const g = c.getContext('2d');
+  let seed = t * 131 + (face === 'top' ? 17 : 41); const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
   const hex = h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
-  const px = (x, y, col, a, j) => { const k = 1 + (rnd() - .5) * (j == null ? .16 : j); g.fillStyle = 'rgba(' + col.map(v => Math.max(0, Math.min(255, Math.round(v * k)))).join(',') + ',' + (a == null ? 1 : a) + ')'; g.fillRect(x, y, 1, 1); };
+  const P = (x, y, col, k, a) => { g.fillStyle = 'rgba(' + col.map(v => Math.max(0, Math.min(255, Math.round(v * (k || 1))))).join(',') + ',' + (a == null ? 1 : a) + ')'; g.fillRect(x, y, 1, 1); };
+  const tone = () => { const r0 = rnd(); return r0 < .18 ? .82 : r0 < .4 ? .92 : r0 > .9 ? 1.12 : 1; };
   const base = hex(BLK[t].c), dirt = hex('#8B5A2B'), grass = hex('#6DBE45');
-  for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) {
-    if (t === 1 || t === 17) { if (face === 'top') { px(x, y, grass); if (t === 17 && rnd() < .16) px(x, y, hex(pick(['#FF5A5A', '#FFE14D', '#FFFFFF', '#C77DFF'])), 1, 0); } else { if (y < 2 || (y === 2 && rnd() < .5)) px(x, y, grass); else px(x, y, dirt); } }
-    else if (t === 5) px(x, y, base, 1, y % 4 === 3 ? .5 : .12), (y % 4 === 3) && px(x, y, hex('#7A5530'));
-    else if (t === 6) { if (face === 'top') { const r0 = Math.max(Math.abs(x - 3.5), Math.abs(y - 3.5)); px(x, y, r0 > 3 ? base : r0 % 2 < 1 ? hex('#B8874A') : hex('#9C6E3A')); } else px(x, y, x % 3 === 0 ? hex('#563A20') : base); }
-    else if (t === 7) { if (rnd() < .12) { g.clearRect(x, y, 1, 1); } else px(x, y, rnd() < .3 ? hex('#2F7A2B') : base, 1, .25); }
-    else if (t === 8) { const edge = x === 0 || y === 0 || x === 7 || y === 7; if (edge) px(x, y, hex('#FFFFFF'), .9, 0); else px(x, y, base, (x + y === 5 || x + y === 6) ? .7 : .28, 0); }
-    else if (t === 9) { const row = Math.floor(y / 2), mort = y % 2 === 1 || ((x + (row % 2 ? 2 : 0)) % 4 === 0); px(x, y, mort ? hex('#D9C4B0') : base, 1, .14); }
-    else if (t === 10) px(x, y, (y * 3 + x) % 7 === 0 ? hex('#8CC7F2') : base, .82, .1);
-    else if (t === 11) px(x, y, y % 2 ? hex('#962D22') : base, 1, .14);
-    else if (t === 13) px(x, y, (x + y) % 5 === 0 ? hex('#FFF3A0') : base, 1, .1);
-    else if (t === 14) px(x, y, (x * y) % 5 === 1 ? hex('#E8FFFF') : (x + y) % 3 ? base : hex('#2BA6B0'), 1, .1);
-    else if (t === 15) { const edge = x === 0 || y === 0 || x === 7 || y === 7; px(x, y, edge ? hex('#6B4F22') : (x > 2 && x < 5 && y > 2 && y < 5) ? hex('#FFFFFF') : base, 1, .06); }
-    else if (t === 4) px(x, y, rnd() < .18 ? hex('#6E6E6E') : base, 1, .18);
-    else if (t === 21) px(x, y, rnd() < .15 ? hex('#5B3E8A') : base, 1, .2);
-    else if (t >= 18 && t <= 20) px(x, y, base, 1, (x + y) % 2 ? .08 : .14);
-    else px(x, y, base, 1, .14);
+  const dirtPx = (x, y) => { const r0 = rnd(); P(x, y, r0 < .12 ? hex('#6E4520') : r0 > .9 ? hex('#A0703E') : dirt, tone()); };
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const edge = x === 0 || y === 0 || x === N - 1 || y === N - 1;
+    if (t === 1 || t === 17) {
+      if (face === 'top') { P(x, y, rnd() < .2 ? hex('#5AA83A') : rnd() > .92 ? hex('#8ED65E') : grass, tone()); if (t === 17 && rnd() < .07) { const fc = hex(pick(['#FF5A5A', '#FFE14D', '#FFFFFF', '#C77DFF', '#FF8FC7'])); P(x, y, fc); } }
+      else { const drip = 3 + ((x * 7 + 3) % 4 === 0 ? 2 : (x * 5) % 3 === 0 ? 1 : 0); if (y < drip) P(x, y, y === drip - 1 ? hex('#5AA83A') : grass, tone()); else dirtPx(x, y); }
+    } else if (t === 2) dirtPx(x, y);
+    else if (t === 3) P(x, y, rnd() < .1 ? hex('#D4BC62') : rnd() > .93 ? hex('#F6E7A6') : base, tone() * .98 + .02);
+    else if (t === 4) { const crack = ((x * 3 + y * 5) % 13 === 0) || ((x + y * 2) % 11 === 0 && rnd() < .5); P(x, y, crack ? hex('#6A6A6A') : rnd() < .25 ? hex('#7F7F7F') : rnd() > .9 ? hex('#A5A5A5') : base, tone()); }
+    else if (t === 5) { const row = y % 4 === 3, seam = (y < 4 && x === 5) || (y >= 4 && y < 8 && x === 11) || (y >= 8 && y < 12 && x === 2) || (y >= 12 && x === 9); P(x, y, row || seam ? hex('#7A5530') : (x + y * 3) % 7 === 0 ? hex('#A87A42') : base, row || seam ? 1 : tone()); }
+    else if (t === 6) { if (face === 'top') { const r0 = Math.max(Math.abs(x - 7.5), Math.abs(y - 7.5)); P(x, y, r0 > 6.5 ? hex('#5A3C20') : Math.floor(r0) % 2 ? hex('#B8874A') : hex('#9C6E3A'), tone()); } else { const v = (x % 4 === 0) || ((x + y) % 9 === 0 && rnd() < .4); P(x, y, v ? hex('#4E331C') : base, tone()); } }
+    else if (t === 7) { if (rnd() < .14) g.clearRect(x, y, 1, 1); else P(x, y, rnd() < .35 ? hex('#2F7A2B') : rnd() > .9 ? hex('#5FBF52') : base, tone()); }
+    else if (t === 8) { const fr = edge || (x === 1 && y < 6) || (y === 1 && x < 6); if (edge) P(x, y, hex('#E8F6FF'), 1, .95); else if ((x + y === 8 || x + y === 9 || x + y === 18) && x > 2) P(x, y, hex('#FFFFFF'), 1, .55); else if (fr) P(x, y, hex('#FFFFFF'), 1, .5); else P(x, y, base, 1, .18); }
+    else if (t === 9) { const row = Math.floor(y / 4), mort = y % 4 === 3 || ((x + (row % 2 ? 4 : 0)) % 8 === 7); P(x, y, mort ? hex('#CDBBA6') : (y % 4 === 0 ? hex('#C76A52') : base), mort ? tone() * .96 : tone()); }
+    else if (t === 10) { const w = Math.sin((x + y * 2) * .7) > .7; P(x, y, w ? hex('#9AD0F5') : rnd() < .2 ? hex('#2F78C4') : base, 1, .78); }
+    else if (t === 11) { const row = y % 4, sh = row === 3 || ((x + (Math.floor(y / 4) % 2) * 2) % 4 === 0 && row === 0); P(x, y, sh ? hex('#7E2219') : row === 0 ? hex('#D8503F') : base, tone()); }
+    else if (t === 12) P(x, y, rnd() < .1 ? hex('#DCD8CC') : base, tone() * .97 + .03);
+    else if (t === 13 || t === 14) { const bev = x === 0 || y === 0 ? 1.25 : x === N - 1 || y === N - 1 ? .7 : 1; const sp = (x * 7 + y * 3) % 11 === 0 || (x * y) % 13 === 5; P(x, y, sp ? hex('#FFFFFF') : base, bev * (sp ? 1 : tone() * .9 + .1)); }
+    else if (t === 15) { const fr = x < 2 || y < 2 || x > N - 3 || y > N - 3, core = Math.hypot(x - 7.5, y - 7.5) < 3.5; P(x, y, fr ? hex('#6B4F22') : core ? hex('#FFFBE0') : base, fr ? tone() : 1); }
+    else if (t === 16) P(x, y, rnd() < .12 ? hex('#DCEBFA') : base, 1);
+    else if (t === 21) P(x, y, rnd() < .12 ? hex('#5B3E8A') : rnd() < .2 ? hex('#1A1226') : base, tone());
+    else if (t >= 18 && t <= 20) { const k = ((x + Math.floor(y / 2)) % 2) ? .9 : 1.04; P(x, y, base, k * (rnd() < .1 ? .92 : 1)); }
+    else P(x, y, base, tone());
   }
   ITEX[key] = c; return c;
 }
@@ -4540,9 +4558,9 @@ function iRender() {
     const tex = iTex(t, kind === 'top' ? 'top' : 'side');
     g.setTransform(ISC, 0, 0, ISC, 0, 0);
     if (!BLK[t].tr && t !== 7) { g.fillStyle = BLK[t].c; g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.lineTo(d[0], d[1]); g.lineTo(c[0], c[1]); g.closePath(); g.fill(); g.strokeStyle = BLK[t].c; g.lineWidth = .6; g.stroke(); }
-    g.setTransform(ISC * (b[0] - a[0]) / 8, ISC * (b[1] - a[1]) / 8, ISC * (c[0] - a[0]) / 8, ISC * (c[1] - a[1]) / 8, ISC * a[0], ISC * a[1]);
+    g.setTransform(ISC * (b[0] - a[0]) / TS, ISC * (b[1] - a[1]) / TS, ISC * (c[0] - a[0]) / TS, ISC * (c[1] - a[1]) / TS, ISC * a[0], ISC * a[1]);
     g.drawImage(tex, 0, 0);
-    if (shade < 1) { g.fillStyle = 'rgba(0,0,0,' + (1 - shade).toFixed(2) + ')'; g.fillRect(0, 0, 8, 8); }
+    if (shade < 1) { g.fillStyle = 'rgba(0,0,0,' + (1 - shade).toFixed(2) + ')'; g.fillRect(0, 0, TS, TS); }
     faces.push({poly: [a, b, d, c], x: wx, y: wy, z: wz, n});
   };
   for (const [, z, X, Y, x, y, t] of list) {
@@ -4658,7 +4676,7 @@ function islaTap(f) {
 let islaSel = null;
 ENTER.isla = () => paintIsla();
 function cubeIcon(t) { const c = document.createElement('canvas'); c.width = c.height = 44; const g = c.getContext('2d'); g.imageSmoothingEnabled = false; const s = 20, ox = 22, oy = 4;
-  const f = (P0, Pu, Pv, tx, sh) => { g.setTransform((Pu[0] - P0[0]) / 8, (Pu[1] - P0[1]) / 8, (Pv[0] - P0[0]) / 8, (Pv[1] - P0[1]) / 8, P0[0], P0[1]); g.drawImage(tx, 0, 0); if (sh) { g.fillStyle = 'rgba(0,0,0,' + sh + ')'; g.fillRect(0, 0, 8, 8); } };
+  const f = (P0, Pu, Pv, tx, sh) => { g.setTransform((Pu[0] - P0[0]) / TS, (Pu[1] - P0[1]) / TS, (Pv[0] - P0[0]) / TS, (Pv[1] - P0[1]) / TS, P0[0], P0[1]); g.drawImage(tx, 0, 0); if (sh) { g.fillStyle = 'rgba(0,0,0,' + sh + ')'; g.fillRect(0, 0, TS, TS); } };
   f([ox, oy], [ox + s, oy + s / 2], [ox - s, oy + s / 2], iTex(t, 'top'), 0); f([ox - s, oy + s / 2], [ox, oy + s], [ox - s, oy + s * 1.5], iTex(t, 'side'), .14); f([ox, oy + s], [ox + s, oy + s / 2], [ox, oy + s * 2], iTex(t, 'side'), .3);
   return c.toDataURL(); }
 function paintIsla() {
@@ -4910,9 +4928,9 @@ function obDrawFx(g, t) {
 function paintObBar() {
   const el = $('obBar'); if (!el) return; const W = S.sky, k = obPhase(W.ob.n), P = OBPH[k], N = OBPH[k + 1];
   const pct = N ? Math.round((W.ob.n - P.at) / (N.at - P.at) * 100) : 100;
-  el.innerHTML = '<div class="row" style="gap:14px;align-items:center"><button type="button" class="obmine" id="obMine"' + (W.picks > 0 ? '' : ' disabled') + '>⛏️ ¡Picar!<small>' + W.picks + ' golpes</small></button><div style="flex:1;min-width:200px"><div class="eyebrow">Fase ' + (k + 1) + ' de ' + OBPH.length + ': ' + P.e + ' ' + P.n + '</div><div class="progressline" style="margin:6px 0"><i style="width:' + pct + '%;background:var(--c-geo)"></i></div><small class="muted">' + (N ? 'Has picado ' + W.ob.n + ' veces. Faltan ' + (N.at - W.ob.n) + ' para la fase ' + N.e + ' ' + N.n + '.' : '¡Has llegado a la última fase! Sigue picando para conseguir oro y diamantes.') + ' Cada ★ que ganas estudiando = 2 golpes.</small></div><div class="stack" style="gap:4px;justify-items:center"><button type="button" class="ngbtn" id="obNight">🌙 Noche de monstruos</button><small class="muted">' + (nightState().won ? 'Hoy ya ganaste tus 10 ★' : nightState().tried ? 'Hoy ya lo intentaste (ahora sin premio)' : nightState().done ? '¡Disponible! Gana 10 ★' : 'Se abre al terminar tu hora de estudio') + '</small></div></div>';
+  el.innerHTML = '<div class="row" style="gap:14px;align-items:center"><button type="button" class="obmine" id="obMine"' + (W.picks > 0 ? '' : ' disabled') + '>⛏️ ¡Picar!<small>' + W.picks + ' golpes</small></button><div style="flex:1;min-width:200px"><div class="eyebrow">Fase ' + (k + 1) + ' de ' + OBPH.length + ': ' + P.e + ' ' + P.n + '</div><div class="progressline" style="margin:6px 0"><i style="width:' + pct + '%;background:var(--c-geo)"></i></div><small class="muted">' + (N ? 'Has picado ' + W.ob.n + ' veces. Faltan ' + (N.at - W.ob.n) + ' para la fase ' + N.e + ' ' + N.n + '.' : '¡Has llegado a la última fase! Sigue picando para conseguir oro y diamantes.') + ' Cada ★ que ganas estudiando = 2 golpes.</small></div><div class="stack" style="gap:4px;justify-items:center"><button type="button" class="ngbtn" id="obNight">🌙 Noche de monstruos</button><small class="muted">' + (nightState().won ? 'Hoy ya ganaste tu premio' : nightState().tried ? 'Hoy ya lo intentaste (ahora sin premio)' : nightState().done ? '¡Disponible! Hasta 50 ★' : 'Se abre al terminar tu hora de estudio') + '</small></div></div>';
   $('obMine').onclick = obMine;
-  $('obNight').onclick = () => { const ns = nightState(); if (!ns.done) { const left = (S.study.goal || 60) - studyMin(); islaMsg('🌙 La noche de monstruos llega cuando terminas tu hora de estudio de hoy. Te faltan <b>' + left + ' minutos</b>. ¡Sigue estudiando y consigue bloques para tu fortaleza!'); return; } if (ns.won || ns.tried) nightStart(true); else nightPrompt(false); };
+  $('obNight').onclick = () => { const ns = nightState(); if (!ns.done) { const left = (S.study.goal || 60) - studyMin(); islaMsg('🌙 La noche de monstruos llega cuando terminas tu hora de estudio de hoy. Te faltan <b>' + left + ' minutos</b>. ¡Sigue estudiando y consigue bloques para tu fortaleza!'); return; } if (ns.won || ns.tried) nightPrompt(false, null, true); else nightPrompt(false); };
 }
 function paintPalOne(el) {
   const W = S.sky, inv = W.inv;
@@ -4941,7 +4959,8 @@ function islaChoose() {
 /* =================================================================
    NOCHE DE MONSTRUOS · primera persona sobre tu OneBlock
    ================================================================= */
-const NG_BUILD = 120, NG_NIGHT = 90;
+const NG_BUILD = 120;
+const NG_DUR = [[1, 5], [2, 10], [5, 15], [10, 30], [15, 50]]; // minutos de noche → estrellas
 let NG = null;
 function loadThree() {
   if (window.THREE) return Promise.resolve();
@@ -4949,96 +4968,160 @@ function loadThree() {
   return tryLoad('three.min.js').catch(() => tryLoad('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'));
 }
 const nightState = () => ({done: !!((S.study || {}).done || {})[day()], won: !!(S.sky && S.sky.nightWon === day()), tried: !!(S.sky && S.sky.nightTry === day())});
-function nightPrompt(fromStudy, onClose) {
+function nightPrompt(fromStudy, onClose, practice) {
   if (!S.sky || !S.sky.w) { if (onClose) onClose(); return; }
   let ov = $('ngAsk'); if (!ov) { document.body.insertAdjacentHTML('beforeend', '<div id="ngAsk" class="lockov"></div>'); ov = $('ngAsk'); }
-  ov.hidden = false;
-  ov.innerHTML = '<div class="card lockbox" style="background:#14204A;color:#fff;border-color:#FFD84D"><div style="font-size:60px">🌙🧟</div><h2 style="color:#FFD84D">' + (fromStudy ? '¡Se acabó el estudio de hoy!' : 'Noche de monstruos') + '</h2><p>Esta noche vienen los monstruos a tu OneBlock. Tienes <b>2 minutos</b> para construir una fortaleza con los bloques que has ganado estudiando, y luego… ¡a aguantar hasta el amanecer con tu espada!</p><p style="color:#FFD84D">Si sobrevives: <b>+10 ★</b> (una vez al día)</p><div class="actions"><button type="button" class="btn-ok" id="ngGo">⚔️ ¡Defender mi isla!</button><button type="button" class="ghost" id="ngNo">Ahora no</button></div></div>';
-  $('ngNo').onclick = () => { ov.hidden = true; if (onClose) onClose(); };
-  $('ngGo').onclick = () => { ov.hidden = true; nightStart(false, onClose); };
+  ov.hidden = false; let dur = (S.sky.nightDur || 2);
+  const paint = () => {
+    ov.innerHTML = '<div class="card lockbox" style="background:#14204A;color:#fff;border-color:#FFD84D"><div style="font-size:56px">🌙🧟</div><h2 style="color:#FFD84D">' + (fromStudy ? '¡Se acabó el estudio de hoy!' : 'Noche de monstruos') + '</h2><p>Primero tienes <b>2 minutos</b> para construir tu fortaleza con los bloques que has ganado estudiando. Luego llegan los monstruos. ¿Cuánto quieres aguantar?</p>' +
+      '<div class="ngdur">' + NG_DUR.map(([m, st]) => '<button type="button" class="ngdurb' + (m === dur ? ' on' : '') + '" data-dur="' + m + '"><b>' + m + ' min</b><span>' + (practice ? 'práctica' : '+' + st + ' ★') + '</span></button>').join('') + '</div>' +
+      '<p class="muted" style="color:#C9D3F5;font-size:14px">Cuanto más larga es la noche, más monstruos vienen. ' + (practice ? 'Esta partida es de práctica: no da estrellas.' : 'El premio se gana una vez al día.') + '</p>' +
+      '<div class="actions"><button type="button" class="btn-ok" id="ngGo">⚔️ ¡Defender mi isla!</button><button type="button" class="ghost" id="ngNo">Ahora no</button></div></div>';
+    ov.querySelectorAll('[data-dur]').forEach(b => b.onclick = () => { dur = +b.dataset.dur; paint(); });
+    $('ngNo').onclick = () => { ov.hidden = true; if (onClose) onClose(); };
+    $('ngGo').onclick = () => { ov.hidden = true; S.sky.nightDur = dur; save(); nightStart(!!practice, onClose, dur); };
+  };
+  paint();
 }
-async function nightStart(practice, onClose) {
-  hush(); stopGames && stopGames();
+async function nightStart(practice, onClose, durMin) {
+  durMin = durMin || 2; const NG_NIGHT = durMin * 60; const reward = (NG_DUR.find(d => d[0] === durMin) || [0, 10])[1];
+  hush(); try { stopGames(); } catch (e) {}
   document.body.insertAdjacentHTML('beforeend', '<div id="ngOv" class="ngov"><div class="ngfade" id="ngFade"><div>Se está haciendo de noche…</div></div></div>');
   const ov = $('ngOv'); document.body.classList.add('ngon');
   try { await loadThree(); } catch (e) { $('ngFade').innerHTML = '<div>Para la noche de monstruos hace falta internet la primera vez.<br><br><button type="button" id="ngX0">Volver</button></div>'; $('ngX0').onclick = () => { ov.remove(); document.body.classList.remove('ngon'); if (onClose) onClose(); }; return; }
   const T = window.THREE;
   const W = S.sky; const prize = !practice && W.nightWon !== day() && W.nightTry !== day();
   if (prize) { W.nightTry = day(); save(); }
-  /* ---- mundo de vóxeles (copia de tu OneBlock) ---- */
+  /* ---- mundo ---- */
   const V = iDec(W.w); const inv = Object.assign({}, W.inv);
-  const vget = (x, y, z) => (x < 0 || y < 0 || z < 0 || x >= IN || z >= IN || y >= IZ) ? 0 : V[x + z * IN + y * IN * IN]; // y = altura
+  const vget = (x, y, z) => (x < 0 || y < 0 || z < 0 || x >= IN || z >= IN || y >= IZ) ? 0 : V[x + z * IN + y * IN * IN];
   const vset = (x, y, z, t) => { if (x >= 0 && y >= 0 && z >= 0 && x < IN && z < IN && y < IZ) V[x + z * IN + y * IN * IN] = t; };
-  const solid = (x, y, z) => { const t = vget(x, y, z); return t && t !== 10; };
+  const solid = (x, y, z) => { const t = vget(Math.floor(x), Math.floor(y), Math.floor(z)); return t && t !== 10; };
+  const TRANS = {8: 1, 10: 1}; const opaque = t => t && !TRANS[t];
   const isOBc = (x, y, z) => x === OB[0] && z === OB[1] && y === OB[2];
-  /* ---- escena ---- */
-  ov.insertAdjacentHTML('beforeend', '<canvas id="ngCv"></canvas><div class="nghud"><div id="ngHearts"></div><div id="ngPhase"></div><div id="ngZ"></div></div><div class="ngcross">+</div><div class="ngbar" id="ngBar"></div>' +
-    '<div class="ngstick" id="ngStick"><i id="ngKnob"></i></div><div class="ngbtns"><button type="button" id="ngAtk" class="ngatk">⚔️</button><button type="button" id="ngPut">🧱</button><button type="button" id="ngDig">⛏️</button><button type="button" id="ngJump">⤒</button></div>' +
+  /* ---- HUD ---- */
+  ov.insertAdjacentHTML('beforeend', '<canvas id="ngCv"></canvas><div class="nghud"><div id="ngHearts"></div><div id="ngPhase"></div><div id="ngZ"></div></div><div class="ngcross"><i></i><i></i></div><div class="ngbar" id="ngBar"></div>' +
+    '<div class="ngstick" id="ngStick"><i id="ngKnob"></i></div><div class="ngbtns"><button type="button" id="ngAtk" class="ngatk">⚔️</button><button type="button" id="ngPut">🧱</button><button type="button" id="ngDig">⛏️</button><button type="button" id="ngJump" class="ngjump">⤒</button></div>' +
     '<button type="button" class="ngexit" id="ngExit">✕ Salir</button><div class="ngmsg" id="ngMsg"></div>');
   const cv = $('ngCv');
-  const R = new T.WebGLRenderer({canvas: cv, antialias: false}); R.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-  const scene = new T.Scene(); const cam = new T.PerspectiveCamera(72, 1, .05, 120);
+  const R = new T.WebGLRenderer({canvas: cv, antialias: true, powerPreference: 'high-performance'}); R.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
+  R.shadowMap.enabled = true; R.shadowMap.type = T.PCFSoftShadowMap;
+  const scene = new T.Scene(); const cam = new T.PerspectiveCamera(74, 1, .05, 220);
   const resize = () => { const w = innerWidth, h = innerHeight; R.setSize(w, h, false); cv.style.width = w + 'px'; cv.style.height = h + 'px'; cam.aspect = w / h; cam.updateProjectionMatrix(); };
   resize(); window.addEventListener('resize', resize);
-  const hemi = new T.HemisphereLight(0xffe0b0, 0x404060, .9); scene.add(hemi);
-  const sun = new T.DirectionalLight(0xffc080, .8); sun.position.set(-20, 30, -10); scene.add(sun);
-  scene.fog = new T.Fog(0xF2A86B, 18, 60); scene.background = new T.Color(0xF2A86B);
-  // texturas a partir de los bloques de la isla
-  const texC = {}; const tex = (t, f) => { const k = t + f; if (texC[k]) return texC[k]; const tx = new T.CanvasTexture(iTex(t, f)); tx.magFilter = T.NearestFilter; tx.minFilter = T.NearestFilter; return texC[k] = tx; };
-  const matC = {}; const mats = t => { if (matC[t]) return matC[t];
-    const op = {transparent: t === 10 || t === 8, opacity: t === 10 ? .75 : 1, alphaTest: t === 7 ? .3 : 0, emissive: t === 15 ? new T.Color(0x886622) : new T.Color(0)};
-    const side = new T.MeshLambertMaterial(Object.assign({map: tex(t, 'side')}, op)), top = new T.MeshLambertMaterial(Object.assign({map: tex(t, 'top')}, op));
-    const bottom = (t === 1 || t === 17) ? new T.MeshLambertMaterial({map: tex(2, 'top')}) : top;
-    return matC[t] = [side, side, top, bottom, side, side]; };
-  const box = new T.BoxGeometry(1, 1, 1); let worldG = null; const tmp = new T.Object3D();
+  /* ---- cielo con degradado, sol, luna, estrellas y nubes ---- */
+  const skyU = {top: {value: new T.Color(0x4A6FD1)}, bot: {value: new T.Color(0xFFB27A)}};
+  const sky = new T.Mesh(new T.SphereGeometry(150, 24, 12), new T.ShaderMaterial({uniforms: skyU, side: T.BackSide, depthWrite: false, fog: false,
+    vertexShader: 'varying vec3 vP; void main(){ vP = (modelMatrix * vec4(position,1.0)).xyz; gl_Position = projectionMatrix * viewMatrix * vec4(vP,1.0); }',
+    fragmentShader: 'uniform vec3 top; uniform vec3 bot; varying vec3 vP; void main(){ float h = clamp(normalize(vP - cameraPosition).y * 1.4 + 0.25, 0.0, 1.0); gl_FragColor = vec4(mix(bot, top, h), 1.0); }'}));
+  scene.add(sky);
+  const disc = (col, glow) => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); const gr = g.createRadialGradient(32, 32, 6, 32, 32, 32); gr.addColorStop(0, col); gr.addColorStop(.45, col); gr.addColorStop(.5, glow); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); const tx = new T.CanvasTexture(c); return new T.Sprite(new T.SpriteMaterial({map: tx, fog: false, depthWrite: false, transparent: true})); };
+  const sunS = disc('#FFE7A0', 'rgba(255,170,90,.45)'); sunS.scale.set(26, 26, 1); scene.add(sunS);
+  const moonS = disc('#F4F1D0', 'rgba(170,190,255,.35)'); moonS.scale.set(16, 16, 1); moonS.visible = false; scene.add(moonS);
+  const starsG = (() => { const g2 = new T.BufferGeometry(), pts = []; for (let i = 0; i < 700; i++) { const a = Math.random() * 6.28, b = Math.random() * 1.35 + .08, r0 = 140; pts.push(Math.cos(a) * Math.cos(b) * r0 + 10, Math.sin(b) * r0, Math.sin(a) * Math.cos(b) * r0 + 10); } g2.setAttribute('position', new T.Float32BufferAttribute(pts, 3)); const p = new T.Points(g2, new T.PointsMaterial({color: 0xffffff, size: .9, fog: false, transparent: true, opacity: 0, depthWrite: false})); scene.add(p); return p; })();
+  const clouds = new T.Group(); { const cm = new T.MeshLambertMaterial({color: 0xffffff, transparent: true, opacity: .85}); for (let i = 0; i < 14; i++) { const cl = new T.Mesh(new T.BoxGeometry(6 + Math.random() * 10, 1.2, 4 + Math.random() * 6), cm); cl.position.set(Math.random() * 120 - 50, 22 + Math.random() * 6, Math.random() * 120 - 50); clouds.add(cl); } scene.add(clouds); }
+  scene.fog = new T.Fog(0xFFB27A, 30, 110);
+  /* ---- luces ---- */
+  const hemi = new T.HemisphereLight(0xFFE6C8, 0x58607A, .75); scene.add(hemi);
+  const sunL = new T.DirectionalLight(0xFFD2A0, 1.05); sunL.castShadow = true; sunL.shadow.mapSize.set(1024, 1024);
+  const sc = sunL.shadow.camera; sc.left = -16; sc.right = 16; sc.top = 16; sc.bottom = -16; sc.near = 1; sc.far = 80; sunL.shadow.bias = -.0008; sunL.shadow.normalBias = .02;
+  sunL.target.position.set(10, 4, 10); scene.add(sunL, sunL.target);
+  const lampLights = [];
+  /* ---- atlas de texturas (16 px) ---- */
+  const TYPES = BLK.length; const atlas = document.createElement('canvas'); atlas.width = TS * 3; atlas.height = TS * TYPES; const ag = atlas.getContext('2d');
+  for (let t = 1; t < TYPES; t++) { ag.drawImage(iTex(t, 'top'), 0, t * TS); ag.drawImage(iTex(t, 'side'), TS, t * TS); ag.drawImage((t === 1 || t === 17) ? iTex(2, 'top') : iTex(t, 'top'), TS * 2, t * TS); }
+  const atex = new T.CanvasTexture(atlas); atex.magFilter = T.NearestFilter; atex.minFilter = T.NearestFilter; atex.generateMipmaps = false;
+  const matO = new T.MeshLambertMaterial({map: atex, vertexColors: true, alphaTest: .45});
+  const matT = new T.MeshLambertMaterial({map: atex, vertexColors: true, transparent: true, depthWrite: false, side: T.DoubleSide});
+  const uvOf = (t, f, u, v) => { const col = f === 'top' ? 0 : f === 'bottom' ? 2 : 1; const e = .02 / TS; return [(col * TS + .02 + u * (TS - .04)) / atlas.width, 1 - ((t * TS + .02 + (1 - v) * (TS - .04)) / atlas.height)]; };
+  const FACES = [
+    {d: [-1, 0, 0], f: 'side', c: [[0, 1, 0, 0, 1], [0, 0, 0, 0, 0], [0, 1, 1, 1, 1], [0, 0, 1, 1, 0]]},
+    {d: [1, 0, 0], f: 'side', c: [[1, 1, 1, 0, 1], [1, 0, 1, 0, 0], [1, 1, 0, 1, 1], [1, 0, 0, 1, 0]]},
+    {d: [0, -1, 0], f: 'bottom', c: [[1, 0, 1, 1, 0], [0, 0, 1, 0, 0], [1, 0, 0, 1, 1], [0, 0, 0, 0, 1]]},
+    {d: [0, 1, 0], f: 'top', c: [[0, 1, 1, 1, 1], [1, 1, 1, 0, 1], [0, 1, 0, 1, 0], [1, 1, 0, 0, 0]]},
+    {d: [0, 0, -1], f: 'side', c: [[1, 0, 0, 0, 0], [0, 0, 0, 1, 0], [1, 1, 0, 0, 1], [0, 1, 0, 1, 1]]},
+    {d: [0, 0, 1], f: 'side', c: [[0, 0, 1, 0, 0], [1, 0, 1, 1, 0], [0, 1, 1, 0, 1], [1, 1, 1, 1, 1]]}
+  ];
+  const AOL = [.42, .62, .82, 1];
+  let meshO = null, meshT = null;
   function buildWorld() {
-    if (worldG) { scene.remove(worldG); worldG.children.forEach(m => m.dispose && m.dispose()); }
-    worldG = new T.Group(); const by = {};
-    for (let y = 0; y < IZ; y++) for (let z = 0; z < IN; z++) for (let x = 0; x < IN; x++) { const t = vget(x, y, z); if (!t) continue;
-      const hid = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]].every(([a, b, c]) => { const n = vget(x + a, y + b, z + c); return n && n !== 10 && n !== 8 && n !== 7; });
-      if (hid) continue; (by[t] = by[t] || []).push([x, y, z]); }
-    Object.keys(by).forEach(t => { const L = by[t]; const m = new T.InstancedMesh(box, mats(+t), L.length); L.forEach((p, i) => { tmp.position.set(p[0] + .5, p[1] + .5, p[2] + .5); tmp.updateMatrix(); m.setMatrixAt(i, tmp.matrix); }); worldG.add(m); });
-    scene.add(worldG);
+    const A = {o: {p: [], n: [], u: [], c: [], i: []}, t: {p: [], n: [], u: [], c: [], i: []}};
+    const occ = (x, y, z) => opaque(vget(x, y, z)) ? 1 : 0;
+    for (let y = 0; y < IZ; y++) for (let z = 0; z < IN; z++) for (let x = 0; x < IN; x++) {
+      const t = vget(x, y, z); if (!t) continue; const B = TRANS[t] ? A.t : A.o;
+      for (const F of FACES) {
+        const nx = x + F.d[0], ny = y + F.d[1], nz = z + F.d[2], nb = vget(nx, ny, nz);
+        if (nb && (opaque(nb) || nb === t)) continue;
+        const ax = F.d.map((v, i) => v === 0 ? i : -1).filter(i => i >= 0); const base = B.p.length / 3; const ao = [];
+        F.c.forEach(cn => { const pos = [cn[0], cn[1], cn[2]]; const off = [nx, ny, nz];
+          const s1 = off.slice(), s2 = off.slice(); s1[ax[0]] += pos[ax[0]] ? 1 : -1; s2[ax[1]] += pos[ax[1]] ? 1 : -1; const s3 = s1.slice(); s3[ax[1]] += pos[ax[1]] ? 1 : -1;
+          const a1 = occ(...s1), a2 = occ(...s2), a3 = occ(...s3); const lv = (a1 && a2) ? 0 : 3 - (a1 + a2 + a3); ao.push(lv);
+          B.p.push(x + pos[0], y + pos[1], z + pos[2]); B.n.push(...F.d); const uv = uvOf(t, F.f, cn[3], cn[4]); B.u.push(uv[0], uv[1]);
+          const k = AOL[lv] * (t === 15 ? 1.4 : 1); B.c.push(k, k, k); });
+        if (ao[0] + ao[3] > ao[1] + ao[2]) B.i.push(base, base + 1, base + 3, base, base + 3, base + 2); else B.i.push(base, base + 1, base + 2, base + 2, base + 1, base + 3);
+      }
+    }
+    const mk = (b, m) => { const g2 = new T.BufferGeometry(); g2.setAttribute('position', new T.Float32BufferAttribute(b.p, 3)); g2.setAttribute('normal', new T.Float32BufferAttribute(b.n, 3)); g2.setAttribute('uv', new T.Float32BufferAttribute(b.u, 2)); g2.setAttribute('color', new T.Float32BufferAttribute(b.c, 3)); g2.setIndex(b.i); const me = new T.Mesh(g2, m); return me; };
+    if (meshO) { scene.remove(meshO); meshO.geometry.dispose(); } if (meshT) { scene.remove(meshT); meshT.geometry.dispose(); }
+    meshO = mk(A.o, matO); meshO.castShadow = true; meshO.receiveShadow = true; scene.add(meshO);
+    meshT = mk(A.t, matT); meshT.receiveShadow = true; meshT.renderOrder = 2; scene.add(meshT);
+    // faroles que alumbran
+    lampLights.forEach(l => scene.remove(l)); lampLights.length = 0;
+    for (let y = 0; y < IZ && lampLights.length < 4; y++) for (let z = 0; z < IN && lampLights.length < 4; z++) for (let x = 0; x < IN && lampLights.length < 4; x++) if (vget(x, y, z) === 15) { const L = new T.PointLight(0xFFC870, 0, 9, 2); L.position.set(x + .5, y + .5, z + .5); scene.add(L); lampLights.push(L); }
   }
   buildWorld();
-  // estrellas y luna
-  const starsG = new T.Group(); { const g2 = new T.BufferGeometry(), pts = []; for (let i = 0; i < 400; i++) { const a = Math.random() * 6.28, b = Math.random() * 1.3 + .1, r0 = 90; pts.push(Math.cos(a) * Math.cos(b) * r0 + 10, Math.sin(b) * r0, Math.sin(a) * Math.cos(b) * r0 + 10); } g2.setAttribute('position', new T.Float32BufferAttribute(pts, 3)); starsG.add(new T.Points(g2, new T.PointsMaterial({color: 0xffffff, size: .6, fog: false}))); const moon = new T.Mesh(new T.BoxGeometry(6, 6, 1), new T.MeshBasicMaterial({color: 0xF4F1D0, fog: false})); moon.position.set(40, 45, -30); moon.lookAt(10, 5, 10); starsG.add(moon); starsG.visible = false; scene.add(starsG); }
-  // espada y mano (con los colores de tu avatar)
-  const A = avData(); const hand = new T.Group();
-  const bx = (w, h, d, col, x, y, z, em) => { const m = new T.Mesh(new T.BoxGeometry(w, h, d), new T.MeshLambertMaterial({color: col, emissive: em || 0x000000})); m.position.set(x, y, z); return m; };
-  hand.add(bx(.12, .12, .34, A.shirt, 0, -.02, .12)); hand.add(bx(.1, .1, .1, A.skin, 0, 0, -.08));
-  const sword = new T.Group(); sword.add(bx(.04, .18, .04, 0x7A5530, 0, 0, 0)); sword.add(bx(.2, .04, .05, 0xF2C230, 0, .1, 0)); sword.add(bx(.06, .62, .03, 0xBFE8FF, 0, .43, 0, 0x224455)); sword.position.set(0, .02, -.1); sword.rotation.x = -.5; hand.add(sword);
-  hand.position.set(.36, -.34, -.62); hand.scale.setScalar(.62); cam.add(hand); scene.add(cam);
-  const moonL = new T.DirectionalLight(0x9DB4FF, 0); moonL.position.set(30, 40, -20); scene.add(moonL);
-  // marca del bloque que miras
-  const sel = new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(1.01, 1.01, 1.01)), new T.LineBasicMaterial({color: 0x000000})); sel.visible = false; scene.add(sel);
-  /* ---- jugador ---- */
-  const P = {p: new T.Vector3(OB[0] + .5, OB[2] + 1.01, OB[1] + .5), v: new T.Vector3(), w: .6, h: 1.75, ground: false, yaw: Math.PI * .75, pitch: -.25, hp: 10, hurt: 0};
-  const ents = [P];
-  function hits(e, px, py, pz) { const hw = e.w / 2; for (let x = Math.floor(px - hw); x <= Math.floor(px + hw - 1e-4); x++) for (let y = Math.floor(py); y <= Math.floor(py + e.h - 1e-4); y++) for (let z = Math.floor(pz - hw); z <= Math.floor(pz + hw - 1e-4); z++) if (solid(x, y, z)) return true; return false; }
+  /* ---- mano: espada de píxeles o bloque ---- */
+  const A0 = avData(); const hand = new T.Group(); cam.add(hand); scene.add(cam);
+  const lam = c => new T.MeshLambertMaterial({color: c});
+  const arm = new T.Mesh(new T.BoxGeometry(.16, .16, .5), [lam(A0.skin), lam(A0.skin), lam(A0.shirt), lam(A0.shirt), lam(A0.skin), lam(A0.shirt)]); arm.position.set(0, -.05, .18); hand.add(arm);
+  const swordTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 16; const g = c.getContext('2d'); const p = (x, y, col) => { g.fillStyle = col; g.fillRect(x, y, 1, 1); };
+    for (let i = 0; i < 10; i++) { p(5 + i, 10 - i, '#E8F4FF'); p(6 + i, 10 - i, '#BFD4E6'); p(5 + i, 9 - i, '#8FA8BD'); p(6 + i, 9 - i, '#D8E8F5'); } p(15, 0, '#E8F4FF');
+    [[3, 10], [4, 11], [5, 12], [6, 11], [2, 9]].forEach(q => p(q[0], q[1], '#F2C230')); [[4, 10], [5, 11]].forEach(q => p(q[0], q[1], '#B8901E'));
+    [[3, 12], [2, 13], [1, 14]].forEach(q => p(q[0], q[1], '#7A5530')); [[2, 12], [1, 13]].forEach(q => p(q[0], q[1], '#5A3C20')); p(0, 15, '#F2C230');
+    const tx = new T.CanvasTexture(c); tx.magFilter = T.NearestFilter; tx.minFilter = T.NearestFilter; return tx; })();
+  const swordM = new T.Mesh(new T.PlaneGeometry(.62, .62), new T.MeshLambertMaterial({map: swordTex, transparent: true, alphaTest: .5, side: T.DoubleSide}));
+  swordM.position.set(.02, .2, -.2); swordM.rotation.set(-.15, -.55, .05); swordM.scale.setScalar(.72); hand.add(swordM);
+  const heldG = new T.BufferGeometry(); const held = new T.Mesh(heldG, matO); held.scale.setScalar(.28); held.position.set(-.08, .02, -.2); held.rotation.set(.3, .6, 0); hand.add(held);
+  function setHeld(t) { swordM.visible = !t; held.visible = !!t; if (!t) return; const p = [], u = [], n = [], c = [], ix = [];
+    FACES.forEach(F => { const b0 = p.length / 3; F.c.forEach(cn => { p.push(cn[0] - .5, cn[1] - .5, cn[2] - .5); n.push(...F.d); const uv = uvOf(t, F.f, cn[3], cn[4]); u.push(uv[0], uv[1]); c.push(1, 1, 1); }); ix.push(b0, b0 + 1, b0 + 2, b0 + 2, b0 + 1, b0 + 3); });
+    heldG.setAttribute('position', new T.Float32BufferAttribute(p, 3)); heldG.setAttribute('normal', new T.Float32BufferAttribute(n, 3)); heldG.setAttribute('uv', new T.Float32BufferAttribute(u, 2)); heldG.setAttribute('color', new T.Float32BufferAttribute(c, 3)); heldG.setIndex(ix); heldG.computeBoundingSphere(); }
+  hand.position.set(.42, -.38, -.62);
+  // marco del bloque que miras
+  const selM = new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(1.004, 1.004, 1.004)), new T.LineBasicMaterial({color: 0x111111, transparent: true, opacity: .6})); selM.visible = false; scene.add(selM);
+  /* ---- jugador y física (con margen para no quedarse atascado) ---- */
+  const P = {p: new T.Vector3(OB[0] + .5, OB[2] + 1, OB[1] + .5), v: new T.Vector3(), w: .6, h: 1.75, ground: false, yaw: Math.PI * .75, pitch: -.3, hp: 10, hurt: 0, walk: 0};
+  const EPS = .002;
+  function hits(e, px, py, pz) { const hw = e.w / 2; for (let x = Math.floor(px - hw + EPS); x <= Math.floor(px + hw - EPS); x++) for (let y = Math.floor(py + EPS); y <= Math.floor(py + e.h - EPS); y++) for (let z = Math.floor(pz - hw + EPS); z <= Math.floor(pz + hw - EPS); z++) { const t = vget(x, y, z); if (t && t !== 10) return true; } return false; }
   function physics(e, dt) {
-    e.v.y -= 22 * dt; if (e.v.y < -30) e.v.y = -30;
-    const nx = e.p.x + e.v.x * dt; if (!hits(e, nx, e.p.y, e.p.z)) e.p.x = nx; else { e.blocked = true; e.v.x = 0; }
-    const nz = e.p.z + e.v.z * dt; if (!hits(e, e.p.x, e.p.y, nz)) e.p.z = nz; else { e.blocked = true; e.v.z = 0; }
-    const ny = e.p.y + e.v.y * dt; e.ground = false; if (!hits(e, e.p.x, ny, e.p.z)) e.p.y = ny; else { if (e.v.y < 0) { e.ground = true; e.p.y = Math.floor(ny) + 1; if (hits(e, e.p.x, e.p.y, e.p.z)) e.p.y = Math.ceil(e.p.y); } e.v.y = 0; }
+    e.v.y -= 24 * dt; if (e.v.y < -32) e.v.y = -32; e.blocked = false;
+    const steps = Math.ceil(Math.max(Math.abs(e.v.x), Math.abs(e.v.y), Math.abs(e.v.z)) * dt / .3) || 1, sd = dt / steps;
+    for (let k = 0; k < steps; k++) {
+      const nx = e.p.x + e.v.x * sd; if (!hits(e, nx, e.p.y, e.p.z)) e.p.x = nx; else { e.blocked = true; e.v.x = 0; }
+      const nz = e.p.z + e.v.z * sd; if (!hits(e, e.p.x, e.p.y, nz)) e.p.z = nz; else { e.blocked = true; e.v.z = 0; }
+      const ny = e.p.y + e.v.y * sd; e.ground = false;
+      if (!hits(e, e.p.x, ny, e.p.z)) e.p.y = ny; else { if (e.v.y < 0) { e.ground = true; e.p.y = Math.floor(ny + EPS) + 1; if (hits(e, e.p.x, e.p.y, e.p.z)) e.p.y = Math.round(e.p.y); } e.v.y = 0; }
+    }
+    if (!e.ground && e.v.y === 0 && hits(e, e.p.x, e.p.y - .05, e.p.z)) e.ground = true;
   }
-  /* ---- zombis (diseño propio) ---- */
+  /* ---- monstruos (diseño propio) ---- */
   const Z = [];
-  const zMat = {skin: new T.MeshLambertMaterial({color: 0x6E8B5A}), shirt: new T.MeshLambertMaterial({color: 0x5B3E8A}), pants: new T.MeshLambertMaterial({color: 0x2A2A3A}), eye: new T.MeshBasicMaterial({color: 0xFFE23D})};
+  const zFace = (() => { const c = document.createElement('canvas'); c.width = c.height = 8; const g = c.getContext('2d'); g.fillStyle = '#6E8B5A'; g.fillRect(0, 0, 8, 8); g.fillStyle = '#56704A'; g.fillRect(0, 0, 8, 2); [[1, 3], [5, 3]].forEach(q => { g.fillStyle = '#FFE23D'; g.fillRect(q[0], q[1], 2, 1); }); g.fillStyle = '#2E3A26'; g.fillRect(2, 6, 4, 1); g.fillStyle = '#8FAA78'; g.fillRect(3, 4, 2, 1); const tx = new T.CanvasTexture(c); tx.magFilter = T.NearestFilter; tx.minFilter = T.NearestFilter; return tx; })();
   function spawnZ() {
-    const cand = []; for (let z = 0; z < IN; z++) for (let x = 0; x < IN; x++) { let top = -1; for (let y = IZ - 1; y >= 0; y--) if (solid(x, y, z)) { top = y; break; } if (top < 0 || solid(x, top + 1, z) || solid(x, top + 2, z)) continue; const d = Math.hypot(x + .5 - P.p.x, z + .5 - P.p.z); cand.push([d, x, top + 1, z]); }
-    let fly = false; const far = cand.filter(q => q[0] >= 3.5); let c;
+    const cand = []; for (let z = 0; z < IN; z++) for (let x = 0; x < IN; x++) { let top = -1; for (let y = IZ - 1; y >= 0; y--) if (opaque(vget(x, y, z))) { top = y; break; } if (top < 0 || vget(x, top + 1, z) || vget(x, top + 2, z)) continue; const d = Math.hypot(x + .5 - P.p.x, z + .5 - P.p.z); cand.push([d, x, top + 1, z]); }
+    let fly = false; const far = cand.filter(q => q[0] >= 4); let c;
     if (far.length) { far.sort((a, b) => b[0] - a[0]); c = far[Math.floor(Math.random() * Math.min(far.length, Math.max(3, far.length / 3)))]; }
-    else { const a = Math.random() * 6.28; fly = true; c = [0, P.p.x + Math.cos(a) * 7 - .5, P.p.y + 1, P.p.z + Math.sin(a) * 7 - .5]; }
-    const g = new T.Group(); const part = (w, h, d, m, x, y, z) => { const o = new T.Mesh(new T.BoxGeometry(w, h, d), m); o.position.set(x, y, z); g.add(o); return o; };
-    const l1 = part(.25, .7, .25, zMat.pants, -.14, .35, 0), l2 = part(.25, .7, .25, zMat.pants, .14, .35, 0); part(.56, .7, .3, zMat.shirt, 0, 1.05, 0); const hd = part(.48, .48, .48, zMat.skin, 0, 1.64, 0);
-    part(.1, .07, .02, zMat.eye, -.11, 1.68, .25); part(.1, .07, .02, zMat.eye, .11, 1.68, .25);
-    const a1 = part(.2, .2, .62, zMat.skin, -.38, 1.25, .25), a2 = part(.2, .2, .62, zMat.skin, .38, 1.25, .25);
-    const z0 = {p: new T.Vector3(c[1] + .5, c[2] + .2, c[3] + .5), v: new T.Vector3(), w: .55, h: 1.8, hp: 3, g, l1, l2, cd: 0, flash: 0, phase: Math.random() * 6, fly};
+    else { const a = Math.random() * 6.28; fly = true; c = [0, P.p.x + Math.cos(a) * 8 - .5, P.p.y + 1.5, P.p.z + Math.sin(a) * 8 - .5]; }
+    const skin = new T.MeshLambertMaterial({color: 0x6E8B5A}), shirt = new T.MeshLambertMaterial({color: 0x5B3E8A}), pants = new T.MeshLambertMaterial({color: 0x2A2A3A}), face = new T.MeshLambertMaterial({map: zFace, emissive: 0x332a00, emissiveMap: zFace});
+    const g = new T.Group(); const part = (w, h, d, m, x, y, z) => { const o = new T.Mesh(new T.BoxGeometry(w, h, d), m); o.position.set(x, y, z); o.castShadow = true; g.add(o); return o; };
+    const l1 = part(.25, .72, .25, pants, -.14, .36, 0), l2 = part(.25, .72, .25, pants, .14, .36, 0); part(.56, .72, .3, shirt, 0, 1.08, 0);
+    const hd = part(.5, .5, .5, [skin, skin, skin, skin, face, skin], 0, 1.7, 0);
+    const a1 = part(.2, .2, .66, skin, -.38, 1.3, .27), a2 = part(.2, .2, .66, skin, .38, 1.3, .27);
+    const z0 = {p: new T.Vector3(c[1] + .5, c[2] + .05, c[3] + .5), v: new T.Vector3(), w: .55, h: 1.85, hp: 3, g, l1, l2, a1, a2, cd: 0, flash: 0, phase: Math.random() * 6, fly, mats: [skin, shirt, pants], spd: 1.55 + Math.min(.9, G.night / 300)};
     g.position.copy(z0.p); scene.add(g); Z.push(z0);
   }
-  function killZ(z0, why) { scene.remove(z0.g); Z.splice(Z.indexOf(z0), 1); poof(z0.p.clone().add(new T.Vector3(0, 1, 0)), 0x6E8B5A); if (why === 'fall') msg('¡Un monstruo se ha caído de tu isla! 🤣', 1500); }
-  const parts = []; function poof(at, col) { for (let i = 0; i < 14; i++) { const m = new T.Mesh(new T.BoxGeometry(.12, .12, .12), new T.MeshBasicMaterial({color: col})); m.position.copy(at); m.userData.v = new T.Vector3((Math.random() - .5) * 4, Math.random() * 4, (Math.random() - .5) * 4); m.userData.l = .8; scene.add(m); parts.push(m); } }
+  const parts = [];
+  function poof(at, col, n) { for (let i = 0; i < (n || 14); i++) { const m = new T.Mesh(new T.BoxGeometry(.1, .1, .1), new T.MeshLambertMaterial({color: col})); m.position.copy(at); m.userData.v = new T.Vector3((Math.random() - .5) * 4, Math.random() * 4 + 1, (Math.random() - .5) * 4); m.userData.l = .7 + Math.random() * .3; scene.add(m); parts.push(m); } }
+  function killZ(z0, why) { scene.remove(z0.g); const i = Z.indexOf(z0); if (i >= 0) Z.splice(i, 1); poof(z0.p.clone().add(new T.Vector3(0, 1, 0)), 0x6E8B5A, 18); if (why === 'fall') msg('¡Un monstruo se ha caído de tu isla! 🤣', 1500); }
   /* ---- controles ---- */
   const keys = {}; let stick = [0, 0], jumpQ = false;
   const kd = e => { keys[e.code] = true; if (e.code === 'Space') jumpQ = true; if (e.code === 'KeyF') attack(); if (e.code === 'KeyE') put(); if (e.code === 'KeyQ') dig(); const n = parseInt(e.key, 10); if (n >= 1 && n <= 9) { selI = n - 1; paintBar(); } if (['Space', 'ArrowUp', 'ArrowDown'].includes(e.code)) e.preventDefault(); };
@@ -5046,103 +5129,119 @@ async function nightStart(practice, onClose) {
   window.addEventListener('keydown', kd); window.addEventListener('keyup', ku);
   const look = new Map();
   cv.addEventListener('pointerdown', e => { e.preventDefault(); look.set(e.pointerId, [e.clientX, e.clientY, e.clientX, e.clientY, Date.now()]); try { cv.setPointerCapture(e.pointerId); } catch (x) {} });
-  cv.addEventListener('pointermove', e => { const l = look.get(e.pointerId); if (!l) return; const dx = e.clientX - l[0], dy = e.clientY - l[1]; l[0] = e.clientX; l[1] = e.clientY; P.yaw -= dx * .006; P.pitch = Math.max(-1.45, Math.min(1.45, P.pitch - dy * .006)); });
-  const lookUp = e => { const l = look.get(e.pointerId); look.delete(e.pointerId); if (l && Math.hypot(e.clientX - l[2], e.clientY - l[3]) < 10 && Date.now() - l[4] < 300) attack(); };
-  cv.addEventListener('pointerup', lookUp); cv.addEventListener('pointercancel', lookUp);
+  cv.addEventListener('pointermove', e => { const l = look.get(e.pointerId); if (!l) return; const dx = e.clientX - l[0], dy = e.clientY - l[1]; l[0] = e.clientX; l[1] = e.clientY; P.yaw -= dx * .0055; P.pitch = Math.max(-1.5, Math.min(1.45, P.pitch - dy * .0055)); });
+  const lookUp = e => { const l = look.get(e.pointerId); look.delete(e.pointerId); if (l && Math.hypot(e.clientX - l[2], e.clientY - l[3]) < 12 && Date.now() - l[4] < 320) useItem(); };
+  cv.addEventListener('pointerup', lookUp); cv.addEventListener('pointercancel', e => look.delete(e.pointerId));
   const st = $('ngStick'), kn = $('ngKnob'); let stId = null, stC = null;
-  st.addEventListener('pointerdown', e => { e.preventDefault(); stId = e.pointerId; const r0 = st.getBoundingClientRect(); stC = [r0.left + r0.width / 2, r0.top + r0.height / 2]; try { st.setPointerCapture(e.pointerId); } catch (x) {} stMove(e); });
-  const stMove = e => { if (e.pointerId !== stId) return; let dx = e.clientX - stC[0], dy = e.clientY - stC[1]; const L = Math.hypot(dx, dy), M = 50; if (L > M) { dx *= M / L; dy *= M / L; } stick = [dx / M, dy / M]; kn.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; };
+  st.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); stId = e.pointerId; const r0 = st.getBoundingClientRect(); stC = [r0.left + r0.width / 2, r0.top + r0.height / 2]; try { st.setPointerCapture(e.pointerId); } catch (x) {} stMove(e); });
+  const stMove = e => { if (e.pointerId !== stId) return; let dx = e.clientX - stC[0], dy = e.clientY - stC[1]; const L = Math.hypot(dx, dy), M = 52; if (L > M) { dx *= M / L; dy *= M / L; } const dz = Math.hypot(dx, dy) < 8 ? 0 : 1; stick = [dx / M * dz, dy / M * dz]; kn.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; };
   st.addEventListener('pointermove', stMove);
   const stEnd = e => { if (e.pointerId !== stId) return; stId = null; stick = [0, 0]; kn.style.transform = ''; };
-  st.addEventListener('pointerup', stEnd); st.addEventListener('pointercancel', stEnd);
+  st.addEventListener('pointerup', stEnd); st.addEventListener('pointercancel', stEnd); st.addEventListener('lostpointercapture', stEnd);
   const btn = (id, fn) => $(id).addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); fn(); });
-  btn('ngAtk', () => attack()); btn('ngPut', () => put()); btn('ngDig', () => dig()); btn('ngJump', () => { jumpQ = true; });
-  /* ---- inventario (barra de abajo) ---- */
-  let selI = 0; const barTypes = () => Object.keys(inv).map(Number).filter(t => inv[t] > 0 && t !== 10).slice(0, 9);
-  function paintBar() { const L = barTypes(); if (selI >= L.length) selI = Math.max(0, L.length - 1); $('ngBar').innerHTML = L.length ? L.map((t, i) => '<button type="button" class="ngslot' + (i === selI ? ' on' : '') + '" data-ns="' + i + '"><img src="' + cubeIcon(t) + '" alt=""><b>' + inv[t] + '</b></button>').join('') : '<span class="ngempty">Sin bloques: ¡estudia para conseguir más!</span>'; $('ngBar').querySelectorAll('[data-ns]').forEach(b => b.addEventListener('pointerdown', e => { e.preventDefault(); selI = +b.dataset.ns; paintBar(); })); }
+  btn('ngAtk', () => { selI = 0; paintBar(); attack(); }); btn('ngPut', () => put()); btn('ngDig', () => dig()); btn('ngJump', () => { jumpQ = true; });
+  /* ---- barra: espada + bloques ---- */
+  let selI = 0; const barTypes = () => Object.keys(inv).map(Number).filter(t => inv[t] > 0 && t !== 10).slice(0, 8);
+  const curItem = () => selI === 0 ? 0 : (barTypes()[selI - 1] || 0);
+  function paintBar() { const L = barTypes(); if (selI > L.length) selI = L.length; $('ngBar').innerHTML = '<button type="button" class="ngslot' + (selI === 0 ? ' on' : '') + '" data-ns="0"><span style="font-size:30px">🗡️</span></button>' + L.map((t, i) => '<button type="button" class="ngslot' + (i + 1 === selI ? ' on' : '') + '" data-ns="' + (i + 1) + '"><img src="' + cubeIcon(t) + '" alt=""><b>' + inv[t] + '</b></button>').join('') + (L.length ? '' : '<span class="ngempty">Sin bloques: ¡estudia para conseguir más!</span>');
+    $('ngBar').querySelectorAll('[data-ns]').forEach(b => b.addEventListener('pointerdown', e => { e.preventDefault(); selI = +b.dataset.ns; paintBar(); })); setHeld(curItem()); }
   paintBar();
-  /* ---- apuntar a bloques ---- */
+  /* ---- apuntar ---- */
   function ray() { const o = cam.getWorldPosition(new T.Vector3()), d = cam.getWorldDirection(new T.Vector3()); let x = Math.floor(o.x), y = Math.floor(o.y), z = Math.floor(o.z); const sx = Math.sign(d.x), sy = Math.sign(d.y), sz = Math.sign(d.z);
     const tdx = Math.abs(1 / d.x), tdy = Math.abs(1 / d.y), tdz = Math.abs(1 / d.z); let tx = (sx > 0 ? x + 1 - o.x : o.x - x) * tdx, ty = (sy > 0 ? y + 1 - o.y : o.y - y) * tdy, tz = (sz > 0 ? z + 1 - o.z : o.z - z) * tdz; let n = [0, 0, 0], t = 0;
-    while (t < 5) { if (tx < ty && tx < tz) { x += sx; t = tx; tx += tdx; n = [-sx, 0, 0]; } else if (ty < tz) { y += sy; t = ty; ty += tdy; n = [0, -sy, 0]; } else { z += sz; t = tz; tz += tdz; n = [0, 0, -sz]; } const b = vget(x, y, z); if (b && b !== 10) return {x, y, z, n, t, b}; } return null; }
-  function put() { const h = ray(); const L = barTypes(); if (!h || !L.length) { msg(L.length ? 'Apunta a un bloque para poner otro al lado.' : 'No te quedan bloques.', 1200); return; } const t = L[selI]; const x = h.x + h.n[0], y = h.y + h.n[1], z = h.z + h.n[2];
-    let c = [x, y, z];
-    const inside = (e, q) => q[0] + 1 > e.p.x - e.w / 2 && q[0] < e.p.x + e.w / 2 && q[2] + 1 > e.p.z - e.w / 2 && q[2] < e.p.z + e.w / 2 && q[1] + 1 > e.p.y && q[1] < e.p.y + e.h;
+    while (t < 5.5) { if (tx < ty && tx < tz) { x += sx; t = tx; tx += tdx; n = [-sx, 0, 0]; } else if (ty < tz) { y += sy; t = ty; ty += tdy; n = [0, -sy, 0]; } else { z += sz; t = tz; tz += tdz; n = [0, 0, -sz]; } const b = vget(x, y, z); if (b && b !== 10) return {x, y, z, n, t, b}; } return null; }
+  let animT = 0, animK = 'swing';
+  function useItem() { if (curItem()) put(); else attack(); }
+  function put() { animT = performance.now(); animK = 'put'; const h = ray(); const L = barTypes(); let t = curItem(); if (!t) { if (!L.length) { msg('No te quedan bloques.', 1200); return; } selI = 1; paintBar(); t = curItem(); }
+    if (!h) { msg('Apunta a un bloque para poner otro al lado.', 1200); return; }
+    let c = [h.x + h.n[0], h.y + h.n[1], h.z + h.n[2]];
+    const inside = (e, q) => q[0] + 1 > e.p.x - e.w / 2 + EPS && q[0] < e.p.x + e.w / 2 - EPS && q[2] + 1 > e.p.z - e.w / 2 + EPS && q[2] < e.p.z + e.w / 2 - EPS && q[1] + 1 > e.p.y + EPS && q[1] < e.p.y + e.h - EPS;
     if (inside(P, c) && h.n[1] === 1) { const d = cam.getWorldDirection(new T.Vector3()); const ax = Math.abs(d.x) > Math.abs(d.z) ? [Math.sign(d.x), 0] : [0, Math.sign(d.z)]; c = [h.x + ax[0], h.y, h.z + ax[1]]; for (let k = 0; k < 4 && vget(c[0], c[1], c[2]) && vget(c[0], c[1], c[2]) !== 10; k++) { c[0] += ax[0]; c[2] += ax[1]; } }
-    if (vget(c[0], c[1], c[2]) && vget(c[0], c[1], c[2]) !== 10) return; if (c[1] >= IZ || c[0] < 0 || c[2] < 0 || c[0] >= IN || c[2] >= IN) { msg('Ahí ya no se puede construir.', 1000); return; }
+    if (vget(c[0], c[1], c[2]) && vget(c[0], c[1], c[2]) !== 10) return; if (c[1] >= IZ || c[1] < 0 || c[0] < 0 || c[2] < 0 || c[0] >= IN || c[2] >= IN) { msg('Ahí ya no se puede construir.', 1000); return; }
     if (inside(P, c) || Z.some(e => inside(e, c))) return;
-    vset(c[0], c[1], c[2], t); inv[t]--; buildWorld(); paintBar(); }
-  function dig() { const h = ray(); if (!h) return; if (isOBc(h.x, h.y, h.z)) { msg('Tu OneBlock no se rompe: ¡es el corazón de tu isla!', 1400); return; } vset(h.x, h.y, h.z, 0); inv[h.b] = (inv[h.b] || 0) + 1; poof(new T.Vector3(h.x + .5, h.y + .5, h.z + .5), new T.Color(BLK[h.b].c).getHex()); buildWorld(); paintBar(); }
-  let swingT = 0;
-  function attack() { swingT = performance.now(); const o = cam.getWorldPosition(new T.Vector3()), d = cam.getWorldDirection(new T.Vector3()); let best = null, bd = 9;
-    const fh = new T.Vector2(-Math.sin(P.yaw), -Math.cos(P.yaw));
-    Z.forEach(z0 => { const c = z0.p.clone().add(new T.Vector3(0, 1.1, 0)); const v = c.sub(o); const dist = v.length(); if (dist > 3.2) return; const hv = new T.Vector2(v.x, v.z); const ang = hv.length() < .3 ? 0 : Math.acos(Math.max(-1, Math.min(1, hv.normalize().dot(fh)))); if ((ang < .9 || dist < 1.3) && dist < bd) { bd = dist; best = z0; } });
-    if (best) { best.hp--; best.flash = .2; const k = d.clone(); k.y = 0; k.normalize().multiplyScalar(7); best.v.x = k.x; best.v.z = k.z; best.v.y = 5; poof(best.p.clone().add(new T.Vector3(0, 1.2, 0)), 0xffffff); if (best.hp <= 0) { killZ(best); G.kills++; } } }
-  /* ---- mensajes y HUD ---- */
-  let msgT = 0; function msg(h, ms) { $('ngMsg').innerHTML = h; $('ngMsg').style.opacity = 1; clearTimeout(msgT); msgT = setTimeout(() => { const m = $('ngMsg'); if (m) m.style.opacity = 0; }, ms || 2500); }
-  const G = {phase: 'build', t0: performance.now(), kills: 0, waves: [0, 30, 60], wave: 0, over: false};
-  function hud(now) { const left = G.phase === 'build' ? NG_BUILD - (now - G.t0) / 1000 : NG_NIGHT - (now - G.t0) / 1000; const mm = Math.max(0, Math.ceil(left)); const tx = Math.floor(mm / 60) + ':' + String(mm % 60).padStart(2, '0');
-    P.hp = Math.max(0, P.hp); $('ngHearts').innerHTML = Array.from({length: 10}, (_, i) => i < P.hp ? '❤️' : '🖤').join('');
-    const ph = G.phase === 'build' ? '🔨 Construye tu fortaleza · <b>' + tx + '</b> <button type="button" id="ngSkip" class="ngskip">¡Ya estoy listo!</button>' : '🌙 ¡Aguanta hasta el amanecer! · <b>' + tx + '</b>'; if ($('ngPhase').dataset.h !== ph) { $('ngPhase').innerHTML = ph; $('ngPhase').dataset.h = ph; }
+    vset(c[0], c[1], c[2], t); inv[t]--; buildWorld(); paintBar(); popAt(c, t); }
+  function popAt(c, t) { const m = new T.Mesh(new T.BoxGeometry(1.06, 1.06, 1.06), new T.MeshBasicMaterial({color: 0xffffff, transparent: true, opacity: .35, depthWrite: false})); m.position.set(c[0] + .5, c[1] + .5, c[2] + .5); m.userData.pop = 1; m.userData.l = .25; scene.add(m); parts.push(m); }
+  function dig() { animT = performance.now(); animK = 'swing'; const h = ray(); if (!h) return; if (isOBc(h.x, h.y, h.z)) { msg('Tu OneBlock no se rompe: ¡es el corazón de tu isla!', 1400); return; } vset(h.x, h.y, h.z, 0); inv[h.b] = (inv[h.b] || 0) + 1; poof(new T.Vector3(h.x + .5, h.y + .5, h.z + .5), new T.Color(BLK[h.b].c).getHex(), 16); buildWorld(); paintBar(); }
+  function attack() { animT = performance.now(); animK = 'swing'; const o = cam.getWorldPosition(new T.Vector3()); let best = null, bd = 9; const fh = new T.Vector2(-Math.sin(P.yaw), -Math.cos(P.yaw));
+    Z.forEach(z0 => { const v = z0.p.clone().add(new T.Vector3(0, 1.1, 0)).sub(o); const dist = v.length(); if (dist > 3.3) return; const hv = new T.Vector2(v.x, v.z); const ang = hv.length() < .3 ? 0 : Math.acos(Math.max(-1, Math.min(1, hv.normalize().dot(fh)))); if ((ang < .9 || dist < 1.3) && dist < bd) { bd = dist; best = z0; } });
+    if (best) { best.hp--; best.flash = .25; const k = new T.Vector3(fh.x, 0, fh.y).multiplyScalar(7.5); best.v.x = k.x; best.v.z = k.z; best.v.y = 5.5; best.fly = false; poof(best.p.clone().add(new T.Vector3(0, 1.2, 0)), 0xffffff, 6); shake = .12; if (best.hp <= 0) { killZ(best); G.kills++; } } }
+  /* ---- HUD ---- */
+  let msgT = 0; function msg(h, ms) { const m = $('ngMsg'); if (!m) return; m.innerHTML = h; m.style.opacity = 1; clearTimeout(msgT); msgT = setTimeout(() => { const m2 = $('ngMsg'); if (m2) m2.style.opacity = 0; }, ms || 2500); }
+  const G = {phase: 'build', t0: performance.now(), kills: 0, nextWave: 0, wave: 0, night: 0, over: false};
+  function hud(now) { P.hp = Math.max(0, P.hp); const left = G.phase === 'build' ? NG_BUILD - (now - G.t0) / 1000 : NG_NIGHT - (now - G.t0) / 1000; const mm = Math.max(0, Math.ceil(left)); const tx = Math.floor(mm / 60) + ':' + String(mm % 60).padStart(2, '0');
+    $('ngHearts').innerHTML = Array.from({length: 10}, (_, i) => i < P.hp ? '❤️' : '🖤').join('');
+    const ph = G.phase === 'build' ? '🔨 Construye tu fortaleza · <b>' + tx + '</b> <button type="button" id="ngSkip" class="ngskip">¡Ya estoy listo!</button>' : '🌙 ¡Aguanta hasta el amanecer! · <b>' + tx + '</b> <span class="ngprz">' + (prize ? '+' + reward + ' ★' : 'práctica') + '</span>'; if ($('ngPhase').dataset.h !== ph) { $('ngPhase').innerHTML = ph; $('ngPhase').dataset.h = ph; }
     $('ngZ').textContent = G.phase === 'night' ? '🧟 ' + Z.length + ' · ⚔️ ' + G.kills : ''; }
   $('ngPhase').addEventListener('pointerdown', e => { if (e.target.closest('#ngSkip') && G.phase === 'build') { e.preventDefault(); G.t0 = performance.now() - NG_BUILD * 1000; } });
-  msg('<b>¡Construye tu fortaleza!</b><br>Muévete con el círculo de la izquierda, mira arrastrando el dedo por la pantalla, pon bloques con 🧱 y quita con ⛏️. Haz muros altos: los monstruos solo saltan 1 bloque.', 7000);
+  msg('<b>¡Construye tu fortaleza!</b><br>Muévete con el círculo, mira arrastrando el dedo. Elige un bloque abajo y toca la pantalla para ponerlo (⛏️ para quitar). Haz muros de 2 bloques: los monstruos solo saltan 1.', 8000);
+  /* ---- día → noche ---- */
+  const C = (h) => new T.Color(h);
+  const SKY = {dusk: [C(0x4A6FD1), C(0xFFB27A)], night: [C(0x050B24), C(0x1B2A5E)], dawn: [C(0x6FA8F0), C(0xFFD5A0)]};
+  function setSky(a, b, k) { skyU.top.value.copy(a[0]).lerp(b[0], k); skyU.bot.value.copy(a[1]).lerp(b[1], k); scene.fog.color.copy(skyU.bot.value); }
   /* ---- bucle ---- */
-  let last = performance.now(), raf = 0, hudT = 0;
+  let last = performance.now(), raf = 0, hudT = 0, shake = 0;
   const loop = now => {
-    raf = requestAnimationFrame(loop); const dt = Math.min(.05, (now - last) / 1000); last = now; if (G.over) { R.render(scene, cam); return; }
-    // fases
+    raf = requestAnimationFrame(loop); const dt = Math.min(.05, (now - last) / 1000); last = now;
+    clouds.children.forEach(cl => { cl.position.x += dt * .8; if (cl.position.x > 70) cl.position.x = -50; });
+    if (G.over) { R.render(scene, cam); return; }
     let el = (now - G.t0) / 1000;
-    if (G.phase === 'build' && el >= NG_BUILD) { G.phase = 'night'; G.t0 = now; el = 0; scene.background = new T.Color(0x0B1335); scene.fog.color = new T.Color(0x0B1335); scene.fog.near = 14; scene.fog.far = 48; hemi.intensity = .55; sun.intensity = .1; moonL.intensity = .55; starsG.visible = true; msg('🌙 <b>¡Se ha hecho de noche!</b> ¡Vienen los monstruos! Toca la pantalla o ⚔️ para atacar.', 3500); talk('¡Se ha hecho de noche! ¡Vienen los monstruos! ¡Defiende tu isla!'); }
-    if (G.phase === 'build') { const k = Math.min(1, el / NG_BUILD); const c = new T.Color(0xF2A86B).lerp(new T.Color(0x3A3F7A), k); scene.background = c; scene.fog.color = c; hemi.intensity = .9 - k * .4; }
-    if (G.phase === 'night') { if (G.wave < G.waves.length && el >= G.waves[G.wave]) { const n = [3, 4, 5][G.wave]; for (let i = 0; i < n; i++) spawnZ(); G.wave++; if (G.wave > 1) msg('🧟 ¡Llegan más monstruos!', 1500); }
+    if (G.phase === 'build') { const k = Math.min(1, el / NG_BUILD); setSky(SKY.dusk, SKY.night, k * .55); sunS.position.set(10 - 80, 40 - k * 45, 10 - 40); sunL.position.copy(sunS.position).multiplyScalar(.4).add(new T.Vector3(10, 4, 10)); sunL.intensity = 1.05 - k * .5; hemi.intensity = .75 - k * .25;
+      if (el >= NG_BUILD) { G.phase = 'night'; G.t0 = now; el = 0; sunS.visible = false; moonS.visible = true; moonS.position.set(60, 55, -40); sunL.color.set(0x9DB4FF); sunL.intensity = .35; sunL.position.set(40, 40, -20); hemi.color.set(0x8FA4D8); hemi.groundColor.set(0x1A2040); hemi.intensity = .5; starsG.material.opacity = 1; lampLights.forEach(L => L.intensity = 1.6); msg('🌙 <b>¡Se ha hecho de noche!</b> ¡Vienen los monstruos! Toca la pantalla con la espada o pulsa ⚔️.', 3500); talk('¡Se ha hecho de noche! ¡Vienen los monstruos! ¡Defiende tu isla!'); } }
+    if (G.phase === 'night') { G.night = el; setSky(SKY.night, SKY.night, 0);
+      if (el >= G.nextWave) { const n = Math.min(7, 3 + Math.floor(el / 60)); const room = Math.max(0, 12 - Z.length); for (let i = 0; i < Math.min(n, room); i++) spawnZ(); G.wave++; G.nextWave = el + (durMin <= 1 ? 25 : durMin <= 2 ? 30 : 35); if (G.wave > 1) msg('🧟 ¡Llegan más monstruos! (oleada ' + G.wave + ')', 1600); }
+      if (NG_NIGHT - el < 20) { const k = 1 - (NG_NIGHT - el) / 20; setSky(SKY.night, SKY.dawn, k * .6); starsG.material.opacity = 1 - k; }
       if (el >= NG_NIGHT) return endGame(true); }
     // jugador
     let mx = stick[0], mz = stick[1];
     if (keys.KeyW || keys.ArrowUp) mz = -1; if (keys.KeyS || keys.ArrowDown) mz = 1; if (keys.KeyA || keys.ArrowLeft) mx = -1; if (keys.KeyD || keys.ArrowRight) mx = 1;
-    const sp = 4.3, fwd = [-Math.sin(P.yaw), -Math.cos(P.yaw)], right = [Math.cos(P.yaw), -Math.sin(P.yaw)];
-    P.v.x = (fwd[0] * -mz + right[0] * mx) * sp; P.v.z = (fwd[1] * -mz + right[1] * mx) * sp;
-    P.blocked = false; if (jumpQ && P.ground) { P.v.y = 7.4; } jumpQ = false; physics(P, dt);
-    if (P.blocked && P.ground && (Math.abs(mx) + Math.abs(mz)) > .3) P.v.y = 7.4; // sube un escalón solo
-    if (P.p.y < -8) { P.hp = Math.max(0, P.hp - 3); P.p.set(OB[0] + .5, OB[2] + 1.05, OB[1] + .5); P.v.set(0, 0, 0); msg('¡Te has caído de la isla! −3 ❤️', 1800); if (P.hp <= 0) return endGame(false); }
-    cam.position.set(P.p.x, P.p.y + 1.55, P.p.z); cam.rotation.order = 'YXZ'; cam.rotation.y = P.yaw; cam.rotation.x = P.pitch;
-    // espada
-    const sw = Math.max(0, 1 - (now - swingT) / 260); hand.rotation.x = -Math.sin(sw * Math.PI) * 1.1; hand.position.y = -.34 + Math.sin(now / 300) * .008 * (Math.abs(mx) + Math.abs(mz) > .1 ? 3 : 1);
+    const ml = Math.hypot(mx, mz); if (ml > 1) { mx /= ml; mz /= ml; }
+    const sp = 4.4, fwd = [-Math.sin(P.yaw), -Math.cos(P.yaw)], right = [Math.cos(P.yaw), -Math.sin(P.yaw)];
+    const tvx = (fwd[0] * -mz + right[0] * mx) * sp, tvz = (fwd[1] * -mz + right[1] * mx) * sp; const acc = P.ground ? 14 : 5;
+    P.v.x += (tvx - P.v.x) * Math.min(1, acc * dt); P.v.z += (tvz - P.v.z) * Math.min(1, acc * dt);
+    if (jumpQ && P.ground) P.v.y = 7.6; jumpQ = false; physics(P, dt);
+    if (P.blocked && P.ground && ml > .3) { const fx = P.p.x + Math.sign(tvx) * .45, fz = P.p.z + Math.sign(tvz) * .45; if (!solid(fx, P.p.y + 1.2, fz) && !solid(P.p.x, P.p.y + 2.1, P.p.z)) P.v.y = 7.6; }
+    if (P.p.y < -10) { P.hp -= 3; P.p.set(OB[0] + .5, OB[2] + 1, OB[1] + .5); P.v.set(0, 0, 0); msg('¡Te has caído de la isla! −3 ❤️', 1800); if (P.hp <= 0) return endGame(false); }
+    P.walk += Math.hypot(P.v.x, P.v.z) * dt * (P.ground ? 1 : 0);
+    shake = Math.max(0, shake - dt); const sh = shake > 0 ? (Math.random() - .5) * shake * .5 : 0;
+    cam.position.set(P.p.x + sh, P.p.y + 1.58 + Math.abs(Math.sin(P.walk * 2.2)) * .05, P.p.z + sh); cam.rotation.order = 'YXZ'; cam.rotation.y = P.yaw; cam.rotation.x = P.pitch;
+    // animación de la mano
+    const a = Math.min(1, (now - animT) / (animK === 'put' ? 160 : 300)); const s1 = a < 1 ? Math.sin(a * Math.PI) : 0;
+    const bobX = Math.sin(P.walk * 2.2) * .025, bobY = Math.abs(Math.cos(P.walk * 2.2)) * .02;
+    if (animK === 'swing') { hand.rotation.set(-s1 * 1.25, s1 * .35, s1 * .45); hand.position.set(.42 + bobX - s1 * .18, -.38 + bobY + s1 * .05, -.62 - s1 * .12); }
+    else { hand.rotation.set(-s1 * .4, 0, 0); hand.position.set(.42 + bobX, -.38 + bobY, -.62 - s1 * .2); }
     if (P.hurt > 0) P.hurt -= dt;
-    // zombis
-    Z.slice().forEach(z0 => { const dx = P.p.x - z0.p.x, dz = P.p.z - z0.p.z, d = Math.hypot(dx, dz);
-      if (z0.flash > 0) { z0.flash -= dt; } else { const spd = 1.7; if (z0.ground) { z0.v.x = dx / (d || 1) * spd; z0.v.z = dz / (d || 1) * spd; } }
-      z0.blocked = false;
-      if (z0.fly && z0.flash <= 0) { const dy = P.p.y - z0.p.y; z0.p.x += dx / (d || 1) * 1.6 * dt; z0.p.z += dz / (d || 1) * 1.6 * dt; z0.p.y += Math.max(-1, Math.min(1, dy)) * dt; if (hits(z0, z0.p.x, z0.p.y - .05, z0.p.z) || d < 1.2) z0.fly = false; }
-      else { physics(z0, dt); if (z0.blocked && z0.ground && z0.flash <= 0) z0.v.y = 6.6; }
-      z0.g.position.copy(z0.p); z0.g.rotation.y = Math.atan2(dx, dz); z0.phase += dt * 6; z0.l1.rotation.x = Math.sin(z0.phase) * .5; z0.l2.rotation.x = -Math.sin(z0.phase) * .5;
-      z0.g.children.forEach(m => { if (m.material && m.material.emissive) m.material.emissive.setHex(z0.flash > 0 ? 0x660000 : 0); });
-      if (z0.p.y < -6) { killZ(z0, 'fall'); G.kills++; return; }
-      z0.cd -= dt; if (d < 1.05 && Math.abs(P.p.y - z0.p.y) < 1.4 && z0.cd <= 0) { z0.cd = 1.1; P.hp--; P.hurt = .3; P.v.x += dx / (d || 1) * 5; P.v.z += dz / (d || 1) * 5; P.v.y = 4; if (P.hp <= 0) return endGame(false); } });
+    // monstruos
+    Z.slice().forEach(z0 => { if (G.over) return; const dx = P.p.x - z0.p.x, dz = P.p.z - z0.p.z, d = Math.hypot(dx, dz);
+      if (z0.flash > 0) z0.flash -= dt; else if (z0.ground) { z0.v.x = dx / (d || 1) * z0.spd; z0.v.z = dz / (d || 1) * z0.spd; }
+      if (z0.fly && z0.flash <= 0) { const dy = P.p.y - z0.p.y; z0.p.x += dx / (d || 1) * 1.7 * dt; z0.p.z += dz / (d || 1) * 1.7 * dt; z0.p.y += Math.max(-1, Math.min(1, dy)) * dt; if (hits(z0, z0.p.x, z0.p.y - .06, z0.p.z) || d < 1.2) z0.fly = false; }
+      else { physics(z0, dt); if (z0.blocked && z0.ground && z0.flash <= 0) z0.v.y = 7; }
+      z0.g.position.copy(z0.p); z0.g.rotation.y = Math.atan2(dx, dz); z0.phase += dt * 7; z0.l1.rotation.x = Math.sin(z0.phase) * .55; z0.l2.rotation.x = -Math.sin(z0.phase) * .55; z0.a1.rotation.x = Math.sin(z0.phase * .5) * .12; z0.a2.rotation.x = -Math.sin(z0.phase * .5) * .12;
+      z0.mats.forEach(m => m.emissive.setHex(z0.flash > 0 ? 0x880000 : 0));
+      if (z0.p.y < -8) { killZ(z0, 'fall'); G.kills++; return; }
+      z0.cd -= dt; if (d < 1.05 && Math.abs(P.p.y - z0.p.y) < 1.4 && z0.cd <= 0) { z0.cd = 1.1; P.hp--; P.hurt = .35; shake = .25; P.v.x += dx / (d || 1) * 5; P.v.z += dz / (d || 1) * 5; P.v.y = 4.5; if (P.hp <= 0) endGame(false); } });
+    if (G.over) return;
     ov.classList.toggle('nghurt', P.hurt > 0);
-    // partículas
-    for (let i = parts.length - 1; i >= 0; i--) { const m = parts[i]; m.userData.v.y -= 12 * dt; m.position.addScaledVector(m.userData.v, dt); m.userData.l -= dt; if (m.userData.l <= 0) { scene.remove(m); parts.splice(i, 1); } }
-    // bloque al que miras
-    const h = ray(); if (h) { sel.visible = true; sel.position.set(h.x + .5, h.y + .5, h.z + .5); } else sel.visible = false;
+    for (let i = parts.length - 1; i >= 0; i--) { const m = parts[i]; m.userData.l -= dt; if (m.userData.pop) { m.material.opacity = Math.max(0, m.userData.l * 1.4); m.scale.setScalar(1 + (.25 - m.userData.l) * .6); } else { m.userData.v.y -= 14 * dt; m.position.addScaledVector(m.userData.v, dt); m.rotation.x += dt * 5; } if (m.userData.l <= 0) { scene.remove(m); parts.splice(i, 1); } }
+    const h = ray(); if (h) { selM.visible = true; selM.position.set(h.x + .5, h.y + .5, h.z + .5); } else selM.visible = false;
     if (now - hudT > 200) { hudT = now; hud(now); }
     R.render(scene, cam);
   };
   setTimeout(() => { const f = $('ngFade'); if (f) { f.classList.add('out'); setTimeout(() => f.remove(), 900); } }, 1300);
   raf = requestAnimationFrame(loop);
-  function saveBack() { W.w = (() => { let s2 = ''; for (let i = 0; i < V.length; i++) s2 += String.fromCharCode(48 + V[i]); return s2; })(); W.inv = inv; save(); if (isl.mode === 'one') { IW3 = iDec(W.w); isl.dirty = true; } else IW3 = null; }
+  function saveBack() { let s2 = ''; for (let i = 0; i < V.length; i++) s2 += String.fromCharCode(48 + V[i]); W.w = s2; W.inv = inv; save(); if (isl.mode === 'one') { IW3 = iDec(W.w); isl.dirty = true; } else IW3 = null; }
   function endGame(won) {
     if (G.done) return; G.done = true; G.over = true; saveBack();
-    if (won) { Z.slice().forEach(z0 => killZ(z0)); scene.background = new T.Color(0xFFD9A0); scene.fog.color = new T.Color(0xFFD9A0); hemi.intensity = 1; starsG.visible = false; }
+    if (won) { Z.slice().forEach(z0 => killZ(z0)); setSky(SKY.dawn, SKY.dawn, 0); starsG.material.opacity = 0; moonS.visible = false; sunS.visible = true; sunS.position.set(-60, 20, -30); sunL.color.set(0xFFE0B0); sunL.intensity = 1; hemi.intensity = .9; }
     const gotPrize = won && prize; if (gotPrize) { W.nightWon = day(); save(); }
     const box2 = document.createElement('div'); box2.className = 'ngend';
-    box2.innerHTML = won ? '<div style="font-size:64px">🌅🏰</div><h2>¡Has sobrevivido a la noche!</h2><p>Has derrotado a ' + G.kills + ' monstruos y tu fortaleza ha aguantado.</p><p class="ngprize">' + (gotPrize ? '+10 ★ ¡Bien hecho, ' + esc(who()) + '!' : (practice ? 'Era una partida de práctica (sin premio).' : 'Hoy ya ganaste tus 10 ★. ¡Vuelve mañana!')) + '</p><button type="button" class="btn-ok" id="ngBack">Volver a mi isla</button>'
+    box2.innerHTML = won ? '<div style="font-size:64px">🌅🏰</div><h2>¡Has sobrevivido a la noche!</h2><p>Has aguantado ' + durMin + ' minuto' + (durMin > 1 ? 's' : '') + ' y has derrotado a ' + G.kills + ' monstruos.</p><p class="ngprize">' + (gotPrize ? '+' + reward + ' ★ ¡Bien hecho, ' + esc(who()) + '!' : (practice ? 'Era una partida de práctica (sin premio).' : 'Hoy ya ganaste tu premio. ¡Vuelve mañana!')) + '</p><button type="button" class="btn-ok" id="ngBack">Volver a mi isla</button>'
       : '<div style="font-size:64px">😵🧟</div><h2>Los monstruos han ganado esta noche</h2><p>Has derrotado a ' + G.kills + ' monstruos. Necesitas más bloques para una fortaleza más fuerte: <b>¡estudia para conseguir más golpes de pico y vuelve a intentarlo!</b></p><button type="button" class="btn-ok" id="ngBack">Volver</button>';
-    ov.appendChild(box2); talk(won ? '¡Has sobrevivido a la noche! ' + (gotPrize ? 'Ganas diez estrellas.' : '') : 'Los monstruos han ganado esta noche. ¡Estudia para conseguir más bloques y vuelve a intentarlo!');
+    ov.appendChild(box2); talk(won ? '¡Has sobrevivido a la noche! ' + (gotPrize ? 'Ganas ' + reward + ' estrellas.' : '') : 'Los monstruos han ganado esta noche. ¡Estudia para conseguir más bloques y vuelve a intentarlo!');
     $('ngBack').onclick = () => { cancelAnimationFrame(raf); window.removeEventListener('keydown', kd); window.removeEventListener('keyup', ku); window.removeEventListener('resize', resize); R.dispose(); ov.remove(); document.body.classList.remove('ngon');
-      if (gotPrize) setTimeout(() => addStars(10, 'games'), 300); logDo('x'); if (!$('v-isla').hidden) paintIsla(); if (onClose) onClose(); };
+      if (gotPrize) setTimeout(() => addStars(reward, 'games'), 300); logDo('x'); if (!$('v-isla').hidden) paintIsla(); if (onClose) onClose(); };
   }
   $('ngExit').onclick = () => { if (G.over) return; if ($('ngExit').dataset.sure) { endGame(false); } else { $('ngExit').dataset.sure = 1; $('ngExit').textContent = '¿Seguro? Toca otra vez'; setTimeout(() => { const b = $('ngExit'); if (b) { b.dataset.sure = ''; b.textContent = '✕ Salir'; } }, 2500); } };
-  window.__ng = {G, P, Z, inv, put, dig, attack, spawnZ, ray, V};
+  window.__ng = {G, P, Z, inv, put, dig, attack, spawnZ, ray, V, setSel: i => { selI = i; paintBar(); }};
 }
 
 /* =================================================================
@@ -5803,7 +5902,7 @@ ENTER.papa = () => {
     studyHTML() + '<div class="card"><div class="eyebrow">Noche de monstruos</div><p class="muted" style="margin:6px 0">Cuando ' + esc(who()) + ' termina su hora de estudio, se hace de noche en su OneBlock: 2 minutos para construir una fortaleza y 90 segundos aguantando monstruos. Si gana, +10 ★ (una vez al día).</p><button type="button" class="ghost small" id="papaNight"' + (S.sky && S.sky.w ? '' : ' disabled') + '>Probarla yo (sin premio)</button>' + (S.sky && S.sky.w ? '' : ' <span class="muted">Primero tiene que empezar su OneBlock.</span>') + '</div>' + famAdminHTML() + refuerzoHTML() + parentHTML() + resetHTML() +
     '<div class="card"><div class="eyebrow">Código de papá</div><div class="row" style="margin-top:8px"><input id="papaNew" class="prompt" type="password" inputmode="numeric" maxlength="8" placeholder="nuevo código" style="width:180px"><button type="button" class="ghost small" id="papaChg">Cambiar código</button><span id="papaChgMsg" class="muted"></span></div></div>';
   A.querySelectorAll('details').forEach(d => d.open = true);
-  if ($('papaNight')) $('papaNight').onclick = () => nightStart(true, () => ENTER.papa());
+  if ($('papaNight')) $('papaNight').onclick = () => nightPrompt(false, () => ENTER.papa(), true);
   $('papaChg').onclick = () => { const v = $('papaNew').value.trim(); if (!/^\d{4,8}$/.test(v)) { $('papaChgMsg').textContent = 'Usa entre 4 y 8 números.'; return; } try { localStorage.setItem('turpialPapa', phash(v)); } catch (e) {} $('papaChgMsg').textContent = '¡Código cambiado!'; $('papaNew').value = ''; };
 };
 document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b && b.dataset.go !== 'papa') { document.body.classList.remove('papamode'); papaOk = 0; } }, true);
@@ -5918,7 +6017,7 @@ function splash() {
 /* =================================================================
    ACTUALIZAR LA APP (el progreso se queda: solo se borra la copia de la app)
    ================================================================= */
-const APP_VERSION = '23';
+const APP_VERSION = '24';
 async function updateApp() {
   $('updBtn').classList.add('spin'); hush();
   try {

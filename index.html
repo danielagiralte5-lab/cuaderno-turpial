@@ -502,6 +502,36 @@ body.papamode .top::after{content:'MODO PAPÁ';font-family:var(--f-display);font
 .homeav{width:84px;height:84px;image-rendering:pixelated}
 @media (max-width:600px){.avrow{grid-template-columns:1fr}.hello{grid-template-columns:auto 1fr}.homeavbox{grid-column:1/-1}}
 .modebtn{background:var(--orange);animation:hop .6s ease 3}
+/* noche de monstruos */
+body.ngon{overflow:hidden}
+.ngov{position:fixed;inset:0;z-index:400;background:#000;touch-action:none;user-select:none;-webkit-user-select:none}
+#ngCv{position:absolute;inset:0;display:block}
+.ngfade{position:absolute;inset:0;background:#000;color:#fff;display:grid;place-items:center;text-align:center;font-family:var(--f-display);font-size:28px;z-index:5;transition:opacity .8s;padding:20px}
+.ngfade.out{opacity:0}
+.nghud{position:absolute;top:calc(10px + env(safe-area-inset-top,0px));left:12px;right:110px;display:grid;gap:4px;color:#fff;font-family:var(--f-display);font-weight:800;text-shadow:0 2px 3px rgba(0,0,0,.6);pointer-events:none}
+#ngHearts{font-size:18px;letter-spacing:1px}
+#ngPhase{font-size:20px}
+.ngskip{pointer-events:auto;font-size:14px;padding:4px 10px;margin-left:6px;background:var(--ok)}
+.ngcross{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#fff;font-size:30px;text-shadow:0 0 3px #000;pointer-events:none}
+.ngbar{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:4px;background:rgba(0,0,0,.45);padding:5px;border-radius:10px;max-width:calc(100vw - 340px)}
+.ngslot{width:54px;height:54px;padding:2px;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.35);box-shadow:none;border-radius:8px;position:relative;display:grid;place-items:center}
+.ngslot img{width:40px;height:40px;image-rendering:pixelated}
+.ngslot b{position:absolute;right:3px;bottom:1px;font-size:14px;color:#fff;text-shadow:0 1px 2px #000}
+.ngslot.on{border-color:#FFD84D;background:rgba(255,216,77,.25)}
+.ngempty{color:#fff;padding:12px;font-size:15px}
+.ngstick{position:absolute;left:calc(24px + env(safe-area-inset-left,0px));bottom:calc(28px + env(safe-area-inset-bottom,0px));width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.15);border:3px solid rgba(255,255,255,.4);display:grid;place-items:center;touch-action:none}
+.ngstick i{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.55);display:block;pointer-events:none}
+.ngbtns{position:absolute;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(24px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(2,70px);gap:10px}
+.ngbtns button{width:70px;height:70px;padding:0;font-size:30px;border-radius:50%;background:rgba(255,255,255,.2);border:3px solid rgba(255,255,255,.5);box-shadow:none}
+.ngbtns .ngatk{background:rgba(214,69,69,.6);grid-column:1/-1;width:150px;border-radius:40px;font-size:36px}
+.ngexit{position:absolute;top:calc(10px + env(safe-area-inset-top,0px));right:12px;font-size:15px;padding:8px 12px;background:rgba(0,0,0,.5);box-shadow:none}
+.ngmsg{position:absolute;left:50%;top:22%;transform:translateX(-50%);max-width:min(560px,90vw);background:rgba(0,0,0,.6);color:#fff;border-radius:14px;padding:12px 16px;text-align:center;font-size:18px;transition:opacity .5s;pointer-events:none}
+.nghurt::after{content:'';position:absolute;inset:0;background:rgba(214,0,0,.28);pointer-events:none}
+.ngend{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#14204A;color:#fff;border:4px solid #FFD84D;border-radius:24px;padding:24px 30px;text-align:center;max-width:min(520px,90vw);z-index:6}
+.ngend h2{color:#FFD84D;font-size:30px;margin:6px 0}
+.ngprize{font-family:var(--f-display);font-weight:800;font-size:24px;color:#FFD84D}
+.ngbtn{background:#14204A;color:#FFD84D;border:2px solid #FFD84D}
+@media (max-width:700px){.ngbar{max-width:calc(100vw - 20px);bottom:170px}.ngslot{width:44px;height:44px}.ngslot img{width:32px;height:32px}}
 /* gustos, estudio, nuevas secciones */
 .islabox{position:relative;border:2px solid var(--ink);border-radius:18px;overflow:hidden;background:#BFE6FA}
 #islaCv{display:block;width:100%;aspect-ratio:4/3;max-height:72vh;touch-action:none;cursor:crosshair}
@@ -4701,7 +4731,7 @@ function iSetup() {
   cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
   cv.addEventListener('wheel', e => { e.preventDefault(); const p = rel(e); iZoom(e.deltaY < 0 ? 1.1 : .9, p[0], p[1]); }, {passive: false});
   cancelAnimationFrame(isl.raf); let lastT = 0;
-  const loop = t => { if (!$('islaCv') || $('v-isla').hidden) { isl.raf = 0; return; } isl.raf = requestAnimationFrame(loop); if (t - lastT < 33) return; lastT = t; iDraw(t); };
+  const loop = t => { if (!$('islaCv') || $('v-isla').hidden) { isl.raf = 0; return; } isl.raf = requestAnimationFrame(loop); if (t - lastT < 33 || document.body.classList.contains('ngon')) return; lastT = t; iDraw(t); };
   isl.raf = requestAnimationFrame(loop);
 }
 const inPoly = (p, poly) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const a = poly[i], b = poly[j]; if ((a[1] > p[1]) !== (b[1] > p[1]) && p[0] < (b[0] - a[0]) * (p[1] - a[1]) / (b[1] - a[1]) + a[0]) c = !c; } return c; };
@@ -4880,8 +4910,9 @@ function obDrawFx(g, t) {
 function paintObBar() {
   const el = $('obBar'); if (!el) return; const W = S.sky, k = obPhase(W.ob.n), P = OBPH[k], N = OBPH[k + 1];
   const pct = N ? Math.round((W.ob.n - P.at) / (N.at - P.at) * 100) : 100;
-  el.innerHTML = '<div class="row" style="gap:14px;align-items:center"><button type="button" class="obmine" id="obMine"' + (W.picks > 0 ? '' : ' disabled') + '>⛏️ ¡Picar!<small>' + W.picks + ' golpes</small></button><div style="flex:1;min-width:200px"><div class="eyebrow">Fase ' + (k + 1) + ' de ' + OBPH.length + ': ' + P.e + ' ' + P.n + '</div><div class="progressline" style="margin:6px 0"><i style="width:' + pct + '%;background:var(--c-geo)"></i></div><small class="muted">' + (N ? 'Has picado ' + W.ob.n + ' veces. Faltan ' + (N.at - W.ob.n) + ' para la fase ' + N.e + ' ' + N.n + '.' : '¡Has llegado a la última fase! Sigue picando para conseguir oro y diamantes.') + ' Cada ★ que ganas estudiando = 2 golpes.</small></div></div>';
+  el.innerHTML = '<div class="row" style="gap:14px;align-items:center"><button type="button" class="obmine" id="obMine"' + (W.picks > 0 ? '' : ' disabled') + '>⛏️ ¡Picar!<small>' + W.picks + ' golpes</small></button><div style="flex:1;min-width:200px"><div class="eyebrow">Fase ' + (k + 1) + ' de ' + OBPH.length + ': ' + P.e + ' ' + P.n + '</div><div class="progressline" style="margin:6px 0"><i style="width:' + pct + '%;background:var(--c-geo)"></i></div><small class="muted">' + (N ? 'Has picado ' + W.ob.n + ' veces. Faltan ' + (N.at - W.ob.n) + ' para la fase ' + N.e + ' ' + N.n + '.' : '¡Has llegado a la última fase! Sigue picando para conseguir oro y diamantes.') + ' Cada ★ que ganas estudiando = 2 golpes.</small></div><div class="stack" style="gap:4px;justify-items:center"><button type="button" class="ngbtn" id="obNight">🌙 Noche de monstruos</button><small class="muted">' + (nightState().won ? 'Hoy ya ganaste tus 10 ★' : nightState().tried ? 'Hoy ya lo intentaste (ahora sin premio)' : nightState().done ? '¡Disponible! Gana 10 ★' : 'Se abre al terminar tu hora de estudio') + '</small></div></div>';
   $('obMine').onclick = obMine;
+  $('obNight').onclick = () => { const ns = nightState(); if (!ns.done) { const left = (S.study.goal || 60) - studyMin(); islaMsg('🌙 La noche de monstruos llega cuando terminas tu hora de estudio de hoy. Te faltan <b>' + left + ' minutos</b>. ¡Sigue estudiando y consigue bloques para tu fortaleza!'); return; } if (ns.won || ns.tried) nightStart(true); else nightPrompt(false); };
 }
 function paintPalOne(el) {
   const W = S.sky, inv = W.inv;
@@ -4905,6 +4936,213 @@ function islaChoose() {
     '<button type="button" class="card qcard modecard" data-mode="one"><div style="font-size:56px">🟫</div><b>OneBlock</b><p class="muted">Empiezas con <b>un solo bloque</b> flotando en el cielo. Cada vez que estudias ganas golpes de pico. Al picarlo te da materiales y sale otro bloque. ¡Construye tu imperio desde cero!</p></button>' +
     '<button type="button" class="card qcard modecard" data-mode="classic"><div style="font-size:56px">🏝️</div><b>Isla clásica' + (S.isla && S.isla.v === 2 && S.isla.w ? ' (la que ya tienes)' : '') + '</b><p class="muted">Empiezas con una isla en el mar. Los bloques normales son gratis y con tus estrellas compras construcciones, vecinos y animales.</p></button></div>';
   $('islaArea').querySelectorAll('[data-mode]').forEach(b => b.onclick = () => { isl.mode = b.dataset.mode; S.islaMode = isl.mode; save(); IW3 = null; isl.tool = isl.mode === 'one' ? 'pick' : 'block'; paintIsla(); });
+}
+
+/* =================================================================
+   NOCHE DE MONSTRUOS · primera persona sobre tu OneBlock
+   ================================================================= */
+const NG_BUILD = 120, NG_NIGHT = 90;
+let NG = null;
+function loadThree() {
+  if (window.THREE) return Promise.resolve();
+  const tryLoad = src => new Promise((ok, bad) => { const s = document.createElement('script'); s.src = src; s.onload = () => window.THREE ? ok() : bad(); s.onerror = bad; document.head.appendChild(s); });
+  return tryLoad('three.min.js').catch(() => tryLoad('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'));
+}
+const nightState = () => ({done: !!((S.study || {}).done || {})[day()], won: !!(S.sky && S.sky.nightWon === day()), tried: !!(S.sky && S.sky.nightTry === day())});
+function nightPrompt(fromStudy, onClose) {
+  if (!S.sky || !S.sky.w) { if (onClose) onClose(); return; }
+  let ov = $('ngAsk'); if (!ov) { document.body.insertAdjacentHTML('beforeend', '<div id="ngAsk" class="lockov"></div>'); ov = $('ngAsk'); }
+  ov.hidden = false;
+  ov.innerHTML = '<div class="card lockbox" style="background:#14204A;color:#fff;border-color:#FFD84D"><div style="font-size:60px">🌙🧟</div><h2 style="color:#FFD84D">' + (fromStudy ? '¡Se acabó el estudio de hoy!' : 'Noche de monstruos') + '</h2><p>Esta noche vienen los monstruos a tu OneBlock. Tienes <b>2 minutos</b> para construir una fortaleza con los bloques que has ganado estudiando, y luego… ¡a aguantar hasta el amanecer con tu espada!</p><p style="color:#FFD84D">Si sobrevives: <b>+10 ★</b> (una vez al día)</p><div class="actions"><button type="button" class="btn-ok" id="ngGo">⚔️ ¡Defender mi isla!</button><button type="button" class="ghost" id="ngNo">Ahora no</button></div></div>';
+  $('ngNo').onclick = () => { ov.hidden = true; if (onClose) onClose(); };
+  $('ngGo').onclick = () => { ov.hidden = true; nightStart(false, onClose); };
+}
+async function nightStart(practice, onClose) {
+  hush(); stopGames && stopGames();
+  document.body.insertAdjacentHTML('beforeend', '<div id="ngOv" class="ngov"><div class="ngfade" id="ngFade"><div>Se está haciendo de noche…</div></div></div>');
+  const ov = $('ngOv'); document.body.classList.add('ngon');
+  try { await loadThree(); } catch (e) { $('ngFade').innerHTML = '<div>Para la noche de monstruos hace falta internet la primera vez.<br><br><button type="button" id="ngX0">Volver</button></div>'; $('ngX0').onclick = () => { ov.remove(); document.body.classList.remove('ngon'); if (onClose) onClose(); }; return; }
+  const T = window.THREE;
+  const W = S.sky; const prize = !practice && W.nightWon !== day() && W.nightTry !== day();
+  if (prize) { W.nightTry = day(); save(); }
+  /* ---- mundo de vóxeles (copia de tu OneBlock) ---- */
+  const V = iDec(W.w); const inv = Object.assign({}, W.inv);
+  const vget = (x, y, z) => (x < 0 || y < 0 || z < 0 || x >= IN || z >= IN || y >= IZ) ? 0 : V[x + z * IN + y * IN * IN]; // y = altura
+  const vset = (x, y, z, t) => { if (x >= 0 && y >= 0 && z >= 0 && x < IN && z < IN && y < IZ) V[x + z * IN + y * IN * IN] = t; };
+  const solid = (x, y, z) => { const t = vget(x, y, z); return t && t !== 10; };
+  const isOBc = (x, y, z) => x === OB[0] && z === OB[1] && y === OB[2];
+  /* ---- escena ---- */
+  ov.insertAdjacentHTML('beforeend', '<canvas id="ngCv"></canvas><div class="nghud"><div id="ngHearts"></div><div id="ngPhase"></div><div id="ngZ"></div></div><div class="ngcross">+</div><div class="ngbar" id="ngBar"></div>' +
+    '<div class="ngstick" id="ngStick"><i id="ngKnob"></i></div><div class="ngbtns"><button type="button" id="ngAtk" class="ngatk">⚔️</button><button type="button" id="ngPut">🧱</button><button type="button" id="ngDig">⛏️</button><button type="button" id="ngJump">⤒</button></div>' +
+    '<button type="button" class="ngexit" id="ngExit">✕ Salir</button><div class="ngmsg" id="ngMsg"></div>');
+  const cv = $('ngCv');
+  const R = new T.WebGLRenderer({canvas: cv, antialias: false}); R.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  const scene = new T.Scene(); const cam = new T.PerspectiveCamera(72, 1, .05, 120);
+  const resize = () => { const w = innerWidth, h = innerHeight; R.setSize(w, h, false); cv.style.width = w + 'px'; cv.style.height = h + 'px'; cam.aspect = w / h; cam.updateProjectionMatrix(); };
+  resize(); window.addEventListener('resize', resize);
+  const hemi = new T.HemisphereLight(0xffe0b0, 0x404060, .9); scene.add(hemi);
+  const sun = new T.DirectionalLight(0xffc080, .8); sun.position.set(-20, 30, -10); scene.add(sun);
+  scene.fog = new T.Fog(0xF2A86B, 18, 60); scene.background = new T.Color(0xF2A86B);
+  // texturas a partir de los bloques de la isla
+  const texC = {}; const tex = (t, f) => { const k = t + f; if (texC[k]) return texC[k]; const tx = new T.CanvasTexture(iTex(t, f)); tx.magFilter = T.NearestFilter; tx.minFilter = T.NearestFilter; return texC[k] = tx; };
+  const matC = {}; const mats = t => { if (matC[t]) return matC[t];
+    const op = {transparent: t === 10 || t === 8, opacity: t === 10 ? .75 : 1, alphaTest: t === 7 ? .3 : 0, emissive: t === 15 ? new T.Color(0x886622) : new T.Color(0)};
+    const side = new T.MeshLambertMaterial(Object.assign({map: tex(t, 'side')}, op)), top = new T.MeshLambertMaterial(Object.assign({map: tex(t, 'top')}, op));
+    const bottom = (t === 1 || t === 17) ? new T.MeshLambertMaterial({map: tex(2, 'top')}) : top;
+    return matC[t] = [side, side, top, bottom, side, side]; };
+  const box = new T.BoxGeometry(1, 1, 1); let worldG = null; const tmp = new T.Object3D();
+  function buildWorld() {
+    if (worldG) { scene.remove(worldG); worldG.children.forEach(m => m.dispose && m.dispose()); }
+    worldG = new T.Group(); const by = {};
+    for (let y = 0; y < IZ; y++) for (let z = 0; z < IN; z++) for (let x = 0; x < IN; x++) { const t = vget(x, y, z); if (!t) continue;
+      const hid = [[1, 0, 0], [-1, 0, 0], [0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1]].every(([a, b, c]) => { const n = vget(x + a, y + b, z + c); return n && n !== 10 && n !== 8 && n !== 7; });
+      if (hid) continue; (by[t] = by[t] || []).push([x, y, z]); }
+    Object.keys(by).forEach(t => { const L = by[t]; const m = new T.InstancedMesh(box, mats(+t), L.length); L.forEach((p, i) => { tmp.position.set(p[0] + .5, p[1] + .5, p[2] + .5); tmp.updateMatrix(); m.setMatrixAt(i, tmp.matrix); }); worldG.add(m); });
+    scene.add(worldG);
+  }
+  buildWorld();
+  // estrellas y luna
+  const starsG = new T.Group(); { const g2 = new T.BufferGeometry(), pts = []; for (let i = 0; i < 400; i++) { const a = Math.random() * 6.28, b = Math.random() * 1.3 + .1, r0 = 90; pts.push(Math.cos(a) * Math.cos(b) * r0 + 10, Math.sin(b) * r0, Math.sin(a) * Math.cos(b) * r0 + 10); } g2.setAttribute('position', new T.Float32BufferAttribute(pts, 3)); starsG.add(new T.Points(g2, new T.PointsMaterial({color: 0xffffff, size: .6, fog: false}))); const moon = new T.Mesh(new T.BoxGeometry(6, 6, 1), new T.MeshBasicMaterial({color: 0xF4F1D0, fog: false})); moon.position.set(40, 45, -30); moon.lookAt(10, 5, 10); starsG.add(moon); starsG.visible = false; scene.add(starsG); }
+  // espada y mano (con los colores de tu avatar)
+  const A = avData(); const hand = new T.Group();
+  const bx = (w, h, d, col, x, y, z, em) => { const m = new T.Mesh(new T.BoxGeometry(w, h, d), new T.MeshLambertMaterial({color: col, emissive: em || 0x000000})); m.position.set(x, y, z); return m; };
+  hand.add(bx(.12, .12, .34, A.shirt, 0, -.02, .12)); hand.add(bx(.1, .1, .1, A.skin, 0, 0, -.08));
+  const sword = new T.Group(); sword.add(bx(.04, .18, .04, 0x7A5530, 0, 0, 0)); sword.add(bx(.2, .04, .05, 0xF2C230, 0, .1, 0)); sword.add(bx(.06, .62, .03, 0xBFE8FF, 0, .43, 0, 0x224455)); sword.position.set(0, .02, -.1); sword.rotation.x = -.5; hand.add(sword);
+  hand.position.set(.36, -.34, -.62); hand.scale.setScalar(.62); cam.add(hand); scene.add(cam);
+  const moonL = new T.DirectionalLight(0x9DB4FF, 0); moonL.position.set(30, 40, -20); scene.add(moonL);
+  // marca del bloque que miras
+  const sel = new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(1.01, 1.01, 1.01)), new T.LineBasicMaterial({color: 0x000000})); sel.visible = false; scene.add(sel);
+  /* ---- jugador ---- */
+  const P = {p: new T.Vector3(OB[0] + .5, OB[2] + 1.01, OB[1] + .5), v: new T.Vector3(), w: .6, h: 1.75, ground: false, yaw: Math.PI * .75, pitch: -.25, hp: 10, hurt: 0};
+  const ents = [P];
+  function hits(e, px, py, pz) { const hw = e.w / 2; for (let x = Math.floor(px - hw); x <= Math.floor(px + hw - 1e-4); x++) for (let y = Math.floor(py); y <= Math.floor(py + e.h - 1e-4); y++) for (let z = Math.floor(pz - hw); z <= Math.floor(pz + hw - 1e-4); z++) if (solid(x, y, z)) return true; return false; }
+  function physics(e, dt) {
+    e.v.y -= 22 * dt; if (e.v.y < -30) e.v.y = -30;
+    const nx = e.p.x + e.v.x * dt; if (!hits(e, nx, e.p.y, e.p.z)) e.p.x = nx; else { e.blocked = true; e.v.x = 0; }
+    const nz = e.p.z + e.v.z * dt; if (!hits(e, e.p.x, e.p.y, nz)) e.p.z = nz; else { e.blocked = true; e.v.z = 0; }
+    const ny = e.p.y + e.v.y * dt; e.ground = false; if (!hits(e, e.p.x, ny, e.p.z)) e.p.y = ny; else { if (e.v.y < 0) { e.ground = true; e.p.y = Math.floor(ny) + 1; if (hits(e, e.p.x, e.p.y, e.p.z)) e.p.y = Math.ceil(e.p.y); } e.v.y = 0; }
+  }
+  /* ---- zombis (diseño propio) ---- */
+  const Z = [];
+  const zMat = {skin: new T.MeshLambertMaterial({color: 0x6E8B5A}), shirt: new T.MeshLambertMaterial({color: 0x5B3E8A}), pants: new T.MeshLambertMaterial({color: 0x2A2A3A}), eye: new T.MeshBasicMaterial({color: 0xFFE23D})};
+  function spawnZ() {
+    const cand = []; for (let z = 0; z < IN; z++) for (let x = 0; x < IN; x++) { let top = -1; for (let y = IZ - 1; y >= 0; y--) if (solid(x, y, z)) { top = y; break; } if (top < 0 || solid(x, top + 1, z) || solid(x, top + 2, z)) continue; const d = Math.hypot(x + .5 - P.p.x, z + .5 - P.p.z); cand.push([d, x, top + 1, z]); }
+    let fly = false; const far = cand.filter(q => q[0] >= 3.5); let c;
+    if (far.length) { far.sort((a, b) => b[0] - a[0]); c = far[Math.floor(Math.random() * Math.min(far.length, Math.max(3, far.length / 3)))]; }
+    else { const a = Math.random() * 6.28; fly = true; c = [0, P.p.x + Math.cos(a) * 7 - .5, P.p.y + 1, P.p.z + Math.sin(a) * 7 - .5]; }
+    const g = new T.Group(); const part = (w, h, d, m, x, y, z) => { const o = new T.Mesh(new T.BoxGeometry(w, h, d), m); o.position.set(x, y, z); g.add(o); return o; };
+    const l1 = part(.25, .7, .25, zMat.pants, -.14, .35, 0), l2 = part(.25, .7, .25, zMat.pants, .14, .35, 0); part(.56, .7, .3, zMat.shirt, 0, 1.05, 0); const hd = part(.48, .48, .48, zMat.skin, 0, 1.64, 0);
+    part(.1, .07, .02, zMat.eye, -.11, 1.68, .25); part(.1, .07, .02, zMat.eye, .11, 1.68, .25);
+    const a1 = part(.2, .2, .62, zMat.skin, -.38, 1.25, .25), a2 = part(.2, .2, .62, zMat.skin, .38, 1.25, .25);
+    const z0 = {p: new T.Vector3(c[1] + .5, c[2] + .2, c[3] + .5), v: new T.Vector3(), w: .55, h: 1.8, hp: 3, g, l1, l2, cd: 0, flash: 0, phase: Math.random() * 6, fly};
+    g.position.copy(z0.p); scene.add(g); Z.push(z0);
+  }
+  function killZ(z0, why) { scene.remove(z0.g); Z.splice(Z.indexOf(z0), 1); poof(z0.p.clone().add(new T.Vector3(0, 1, 0)), 0x6E8B5A); if (why === 'fall') msg('¡Un monstruo se ha caído de tu isla! 🤣', 1500); }
+  const parts = []; function poof(at, col) { for (let i = 0; i < 14; i++) { const m = new T.Mesh(new T.BoxGeometry(.12, .12, .12), new T.MeshBasicMaterial({color: col})); m.position.copy(at); m.userData.v = new T.Vector3((Math.random() - .5) * 4, Math.random() * 4, (Math.random() - .5) * 4); m.userData.l = .8; scene.add(m); parts.push(m); } }
+  /* ---- controles ---- */
+  const keys = {}; let stick = [0, 0], jumpQ = false;
+  const kd = e => { keys[e.code] = true; if (e.code === 'Space') jumpQ = true; if (e.code === 'KeyF') attack(); if (e.code === 'KeyE') put(); if (e.code === 'KeyQ') dig(); const n = parseInt(e.key, 10); if (n >= 1 && n <= 9) { selI = n - 1; paintBar(); } if (['Space', 'ArrowUp', 'ArrowDown'].includes(e.code)) e.preventDefault(); };
+  const ku = e => { keys[e.code] = false; };
+  window.addEventListener('keydown', kd); window.addEventListener('keyup', ku);
+  const look = new Map();
+  cv.addEventListener('pointerdown', e => { e.preventDefault(); look.set(e.pointerId, [e.clientX, e.clientY, e.clientX, e.clientY, Date.now()]); try { cv.setPointerCapture(e.pointerId); } catch (x) {} });
+  cv.addEventListener('pointermove', e => { const l = look.get(e.pointerId); if (!l) return; const dx = e.clientX - l[0], dy = e.clientY - l[1]; l[0] = e.clientX; l[1] = e.clientY; P.yaw -= dx * .006; P.pitch = Math.max(-1.45, Math.min(1.45, P.pitch - dy * .006)); });
+  const lookUp = e => { const l = look.get(e.pointerId); look.delete(e.pointerId); if (l && Math.hypot(e.clientX - l[2], e.clientY - l[3]) < 10 && Date.now() - l[4] < 300) attack(); };
+  cv.addEventListener('pointerup', lookUp); cv.addEventListener('pointercancel', lookUp);
+  const st = $('ngStick'), kn = $('ngKnob'); let stId = null, stC = null;
+  st.addEventListener('pointerdown', e => { e.preventDefault(); stId = e.pointerId; const r0 = st.getBoundingClientRect(); stC = [r0.left + r0.width / 2, r0.top + r0.height / 2]; try { st.setPointerCapture(e.pointerId); } catch (x) {} stMove(e); });
+  const stMove = e => { if (e.pointerId !== stId) return; let dx = e.clientX - stC[0], dy = e.clientY - stC[1]; const L = Math.hypot(dx, dy), M = 50; if (L > M) { dx *= M / L; dy *= M / L; } stick = [dx / M, dy / M]; kn.style.transform = 'translate(' + dx + 'px,' + dy + 'px)'; };
+  st.addEventListener('pointermove', stMove);
+  const stEnd = e => { if (e.pointerId !== stId) return; stId = null; stick = [0, 0]; kn.style.transform = ''; };
+  st.addEventListener('pointerup', stEnd); st.addEventListener('pointercancel', stEnd);
+  const btn = (id, fn) => $(id).addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); fn(); });
+  btn('ngAtk', () => attack()); btn('ngPut', () => put()); btn('ngDig', () => dig()); btn('ngJump', () => { jumpQ = true; });
+  /* ---- inventario (barra de abajo) ---- */
+  let selI = 0; const barTypes = () => Object.keys(inv).map(Number).filter(t => inv[t] > 0 && t !== 10).slice(0, 9);
+  function paintBar() { const L = barTypes(); if (selI >= L.length) selI = Math.max(0, L.length - 1); $('ngBar').innerHTML = L.length ? L.map((t, i) => '<button type="button" class="ngslot' + (i === selI ? ' on' : '') + '" data-ns="' + i + '"><img src="' + cubeIcon(t) + '" alt=""><b>' + inv[t] + '</b></button>').join('') : '<span class="ngempty">Sin bloques: ¡estudia para conseguir más!</span>'; $('ngBar').querySelectorAll('[data-ns]').forEach(b => b.addEventListener('pointerdown', e => { e.preventDefault(); selI = +b.dataset.ns; paintBar(); })); }
+  paintBar();
+  /* ---- apuntar a bloques ---- */
+  function ray() { const o = cam.getWorldPosition(new T.Vector3()), d = cam.getWorldDirection(new T.Vector3()); let x = Math.floor(o.x), y = Math.floor(o.y), z = Math.floor(o.z); const sx = Math.sign(d.x), sy = Math.sign(d.y), sz = Math.sign(d.z);
+    const tdx = Math.abs(1 / d.x), tdy = Math.abs(1 / d.y), tdz = Math.abs(1 / d.z); let tx = (sx > 0 ? x + 1 - o.x : o.x - x) * tdx, ty = (sy > 0 ? y + 1 - o.y : o.y - y) * tdy, tz = (sz > 0 ? z + 1 - o.z : o.z - z) * tdz; let n = [0, 0, 0], t = 0;
+    while (t < 5) { if (tx < ty && tx < tz) { x += sx; t = tx; tx += tdx; n = [-sx, 0, 0]; } else if (ty < tz) { y += sy; t = ty; ty += tdy; n = [0, -sy, 0]; } else { z += sz; t = tz; tz += tdz; n = [0, 0, -sz]; } const b = vget(x, y, z); if (b && b !== 10) return {x, y, z, n, t, b}; } return null; }
+  function put() { const h = ray(); const L = barTypes(); if (!h || !L.length) { msg(L.length ? 'Apunta a un bloque para poner otro al lado.' : 'No te quedan bloques.', 1200); return; } const t = L[selI]; const x = h.x + h.n[0], y = h.y + h.n[1], z = h.z + h.n[2];
+    let c = [x, y, z];
+    const inside = (e, q) => q[0] + 1 > e.p.x - e.w / 2 && q[0] < e.p.x + e.w / 2 && q[2] + 1 > e.p.z - e.w / 2 && q[2] < e.p.z + e.w / 2 && q[1] + 1 > e.p.y && q[1] < e.p.y + e.h;
+    if (inside(P, c) && h.n[1] === 1) { const d = cam.getWorldDirection(new T.Vector3()); const ax = Math.abs(d.x) > Math.abs(d.z) ? [Math.sign(d.x), 0] : [0, Math.sign(d.z)]; c = [h.x + ax[0], h.y, h.z + ax[1]]; for (let k = 0; k < 4 && vget(c[0], c[1], c[2]) && vget(c[0], c[1], c[2]) !== 10; k++) { c[0] += ax[0]; c[2] += ax[1]; } }
+    if (vget(c[0], c[1], c[2]) && vget(c[0], c[1], c[2]) !== 10) return; if (c[1] >= IZ || c[0] < 0 || c[2] < 0 || c[0] >= IN || c[2] >= IN) { msg('Ahí ya no se puede construir.', 1000); return; }
+    if (inside(P, c) || Z.some(e => inside(e, c))) return;
+    vset(c[0], c[1], c[2], t); inv[t]--; buildWorld(); paintBar(); }
+  function dig() { const h = ray(); if (!h) return; if (isOBc(h.x, h.y, h.z)) { msg('Tu OneBlock no se rompe: ¡es el corazón de tu isla!', 1400); return; } vset(h.x, h.y, h.z, 0); inv[h.b] = (inv[h.b] || 0) + 1; poof(new T.Vector3(h.x + .5, h.y + .5, h.z + .5), new T.Color(BLK[h.b].c).getHex()); buildWorld(); paintBar(); }
+  let swingT = 0;
+  function attack() { swingT = performance.now(); const o = cam.getWorldPosition(new T.Vector3()), d = cam.getWorldDirection(new T.Vector3()); let best = null, bd = 9;
+    const fh = new T.Vector2(-Math.sin(P.yaw), -Math.cos(P.yaw));
+    Z.forEach(z0 => { const c = z0.p.clone().add(new T.Vector3(0, 1.1, 0)); const v = c.sub(o); const dist = v.length(); if (dist > 3.2) return; const hv = new T.Vector2(v.x, v.z); const ang = hv.length() < .3 ? 0 : Math.acos(Math.max(-1, Math.min(1, hv.normalize().dot(fh)))); if ((ang < .9 || dist < 1.3) && dist < bd) { bd = dist; best = z0; } });
+    if (best) { best.hp--; best.flash = .2; const k = d.clone(); k.y = 0; k.normalize().multiplyScalar(7); best.v.x = k.x; best.v.z = k.z; best.v.y = 5; poof(best.p.clone().add(new T.Vector3(0, 1.2, 0)), 0xffffff); if (best.hp <= 0) { killZ(best); G.kills++; } } }
+  /* ---- mensajes y HUD ---- */
+  let msgT = 0; function msg(h, ms) { $('ngMsg').innerHTML = h; $('ngMsg').style.opacity = 1; clearTimeout(msgT); msgT = setTimeout(() => { const m = $('ngMsg'); if (m) m.style.opacity = 0; }, ms || 2500); }
+  const G = {phase: 'build', t0: performance.now(), kills: 0, waves: [0, 30, 60], wave: 0, over: false};
+  function hud(now) { const left = G.phase === 'build' ? NG_BUILD - (now - G.t0) / 1000 : NG_NIGHT - (now - G.t0) / 1000; const mm = Math.max(0, Math.ceil(left)); const tx = Math.floor(mm / 60) + ':' + String(mm % 60).padStart(2, '0');
+    P.hp = Math.max(0, P.hp); $('ngHearts').innerHTML = Array.from({length: 10}, (_, i) => i < P.hp ? '❤️' : '🖤').join('');
+    const ph = G.phase === 'build' ? '🔨 Construye tu fortaleza · <b>' + tx + '</b> <button type="button" id="ngSkip" class="ngskip">¡Ya estoy listo!</button>' : '🌙 ¡Aguanta hasta el amanecer! · <b>' + tx + '</b>'; if ($('ngPhase').dataset.h !== ph) { $('ngPhase').innerHTML = ph; $('ngPhase').dataset.h = ph; }
+    $('ngZ').textContent = G.phase === 'night' ? '🧟 ' + Z.length + ' · ⚔️ ' + G.kills : ''; }
+  $('ngPhase').addEventListener('pointerdown', e => { if (e.target.closest('#ngSkip') && G.phase === 'build') { e.preventDefault(); G.t0 = performance.now() - NG_BUILD * 1000; } });
+  msg('<b>¡Construye tu fortaleza!</b><br>Muévete con el círculo de la izquierda, mira arrastrando el dedo por la pantalla, pon bloques con 🧱 y quita con ⛏️. Haz muros altos: los monstruos solo saltan 1 bloque.', 7000);
+  /* ---- bucle ---- */
+  let last = performance.now(), raf = 0, hudT = 0;
+  const loop = now => {
+    raf = requestAnimationFrame(loop); const dt = Math.min(.05, (now - last) / 1000); last = now; if (G.over) { R.render(scene, cam); return; }
+    // fases
+    let el = (now - G.t0) / 1000;
+    if (G.phase === 'build' && el >= NG_BUILD) { G.phase = 'night'; G.t0 = now; el = 0; scene.background = new T.Color(0x0B1335); scene.fog.color = new T.Color(0x0B1335); scene.fog.near = 14; scene.fog.far = 48; hemi.intensity = .55; sun.intensity = .1; moonL.intensity = .55; starsG.visible = true; msg('🌙 <b>¡Se ha hecho de noche!</b> ¡Vienen los monstruos! Toca la pantalla o ⚔️ para atacar.', 3500); talk('¡Se ha hecho de noche! ¡Vienen los monstruos! ¡Defiende tu isla!'); }
+    if (G.phase === 'build') { const k = Math.min(1, el / NG_BUILD); const c = new T.Color(0xF2A86B).lerp(new T.Color(0x3A3F7A), k); scene.background = c; scene.fog.color = c; hemi.intensity = .9 - k * .4; }
+    if (G.phase === 'night') { if (G.wave < G.waves.length && el >= G.waves[G.wave]) { const n = [3, 4, 5][G.wave]; for (let i = 0; i < n; i++) spawnZ(); G.wave++; if (G.wave > 1) msg('🧟 ¡Llegan más monstruos!', 1500); }
+      if (el >= NG_NIGHT) return endGame(true); }
+    // jugador
+    let mx = stick[0], mz = stick[1];
+    if (keys.KeyW || keys.ArrowUp) mz = -1; if (keys.KeyS || keys.ArrowDown) mz = 1; if (keys.KeyA || keys.ArrowLeft) mx = -1; if (keys.KeyD || keys.ArrowRight) mx = 1;
+    const sp = 4.3, fwd = [-Math.sin(P.yaw), -Math.cos(P.yaw)], right = [Math.cos(P.yaw), -Math.sin(P.yaw)];
+    P.v.x = (fwd[0] * -mz + right[0] * mx) * sp; P.v.z = (fwd[1] * -mz + right[1] * mx) * sp;
+    P.blocked = false; if (jumpQ && P.ground) { P.v.y = 7.4; } jumpQ = false; physics(P, dt);
+    if (P.blocked && P.ground && (Math.abs(mx) + Math.abs(mz)) > .3) P.v.y = 7.4; // sube un escalón solo
+    if (P.p.y < -8) { P.hp = Math.max(0, P.hp - 3); P.p.set(OB[0] + .5, OB[2] + 1.05, OB[1] + .5); P.v.set(0, 0, 0); msg('¡Te has caído de la isla! −3 ❤️', 1800); if (P.hp <= 0) return endGame(false); }
+    cam.position.set(P.p.x, P.p.y + 1.55, P.p.z); cam.rotation.order = 'YXZ'; cam.rotation.y = P.yaw; cam.rotation.x = P.pitch;
+    // espada
+    const sw = Math.max(0, 1 - (now - swingT) / 260); hand.rotation.x = -Math.sin(sw * Math.PI) * 1.1; hand.position.y = -.34 + Math.sin(now / 300) * .008 * (Math.abs(mx) + Math.abs(mz) > .1 ? 3 : 1);
+    if (P.hurt > 0) P.hurt -= dt;
+    // zombis
+    Z.slice().forEach(z0 => { const dx = P.p.x - z0.p.x, dz = P.p.z - z0.p.z, d = Math.hypot(dx, dz);
+      if (z0.flash > 0) { z0.flash -= dt; } else { const spd = 1.7; if (z0.ground) { z0.v.x = dx / (d || 1) * spd; z0.v.z = dz / (d || 1) * spd; } }
+      z0.blocked = false;
+      if (z0.fly && z0.flash <= 0) { const dy = P.p.y - z0.p.y; z0.p.x += dx / (d || 1) * 1.6 * dt; z0.p.z += dz / (d || 1) * 1.6 * dt; z0.p.y += Math.max(-1, Math.min(1, dy)) * dt; if (hits(z0, z0.p.x, z0.p.y - .05, z0.p.z) || d < 1.2) z0.fly = false; }
+      else { physics(z0, dt); if (z0.blocked && z0.ground && z0.flash <= 0) z0.v.y = 6.6; }
+      z0.g.position.copy(z0.p); z0.g.rotation.y = Math.atan2(dx, dz); z0.phase += dt * 6; z0.l1.rotation.x = Math.sin(z0.phase) * .5; z0.l2.rotation.x = -Math.sin(z0.phase) * .5;
+      z0.g.children.forEach(m => { if (m.material && m.material.emissive) m.material.emissive.setHex(z0.flash > 0 ? 0x660000 : 0); });
+      if (z0.p.y < -6) { killZ(z0, 'fall'); G.kills++; return; }
+      z0.cd -= dt; if (d < 1.05 && Math.abs(P.p.y - z0.p.y) < 1.4 && z0.cd <= 0) { z0.cd = 1.1; P.hp--; P.hurt = .3; P.v.x += dx / (d || 1) * 5; P.v.z += dz / (d || 1) * 5; P.v.y = 4; if (P.hp <= 0) return endGame(false); } });
+    ov.classList.toggle('nghurt', P.hurt > 0);
+    // partículas
+    for (let i = parts.length - 1; i >= 0; i--) { const m = parts[i]; m.userData.v.y -= 12 * dt; m.position.addScaledVector(m.userData.v, dt); m.userData.l -= dt; if (m.userData.l <= 0) { scene.remove(m); parts.splice(i, 1); } }
+    // bloque al que miras
+    const h = ray(); if (h) { sel.visible = true; sel.position.set(h.x + .5, h.y + .5, h.z + .5); } else sel.visible = false;
+    if (now - hudT > 200) { hudT = now; hud(now); }
+    R.render(scene, cam);
+  };
+  setTimeout(() => { const f = $('ngFade'); if (f) { f.classList.add('out'); setTimeout(() => f.remove(), 900); } }, 1300);
+  raf = requestAnimationFrame(loop);
+  function saveBack() { W.w = (() => { let s2 = ''; for (let i = 0; i < V.length; i++) s2 += String.fromCharCode(48 + V[i]); return s2; })(); W.inv = inv; save(); if (isl.mode === 'one') { IW3 = iDec(W.w); isl.dirty = true; } else IW3 = null; }
+  function endGame(won) {
+    if (G.done) return; G.done = true; G.over = true; saveBack();
+    if (won) { Z.slice().forEach(z0 => killZ(z0)); scene.background = new T.Color(0xFFD9A0); scene.fog.color = new T.Color(0xFFD9A0); hemi.intensity = 1; starsG.visible = false; }
+    const gotPrize = won && prize; if (gotPrize) { W.nightWon = day(); save(); }
+    const box2 = document.createElement('div'); box2.className = 'ngend';
+    box2.innerHTML = won ? '<div style="font-size:64px">🌅🏰</div><h2>¡Has sobrevivido a la noche!</h2><p>Has derrotado a ' + G.kills + ' monstruos y tu fortaleza ha aguantado.</p><p class="ngprize">' + (gotPrize ? '+10 ★ ¡Bien hecho, ' + esc(who()) + '!' : (practice ? 'Era una partida de práctica (sin premio).' : 'Hoy ya ganaste tus 10 ★. ¡Vuelve mañana!')) + '</p><button type="button" class="btn-ok" id="ngBack">Volver a mi isla</button>'
+      : '<div style="font-size:64px">😵🧟</div><h2>Los monstruos han ganado esta noche</h2><p>Has derrotado a ' + G.kills + ' monstruos. Necesitas más bloques para una fortaleza más fuerte: <b>¡estudia para conseguir más golpes de pico y vuelve a intentarlo!</b></p><button type="button" class="btn-ok" id="ngBack">Volver</button>';
+    ov.appendChild(box2); talk(won ? '¡Has sobrevivido a la noche! ' + (gotPrize ? 'Ganas diez estrellas.' : '') : 'Los monstruos han ganado esta noche. ¡Estudia para conseguir más bloques y vuelve a intentarlo!');
+    $('ngBack').onclick = () => { cancelAnimationFrame(raf); window.removeEventListener('keydown', kd); window.removeEventListener('keyup', ku); window.removeEventListener('resize', resize); R.dispose(); ov.remove(); document.body.classList.remove('ngon');
+      if (gotPrize) setTimeout(() => addStars(10, 'games'), 300); logDo('x'); if (!$('v-isla').hidden) paintIsla(); if (onClose) onClose(); };
+  }
+  $('ngExit').onclick = () => { if (G.over) return; if ($('ngExit').dataset.sure) { endGame(false); } else { $('ngExit').dataset.sure = 1; $('ngExit').textContent = '¿Seguro? Toca otra vez'; setTimeout(() => { const b = $('ngExit'); if (b) { b.dataset.sure = ''; b.textContent = '✕ Salir'; } }, 2500); } };
+  window.__ng = {G, P, Z, inv, put, dig, attack, spawnZ, ray, V};
 }
 
 /* =================================================================
@@ -4985,13 +5223,13 @@ function studyTick() {
     S.study.done[d] = 1; save(); addStars(5, 'study');
     toast('¡Hora de estudio cumplida! Has estudiado ' + g + ' minutos hoy. Ganas 5 ★', true);
     talk('¡Enhorabuena, ' + who() + '! Hoy ya has cumplido tu tiempo de estudio. ¡Eres un crack!');
-    if (S.study.lock) setTimeout(showLock, 4000);
+    setTimeout(() => { if (S.sky && S.sky.w) nightPrompt(true, () => { if (S.study.lock) showLock(); }); else if (S.study.lock) showLock(); }, 4500);
   } else save();
   paintStudy();
 }
 setInterval(studyTick, 15000);
 function showLock() {
-  const d = day(); if (!S.study.lock || !S.study.done[d] || (S.study.unlock || {})[d]) return;
+  const d = day(); if (document.body.classList.contains('ngon') || ($('ngAsk') && !$('ngAsk').hidden)) return; if (!S.study.lock || !S.study.done[d] || (S.study.unlock || {})[d]) return;
   let ov = $('lockOv'); if (!ov) { document.body.insertAdjacentHTML('beforeend', '<div id="lockOv" class="lockov"></div>'); ov = $('lockOv'); }
   ov.hidden = false; hush(); stopGames();
   ov.innerHTML = '<div class="card lockbox"><svg class="birdSvg bigbird" viewBox="0 0 100 100" aria-hidden="true">' + BIRD + '</svg><h2>¡Misión cumplida por hoy!</h2><p>Ya has estudiado ' + (S.study.goal || 60) + ' minutos. Ahora toca descansar los ojos: lee un libro de papel, sal a jugar, dibuja en una hoja o ayuda en casa. ¡Mañana seguimos!</p><details style="margin-top:12px"><summary class="muted" style="cursor:pointer">Soy papá o mamá</summary><div class="row" style="justify-content:center;margin-top:8px"><input id="lockPin" type="password" inputmode="numeric" placeholder="código de papá" class="prompt" style="width:180px"><button type="button" id="lockGo">Desbloquear hoy</button></div><div id="lockMsg" class="muted"></div></details></div>';
@@ -5562,9 +5800,10 @@ ENTER.papa = () => {
   const t = S.log[day()] || {}; const ex = exActive().filter(E => daysTo(E.date) >= 0);
   A.innerHTML = '<div class="kpis"><div class="card kpi"><span class="muted">Hoy ha estudiado</span><b>' + studyMin() + ' min</b></div><div class="card kpi"><span class="muted">Estrellas</span><b>★ ' + S.stars + '</b></div><div class="card kpi"><span class="muted">Racha de lectura</span><b>' + readStreak() + ' días</b></div><div class="card kpi"><span class="muted">Próximo examen</span><b style="font-size:20px">' + (ex[0] ? esc(ex[0].subj) + ' · ' + (daysTo(ex[0].date) === 0 ? 'hoy' : 'en ' + daysTo(ex[0].date) + ' d') : '—') + '</b></div></div>' +
     '<div class="card"><div class="eyebrow" style="margin-bottom:6px">Hoy</div><p>' + [['read', '📖 Lectura'], ['mat', '✖️ Mates'], ['hist', '📜 Historia'], ['geo', '🗺️ Geografía'], ['eng', '🇬🇧 Inglés'], ['nat', '🔬 Ciencias'], ['len', '✏️ Lengua'], ['art', '🎨 Arte'], ['ai', '🤖 IA'], ['scan', '📸 Fotos'], ['teach', '🎓 Explicar'], ['x', '⭐ Retos']].filter(k => t[k[0]]).map(k => k[1] + ' ×' + t[k[0]]).join(' · ') + (Object.keys(t).length ? '' : 'Todavía no ha hecho nada hoy.') + '</p></div>' +
-    studyHTML() + famAdminHTML() + refuerzoHTML() + parentHTML() + resetHTML() +
+    studyHTML() + '<div class="card"><div class="eyebrow">Noche de monstruos</div><p class="muted" style="margin:6px 0">Cuando ' + esc(who()) + ' termina su hora de estudio, se hace de noche en su OneBlock: 2 minutos para construir una fortaleza y 90 segundos aguantando monstruos. Si gana, +10 ★ (una vez al día).</p><button type="button" class="ghost small" id="papaNight"' + (S.sky && S.sky.w ? '' : ' disabled') + '>Probarla yo (sin premio)</button>' + (S.sky && S.sky.w ? '' : ' <span class="muted">Primero tiene que empezar su OneBlock.</span>') + '</div>' + famAdminHTML() + refuerzoHTML() + parentHTML() + resetHTML() +
     '<div class="card"><div class="eyebrow">Código de papá</div><div class="row" style="margin-top:8px"><input id="papaNew" class="prompt" type="password" inputmode="numeric" maxlength="8" placeholder="nuevo código" style="width:180px"><button type="button" class="ghost small" id="papaChg">Cambiar código</button><span id="papaChgMsg" class="muted"></span></div></div>';
   A.querySelectorAll('details').forEach(d => d.open = true);
+  if ($('papaNight')) $('papaNight').onclick = () => nightStart(true, () => ENTER.papa());
   $('papaChg').onclick = () => { const v = $('papaNew').value.trim(); if (!/^\d{4,8}$/.test(v)) { $('papaChgMsg').textContent = 'Usa entre 4 y 8 números.'; return; } try { localStorage.setItem('turpialPapa', phash(v)); } catch (e) {} $('papaChgMsg').textContent = '¡Código cambiado!'; $('papaNew').value = ''; };
 };
 document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b && b.dataset.go !== 'papa') { document.body.classList.remove('papamode'); papaOk = 0; } }, true);
@@ -5679,7 +5918,7 @@ function splash() {
 /* =================================================================
    ACTUALIZAR LA APP (el progreso se queda: solo se borra la copia de la app)
    ================================================================= */
-const APP_VERSION = '22';
+const APP_VERSION = '23';
 async function updateApp() {
   $('updBtn').classList.add('spin'); hush();
   try {

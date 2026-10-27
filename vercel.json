@@ -1,0 +1,5 @@
+{
+  "functions": {
+    "api/tupi.js": {"maxDuration": 60}
+  }
+}

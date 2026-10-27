@@ -533,6 +533,7 @@ body.ngon{overflow:hidden}
 .ngbtns{position:absolute;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(24px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(3,70px);gap:10px}
 .ngbtns button{width:70px;height:70px;padding:0;font-size:30px;border-radius:50%;background:rgba(255,255,255,.2);border:3px solid rgba(255,255,255,.5);box-shadow:none}
 .ngbtns .ngatk{background:rgba(214,69,69,.6);grid-column:1/-1;justify-self:center;width:150px;border-radius:40px;font-size:36px}
+.mixn{display:inline-flex;align-items:center;gap:3px;vertical-align:middle;font-weight:700}.mixf{display:inline-flex;flex-direction:column;align-items:center;font-size:.62em;line-height:1.05}.mixf i{font-style:normal}.mixf i:first-child{border-bottom:2px solid currentColor;padding:0 2px}
 .elemhead{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between;background:linear-gradient(135deg,#1F3A68,#3B2A6B);color:#fff}.elemhead .muted{color:#D6DDF5}.elemhead .eyebrow{color:#FFD84D}
 .elemcr{display:flex;gap:6px;align-items:center;font-size:30px}.elemcr span{opacity:.45;filter:grayscale(1)}.elemcr span.on{opacity:1;filter:none}.elemcr b{font-size:20px;margin-left:6px}
 .elemfin{display:flex;gap:14px;align-items:center;border:3px solid #FFD84D;margin-top:12px}
@@ -1082,7 +1083,7 @@ function esVoice() {
     VOICES.find(v => /^es[-_]ES/i.test(v.lang)) || VOICES.find(v => /^es/i.test(v.lang)) || null;
 }
 function plain(html) {
-  const d = document.createElement('div'); d.innerHTML = html;
+  const d = document.createElement('div'); d.innerHTML = String(html).replace(/<span class="mixf"><i>(\d+)<\/i><i>(\d+)<\/i><\/span>/g, ' y $1/$2');
   return (d.textContent || '').replace(/★/g, ' estrellas').replace(/×/g, ' por ').replace(/−/g, ' menos ').replace(/ = /g, ' igual a ').replace(/ : /g, ' entre ')
     .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, '').replace(/\s+/g, ' ').trim();
 }
@@ -1593,6 +1594,7 @@ const SH = {
 };
 const FLAT = ['triángulo', 'cuadrado', 'rectángulo', 'rombo', 'trapecio', 'pentágono', 'hexágono', 'círculo'], SOLID = ['cubo', 'prisma', 'pirámide', 'cilindro', 'cono', 'esfera'];
 const shapeSVG = n => '<svg viewBox="0 0 220 170" style="width:220px;max-width:100%;height:auto;display:block;margin:0 auto" fill="#DDEBFA" stroke="#1F3A68" stroke-width="3" stroke-linejoin="round">' + SH[n] + '</svg>';
+const mixH = (e, n, d) => '<span class="mixn">' + e + '<span class="mixf"><i>' + n + '</i><i>' + d + '</i></span></span>';
 const MTOP = [
  {id: 'redo', ud: 'UD 1', n: 'Redondeo', tip: 'Mira la cifra de la derecha del lugar al que redondeas: si es 5 o más, sube; si es menos de 5, se queda igual.', gen: () => { const k = pick([[10, 'decenas'], [100, 'centenas'], [1000, 'millares']]), n = r(1001, 99999); const art = k[0] === 1000 ? 'los' : 'las'; return {q: 'Redondea <b>' + fmtInt(n) + '</b> a ' + art + ' ' + k[1], a: Math.round(n / k[0]) * k[0], n, k: k[0], kn: k[1], art}; }},
  {id: 'pos', ud: 'UD 1', n: 'Valor de las cifras', tip: 'Cada cifra vale según su sitio: unidades, decenas, centenas, unidades de millar, decenas de millar, centenas de millar, millones…', gen: () => {
@@ -1618,6 +1620,16 @@ const MTOP = [
    const d = r(5, 12), a = r(1, d - 2), b = r(1, d - a - 1);
    if (Math.random() < .5) return {q: a + '/' + d + ' + ' + b + '/' + d + ' = ¿?/' + d, a: a + b, d, x: a, y: b, op: '+'};
    return {q: (a + b) + '/' + d + ' − ' + b + '/' + d + ' = ¿?/' + d, a: a, d, x: a + b, y: b, op: '−'}; }},
+ {id: 'fmix', ud: 'UD 2', n: 'Fracciones mixtas', tip: 'Un número mixto tiene enteros y una fracción: 2 y 3/4. Para pasarlo a fracción: entero × denominador + numerador (el denominador no cambia). Para volver: divide el numerador entre el denominador; el cociente son los enteros y el resto, el nuevo numerador.', gen: () => {
+   const d = r(2, 8), n = r(1, d - 1), e = r(1, 4), N = e * d + n, t = r(1, 4);
+   // opciones: la correcta y 3 que valgan distinto (nada de «trampas» que en realidad son iguales)
+   const opts = (val, okH, cands) => { const out = [okH], seen = new Set([Math.round(val * 1e6)]); const add = (E, Nn, D, txt) => { const v = E + Nn / D; const k = Math.round(v * 1e6); if (out.length < 4 && E >= 0 && Nn > 0 && D > 1 && !seen.has(k)) { seen.add(k); out.push(txt || (Nn < D ? mixH(E, Nn, D) : Nn + '/' + D)); } };
+     cands.forEach(c => add(...c)); let g = 0; while (out.length < 4 && g++ < 300) { const D = d, Nn = r(1, D - 1); add(Math.max(1, Math.floor(val) + r(-2, 3)), Nn, D); } return out; };
+   if (t === 1) return {q: 'Pasa <b>' + mixH(e, n, d) + '</b> a fracción: ¿?/' + d, a: N, t, e, n, d, N};
+   if (t === 2) return {q: 'Pasa <b>' + N + '/' + d + '</b> a número mixto', o: opts(e + n / d, mixH(e, n, d), [[n, e < d ? e : 1, d], [e + 1, n, d], [e, n + 1 < d ? n + 1 : n - 1, d], [e - 1 > 0 ? e - 1 : e + 2, n, d]]), t, e, n, d, N};
+   if (t === 3) return {pic: Array.from({length: e}, () => fracBar(d, d)).join('') + fracBar(n, d, '#F2862E'), q: '¿Qué número mixto representan las barras?', o: opts(e + n / d, mixH(e, n, d), [[e, d - n, d], [e + 1, n, d], [e, n, d + 1], [e - 1 > 0 ? e - 1 : e + 2, n, d]]), t, e, n, d, N};
+   const n2 = r(1, d - 1), e2 = r(1, 3), sn = n + n2, E = e + e2 + Math.floor(sn / d), R = sn % d, val = e + e2 + sn / d; const ok = R ? mixH(E, R, d) : String(E);
+   return {q: mixH(e, n, d) + ' + ' + mixH(e2, n2, d) + ' =', o: opts(val, ok, [[e + e2, R || 1, d], [E + 1, R || 1, d], [e + e2, sn, d + d], [E, (R + 1) % d || 1, d]]), t, e, n, d, e2, n2, sn, E, R}; }},
  {id: 'pct', ud: 'UD 3', n: 'Porcentajes y descuentos', tip: 'El 10 % es dividir entre 10; el 50 %, la mitad; el 25 %, la cuarta parte. Para un descuento, resta el porcentaje al precio.', gen: () => {
    const p = pick([10, 20, 25, 50, 75]), n = (p === 25 || p === 75) ? r(2, 20) * 4 : p === 20 ? r(2, 20) * 5 : r(2, 30) * 10;
    if (Math.random() < .5) return {q: p + ' % de ' + n + ' =', a: n * p / 100, p, n, disc: false};
@@ -1679,6 +1691,15 @@ const MHOW = {
     full ? 'Ya no hay ningún número (mayor que 1) que divida a ' + c.a + ' y a ' + c.b + ' a la vez. ¡Esa es la irreducible: <b>' + c.a + '/' + c.b + '</b>!' : 'Cuando ya no se pueda dividir más, has llegado a la irreducible.'],
   fcomp: (c, full) => c.same === 'd' ? ['Las dos fracciones tienen el <b>mismo denominador</b> (' + c.d + '): los trozos son del mismo tamaño.', 'Entonces gana la que tiene <b>más trozos</b>, es decir, el numerador más grande: ' + c.x + ' y ' + c.y + '.' + (full ? ' Es mayor <b>' + Math.max(c.x, c.y) + '/' + c.d + '</b>.' : '')]
     : ['Las dos tienen el <b>mismo numerador</b> (' + c.n + '): cogemos ' + c.n + ' trozos en las dos.', 'Si partes una tarta en ' + c.d1 + ' trozos, cada trozo es <b>más grande</b> que si la partes en ' + c.d2 + '.' + (full ? ' Así que es mayor <b>' + c.n + '/' + c.d1 + '</b>.' : ' ¿Cuál tiene los trozos más grandes?')],
+  fmix: (c, full) => {
+    if (c.t === 1) return ['El número mixto ' + mixH(c.e, c.n, c.d) + ' son <b>' + c.e + ' enteros</b> y ' + c.n + '/' + c.d + '. Cada entero tiene ' + c.d + ' trozos de ' + c.d + '.',
+      'Trozos de los enteros: ' + c.e + ' × ' + c.d + ' = <b>' + (c.e * c.d) + '</b>.',
+      'Súmale los trozos de la fracción: ' + (c.e * c.d) + ' + ' + c.n + ' = ' + (full ? '<b>' + c.N + '</b>' : '¿?'),
+      full ? 'Resultado: <b>' + c.N + '/' + c.d + '</b> (el denominador no cambia). ' + fracBar(c.d, c.d) : 'El denominador se queda igual: ' + c.d + '.'];
+    if (c.t === 2 || c.t === 3) return (c.t === 3 ? ['Cuenta las barras llenas: hay <b>' + c.e + '</b> enteras. La barra naranja tiene ' + c.n + ' de ' + c.d + ' trozos pintados.'] : ['Divide el numerador entre el denominador: ' + c.N + ' : ' + c.d + '.', 'Caben ' + (full ? '<b>' + c.e + '</b>' : '¿?') + ' veces (' + c.d + ' × ' + c.e + ' = ' + (c.e * c.d) + ') y sobran ' + (full ? '<b>' + c.n + '</b>' : '¿?') + ' (' + c.N + ' − ' + (c.e * c.d) + ').', 'El cociente son los <b>enteros</b> y el resto es el <b>numerador</b>; el denominador sigue siendo ' + c.d + '.']).concat(full ? ['Resultado: <b>' + mixH(c.e, c.n, c.d) + '</b> = ' + c.N + '/' + c.d + '.'] : []);
+    return ['Suma primero los <b>enteros</b>: ' + c.e + ' + ' + c.e2 + ' = ' + (c.e + c.e2) + '.', 'Suma las <b>fracciones</b> (mismo denominador): ' + c.n + '/' + c.d + ' + ' + c.n2 + '/' + c.d + ' = ' + c.sn + '/' + c.d + '.',
+      c.sn >= c.d ? c.sn + '/' + c.d + ' es más de un entero: ' + c.sn + ' − ' + c.d + ' = ' + c.R + ', así que es <b>1 entero más</b> y ' + c.R + '/' + c.d + '.' : c.sn + '/' + c.d + ' es menos de un entero, así que se queda igual.',
+      full ? 'Resultado: <b>' + (c.R ? mixH(c.E, c.R, c.d) : c.E) + '</b>.' : 'Junta los enteros y la fracción.']; },
   fsum: (c, full) => ['Las fracciones tienen el <b>mismo denominador</b> (' + c.d + '), así que el denominador <b>se queda igual</b>: ¿?/' + c.d + '.',
     (c.op === '+' ? 'Suma' : 'Resta') + ' solo los numeradores: ' + c.x + ' ' + c.op + ' ' + c.y + ' = ' + (full ? '<b>' + c.a + '</b>' : '¿?'),
     full ? 'Resultado: <b>' + c.a + '/' + c.d + '</b>. ' + fracBar(c.a, c.d) : 'Piensa en trozos de tarta: ' + (c.op === '+' ? 'juntas' : 'quitas') + ' trozos del mismo tamaño.'],
@@ -1705,6 +1726,7 @@ const FIGINFO = {
 };
 
 function stepsHTML(list, title, cls) { return '<div class="howbox ' + (cls || '') + '"><div class="eyebrow">' + title + '</div><ol class="steps">' + list.map(x => '<li>' + x + '</li>').join('') + '</ol></div>'; }
+window.__mtop = () => ({MTOP, howOf: (t, c, f) => howOf(t, c, f)});
 function howOf(t, c, full) { try { return MHOW[t.id] ? MHOW[t.id](c, full) : [t.tip]; } catch (e) { return [t.tip]; } }
 function temaExample(t, after) {
   const c = t.gen(); const ans = c.o ? c.o[0] : fmt(c.a);
@@ -3125,10 +3147,16 @@ function rulesMission() {
 const API = '/api/tupi';
 function familyPin() { try { return localStorage.getItem('turpialPin') || ''; } catch (e) { return ''; } }
 async function askTupi(payload) {
-  const r = await fetch(API, {method: 'POST', headers: {'content-type': 'application/json', 'x-tupi-pin': familyPin()}, body: JSON.stringify(Object.assign({name: (S.name || '').split(' ')[0], likes: likesText()}, payload))});
+  if (!navigator.onLine) throw new Error('offline');
+  const ac = window.AbortController ? new AbortController() : null; const to = ac ? setTimeout(() => ac.abort(), 60000) : 0;
+  let r;
+  try { r = await fetch(API, {method: 'POST', signal: ac ? ac.signal : undefined, headers: {'content-type': 'application/json', 'x-tupi-pin': familyPin()}, body: JSON.stringify(Object.assign({name: (S.name || '').split(' ')[0], likes: likesText()}, payload))}); }
+  catch (e) { clearTimeout(to); throw new Error(e && e.name === 'AbortError' ? 'timeout' : 'net'); }
+  clearTimeout(to);
   let j = {}; try { j = await r.json(); } catch (e) {}
   if (r.status === 401) throw new Error('pin');
-  if (!r.ok) throw new Error(j.error || 'error');
+  if (r.status === 504 || r.status === 408) throw new Error('timeout');
+  if (!r.ok) { const er = new Error(j.error || ('http' + r.status)); er.detail = j.detail || ''; throw er; }
   return j.text || '';
 }
 const CHAT_IDEAS = [
@@ -3145,7 +3173,12 @@ function chatErr(e) {
   if (e.message === 'pin') return 'Necesito el <b>código familiar</b> para poder pensar. Pídeselo a papá.';
   if (e.message === 'nokey') return 'A mi cerebro le falta la clave. Papá tiene que ponerla en Vercel.';
   if (location.protocol === 'file:' || /claude/.test(location.hostname) || /claudeusercontent|claude\.ai/.test(location.href)) return 'Aquí no puedo conectarme. ¡Ábreme desde la app instalada en el iPad!';
-  return 'Uy, ahora no puedo conectarme. ¿Hay internet? Inténtalo en un ratito.';
+  const det = '<br><small class="muted">(Para papá: ' + esc(String(e.message || '') + (e.detail ? ' · ' + e.detail : '')).slice(0, 160) + ')</small>';
+  if (e.message === 'offline') return 'Parece que el iPad no tiene internet ahora mismo. Inténtalo en un ratito.';
+  if (e.message === 'timeout') return 'Tupi ha tardado demasiado en pensar. Dale otra vez, que a la segunda suele salir.' + det;
+  if (e.message === 'parse' || e.message === 'vacío') return 'Tupi se ha liado preparando las preguntas. Dale otra vez.' + det;
+  if (e.message === 'api') return 'El cerebro de Tupi ha dado un error. Inténtalo otra vez en un momento.' + det;
+  return 'Uy, ahora no puedo conectarme. Inténtalo en un ratito.' + det;
 }
 function paintChat() {
   const pin = familyPin();
@@ -4027,7 +4060,14 @@ const AI_PRO = [
   {id: 'next', n: '¿Cómo piensa una IA?', d: 'Mira qué palabras cree la IA que vienen después y construye frases como ella.'},
   {id: 'detect', n: 'Detective de bulos', d: 'La IA te da 5 datos y uno es falso. ¿Lo encuentras?'}
 ];
-const labJSON = t => { const a = t.indexOf('{'), b = t.lastIndexOf('}'); return JSON.parse(t.slice(a, b + 1)); };
+// lee el JSON de Tupi; si llega cortado, rescata las preguntas que sí están completas
+const labJSON = t => { t = String(t || '').replace(/```(json)?/g, ''); const a = t.indexOf('{'), b = t.lastIndexOf('}');
+  try { return JSON.parse(t.slice(a, b + 1)); } catch (e) {}
+  const qs = []; let i = t.indexOf('{"q"'); if (i < 0) i = t.search(/\{\s*"q"\s*:/);
+  while (i >= 0) { let dep = 0, inS = false, esc2 = false, j = i; for (; j < t.length; j++) { const ch = t[j]; if (inS) { if (esc2) esc2 = false; else if (ch === '\\') esc2 = true; else if (ch === '"') inS = false; } else if (ch === '"') inS = true; else if (ch === '{') dep++; else if (ch === '}') { dep--; if (dep === 0) break; } }
+    if (j >= t.length) break; try { qs.push(JSON.parse(t.slice(i, j + 1))); } catch (e) {} const nx = t.slice(j + 1).search(/\{\s*"q"\s*:/); i = nx < 0 ? -1 : j + 1 + nx; }
+  if (qs.length) return {questions: qs};
+  throw new Error('parse'); };
 const lab = (task, extra) => askTupi(Object.assign({mode: 'lab', task}, extra || {}));
 function proFrame(title) { const box = aiFrame(title); if (!familyPin()) { box.innerHTML = '<div class="bubble">Para el nivel 2 Tupi necesita su cerebro. Actívalo primero en <b>Habla con Tupi</b> con el código familiar.</div>'; return null; } return box; }
 function loading(box, msg) { box.insertAdjacentHTML('beforeend', '<div class="bubble loadb" style="margin-top:10px"><svg class="birdSvg talking" viewBox="0 0 100 100" style="width:34px;height:34px;vertical-align:middle">' + BIRD + '</svg> ' + msg + '</div>'); }
@@ -6071,16 +6111,17 @@ async function exDo(id, k, d) {
   if (!familyPin()) { box.innerHTML = '<div class="bubble">Para preparar el test, Tupi necesita el <b>código familiar</b>. Actívalo en <b>Habla con Tupi</b>.</div>'; return; }
   loading(box, k === 'sim' ? 'Tupi está preparando tu simulacro de examen…' : 'Tupi está preparando tu test…');
   try {
-    const j = labJSON(await lab(k === 'sim' ? 'exam' : 'quiz', {topic: E.subj + ' — ' + E.topic, subject: E.subj, notes: L ? L.summary.join(' ') : ''}));
-    const qs = (j.questions || []).filter(q => q && q.q && Array.isArray(q.o) && q.o.length >= 2).map(q => ({q: esc(q.q), o: q.o.map(esc), why: esc(q.why || '')}));
-    if (!qs.length) throw new Error('vacío');
+    const get = async () => { const j = labJSON(await lab(k === 'sim' ? 'exam' : 'quiz', {topic: E.subj + ' — ' + E.topic, subject: E.subj, notes: L ? L.summary.join(' ') : ''}));
+      const qs = (j.questions || []).filter(q => q && q.q && Array.isArray(q.o) && q.o.length >= 2).map(q => ({q: esc(q.q), o: q.o.map(esc), why: esc(q.why || '')}));
+      if (qs.length < 3) throw new Error('vacío'); return qs; };
+    let qs; try { qs = await get(); } catch (e1) { if (e1.message === 'pin' || e1.message === 'offline') throw e1; qs = await get(); }
     box.innerHTML = '<div class="card" style="margin-top:10px"><div class="eyebrow">' + (k === 'sim' ? 'Simulacro: como si fuera el examen de verdad' : 'Test rápido') + '</div><div id="exQ' + id + '"></div></div>';
     quiz($('exQ' + id), qs, (sc, tot) => {
       E.done[d] = 1; if (k === 'sim') E.sim = Math.round(sc / tot * 10); save(); addStars(sc, 'x'); logDo('x');
       $('exQ' + id).innerHTML = '<div class="bubble"><b>' + sc + ' de ' + tot + '.</b> ' + (sc / tot >= .8 ? '¡Lo llevas genial!' : sc / tot >= .5 ? 'Vas bien. Repasa las que fallaste.' : 'Toca repasar un poco más: explícaselo a Tupi o mira tus tarjetas.') + '<div class="actions"><button type="button" id="exBack' + id + '">Volver al plan</button></div></div>';
       $('exBack' + id).onclick = paintExam;
     }, {noTalk: true});
-  } catch (e) { box.innerHTML = '<div class="bubble">' + chatErr(e) + '</div>'; }
+  } catch (e) { box.innerHTML = '<div class="bubble">' + chatErr(e) + '<div class="actions" style="justify-content:flex-start"><button type="button" id="exRetry' + id + '">🔄 Intentar otra vez</button></div></div>'; $('exRetry' + id).onclick = () => exDo(id, k, d); }
 }
 
 /* =================================================================
@@ -6306,7 +6347,7 @@ function splash() {
 /* =================================================================
    ACTUALIZAR LA APP (el progreso se queda: solo se borra la copia de la app)
    ================================================================= */
-const APP_VERSION = '25';
+const APP_VERSION = '26';
 async function updateApp() {
   $('updBtn').classList.add('spin'); hush();
   try {

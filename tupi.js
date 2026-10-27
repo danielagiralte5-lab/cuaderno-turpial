@@ -111,11 +111,12 @@ export default async function handler(req, res) {
       system = SAFE + (body.en ? ' The child studies this subject in English: answer in simple English (A2 level).' : '') + ' Eres un profe paciente. El niño ha fallado una pregunta. Explícale paso a paso, con frases muy cortas, cómo se llega a la respuesta correcta, usando los datos de la pregunta (si hay números, desglósalos). Máximo 4 pasos. Si su respuesta tiene un error típico, dile con cariño por qué no era esa. Después pon UN ejemplo parecido ya resuelto, distinto al de la pregunta. Los datos deben ser correctos.' + JSONONLY + ' Formato: {"steps":["…","…"],"example":"…"}';
       msgs = [{role: 'user', content: 'Pregunta: ' + f('q') + '\nRespuesta correcta: ' + f('right') + '\nEl niño contestó: ' + f('chosen') + (f('why') ? '\nPista de la app: ' + f('why') : '')}];
     } else if (task === 'exam') {
-      maxTokens = 2400;
+      maxTokens = 4000;
       const subj = String(body.subject || '').slice(0, 40), notes = String(body.notes || '').slice(0, 2500);
       system = SAFE + ' Eres un profesor de 5.º de Primaria que prepara un SIMULACRO de examen de ' + subj + ' para que el niño practique antes del examen real. Haz 10 preguntas de opción múltiple con 4 opciones, de menos a más difíciles, como las que pondría un profesor de su colegio: definiciones, ejemplos, aplicar lo aprendido y alguna de pensar. Los datos deben ser correctos. La primera opción de cada pregunta es SIEMPRE la correcta (la app las desordena). En "why", una explicación breve que le ayude a repasar.' + JSONONLY + ' Formato: {"title":"…","questions":[{"q":"…","o":["correcta","incorrecta","incorrecta","incorrecta"],"why":"…"}]}';
       msgs = [{role: 'user', content: 'Examen de ' + subj + '. Qué entra: ' + t + (notes ? '\nResumen de su lección (úsalo como base): ' + notes : '') + '\n' + TEMARIO}];
     } else if (task === 'quiz') {
+      maxTokens = 2400;
       system = SAFE + ' Creas tests de 6 preguntas de opción múltiple para un niño de 5.º de Primaria. Los datos deben ser correctos y comprobables. La primera opción de cada pregunta es SIEMPRE la correcta (la app las desordena). Explicación breve en "why".' + JSONONLY + ' Formato: {"title":"…","questions":[{"q":"…","o":["correcta","incorrecta","incorrecta","incorrecta"],"why":"…"}]}';
       msgs = [{role: 'user', content: 'Tema del test: ' + t}];
     } else if (task === 'comic') {
@@ -135,7 +136,7 @@ export default async function handler(req, res) {
       system = SAFE + ' El niño ha hecho una foto a una página de su libro o de su cuaderno del cole. Léela con atención y prepara material de estudio SOLO con lo que aparece en la página (no inventes). Si la foto no se lee bien o no es material de estudio, dilo en "error". Escribe en español sencillo para su edad.' + JSONONLY + ' Formato: {"title":"tema de la página","subject":"asignatura","summary":["idea clave 1","idea clave 2","…(entre 4 y 6)"],"cards":[{"front":"pregunta o concepto","back":"respuesta corta"}],"quiz":[{"q":"…","o":["correcta","incorrecta","incorrecta","incorrecta"],"why":"…"}],"error":""}. Entre 6 y 8 tarjetas y 6 preguntas; la primera opción de cada pregunta es siempre la correcta.';
       msgs = [{role: 'user', content: [{type: 'image', source: {type: 'base64', media_type: m[1], data: m[2]}}, {type: 'text', text: 'Esta es la página que quiero estudiar.' + (t ? ' Nota: ' + t : '')}]}];
     } else if (task === 'isla') {
-      maxTokens = 2200;
+      maxTokens = 3000;
       const GR = {'5P': '5.º de Primaria', '6P': '6.º de Primaria', '1E': '1.º de ESO', '2E': '2.º de ESO', '3E': '3.º de ESO', '4E': '4.º de ESO'};
       const grade = GR[body.grade] || GR['5P'], subj = String(body.subject || '').slice(0, 60), n = Math.max(4, Math.min(10, parseInt(body.n, 10) || 6)), lvl = Math.max(0, Math.min(4, parseInt(body.level, 10) || 0));
       system = SAFE + ' Preparas las pruebas de un juego de aventuras educativo: el niño viaja por islas elementales y en cada altar responde preguntas de ' + subj + ' del currículo español de ' + grade + ' (LOMLOE). Haz ' + n + ' preguntas de opción múltiple con 4 opciones sobre el tema indicado, con dificultad ' + (lvl === 4 ? 'de jefe final (repaso de todo, algo más difícil)' : 'nivel ' + (lvl + 1) + ' de 4') + ', propias de ' + grade + '. Varía el tipo: conceptos, ejemplos, cálculo o aplicación. Si encaja, ambienta alguna pregunta en sus gustos. Los datos deben ser correctos y comprobables. La primera opción es SIEMPRE la correcta (la app las desordena). En "why", una explicación breve con el paso clave.' + JSONONLY + ' Formato: {"questions":[{"q":"…","o":["correcta","incorrecta","incorrecta","incorrecta"],"why":"…"}]}';
@@ -155,10 +156,10 @@ export default async function handler(req, res) {
       body: JSON.stringify({model: process.env.TUPI_MODEL || 'claude-haiku-5-5', max_tokens: maxTokens, system, messages: msgs})
     });
     const j = await r.json();
-    if (!r.ok) return res.status(502).json({error: (j.error && j.error.message) || 'api'});
+    if (!r.ok) return res.status(502).json({error: 'api', detail: String((j.error && j.error.message) || r.status).slice(0, 200)});
     const text = (j.content || []).map(c => c.text || '').join('').trim();
-    return res.status(200).json({text});
+    return res.status(200).json({text, cut: j.stop_reason === 'max_tokens'});
   } catch (e) {
-    return res.status(502).json({error: 'network'});
+    return res.status(502).json({error: 'network', detail: String(e && e.message || e).slice(0, 200)});
   }
 }

@@ -536,7 +536,7 @@ body.ngon{overflow:hidden}
 .ukhead{display:flex;gap:14px;justify-content:space-between;align-items:center;flex-wrap:wrap;background:linear-gradient(135deg,#FFF4E6,#FDECEC)}.ukbtns{display:flex;gap:6px;flex-wrap:wrap}
 .ukpath{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px}.uknode{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:14px;border-radius:18px;background:#fff;color:inherit;border:3px solid #E8C9A8;box-shadow:none}.uknode .ukn{font-size:34px}.uknode small{color:var(--muted)}.uknode.lock{opacity:.5}.uknode.done{border-color:var(--ok)}.uknode.cur{border-color:#F2862E;box-shadow:0 0 0 4px #FFE2C4}.uknode i{position:absolute;top:10px;right:14px;font-style:normal;color:var(--ok);font-size:22px;font-weight:800}
 .ukcard .ukbody{line-height:1.7;font-size:18px}.ukstr,.uknotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:12px 0}.ukstr button,.uknotes button{display:flex;flex-direction:column;align-items:center;padding:14px}.ukstr b,.uknotes b{font-size:24px}.ukstr small,.uknotes small{font-weight:400}
-.tunbox{text-align:center;margin:14px 0}.tunnote{font-size:40px;font-weight:800;color:#1F3A68}.tunmeter{position:relative;height:34px;margin:10px auto;max-width:420px;border-radius:17px;background:linear-gradient(90deg,#FDECEC,#EAF7EF 45%,#EAF7EF 55%,#FDECEC)}.tunmeter span{position:absolute;left:50%;top:0;bottom:0;width:3px;background:#2E9E5B}.tunmeter i{position:absolute;top:3px;left:50%;width:10px;height:28px;margin-left:-5px;border-radius:5px;background:#D64545;transition:left .12s}.tunmeter i.ok{background:#2E9E5B}.tunmsg{font-size:18px;min-height:28px}
+.tunbox{text-align:center;margin:14px 0}.tunnote{font-size:40px;font-weight:800;color:#1F3A68}.tunmeter{position:relative;height:34px;margin:10px auto;max-width:420px;border-radius:17px;background:linear-gradient(90deg,#FDECEC,#EAF7EF 45%,#EAF7EF 55%,#FDECEC)}.tunmeter span{position:absolute;left:50%;top:0;bottom:0;width:3px;background:#2E9E5B}.tunmeter i{position:absolute;top:3px;left:50%;width:10px;height:28px;margin-left:-5px;border-radius:5px;background:#D64545;transition:left .12s}.tunmeter i.ok{background:#2E9E5B}.tunmsg{font-size:18px;min-height:28px}.tunlvl{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:8px;color:var(--muted)}.tunlvl b{display:block;width:180px;height:10px;border-radius:5px;background:#E5EAF2;overflow:hidden}.tunlvl i{display:block;height:100%;width:0;background:#2E9E5B;transition:width .1s}
 .ukchords{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}.ukch{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px;color:inherit;background:#fff;border:3px solid #E5EAF2;box-shadow:none}.ukch.ukok{border-color:var(--ok)}.ukch.ukbad{border-color:#D64545}.ukchord{height:auto}
 .ukchg{display:flex;justify-content:center;align-items:center;gap:30px;margin:10px 0}.cgnext{opacity:.6}.ukbeats{display:flex;justify-content:center;gap:10px;min-height:56px}.ukbeats i{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:20px;background:#EEF2F8}.ukbeats i.on{background:#F2862E;color:#fff}.ukbeats .cnt{font-size:42px;color:#F2862E}
 .ukrh canvas{width:100%;height:auto;border-radius:14px;margin:10px 0;touch-action:none}.rhhit{font-size:22px;padding:18px 40px;border-radius:40px;background:#F2862E;color:#fff}.ukscore{text-align:center;font-size:18px;margin-top:8px}.ukpat{font-size:22px;letter-spacing:2px}
@@ -5591,14 +5591,21 @@ function strum(ch, dir, when, vol) { const A = uctx(); if (!A) return; const C =
 function click(when, accent) { const A = uctx(); if (!A) return; const o = A.createOscillator(), g = A.createGain(); o.frequency.value = accent ? 1500 : 1000; g.gain.setValueAtTime(.0001, when); g.gain.exponentialRampToValueAtTime(accent ? .4 : .25, when + .002); g.gain.exponentialRampToValueAtTime(.0001, when + .06); o.connect(g); g.connect(A.destination); o.start(when); o.stop(when + .08); }
 /* ---------- micrófono: tono (afinador / punteo) y golpes (ritmo) ---------- */
 let UMIC = null;
-async function getMic() { if (UMIC) return UMIC; const A = uctx(); const st = await navigator.mediaDevices.getUserMedia({audio: {echoCancellation: false, noiseSuppression: false, autoGainControl: false}}); const src = A.createMediaStreamSource(st); const an = A.createAnalyser(); an.fftSize = 2048; src.connect(an); UMIC = {st, an, buf: new Float32Array(2048)}; return UMIC; }
+async function getMic() { if (UMIC) return UMIC; const A = uctx(); if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('nomic');
+  let st; try { st = await navigator.mediaDevices.getUserMedia({audio: {echoCancellation: false, noiseSuppression: false, autoGainControl: false}}); } catch (e) { st = await navigator.mediaDevices.getUserMedia({audio: true}); }
+  if (A.state !== 'running') { try { await A.resume(); } catch (e) {} }
+  const src = A.createMediaStreamSource(st); const an = A.createAnalyser(); an.fftSize = 4096; an.smoothingTimeConstant = 0; src.connect(an);
+  // En iPad/Safari, si la señal no llega a la salida, el analizador no recibe nada: la conectamos con volumen 0
+  const mute = A.createGain(); mute.gain.value = 0; an.connect(mute); mute.connect(A.destination);
+  UMIC = {st, an, buf: new Float32Array(4096), d: new Float32Array(1200)}; return UMIC; }
 function micStop() { if (UMIC) { UMIC.st.getTracks().forEach(t => t.stop()); UMIC = null; } }
 function micLevel() { if (!UMIC) return 0; UMIC.an.getFloatTimeDomainData(UMIC.buf); let s = 0; for (let i = 0; i < UMIC.buf.length; i++) s += UMIC.buf[i] * UMIC.buf[i]; return Math.sqrt(s / UMIC.buf.length); }
-function micPitch() { if (!UMIC) return -1; const b = UMIC.buf, sr = uctx().sampleRate; UMIC.an.getFloatTimeDomainData(b); let rms = 0; for (let i = 0; i < b.length; i++) rms += b[i] * b[i]; rms = Math.sqrt(rms / b.length); if (rms < .012) return -1;
-  const SIZE = b.length; let r1 = 0, r2 = SIZE - 1; const th = .2; for (let i = 0; i < SIZE / 2; i++) if (Math.abs(b[i]) < th) { r1 = i; break; } for (let i = 1; i < SIZE / 2; i++) if (Math.abs(b[SIZE - i]) < th) { r2 = SIZE - i; break; }
-  const x = b.slice(r1, r2), n = x.length; const c = new Float32Array(n); for (let i = 0; i < n; i++) for (let j = 0; j < n - i; j++) c[i] += x[j] * x[j + i];
-  let d = 0; while (d < n - 1 && c[d] > c[d + 1]) d++; let mx = -1, mp = -1; for (let i = d; i < n; i++) if (c[i] > mx) { mx = c[i]; mp = i; } if (mp < 1) return -1;
-  const x1 = c[mp - 1], x2 = c[mp], x3 = c[mp + 1] || 0, a = (x1 + x3 - 2 * x2) / 2, bb = (x3 - x1) / 2; const T0 = a ? mp - bb / (2 * a) : mp; const f = sr / T0; return f > 70 && f < 1200 ? f : -1; }
+function micPitch() { if (!UMIC) return -1; const b = UMIC.buf, sr = uctx().sampleRate; UMIC.an.getFloatTimeDomainData(b); let rms = 0; for (let i = 0; i < b.length; i++) rms += b[i] * b[i]; rms = Math.sqrt(rms / b.length); UMIC.rms = rms; if (rms < .003) return -1;
+  const W = 2048, maxLag = Math.min(Math.floor(sr / 70), b.length - W - 1, UMIC.d.length - 1), minLag = Math.floor(sr / 1100), d = UMIC.d; d[0] = 1; let run = 0, tau = -1;
+  for (let t = 1; t <= maxLag; t++) { let s2 = 0; for (let i = 0; i < W; i += 2) { const x = b[i] - b[i + t]; s2 += x * x; } run += s2; d[t] = run ? s2 * t / run : 1; }
+  for (let t = minLag; t <= maxLag; t++) if (d[t] < .15) { while (t + 1 <= maxLag && d[t + 1] < d[t]) t++; tau = t; break; }
+  if (tau < 0) { let mn = 1, mt = -1; for (let t = minLag; t <= maxLag; t++) if (d[t] < mn) { mn = d[t]; mt = t; } if (mn < .35) tau = mt; else return -1; }
+  const x0 = d[tau - 1] || d[tau], x2 = d[tau + 1] || d[tau], den = x0 + x2 - 2 * d[tau]; const T = den ? tau + (x0 - x2) / (2 * den) : tau; const f = sr / T; return f > 70 && f < 1100 ? f : -1; }
 const hzNote = f => { const m = Math.round(12 * Math.log2(f / 440) + 69); return {m, name: NOTE_ES[m % 12], oct: Math.floor(m / 12) - 1, cents: Math.round(1200 * Math.log2(f / (440 * Math.pow(2, (m - 69) / 12))))}; };
 /* ---------- dibujos ---------- */
 function chordSVG(ch, big) { const C = UKC[ch], W = big ? 170 : 120, H = big ? 210 : 150, x0 = W * .2, sw = W * .6 / 3, y0 = H * .2, fh = (H * .72) / 5; let s = '<svg viewBox="0 0 ' + W + ' ' + H + '" class="ukchord" style="width:' + W + 'px;max-width:100%">';
@@ -5713,12 +5720,14 @@ function ukStrings(box, next) { box.innerHTML = '<div class="card"><p>Toca cada 
 /* afinador */
 function ukTuner(box, next) {
   box.innerHTML = '<div class="card uktun"><p>Toca una cuerda <b>al aire</b> y gira su clavija hasta que la aguja quede en el centro y se ponga verde.</p><div class="ukstr">' + UKS.map((s, k) => '<button type="button" data-ts="' + k + '"><b>' + s.n + '</b><small>' + s.l + ' (escuchar)</small></button>').join('') + '</div>' +
-    '<div class="tunbox"><div class="tunnote" id="tnN">—</div><div class="tunmeter"><i id="tnI"></i><span></span></div><div class="tunmsg" id="tnM">Pulsa «Activar micrófono» y toca una cuerda.</div></div>' +
+    '<div class="tunbox"><div class="tunnote" id="tnN">—</div><div class="tunmeter"><i id="tnI"></i><span></span></div><div class="tunmsg" id="tnM">Pulsa «Activar micrófono» y toca una cuerda.</div><div class="tunlvl" title="Lo que oye el micrófono">🎤 <b><i id="tnL"></i></b></div></div>' +
     '<div class="actions"><button type="button" id="tnGo">🎤 Activar micrófono</button>' + (next ? '<button type="button" class="ghost" id="ukNx">Ya está afinado / no tengo micro →</button>' : '') + '</div></div>';
   box.querySelectorAll('[data-ts]').forEach(b => b.onclick = () => pluck(UKS[+b.dataset.ts].f));
   if (next) $('ukNx').onclick = next;
-  $('tnGo').onclick = async () => { try { await getMic(); } catch (e) { $('tnM').textContent = 'No puedo usar el micrófono. Afina de oído con los botones de arriba, o pide permiso en Ajustes.'; return; } $('tnGo').hidden = true; const id = ++ukLoopId; let hist = [];
-    const loop = () => { if (id !== ukLoopId || !document.body.contains(box)) { if (id === ukLoopId) micStop(); return; } const f = micPitch();
+  $('tnGo').onclick = async () => { uctx(); try { await getMic(); } catch (e) { $('tnM').innerHTML = 'No puedo usar el micrófono. En el iPad: <b>Ajustes → Safari → Micrófono → Permitir</b> (o en Ajustes → Privacidad → Micrófono). Mientras, afina de oído con los botones de arriba.'; return; } $('tnGo').hidden = true; const id = ++ukLoopId; let hist = [];
+    $('tnM').textContent = 'Te escucho. Toca una cuerda al aire, cerca del iPad.'; let quiet = 0;
+    const loop = () => { if (id !== ukLoopId || !document.body.contains(box)) { if (id === ukLoopId) micStop(); return; } const f = micPitch(); const lv = UMIC ? UMIC.rms || 0 : 0; const L = $('tnL'); if (L) L.style.width = Math.min(100, Math.round(Math.sqrt(lv) * 300)) + '%';
+      if (f <= 0) { quiet++; if (quiet === 240) $('tnM').textContent = lv < .003 ? 'No oigo nada: acerca el ukelele al iPad (el micro está arriba, junto a la cámara).' : 'Te oigo, pero no distingo la nota: toca UNA sola cuerda al aire y déjala sonar.'; } else quiet = 0;
       if (f > 0) { hist.push(f); if (hist.length > 5) hist.shift(); const fm = hist.slice().sort((a, b) => a - b)[Math.floor(hist.length / 2)]; let best = 0, bd = 1e9; UKS.forEach((s, k) => { const d = Math.abs(1200 * Math.log2(fm / s.f)); if (d < bd) { bd = d; best = k; } }); const tgt = UKS[best], c = Math.round(1200 * Math.log2(fm / tgt.f));
         $('tnN').textContent = tgt.n + ' (' + tgt.l + ')'; const cc = Math.max(-50, Math.min(50, c)); $('tnI').style.left = (50 + cc) + '%'; const ok = Math.abs(c) <= 6; $('tnI').className = ok ? 'ok' : '';
         $('tnM').innerHTML = Math.abs(c) > 300 ? 'Muy lejos de ' + tgt.n + '. ¿Seguro que es esa cuerda?' : ok ? '✅ ¡Afinada!' : c < 0 ? '⬆️ Muy floja (grave): <b>aprieta</b> la clavija un poquito (' + c + ' cents)' : '⬇️ Muy tensa (aguda): <b>afloja</b> la clavija un poquito (+' + c + ' cents)'; }
@@ -7006,7 +7015,7 @@ function splash() {
 /* =================================================================
    ACTUALIZAR LA APP (el progreso se queda: solo se borra la copia de la app)
    ================================================================= */
-const APP_VERSION = '30';
+const APP_VERSION = '31';
 async function updateApp() {
   $('updBtn').classList.add('spin'); hush();
   try {

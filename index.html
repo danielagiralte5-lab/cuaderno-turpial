@@ -543,6 +543,11 @@ body.ngon{overflow:hidden}
 .ukusing{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0}.ukusing svg{width:80px!important}.ukbars{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:10px}.ukbar{border:2px solid #DCE3EF;border-radius:12px;padding:8px;text-align:center;background:#fff}.ukbar b{font-size:24px;display:block}.ukbar small{display:block;color:var(--muted);font-size:13px;min-height:16px}.ukbar span{display:flex;justify-content:center;gap:5px;margin-top:4px}.ukbar span i{width:10px;height:10px;border-radius:50%;background:#DCE3EF}.ukbar span i.on{background:#F2862E}.ukbar.on{border-color:#F2862E;background:#FFF4E6;transform:scale(1.05)}.ukbar select{font-size:18px;margin-bottom:4px}.ukbar svg{width:90px!important}
 .uksongs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.uksongs .card{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;color:inherit;background:#fff;box-shadow:none}.uksongs small{color:var(--muted)}
 .uktab{overflow-x:auto;margin:12px 0;padding:6px 0;background:#fff;border-radius:12px}.uktab .tl{display:flex;align-items:center;white-space:nowrap;height:30px;position:relative}.uktab .tl:before{content:'';position:absolute;left:44px;right:0;top:50%;height:2px;background:#8A97B0}.uktab .tl span{width:44px;flex:none;font-weight:700;color:#5A6B85;font-size:13px;text-align:right;padding-right:6px}.uktab em{position:relative;font-style:normal;font-weight:800;font-size:18px;text-align:center;flex:none;color:#1F3A68}.uktab em.done{color:#B8C3D9}.uktab em.cur{background:#FFE2C4;border-radius:6px}
+.ortmodes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}.ortmodes .card{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;color:inherit;background:#fff;box-shadow:none;border:3px solid #E5EAF2}.ortmodes .card span{font-size:32px}.ortmodes .card small{color:var(--muted)}.ortmodes .card:disabled{opacity:.55}
+.ortin{display:block;width:100%;max-width:560px;margin:14px auto 0;font-size:30px;text-align:center;padding:12px;border:3px solid #C9D3E6;border-radius:14px;font-family:var(--f-body)}.ortta{width:100%;font-size:20px;padding:12px;border:3px solid #C9D3E6;border-radius:14px;font-family:var(--f-body)}
+.ortdiff{display:grid;gap:8px;margin-top:12px;text-align:center}.ortdiff small{display:block;color:var(--muted)}.ortdiff span{font-size:28px;letter-spacing:1px}.ortdiff .mine mark{background:#FDD;color:#C0392B;border-radius:4px;padding:0 2px}.ortdiff .good mark{background:#D9F2E1;color:#1E7A43;border-radius:4px;padding:0 2px}
+.ortrules details{border-top:1px solid #E5EAF2;padding:8px 0}.ortrules summary{cursor:pointer}.ortrules p{margin:6px 0}
+.ortmarked{font-size:20px;line-height:1.7;background:#fff;border-radius:12px;padding:12px;margin-top:12px}.ortmarked mark{background:#FDD;color:#C0392B;border-radius:4px}.ortfix{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;padding:8px 0;border-bottom:1px solid #EEF1F6;font-size:19px}.ortfix .mine{color:#C0392B;text-decoration:line-through}.ortfix .good{color:#1E7A43;font-weight:800}.ortfix small{flex-basis:100%;color:var(--muted)}
 .lxpoem{margin:10px auto;padding:12px 18px;border-left:4px solid #8A5CC7;background:#F6F1FC;border-radius:10px;max-width:420px;font-family:Georgia,serif;font-size:18px;line-height:1.5;text-align:left}.lxpoem b{display:block;color:#8A5CC7;margin-bottom:4px}.lxpoem .gap{height:12px}
 .lxsent{font-size:24px;margin:8px 0 14px;line-height:1.5}.lxsent u{text-decoration-thickness:3px;text-decoration-color:#F2862E;font-weight:800}
 .lxrow{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:8px 10px;border-radius:12px;margin:6px 0;background:#F6F8FC}.lxrow>span{min-width:170px;font-weight:700}.lxrow>div{display:flex;flex-wrap:wrap;gap:6px}.lxrow.good{background:#EAF7EF}.lxrow.bad{background:#FDECEC}.lxwhy{flex-basis:100%;margin:2px 0 0}
@@ -822,6 +827,7 @@ input[type=range]{accent-color:var(--c-art);width:130px}
       <button class="qcard" type="button" data-go="isla"><span class="qi">🏝️</span><b>Mi isla 3D</b><small id="qIsla">Construye tu mundo con tus estrellas</small></button>
       <button class="qcard" type="button" data-go="teach"><span class="qi">🎓</span><b>Explícaselo a Tupi</b><small>Hoy el profe eres tú</small></button>
       <button class="qcard" type="button" data-go="mat" data-mattab="frac"><span class="qi">📐</span><b>Examen de fracciones</b><small>Repaso y simulacro (nivel 2)</small></button>
+      <button class="qcard" type="button" data-go="orto"><span class="qi">🔤</span><b>Ortografía</b><small>Dictados y mis palabras difíciles</small></button>
       <button class="qcard" type="button" data-go="lexam"><span class="qi">✍️</span><b>Examen de Lengua</b><small>Repaso, análisis morfológico y simulacro</small></button>
       <button class="qcard" type="button" data-go="uke"><span class="qi">🎸</span><b>Ukelele</b><small>Aprende a tocar por niveles</small></button>
       <button class="qcard" type="button" data-go="elem"><span class="qi">🌋</span><b>Islas elementales</b><small>La gran aventura de los cristales</small></button>
@@ -864,7 +870,7 @@ input[type=range]{accent-color:var(--c-art);width:130px}
 
   <!-- ============ LENGUA ============ -->
   <section id="v-len" hidden>
-    <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--c-read)">Lengua del cole</h2><button class="small" data-go="lexam" type="button">✍️ Examen de Lengua</button><button class="trbtn ghost small" type="button" data-tr="lenArea">Ver en inglés</button></div>
+    <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--c-read)">Lengua del cole</h2><button class="small" data-go="lexam" type="button">✍️ Examen de Lengua</button><button class="small ghost" data-go="orto" type="button">🔤 Ortografía</button><button class="trbtn ghost small" type="button" data-tr="lenArea">Ver en inglés</button></div>
     <div id="lenArea"></div>
   </section>
 
@@ -940,6 +946,11 @@ input[type=range]{accent-color:var(--c-art);width:130px}
   <section id="v-lexam" hidden>
     <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--c-read)">Examen de Lengua</h2></div>
     <div id="lexArea"></div>
+  </section>
+
+  <section id="v-orto" hidden>
+    <div class="subhead"><button class="ghost small" data-go="home" type="button">← Inicio</button><h2 style="color:var(--c-read)">Ortografía</h2></div>
+    <div id="ortArea"></div>
   </section>
 
   <section id="v-uke" hidden>
@@ -1156,7 +1167,7 @@ function speak(text) {
 /* =================================================================
    NAVEGACIÓN
    ================================================================= */
-const VIEWS = ['home','elem','uke','lexam','mat','read','len','hist','geo','nat','eng','ai','art','games','mont','scan','teach','isla','semana','exam','proy','fam','chat','prog','papa'];
+const VIEWS = ['home','elem','uke','lexam','orto','mat','read','len','hist','geo','nat','eng','ai','art','games','mont','scan','teach','isla','semana','exam','proy','fam','chat','prog','papa'];
 const ENTER = {};
 function go(v) {
   if (v !== 'uke') { try { ukStop(); } catch (e) {} }
@@ -6024,6 +6035,127 @@ ENTER.lexam = () => paintLexam();
 window.__lx = {LX_GEN, lxExam, LX_SUS, LX_ADJ};
 
 /* =================================================================
+   ORTOGRAFÍA · dictados, mis palabras difíciles y "corrige tu texto"
+   ================================================================= */
+const ORT_R = {
+  mb: {n: 'm antes de b y p', r: 'Antes de <b>b</b> y <b>p</b> siempre se escribe <b>m</b>: ca<b>mp</b>o, ta<b>mb</b>ién. Antes de v, siempre n: e<b>nv</b>iar.'},
+  bverb: {n: 'b en -aba', r: 'Los verbos en <b>-aba</b> (pasado de los que acaban en -ar) se escriben con <b>b</b>: cant<b>aba</b>, jug<b>ábamos</b>.'},
+  blbr: {n: 'bl y br', r: 'Delante de <b>l</b> y <b>r</b> siempre va <b>b</b>: <b>bl</b>anco, ha<b>bl</b>ar, li<b>br</b>o.'},
+  bu: {n: 'bu-, bus-, bur-', r: 'Las palabras que empiezan por <b>bu-, bus-, bur-</b> llevan <b>b</b>: <b>bu</b>scar, <b>bur</b>buja, <b>bu</b>eno.'},
+  bil: {n: '-bilidad, -bundo', r: 'Las terminaciones <b>-bilidad</b> y <b>-bundo/a</b> llevan <b>b</b>: ama<b>bilidad</b>, vaga<b>bundo</b>. Excepción: movilidad.'},
+  nv: {n: 'v después de n', r: 'Después de <b>n</b> se escribe <b>v</b>: i<b>nv</b>ierno, e<b>nv</b>iar, co<b>nv</b>ersar.'},
+  vadj: {n: 'adjetivos en -avo, -ivo…', r: 'Los adjetivos terminados en <b>-avo, -ave, -evo, -eve, -ivo, -iva</b> llevan <b>v</b>: nue<b>vo</b>, sua<b>ve</b>, acti<b>vo</b>, nue<b>ve</b>.'},
+  vverb: {n: 'v en tuve, estuve, voy', r: 'Las formas de <b>ir, tener, estar, andar</b> que suenan a «b/v» se escriben con <b>v</b>: <b>v</b>oy, tu<b>v</b>e, estu<b>v</b>e, andu<b>v</b>imos. ¡Excepción!: <b>iba</b>, <b>íbamos</b>.'},
+  gen: {n: 'g en gen, -gía, -ger, -gir', r: 'Se escribe <b>g</b> en <b>gen</b> (<b>gen</b>te), en <b>-gía</b> (ener<b>gía</b>) y en los verbos en <b>-ger, -gir</b> (co<b>ger</b>, ele<b>gir</b>). Excepciones: tejer, crujir.'},
+  jaje: {n: 'j en -aje, -jero, dije', r: 'Se escribe <b>j</b> en <b>-aje</b> (via<b>je</b>), <b>-jero</b> (extran<b>jero</b>) y en di<b>je</b>, tra<b>je</b>, condu<b>je</b>.'},
+  gue: {n: 'gue, gui, güe, güi', r: 'Para que la g suene suave ante e, i: <b>gue, gui</b> (<b>gui</b>tarra). Si la u suena, lleva diéresis: pin<b>güi</b>no, ci<b>güe</b>ña.'},
+  h: {n: 'h en hie-, hue-, hum-', r: 'Llevan <b>h</b> las palabras que empiezan por <b>hie-, hue-, hui-</b> (<b>hie</b>lo, <b>hue</b>vo) y por <b>hum-</b> (<b>hum</b>o, <b>hum</b>ano).'},
+  hverb: {n: 'h en haber y hacer', r: 'Los verbos <b>haber</b> y <b>hacer</b> llevan <b>h</b> en todas sus formas: <b>h</b>abía, <b>h</b>a <b>h</b>echo, <b>h</b>izo.'},
+  llillo: {n: 'll en -illo, -illa', r: 'Las terminaciones <b>-illo, -illa</b> llevan <b>ll</b>: casti<b>llo</b>, ardi<b>lla</b>, bombi<b>lla</b>.'},
+  yfin: {n: 'y al final', r: 'Al final de palabra, si suena como i y no lleva tilde, se escribe <b>y</b>: re<b>y</b>, ho<b>y</b>, mu<b>y</b>.'},
+  rr: {n: 'r y rr', r: 'Entre vocales, el sonido fuerte se escribe <b>rr</b>: pe<b>rr</b>o. Al principio de palabra y después de <b>n, l, s</b> se escribe una sola <b>r</b>: <b>r</b>atón, hon<b>r</b>a, al<b>r</b>ededor.'},
+  cz: {n: 'c y z', r: 'Se escribe <b>za, zo, zu</b> pero <b>ce, ci</b>: <b>zapato</b>, <b>ce</b>reza, <b>ci</b>ruela. Y en plural, la z cambia a c: lu<b>z</b> → lu<b>ces</b>.'},
+  qu: {n: 'c, qu', r: 'El sonido «k» se escribe <b>ca, co, cu</b> y <b>que, qui</b>: <b>ca</b>sa, <b>que</b>so, <b>qui</b>eto.'},
+  may: {n: 'mayúsculas', r: 'Van con <b>mayúscula</b>: la primera palabra de un texto, después de punto, y los nombres propios (personas, ciudades, ríos…).'},
+  til: {n: 'tildes', r: 'Agudas con tilde si acaban en n, s o vocal; llanas si NO acaban en n, s o vocal; esdrújulas, siempre.'},
+  hom: {n: 'hay, ahí, ay; hecho/echo…', r: '<b>hay</b> (verbo haber: hay pan) · <b>ahí</b> (lugar: está ahí) · <b>ay</b> (queja). <b>hecho</b> (de hacer) · <b>echo</b> (de echar). <b>a ver</b> (mirar) · <b>haber</b> (verbo).'}
+};
+// [palabra, regla, frase para el dictado]
+const ORT_W = [
+  ['campo', 'mb', 'Jugamos en el campo.'], ['también', 'mb', 'Yo también quiero.'], ['tiempo', 'mb', 'Hace buen tiempo.'], ['hambre', 'mb', 'Tengo mucha hambre.'], ['bombero', 'mb', 'El bombero apagó el fuego.'], ['siempre', 'mb', 'Siempre llego pronto.'], ['empezar', 'mb', 'Vamos a empezar.'], ['nombre', 'mb', '¿Cuál es tu nombre?'],
+  ['cantaba', 'bverb', 'Mi abuela cantaba muy bien.'], ['jugábamos', 'bverb', 'Jugábamos al fútbol.'], ['estaba', 'bverb', 'Estaba muy cansado.'], ['miraba', 'bverb', 'Miraba por la ventana.'], ['pensaba', 'bverb', 'Pensaba en ti.'],
+  ['blanco', 'blbr', 'El folio es blanco.'], ['hablar', 'blbr', 'Me gusta hablar inglés.'], ['libro', 'blbr', 'Estoy leyendo un libro.'], ['abrir', 'blbr', 'Voy a abrir la puerta.'], ['cabra', 'blbr', 'La cabra sube al monte.'], ['pueblo', 'blbr', 'Mi pueblo es pequeño.'],
+  ['buscar', 'bu', 'Vamos a buscar el tesoro.'], ['burbuja', 'bu', 'Hice una burbuja enorme.'], ['bueno', 'bu', 'Es un chico bueno.'], ['burro', 'bu', 'El burro come paja.'],
+  ['amabilidad', 'bil', 'Gracias por tu amabilidad.'], ['posibilidad', 'bil', 'Hay una posibilidad.'], ['vagabundo', 'bil', 'El perro vagabundo tenía hambre.'],
+  ['invierno', 'nv', 'En invierno hace frío.'], ['enviar', 'nv', 'Voy a enviar una carta.'], ['convencer', 'nv', 'Quiero convencer a papá.'], ['invitar', 'nv', 'Te voy a invitar a mi fiesta.'], ['envase', 'nv', 'Tira el envase al amarillo.'],
+  ['nuevo', 'vadj', 'Tengo un balón nuevo.'], ['suave', 'vadj', 'El gato es muy suave.'], ['activo', 'vadj', 'Es un niño muy activo.'], ['nueve', 'vadj', 'Tengo nueve cromos.'], ['octavo', 'vadj', 'Quedó en octavo lugar.'], ['divertivo', '', ''],
+  ['voy', 'vverb', 'Mañana voy al parque.'], ['tuve', 'vverb', 'Ayer tuve fiebre.'], ['estuve', 'vverb', 'Estuve en Madrid.'], ['anduvimos', 'vverb', 'Anduvimos mucho rato.'], ['iba', 'vverb', 'Iba al colegio en bici.'],
+  ['gente', 'gen', 'Había mucha gente.'], ['energía', 'gen', 'El sol nos da energía.'], ['coger', 'gen', 'Voy a coger el autobús.'], ['elegir', 'gen', 'Tienes que elegir uno.'], ['origen', 'gen', 'Ese es el origen del río.'], ['general', 'gen', 'El general dio una orden.'], ['biología', 'gen', 'Me gusta la biología.'],
+  ['viaje', 'jaje', 'Fue un viaje muy largo.'], ['garaje', 'jaje', 'El coche está en el garaje.'], ['extranjero', 'jaje', 'Vino un turista extranjero.'], ['dije', 'jaje', 'Ya te lo dije.'], ['traje', 'jaje', 'Me traje la merienda.'], ['paisaje', 'jaje', 'Qué paisaje tan bonito.'],
+  ['guitarra', 'gue', 'Toco la guitarra.'], ['pingüino', 'gue', 'El pingüino nada rápido.'], ['cigüeña', 'gue', 'La cigüeña hizo su nido.'], ['guerra', 'gue', 'La guerra terminó.'], ['juguete', 'gue', 'Es mi juguete favorito.'],
+  ['hielo', 'h', 'El hielo está frío.'], ['huevo', 'h', 'Me comí un huevo frito.'], ['hueso', 'h', 'El perro tiene un hueso.'], ['humo', 'h', 'Sale humo de la chimenea.'], ['humano', 'h', 'El cuerpo humano es increíble.'], ['hierba', 'h', 'La hierba está mojada.'],
+  ['había', 'hverb', 'Había una vez un dragón.'], ['hecho', 'hverb', 'Ya he hecho los deberes.'], ['hizo', 'hverb', 'Hizo un dibujo precioso.'], ['hemos', 'hverb', 'Hemos ganado el partido.'], ['habían', 'hverb', 'Se habían ido ya.'],
+  ['castillo', 'llillo', 'El castillo tiene torres.'], ['ardilla', 'llillo', 'La ardilla sube al árbol.'], ['bombilla', 'llillo', 'Se fundió la bombilla.'], ['pasillo', 'llillo', 'Corre por el pasillo.'], ['mejilla', 'llillo', 'Tengo la mejilla roja.'],
+  ['rey', 'yfin', 'El rey vive en el palacio.'], ['hoy', 'yfin', 'Hoy es lunes.'], ['muy', 'yfin', 'Estoy muy contento.'], ['ley', 'yfin', 'Hay que cumplir la ley.'], ['estoy', 'yfin', 'Estoy en casa.'],
+  ['perro', 'rr', 'Mi perro se llama Rayo.'], ['carro', 'rr', 'El carro tiene dos ruedas.'], ['tierra', 'rr', 'La Tierra es redonda.'], ['ratón', 'rr', 'El ratón come queso.'], ['honra', 'rr', 'Es una honra estar aquí.'], ['alrededor', 'rr', 'Dimos una vuelta alrededor.'], ['enredo', 'rr', 'Qué enredo de cables.'], ['correr', 'rr', 'Me encanta correr.'],
+  ['zapato', 'cz', 'Se me rompió el zapato.'], ['cereza', 'cz', 'La cereza es roja.'], ['luces', 'cz', 'Apaga las luces.'], ['peces', 'cz', 'Hay peces en el río.'], ['lápices', 'cz', 'Tengo muchos lápices.'], ['cazar', 'cz', 'El gato quiere cazar.'], ['cocina', 'cz', 'Papá está en la cocina.'],
+  ['queso', 'qu', 'Me encanta el queso.'], ['quiero', 'qu', 'Quiero un helado.'], ['pequeño', 'qu', 'Es un perro pequeño.'], ['quince', 'qu', 'Tengo quince cromos.'],
+  ['árbol', 'til', 'El árbol es alto.'], ['canción', 'til', 'Me sé esa canción.'], ['música', 'til', 'Me gusta la música.'], ['lápiz', 'til', 'Préstame tu lápiz.'], ['murciélago', 'til', 'Vi un murciélago.'], ['jamás', 'til', 'Jamás lo olvidaré.'], ['fácil', 'til', 'El examen fue fácil.'], ['examen', 'til', 'Mañana tengo examen.'], ['joven', 'til', 'Es muy joven.']
+].filter(w => w[1]);
+const ORT_F = [ // frases de dictado (mayúsculas, puntos, tildes, homófonos)
+  ['Ayer fuimos a Madrid con mi abuela.', 'may'], ['Hay un gato ahí, debajo de la mesa.', 'hom'], ['¡Ay! Me he hecho daño en el pie.', 'hom'], ['Vamos a ver si ha llegado el autobús.', 'hom'],
+  ['Mi hermano echó la carta al buzón.', 'hom'], ['El río Tajo pasa por Toledo.', 'may'], ['En invierno jugábamos con la nieve.', 'nv'], ['La ardilla se escondió en el castillo.', 'llillo'],
+  ['Hoy he visto un pingüino en el zoo.', 'gue'], ['El bombero subió por la escalera.', 'mb'], ['Había mucha gente en el viaje.', 'hverb'], ['Los peces nadaban alrededor de las rocas.', 'cz'],
+  ['Santi tuvo que elegir un libro nuevo.', 'vverb'], ['El perro buscaba su hueso en la hierba.', 'bu'], ['Mañana iremos al campo a coger flores.', 'mb']
+];
+const ortNorm = s => s.trim().replace(/\s+/g, ' ');
+const ortPlain = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+function dictar(t, slow) { try { const u = new SpeechSynthesisUtterance(t); u.lang = 'es-ES'; const v = esVoice(); if (v) u.voice = v; u.rate = slow ? .6 : .85; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch (e) {} }
+// marca letra a letra lo que ha escrito contra lo correcto
+function ortDiff(a, b) { const n = a.length, m = b.length, D = Array.from({length: n + 1}, () => new Array(m + 1).fill(0)); for (let i = 0; i <= n; i++) D[i][0] = i; for (let j = 0; j <= m; j++) D[0][j] = j;
+  for (let i = 1; i <= n; i++) for (let j = 1; j <= m; j++) D[i][j] = Math.min(D[i - 1][j] + 1, D[i][j - 1] + 1, D[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  let i = n, j = m; const outA = [], outB = []; while (i > 0 || j > 0) { if (i > 0 && j > 0 && D[i][j] === D[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)) { const same = a[i - 1] === b[j - 1]; outA.unshift([a[i - 1], same]); outB.unshift([b[j - 1], same]); i--; j--; } else if (i > 0 && D[i][j] === D[i - 1][j] + 1) { outA.unshift([a[i - 1], false]); i--; } else { outB.unshift([b[j - 1], false]); j--; } }
+  const h = L => L.map(([c, ok]) => ok ? esc(c) : '<mark>' + (c === ' ' ? '␣' : esc(c)) + '</mark>').join(''); return {mine: h(outA), good: h(outB)}; }
+// qué regla falla, por diferencias (tilde, mayúscula, b/v…)
+function ortWhy(mine, good, rule) { const tips = [];
+  if (ortPlain(mine) === ortPlain(good) && mine.toLowerCase() !== good.toLowerCase()) tips.push(ORT_R.til.r);
+  if (mine.toLowerCase() === good.toLowerCase() && mine !== good) tips.push(ORT_R.may.r);
+  if (rule && ORT_R[rule] && !tips.includes(ORT_R[rule].r)) tips.push(ORT_R[rule].r);
+  return tips; }
+function ortData() { S.orto = S.orto || {box: {}, err: {}, done: 0}; return S.orto; }
+// palabras difíciles: cajas de Leitner (1 = cada día, 2 = cada 2 días, 3 = cada 4 días; al acertar en la 3, dominada)
+function ortDue() { const D = ortData(), today = day(); return Object.keys(D.box).filter(w => D.box[w].next <= today); }
+function ortMark(w, ok) { const D = ortData(), b = D.box[w] || {lv: 0, next: day()}; if (ok) { if (!D.box[w]) return; b.lv++; if (b.lv > 3) { delete D.box[w]; return; } } else b.lv = 1; const d0 = new Date(); d0.setDate(d0.getDate() + (b.lv === 1 ? 1 : b.lv === 2 ? 2 : 4)); b.next = day(d0); D.box[w] = b; }
+function paintOrto() { const A = $('ortArea'), D = ortData(), due = ortDue(), all = Object.keys(D.box);
+  const top = Object.keys(D.err).sort((a, b) => D.err[b] - D.err[a]).slice(0, 5);
+  A.innerHTML = '<div class="card frhead"><div><div class="eyebrow">Ortografía</div><h3 style="font-size:24px;margin:4px 0">Escribe sin faltas</h3><p class="muted" style="margin:0">Tupi te dicta y tú escribes. Las palabras que falles vuelven otros días hasta que las domines. 5 minutos al día bastan.</p></div><div class="frbest">Palabras difíciles<b>' + all.length + '</b></div></div>' +
+    '<div class="ortmodes">' +
+    '<button type="button" class="card" id="orDue"' + (all.length ? '' : ' disabled') + '><span>🔁</span><b>Repasar mis palabras difíciles</b><small>' + (due.length ? due.length + ' para hoy' : all.length ? 'Hoy no toca ninguna, pero puedes repasarlas (' + all.length + ')' : 'Aún no hay: haz un dictado') + '</small></button>' +
+    '<button type="button" class="card" id="orDic"><span>🎧</span><b>Dictado de palabras</b><small>10 palabras · te marco cada letra</small></button>' +
+    '<button type="button" class="card" id="orFra"><span>📝</span><b>Dictado de frases</b><small>Mayúsculas, puntos, tildes y hay/ahí/ay</small></button>' +
+    '<button type="button" class="card" id="orTxt"><span>🦜</span><b>Corrige mi texto</b><small>Escribe lo que quieras y Tupi te marca las faltas</small></button></div>' +
+    (top.length ? '<div class="card" style="margin-top:12px"><div class="eyebrow">Tus fallos más repetidos</div><div class="ortrules">' + top.map(k => '<details><summary><b>' + ORT_R[k].n + '</b> · ' + D.err[k] + ' fallo' + (D.err[k] > 1 ? 's' : '') + '</summary><p>' + ORT_R[k].r + '</p><button type="button" class="small" data-orr="' + k + '">Practicar esta regla</button></details>').join('') + '</div></div>' : '') +
+    '<details class="card" style="margin-top:12px"><summary><b>📖 Todas las reglas</b></summary><div class="ortrules">' + Object.keys(ORT_R).map(k => '<details><summary><b>' + ORT_R[k].n + '</b></summary><p>' + ORT_R[k].r + '</p>' + (ORT_W.some(w => w[1] === k) ? '<button type="button" class="small" data-orr="' + k + '">Practicar esta regla</button>' : '') + '</details>').join('') + '</div></details>';
+  $('orDic').onclick = () => ortDictado(shuffle(ORT_W.slice()).slice(0, 10), 'Dictado de palabras');
+  $('orFra').onclick = () => ortDictado(shuffle(ORT_F.slice()).slice(0, 5).map(f => [f[0], f[1], f[0]]), 'Dictado de frases', true);
+  $('orDue').onclick = () => { const L = (ortDue().length ? ortDue() : Object.keys(ortData().box)).slice(0, 15).map(w => ORT_W.find(x => x[0] === w) || ORT_F.map(f => [f[0], f[1], f[0]]).find(x => x[0] === w) || [w, '', w]); ortDictado(shuffle(L), 'Mis palabras difíciles', false, true); };
+  $('orTxt').onclick = ortTexto;
+  A.querySelectorAll('[data-orr]').forEach(b => b.onclick = () => ortDictado(shuffle(ORT_W.filter(w => w[1] === b.dataset.orr)).slice(0, 8), 'Regla: ' + ORT_R[b.dataset.orr].n));
+}
+function ortDictado(list, title, frases, repaso) { const A = $('ortArea'), D = ortData(); let i = 0, ok = 0, tries = 0;
+  const show = () => { if (i >= list.length) return end(); const [w, rule, fr0] = list[i]; tries = 0;
+    A.innerHTML = '<div class="row" style="justify-content:space-between"><button type="button" class="ghost small" id="orBk">← Ortografía</button><span class="eyebrow">' + title + ' · ' + (i + 1) + ' de ' + list.length + ' · ' + ok + ' bien</span></div><div class="card ortcard"><div class="row" style="justify-content:center;gap:10px;flex-wrap:wrap"><button type="button" class="btn-ok" id="orP">🔊 Escuchar</button><button type="button" class="ghost" id="orS">🐢 Más despacio</button></div>' +
+      (frases ? '' : '<p class="muted" style="text-align:center;margin:8px 0 0">Frase de pista: «' + fr0.replace(new RegExp(w, 'i'), '____') + '»</p>') +
+      '<input id="orIn" class="ortin" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="' + (frases ? 'Escribe la frase…' : 'Escribe la palabra…') + '"><div class="actions" style="justify-content:center"><button type="button" class="btn-ok" id="orGo">Comprobar</button></div><div id="orFb"></div></div>';
+    $('orBk').onclick = paintOrto; const say = s => dictar(frases ? w : w + '. ' + fr0 + '. ' + w, s); setTimeout(() => say(false), 300); $('orP').onclick = () => say(false); $('orS').onclick = () => say(true);
+    const inp = $('orIn'); inp.focus(); inp.onkeydown = e => { if (e.key === 'Enter') check(); }; $('orGo').onclick = check;
+    function check() { const v = ortNorm(inp.value); if (!v) return; const good = frases ? w : w; const right = frases ? v === good : v.toLowerCase() === good.toLowerCase();
+      if (right) { if (tries === 0) { ok++; ortMark(w, true); } $('orFb').innerHTML = '<div class="bubble" style="margin-top:10px"><b>¡Perfecto!</b> ' + (rule && ORT_R[rule] ? '<br><small>' + ORT_R[rule].r + '</small>' : '') + '<div class="actions"><button type="button" class="btn-ok" id="orN">Siguiente →</button></div></div>'; $('orN').onclick = () => { i++; show(); }; inp.disabled = true; $('orGo').hidden = true; talk('¡Perfecto!'); return; }
+      tries++; if (tries === 1) { ortMark(w, false); if (rule) D.err[rule] = (D.err[rule] || 0) + 1; save(); }
+      const df = ortDiff(v, good), tips = ortWhy(v, good, rule);
+      $('orFb').innerHTML = '<div class="ortdiff"><div><small>Tú has escrito</small><span class="mine">' + df.mine + '</span></div><div><small>Se escribe</small><span class="good">' + df.good + '</span></div></div>' + tips.map(t => '<div class="howbox try" style="margin-top:8px">📏 ' + t + '</div>').join('') + '<p style="text-align:center;margin-top:10px"><b>Ahora escríbela bien</b> para que se te quede (sin mirar arriba si puedes).</p>';
+      inp.value = ''; inp.focus(); }
+  };
+  const end = () => { const st = Math.max(1, Math.ceil(ok / 2)); addStars(st, 'len'); logDo('len'); D.done++; save();
+    A.innerHTML = '<div class="card" style="text-align:center"><h2 style="font-size:32px">' + ok + ' de ' + list.length + ' a la primera</h2><p>Ganas ' + st + ' ★. ' + (ok === list.length ? '¡Sin una falta!' : 'Las que fallaste se han guardado en <b>Mis palabras difíciles</b>: volverán mañana.') + '</p><div class="actions" style="justify-content:center"><button type="button" class="btn-ok" id="orA">Otro dictado</button><button type="button" class="ghost" id="orB">← Ortografía</button></div></div>';
+    $('orA').onclick = () => ortDictado(frases ? shuffle(ORT_F.slice()).slice(0, 5).map(f => [f[0], f[1], f[0]]) : shuffle(ORT_W.slice()).slice(0, 10), title, frases); $('orB').onclick = paintOrto; talk(ok === list.length ? '¡Sin una falta!' : 'Muy bien. Repasaremos las difíciles.'); };
+  show(); }
+function ortTexto() { const A = $('ortArea');
+  A.innerHTML = '<div class="row" style="justify-content:space-between"><button type="button" class="ghost small" id="orBk">← Ortografía</button><span class="eyebrow">Corrige mi texto</span></div><div class="card"><p>Escribe un texto (los deberes, una redacción, lo que hiciste ayer…) y Tupi te marcará las faltas y te dirá la regla. <b>No te corrige nada mientras escribes</b>: ¡así se aprende!</p><textarea id="otT" rows="7" class="ortta" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Ayer fui al parque con mi perro y…"></textarea><div class="actions"><button type="button" class="btn-ok" id="otGo">🦜 Corregir</button></div><div id="otOut"></div></div>';
+  $('orBk').onclick = paintOrto;
+  $('otGo').onclick = async () => { const t = $('otT').value.trim(); if (t.length < 10) return; const out = $('otOut'); if (!familyPin()) { out.innerHTML = '<div class="bubble">Para corregir textos, Tupi necesita el código familiar.</div>'; return; }
+    out.innerHTML = ''; loading(out, 'Tupi está leyendo tu texto…');
+    try { const j = labJSON(await lab('orto', {text: t.slice(0, 1500)})); const errs = (j.errors || []).filter(e => e && e.wrong && e.right && e.wrong !== e.right);
+      let marked = esc(t); errs.forEach(e => { const W0 = esc(e.wrong); const k = marked.indexOf(W0); if (k >= 0) marked = marked.slice(0, k) + '<mark title="' + esc(e.right) + '">' + W0 + '</mark>' + marked.slice(k + W0.length); });
+      const D = ortData(); errs.forEach(e => { const r0 = e.rule_id && ORT_R[e.rule_id] ? e.rule_id : null; if (r0) D.err[r0] = (D.err[r0] || 0) + 1; const w0 = String(e.right).trim(); if (w0 && !/\s/.test(w0) && w0.length < 25) { D.box[w0] = {lv: 1, next: day()}; } }); save();
+      out.innerHTML = errs.length ? '<div class="ortmarked">' + marked.replace(/\n/g, '<br>') + '</div><div class="eyebrow" style="margin-top:12px">' + errs.length + ' falta' + (errs.length > 1 ? 's' : '') + '</div>' + errs.map(e => '<div class="ortfix"><span class="mine">' + esc(e.wrong) + '</span> → <span class="good">' + esc(e.right) + '</span><small>' + esc(e.why || '') + '</small></div>').join('') + '<p class="muted">Las palabras corregidas se han guardado en «Mis palabras difíciles» para repasarlas.</p>' : '<div class="bubble"><b>¡Ni una falta!</b> ' + esc(j.praise || '¡Muy bien escrito!') + '</div>';
+      addStars(errs.length ? 1 : 3, 'len'); logDo('len');
+    } catch (e) { out.innerHTML = '<div class="bubble">' + chatErr(e) + '</div>'; } };
+}
+ENTER.orto = () => paintOrto();
+window.__orto = {ORT_W, ORT_F, ortDiff};
+
+/* =================================================================
    FRACCIONES · nivel 2 (cuadernillo de Santi, págs. 23-30)
    ================================================================= */
 const fr = (a, b) => '<span class="mixn frb"><span class="mixf"><i>' + a + '</i><i>' + b + '</i></span></span>';
@@ -7189,7 +7321,7 @@ function splash() {
 /* =================================================================
    ACTUALIZAR LA APP (el progreso se queda: solo se borra la copia de la app)
    ================================================================= */
-const APP_VERSION = '32';
+const APP_VERSION = '33';
 async function updateApp() {
   $('updBtn').classList.add('spin'); hush();
   try {
